@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Petaverse.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Petaverse"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="NavigationViewItemTemplate"
+                      x:DataType="local:NavigationViewItem">
+            <winui:NavigationViewItem Content="{x:Bind Content}">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon Glyph="{x:Bind Glyph}"/>
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+        </DataTemplate>
+    </Page.Resources>
+
+    <winui:NavigationView PaneDisplayMode="Top"
+                          IsBackButtonVisible="Collapsed"
+                          SelectionChanged="NavigationView_SelectionChanged"
+                          MenuItemsSource="{x:Bind PetaverseNavigateViewItems}"
+                          MenuItemTemplate="{StaticResource NavigationViewItemTemplate}">
+        <winui:NavigationView.PaneHeader>
+            <StackPanel Orientation="Horizontal"
+                        Padding="5"
+                        Background="#30556e">
+                <Image Source="/Assets/Logos/Petaverse.png"
+                       VerticalAlignment="Center"/>
+                <TextBlock Text="Petaverse"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+            </StackPanel>
+        </winui:NavigationView.PaneHeader>
+        <winui:NavigationView.PaneFooter>
+            <Button Background="{StaticResource SystemAccentColor}">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="Video"/>
+                    <AppBarSeparator/>
+                    <TextBlock Text="Upload"/>
+                </StackPanel>
+            </Button>
+        </winui:NavigationView.PaneFooter>
+        <Frame x:Name="TheMainFrame"/>
+    </winui:NavigationView>
+</Page>

@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="Petaverse.Views.WikiPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Petaverse.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:dtos="using:PetaVerse.Models.DTOs" 
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="PivotHeaderTemplate"
+                      x:DataType="dtos:Species">
+            <StackPanel Orientation="Horizontal">
+                <FontIcon FontFamily="Segoe UI Emoji"
+                          Glyph="{x:Bind Icon}"
+                          FontSize="28"/>
+                <AppBarSeparator/>
+                <TextBlock Text="{x:Bind Name}"
+                           Style="{StaticResource TitleTextBlockStyle}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="PivotContentTemplate"
+                      x:DataType="dtos:Species">
+            <local:BreedPage Species="{x:Bind Mode=OneWay}"/>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Pivot ItemsSource="{x:Bind Species, Mode=OneWay}"
+           HeaderTemplate="{StaticResource PivotHeaderTemplate}"
+           ItemTemplate="{StaticResource PivotContentTemplate}"/>
+</Page>
