@@ -6,7 +6,8 @@
     xmlns:helpers="using:Petaverse.Helpers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:dto="using:PetaVerse.Models.DTOs" xmlns:converters="using:Petaverse.Converters" xmlns:playback="using:Windows.Media.Playback"
+    xmlns:dto="using:PetaVerse.Models.DTOs" 
+    xmlns:converters="using:Petaverse.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>

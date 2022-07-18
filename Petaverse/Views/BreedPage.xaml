@@ -1,4 +1,5 @@
-﻿<Page
+﻿
+    <Page
     x:Class="Petaverse.Views.BreedPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,14 +8,18 @@
     xmlns:dtos="using:PetaVerse.Models.DTOs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:converters="using:Petaverse.Converters"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
+        <converters:FromHexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
+        <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
         <DataTemplate x:Key="BreedGridViewItemTemplate"
                       x:DataType="dtos:Breed">
             <GridViewItem Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                 <StackPanel>
-                    <Image Source="{x:Bind ImageUrl, Mode=OneWay}"
+                    <Image Source="{x:Bind ImageUrl, 
+                                           Mode=OneWay}"
                            Height="500"
                            Width="350"
                            VerticalAlignment="Center"
@@ -34,8 +39,14 @@
                               ItemsSource="{x:Bind Species.Breeds, Mode=OneWay}">
         <toolkit:AdaptiveGridView.Header>
             <StackPanel>
-                <Grid x:Name="Header" Height="300" VerticalAlignment="Top">
-                    <Rectangle x:Name="OverlayRectangle" HorizontalAlignment="Stretch" Height="300" VerticalAlignment="Top"/>
+                <Grid x:Name="Header" 
+                      Height="300" 
+                      VerticalAlignment="Top">
+                    <Rectangle x:Name="OverlayRectangle" 
+                               Height="300" 
+                               HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Top"
+                               Fill="{x:Bind Species.Color, Converter={StaticResource FromHexToSolidColorBrushConverter}}"/>
                     <StackPanel x:Name="TextContainer" 
                                 Orientation="Horizontal" 
                                 HorizontalAlignment="Left" 
@@ -56,62 +67,50 @@
                                        Foreground="White" 
                                        FontSize="12" 
                                        Width="400" 
+                                       Height="80"
                                        TextWrapping="Wrap" 
-                                       Margin="0,5,0,0">
-                                        <Run>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                                        </Run>
-                            </TextBlock>
+                                       Text="{x:Bind Species.Description}"/>
                             <RatingControl x:Name="Rating" Value="5" HorizontalAlignment="Left" 
                                            IsClearEnabled="False" IsReadOnly="True"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
                                 <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
                                     <Button x:Name="ReturnHomeRoot" Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
                                         <StackPanel Orientation="Horizontal">
-                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB97;" VerticalAlignment="Center" Margin="5"/>
-                                            <TextBlock Text="Quay về" Margin="5"/>
+                                            <SymbolIcon Symbol="Add"/>
+                                            <TextBlock Text="Suggest breed" Margin="5"/>
                                         </StackPanel>
                                     </Button>
                                     <Button x:Name="CreateSubject" Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
                                         <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                            <SymbolIcon Symbol="Add" VerticalAlignment="Center" Margin="5"/>
-                                            <TextBlock Text="Tạo môn học" VerticalAlignment="Center" Margin="5"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
-                                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                            <SymbolIcon Symbol="More"/>
+                                            <SymbolIcon Symbol="Camera" VerticalAlignment="Center" Margin="5"/>
+                                            <TextBlock Text="Scan breed" VerticalAlignment="Center" Margin="5"/>
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
-                        <StackPanel x:Name="RatingLayout" Margin="15">
-                            <TextBlock Text="ĐƯỢC ĐÁNH GIÁ" FontWeight="Bold" FontSize="30" 
-                                   Foreground="{StaticResource SystemAccentColor}"/>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Run FontFamily="Segoe MDL2 Assets" Text="&#xE082;" FontSize="60"
-                                 Foreground="{StaticResource SystemAccentColor}"/>
-                            <Run Text="5.0" FontSize="60" FontWeight="Bold"
-                                 Foreground="{StaticResource SystemAccentColor}"/>
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel x:Name="TeachCountLayout" Margin="15">
-                            <TextBlock Text="ĐÃ KÈM" FontWeight="Bold" Foreground="White" FontSize="30" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Text="12" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   FontSize="60" FontWeight="Bold" Foreground="White"/>
-                        </StackPanel>
-                        <StackPanel x:Name="SubjectCountLayout" Margin="15">
-                            <TextBlock Text="MÔN DẠY" FontWeight="Bold" Foreground="White" FontSize="30" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   FontSize="60" FontWeight="Bold" Foreground="White"/>
-                        </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" 
+                                VerticalAlignment="Center" 
+                                Orientation="Horizontal"
+                                Margin="0,0,15,0">
+                        <Border x:Name="BreedCount" 
+                                Width="150"
+                                Height="150"
+                                CornerRadius="5"
+                                Padding="15"
+                                Background="{StaticResource SystemAccentColor}">
+                            <StackPanel VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="TOTAL" 
+                                       FontWeight="Bold" 
+                                       FontSize="30"/>
+                                <TextBlock Text="{x:Bind Species.Breeds.Count, Mode=OneWay}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="60" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </Grid>
             </StackPanel>

@@ -1,4 +1,5 @@
-﻿using Petaverse.Views;
+﻿using Petaverse.ContentDialogs;
+using Petaverse.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,12 @@ namespace Petaverse
             var item = args.SelectedItem as NavigationViewItem;
             if(item != null)
                 TheMainFrame.Navigate(item.DestinationPage);
+        }
+
+        private async void AddPet_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var addPetContentDialog = new AddPetContentDialog();
+            await addPetContentDialog.ShowAsync();
         }
     }
 

@@ -27,7 +27,7 @@ namespace Petaverse.Views
         CompositionPropertySet _props;
         CompositionPropertySet _scrollerPropertySet;
         Compositor             _compositor;
-        private SpriteVisual   _blurredBackgroundImageVisual;
+        SpriteVisual           _blurredBackgroundImageVisual;
 
         public BreedPage()
         {
@@ -43,12 +43,10 @@ namespace Petaverse.Views
         {
             // Retrieve the ScrollViewer that the GridView is using internally
             var scrollViewer = BreedGridView.GetFirstDescendantOfType<ScrollViewer>();
-
             // Update the ZIndex of the header container so that the header is above the items when scrolling
             var headerPresenter = (UIElement)VisualTreeHelper.GetParent((UIElement)BreedGridView.Header);
             var headerContainer = (UIElement)VisualTreeHelper.GetParent(headerPresenter);
             Canvas.SetZIndex((UIElement)headerContainer, 1);
-
             // Get the PropertySet that contains the scroll values from the ScrollViewer
             _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
             _compositor = _scrollerPropertySet.Compositor;
@@ -126,9 +124,7 @@ namespace Petaverse.Views
             // Get backing visuals for the text blocks so that their properties can be animated
             Visual speciesName = ElementCompositionPreview.GetElementVisual(SpeciesName);
             Visual blurbVisual = ElementCompositionPreview.GetElementVisual(Life);
-            Visual teachVisual = ElementCompositionPreview.GetElementVisual(TeachCountLayout);
-            Visual subjectcountVisual = ElementCompositionPreview.GetElementVisual(SubjectCountLayout);
-            Visual ratingcountVisual = ElementCompositionPreview.GetElementVisual(RatingLayout);
+            Visual breedCountVisual = ElementCompositionPreview.GetElementVisual(BreedCount);
             Visual ratingVisual = ElementCompositionPreview.GetElementVisual(Rating);
 
             // Create an ExpressionAnimation that moves between 1 and 0 with scroll progress, to be used for text block opacity
@@ -146,17 +142,9 @@ namespace Petaverse.Views
             ratingVisual.StartAnimation("Scale.X", scaleAnimation);
             ratingVisual.StartAnimation("Scale.Y", scaleAnimation);
 
-            ratingcountVisual.StartAnimation("Opacity", textOpacityAnimation);
-            ratingcountVisual.StartAnimation("Scale.X", scaleAnimation);
-            ratingcountVisual.StartAnimation("Scale.Y", scaleAnimation);
-
-            teachVisual.StartAnimation("Opacity", textOpacityAnimation);
-            teachVisual.StartAnimation("Scale.X", scaleAnimation);
-            teachVisual.StartAnimation("Scale.Y", scaleAnimation);
-
-            subjectcountVisual.StartAnimation("Opacity", textOpacityAnimation);
-            subjectcountVisual.StartAnimation("Scale.X", scaleAnimation);
-            subjectcountVisual.StartAnimation("Scale.Y", scaleAnimation);
+            breedCountVisual.StartAnimation("Opacity", textOpacityAnimation);
+            breedCountVisual.StartAnimation("Scale.X", scaleAnimation);
+            breedCountVisual.StartAnimation("Scale.Y", scaleAnimation);
 
             // Get the backing visuals for the text and button containers so that their properites can be animated
             Visual textVisual = ElementCompositionPreview.GetElementVisual(TextContainer);

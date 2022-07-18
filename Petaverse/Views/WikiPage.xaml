@@ -6,17 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:dtos="using:PetaVerse.Models.DTOs" 
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    xmlns:converters="using:Petaverse.Converters"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
+        <converters:StringToGlyphConverter x:Key="StringToGlyphConverter"/>
         <DataTemplate x:Key="PivotHeaderTemplate"
                       x:DataType="dtos:Species">
             <StackPanel Orientation="Horizontal">
                 <FontIcon FontFamily="Segoe UI Emoji"
-                          Glyph="{x:Bind Icon}"
-                          FontSize="28"/>
+                          FontSize="28"
+                          Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}}"/>
                 <AppBarSeparator/>
                 <TextBlock Text="{x:Bind Name}"
                            Style="{StaticResource TitleTextBlockStyle}"/>

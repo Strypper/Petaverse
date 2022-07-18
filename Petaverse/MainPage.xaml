@@ -38,13 +38,19 @@
             </StackPanel>
         </winui:NavigationView.PaneHeader>
         <winui:NavigationView.PaneFooter>
-            <Button Background="{StaticResource SystemAccentColor}">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Video"/>
-                    <AppBarSeparator/>
-                    <TextBlock Text="Upload"/>
-                </StackPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Background="{StaticResource SystemAccentColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Video"/>
+                        <AppBarSeparator/>
+                        <TextBlock Text="Upload"/>
+                    </StackPanel>
+                </Button>
+                <AppBarButton Icon="Add"
+                              Content="Add your pet"
+                              LabelPosition="Default"
+                              Click="AddPet_Click"/>
+            </StackPanel>
         </winui:NavigationView.PaneFooter>
         <Frame x:Name="TheMainFrame"/>
     </winui:NavigationView>
