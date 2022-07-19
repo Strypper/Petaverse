@@ -147,6 +147,9 @@
     <Compile Include="Models\DTOs\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Refits\ISpeciesData.cs" />
+    <Compile Include="UserControls\AvatarUserControl.xaml.cs">
+      <DependentUpon>AvatarUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BreedsPageViewModel.cs" />
     <Compile Include="ViewModels\PetShortsPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -208,6 +211,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AvatarUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BreedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,7 +265,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\PageModels\" />
-    <Folder Include="UserControls\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

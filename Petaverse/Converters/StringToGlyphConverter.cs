@@ -1,6 +1,4 @@
 ﻿using System;
-using Windows.Media.Core;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
 namespace Petaverse.Converters

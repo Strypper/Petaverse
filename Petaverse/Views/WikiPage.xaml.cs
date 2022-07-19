@@ -27,7 +27,8 @@ namespace Petaverse.Views
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var species = await speciestData.GetAllSpecies();
-            species.ForEach(s => Species.Add(s));
+            if (species != null)
+                species.ForEach(s => Species.Add(s));
         }
 
         private ObservableCollection<Species> LoadPetaverseSpeciesData()

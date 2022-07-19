@@ -46,10 +46,44 @@
                         <TextBlock Text="Upload"/>
                     </StackPanel>
                 </Button>
-                <AppBarButton Icon="Add"
-                              Content="Add your pet"
-                              LabelPosition="Default"
-                              Click="AddPet_Click"/>
+                <AppBarSeparator/>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <PersonPicture Width="35"
+                                       VerticalAlignment="Center"/>
+                        <TextBlock Text="Strypper Vandel Jason"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Add your pet"
+                                            Click="AddPet_Click"
+                                            Background="{StaticResource SystemAccentColor}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" 
+                                              Glyph="&#x1F415;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="Post feral pet">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" 
+                                              Glyph="&#x1F4E2;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="Add new pet photo">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" 
+                                              Glyph="&#x1F5BC;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem Icon="Contact"
+                                            Text="Your profile"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
             </StackPanel>
         </winui:NavigationView.PaneFooter>
         <Frame x:Name="TheMainFrame"/>

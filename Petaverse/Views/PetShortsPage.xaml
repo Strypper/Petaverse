@@ -9,6 +9,7 @@
     xmlns:dto="using:PetaVerse.Models.DTOs" 
     xmlns:converters="using:Petaverse.Converters"
     mc:Ignorable="d"
+    NavigationCacheMode="Disabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <converters:StringToMediaSourceConverter x:Key="StringToMediaSourceConverter"/>
@@ -64,7 +65,6 @@
                                     <TextBlock Text="Photos"/>
                                 </StackPanel>
                             </PivotItem.Header>
-                            
                         </PivotItem>
                         <PivotItem>
                             <PivotItem.Header>
