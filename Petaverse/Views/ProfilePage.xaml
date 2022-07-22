@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Petaverse.Views.ProfilePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Petaverse.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:Petaverse.Helpers" 
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
+    xmlns:dtos="using:PetaVerse.Models.DTOs"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
+        
+        <DataTemplate x:Key="PivotHeaderTemplate"
+                      x:DataType="dtos:Animal">
+            <StackPanel Orientation="Horizontal">
+                <PersonPicture ProfilePicture="{x:Bind Avatar, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Width="35"/>
+                <TextBlock Text="{x:Bind Name}"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Style="{StaticResource TitleTextBlockStyle}"/>
+            </StackPanel>
+        </DataTemplate>
+            
+        <DataTemplate x:Key="PivotItemTemplate"
+                      x:DataType="dtos:Animal">
+            <local:PetGalleryPage Pet="{x:Bind}"/>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid helpers:Grid.ColumnDefinitions="auto, *">
+        <profilepageusercontrols:UserInfoPanelUserControl VerticalAlignment="Top"
+                                                          HorizontalAlignment="Center"
+                                                          CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"/>
+        <Pivot Grid.Column="1"
+               Margin="0,10,10,10"
+               ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
+               ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"
+               HeaderTemplate="{StaticResource PivotHeaderTemplate}"
+               ItemTemplate="{StaticResource PivotItemTemplate}"/>
+    </Grid>
+</Page>

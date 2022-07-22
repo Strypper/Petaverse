@@ -132,7 +132,7 @@ namespace Petaverse.Views
 
             // Start opacity and scale animations on the text block visuals
             speciesName.StartAnimation("Offset.X", progressNode * -40);
-            speciesName.StartAnimation("Offset.Y", scaleAnimation);
+            speciesName.StartAnimation("Offset.Y", progressNode *  15);
 
             blurbVisual.StartAnimation("Opacity", textOpacityAnimation);
             blurbVisual.StartAnimation("Scale.X", scaleAnimation);

@@ -5,7 +5,7 @@
     xmlns:local="using:Petaverse"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,7 +20,8 @@
         </DataTemplate>
     </Page.Resources>
 
-    <winui:NavigationView PaneDisplayMode="Top"
+    <winui:NavigationView x:Name="MainNavView"
+                          PaneDisplayMode="Top"
                           IsBackButtonVisible="Collapsed"
                           SelectionChanged="NavigationView_SelectionChanged"
                           MenuItemsSource="{x:Bind PetaverseNavigateViewItems}"
@@ -33,6 +34,7 @@
                        VerticalAlignment="Center"/>
                 <TextBlock Text="Petaverse"
                            Margin="5,0,0,0"
+                           Foreground="White"
                            VerticalAlignment="Center"
                            Style="{StaticResource SubtitleTextBlockStyle}"/>
             </StackPanel>
@@ -80,12 +82,19 @@
                             </MenuFlyoutItem>
                             <MenuFlyoutSeparator/>
                             <MenuFlyoutItem Icon="Contact"
-                                            Text="Your profile"/>
+                                            Text="Your profile"
+                                            Click="Profile_Clicked"/>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
             </StackPanel>
         </winui:NavigationView.PaneFooter>
-        <Frame x:Name="TheMainFrame"/>
+        <Grid>
+            <!--<profilepageusercontrols:UserInfoPanelUserControl
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Center"/>-->
+            <commonusercontrols:LoginUserControl/>
+            <Frame x:Name="TheMainFrame"/>
+        </Grid>
     </winui:NavigationView>
 </Page>

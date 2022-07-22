@@ -1,0 +1,47 @@
+﻿<UserControl
+    x:Class="Petaverse.UserControls.CommonUserControls.LoginUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Petaverse.UserControls.CommonUserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" >
+
+    <Grid Height="500"
+          Width="400"
+          ui:Effects.Shadow="{StaticResource CommonShadow}"
+          Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+        <StackPanel Padding="20"
+                    MinWidth="300"
+                    CornerRadius="4"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Background="{ThemeResource SystemAltMediumLowColor}">
+            <Image Source="/Assets/Logos/Petaverse.png"
+                   Width="100" Height="100"
+                    Margin="0,0,0,15"
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="PhoneNumber"
+                     Header="Phone Number"
+                     Margin="5"
+                     Text="0348164682"
+                     HorizontalAlignment="Stretch"/>
+            <PasswordBox x:Name="Password"
+                         Header="Password"
+                         Margin="5,0,5,5"
+                         Password="Welkom112!!@"
+                         HorizontalAlignment="Stretch"/>
+            <HyperlinkButton Content="Forgot ?"
+                             HorizontalAlignment="Center"/>
+            <Button Content="Login"
+                    Margin="5,10,5,5"
+                    HorizontalAlignment="Stretch"
+                    Click="Login_Click"
+                    Background="{StaticResource SystemAccentColor}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

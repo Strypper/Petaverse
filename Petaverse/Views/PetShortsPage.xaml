@@ -7,18 +7,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:dto="using:PetaVerse.Models.DTOs" 
-    xmlns:converters="using:Petaverse.Converters"
+    xmlns:petshortsusercontrols="using:Petaverse.UserControls.PetShortsUserControls" 
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     mc:Ignorable="d"
     NavigationCacheMode="Disabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
-        <converters:StringToMediaSourceConverter x:Key="StringToMediaSourceConverter"/>
-
         <DataTemplate x:Key="FlipViewItemTemplate"
                       x:DataType="dto:PetShort">
             <Grid helpers:Grid.ColumnDefinitions="0.7*,*">
                 <Grid helpers:Grid.RowDefinitions="auto, 0.35*, *"
-                      Padding="20">
+                      ui:Effects.Shadow="{StaticResource CommonShadow}"
+                      Margin="20" Padding="20">
                     <RelativePanel VerticalAlignment="Top"
                                    HorizontalAlignment="Stretch">
                         <PersonPicture x:Name="PetAvatar" 
@@ -77,57 +77,8 @@
                         </PivotItem>
                     </Pivot>
                 </Grid>
-                <Grid Grid.Column="1"
-                      Padding="0,20,20,20">
-                    <Border CornerRadius="10">
-                        <MediaPlayerElement Source="{x:Bind MediaUrl
-                                                           ,Mode=OneWay
-                                                           ,Converter={StaticResource StringToMediaSourceConverter}}"
-                                            Stretch="UniformToFill"
-                                            AutoPlay="True"
-                                            AreTransportControlsEnabled="True"/>
-                    </Border>
-                    <StackPanel Orientation="Horizontal"
-                                CornerRadius="10"
-                                Padding="20"
-                                Margin="20"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Left"
-                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
-                        <StackPanel>
-                            <TextBlock Text="94"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource TitleTextBlockStyle}"/>
-                            <TextBlock Text="Posts"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource BaseTextBlockStyle}"/>
-                        </StackPanel>
-                        <NavigationViewItemSeparator/>
-                        <StackPanel>
-                            <TextBlock Text="2.5M"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource TitleTextBlockStyle}"/>
-                            <TextBlock Text="Followers"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource BaseTextBlockStyle}"/>
-                        </StackPanel>
-                        <NavigationViewItemSeparator/>
-                        <StackPanel>
-                            <TextBlock Text="{x:Bind Love, Mode=OneWay}"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource TitleTextBlockStyle}"/>
-                            <TextBlock Text="Loves"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource BaseTextBlockStyle}"/>
-                        </StackPanel>
-                    </StackPanel>
-                    <PersonPicture Width="80"
-                                   Margin="20"
-                                   VerticalAlignment="Top"
-                                   HorizontalAlignment="Right"
-                                   ToolTipService.ToolTip="{x:Bind Publisher.FullName, Mode=OneWay}"
-                                   ProfilePicture="{x:Bind Publisher.ProfileImageUrl, Mode=OneWay}"/>
-                </Grid>
+                <petshortsusercontrols:PetaverseMediaPlayerUserControl Grid.Column="1"
+                                                                       PetShort="{x:Bind Mode=OneWay}"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>

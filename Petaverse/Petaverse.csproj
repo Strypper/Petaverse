@@ -128,6 +128,7 @@
     <Compile Include="Converters\StringToImageSourceConverter.cs" />
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
     <Compile Include="Helpers\Grid.cs" />
+    <Compile Include="Interfaces\IInternetService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -146,18 +147,36 @@
     <Compile Include="Models\DTOs\UserAnimal.cs" />
     <Compile Include="Models\DTOs\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Refits\IAuthenticateServices.cs" />
     <Compile Include="Refits\ISpeciesData.cs" />
+    <Compile Include="Refits\IUserData.cs" />
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
       <DependentUpon>AvatarUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CommonUserControls\LoginUserControl.xaml.cs">
+      <DependentUpon>LoginUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml.cs">
+      <DependentUpon>PetaverseMediaPlayerUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ProfilePageUserControls\UserInfoPanelUserControl.xaml.cs">
+      <DependentUpon>UserInfoPanelUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BreedsPageViewModel.cs" />
     <Compile Include="ViewModels\PetShortsPageViewModel.cs" />
+    <Compile Include="ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\BreedPage.xaml.cs">
       <DependentUpon>BreedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PetGalleryPage.xaml.cs">
+      <DependentUpon>PetGalleryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PetShortsPage.xaml.cs">
       <DependentUpon>PetShortsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WikiPage.xaml.cs">
       <DependentUpon>WikiPage.xaml</DependentUpon>
@@ -215,11 +234,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\CommonUserControls\LoginUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ProfilePageUserControls\UserInfoPanelUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BreedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PetGalleryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PetShortsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -251,6 +290,12 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Media">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">

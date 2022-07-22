@@ -1,8 +1,12 @@
 ﻿using Petaverse.ContentDialogs;
+using Petaverse.Interfaces;
+using Petaverse.Refits;
 using Petaverse.Views;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using Windows.UI.Xaml.Controls;
 
 namespace Petaverse
@@ -10,6 +14,8 @@ namespace Petaverse
     public sealed partial class MainPage : Page
     {
         public ObservableCollection<NavigationViewItem> PetaverseNavigateViewItems { get; set; } = new ObservableCollection<NavigationViewItem>();
+        private IInternetService internetService;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -27,6 +33,12 @@ namespace Petaverse
         {
             var addPetContentDialog = new AddPetContentDialog();
             await addPetContentDialog.ShowAsync();
+        }
+
+        private void Profile_Clicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            TheMainFrame.Navigate(typeof(ProfilePage));
+            MainNavView.SelectedItem = null;
         }
     }
 

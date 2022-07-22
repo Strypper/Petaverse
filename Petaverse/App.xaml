@@ -2,13 +2,27 @@
     x:Class="Petaverse.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls">
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media">
     <Application.Resources>
+        
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
                 <!-- Other app resources here -->
                 <ResourceDictionary Source="/Styles/TextBlock_themeresources.xaml"/>
+
+                <ResourceDictionary>
+                    <TransitionCollection x:Key="AdaptiveGridViewLoadTransition">
+                        <EntranceThemeTransition IsStaggeringEnabled="True" 
+                                     FromVerticalOffset="450"/>
+                        <AddDeleteThemeTransition/>
+                    </TransitionCollection>
+
+                    <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0"/>
+                </ResourceDictionary>
+
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
+
     </Application.Resources>
 </Application>

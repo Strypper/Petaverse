@@ -8,6 +8,7 @@
     xmlns:dtos="using:PetaVerse.Models.DTOs" 
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     xmlns:converters="using:Petaverse.Converters"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -30,7 +31,9 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Pivot ItemsSource="{x:Bind Species, Mode=OneWay}"
+    <Pivot Margin="10"
+           ItemsSource="{x:Bind Species, Mode=OneWay}"
            HeaderTemplate="{StaticResource PivotHeaderTemplate}"
-           ItemTemplate="{StaticResource PivotContentTemplate}"/>
+           ItemTemplate="{StaticResource PivotContentTemplate}"
+           ui:Effects.Shadow="{StaticResource CommonShadow}"/>
 </Page>

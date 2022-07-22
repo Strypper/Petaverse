@@ -30,9 +30,12 @@ namespace Petaverse.ContentDialogs
         });
 
         private StorageFile catPhoto;
+
         public AddPetContentDialog()
         {
             this.InitializeComponent();
+
+            SpeciesComboBox.SelectionChanged += (sender, e) => colorStoryboard.Begin();
         }
 
         private async void ContentDialog_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -40,6 +43,8 @@ namespace Petaverse.ContentDialogs
             var species = await speciestData.GetAllSpecies();
             if (species != null)
                 species.ForEach(s => Species.Add(s));
+            SpeciesComboBox.SelectedIndex = species.Count > 0 ? 0 : -1;
+            AddPetDialog.RequestedTheme = Windows.UI.Xaml.ElementTheme.Light;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -81,6 +86,11 @@ namespace Petaverse.ContentDialogs
 
             }
         }
+
+        //private void SpeciesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    colorStoryboard.Begin();
+        //}
     }
 
     public class SpeciesToBreedsConverter : IValueConverter
@@ -123,8 +133,7 @@ namespace Petaverse.ContentDialogs
                 var g = (byte)System.Convert.ToUInt32(hex.Substring(2, 2), 16);
                 var b = (byte)System.Convert.ToUInt32(hex.Substring(4, 2), 16);
                 //get the color
-                Color color = Color.FromArgb(100, r, g, b);
-                return new SolidColorBrush(color);
+                return Color.FromArgb(255, r, g, b);
             }
 
             else return null;
