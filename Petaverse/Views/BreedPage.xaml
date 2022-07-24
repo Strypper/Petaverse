@@ -46,6 +46,16 @@
                 <Grid x:Name="Header" 
                       Height="270" 
                       VerticalAlignment="Top">
+                    <toolkit:TileControl x:Name="BackgroundRectangle" 
+                                     AnimationStepX="1" 
+                                     AnimationDuration="30"
+                                     AnimationStepY="1" 
+                                     ImageAlignment="None" 
+                                     IsAnimated="True"
+                                     ImageSource="/Assets/TitleIcons/Flame.png" 
+                                     OffsetX="0" OffsetY="0"
+                                     ScrollOrientation="Both">
+                    </toolkit:TileControl>
                     <Rectangle x:Name="OverlayRectangle" 
                                Height="270" 
                                HorizontalAlignment="Stretch" 
@@ -68,7 +78,6 @@
                                        Text="{x:Bind Species.Name}"
                                        Style="{StaticResource TitleLargeTextBlockStyle}"/>
                             <TextBlock x:Name="Life" 
-                                       
                                        FontSize="12" 
                                        Width="400" 
                                        Height="80"

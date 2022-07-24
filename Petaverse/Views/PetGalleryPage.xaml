@@ -5,105 +5,154 @@
     xmlns:local="using:Petaverse.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:winui="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    mc:Ignorable="d" 
+    xmlns:labs="using:AppStudio.Uwp.Labs" 
+    xmlns:converters="using:Petaverse.Converters"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:dtos="using:PetaVerse.Models.DTOs"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
+        <converters:FromHexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
+
+        <DataTemplate x:Key="ImageMosaicItemTemplate"
+                      x:DataType="dtos:PetaverseMedia">
+            <Image Stretch="UniformToFill" Source="{x:Bind MediaUrl, Mode=OneWay}"/>
+        </DataTemplate>
     </Page.Resources>
 
-    <toolkit:AdaptiveGridView ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}">
-        <toolkit:AdaptiveGridView.Header>
-            <StackPanel>
-                <Grid x:Name="Header" 
-                      Height="270" 
-                      VerticalAlignment="Top">
-                    <Rectangle x:Name="OverlayRectangle" 
-                               Height="270" 
-                               HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Top"/>
-                    <StackPanel x:Name="TextContainer" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Stretch">
-                        <PersonPicture x:Name="ProfileImage" 
-                                       Height="150" 
-                                       Width="150" 
-                                       VerticalAlignment="Center" 
-                                       Margin="15,0,0,0"
-                                       ProfilePicture="{x:Bind Pet.Avatar, Mode=OneWay}"/>
-                        <StackPanel Orientation="Vertical" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Center" 
-                                    Margin="15,20,5,5">
-                            <TextBlock x:Name="SpeciesName"
-                                       Text="{x:Bind Pet.Name}"
-                                       Style="{StaticResource TitleLargeTextBlockStyle}"/>
-                            <TextBlock x:Name="Life" 
-                                       Height="70"
-                                       MaxWidth="500" 
-                                       FontSize="12" 
-                                       Margin="0,0,0,5"
-                                       TextWrapping="Wrap" 
-                                       Text="{x:Bind Pet.Bio}"
-                                       TextAlignment="Justify"
-                                       TextTrimming="CharacterEllipsis"/>
-                            <Border Padding="5"
-                                    CornerRadius="5"
-                                    Background="#c39550"
-                                    HorizontalAlignment="Left">
-                                <TextBlock Text="Tabby Cat"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           Style="{StaticResource BaseTextBlockStyle}"/>
-                            </Border>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
-                                <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
-                                    <Button x:Name="ReturnHomeRoot" Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <SymbolIcon Symbol="Camera"/>
-                                            <TextBlock Text="Add Photos" Margin="5,0,0,0"
-                                                       VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Button x:Name="CreateSubject" 
-                                            Padding="0" 
-                                            Foreground="White"
-                                            Margin="20,0,0,0"
-                                            Style="{ThemeResource TextBlockButtonStyle}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <SymbolIcon Symbol="Edit" VerticalAlignment="Center" Margin="5"/>
-                                            <TextBlock Text="Edit Profile" VerticalAlignment="Center" Margin="5"/>
-                                        </StackPanel>
-                                    </Button>
-                                </StackPanel>
+    <ScrollViewer x:Name="TheScrollView">
+        <StackPanel>
+            <Grid x:Name="Header" 
+                  Height="300" 
+                  VerticalAlignment="Top"
+                  Canvas.ZIndex="1">
+                <toolkit:TileControl x:Name="BackgroundRectangle" 
+                                     AnimationStepX="1" 
+                                     AnimationDuration="30"
+                                     AnimationStepY="1" 
+                                     ImageAlignment="None" 
+                                     IsAnimated="True"
+                                     ImageSource="/Assets/TitleIcons/Flame.png" 
+                                     OffsetX="0" OffsetY="0"
+                                     ScrollOrientation="Both">
+                </toolkit:TileControl>
+                <Rectangle x:Name="OverlayRectangle"
+                           Height="300"
+                           HorizontalAlignment="Stretch" 
+                           VerticalAlignment="Top"
+                           Fill="{x:Bind Pet.PetColor, Converter={StaticResource FromHexToSolidColorBrushConverter}}"/>
+                <StackPanel  x:Name="TextContainer" 
+                             Orientation="Horizontal" 
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Stretch">
+                    <PersonPicture x:Name="ProfileImage" ProfilePicture="{x:Bind Pet.PetAvatar, Mode=OneWay}" 
+                                   Height="170" Width="170" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,20,5,5">
+                        <TextBlock x:Name="PetName"
+                                   Text="{x:Bind Pet.Name}"
+                                   Style="{StaticResource TitleLargeTextBlockStyle}"/>
+                        <Border x:Name="BreedInfo"
+                                Padding="5"
+                                CornerRadius="5"
+                                Background="#c39550"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="Tabby Cat"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Style="{StaticResource BaseTextBlockStyle}"/>
+                        </Border>
+                        <TextBlock x:Name="Bio" 
+                                   FontSize="12" 
+                                   Width="400"
+                                   Height="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Justify"
+                                   Margin="0,5,0,0"
+                                   Text="{x:Bind Pet.Bio}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <StackPanel x:Name="ButtonPanel" 
+                                        Orientation="Horizontal">
+                                <Button x:Name="EditPetProfileButton" 
+                                        Padding="5"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent">
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="Edit"
+                                                        VerticalAlignment="Center" 
+                                                        Margin="5"/>
+                                        <TextBlock Text="Edit Profile"
+                                                       VerticalAlignment="Center" 
+                                                       Margin="5"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="AddPetMedia" 
+                                        Padding="5"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Click="AddPetMedia_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="Add" 
+                                                        VerticalAlignment="Center" 
+                                                        Margin="5"/>
+                                        <TextBlock Text="Add Photos" 
+                                                       VerticalAlignment="Center" 
+                                                       Margin="5"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Padding="5"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent">
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="More"
+                                                    Margin="5"/>
+                                        <TextBlock Text="More"
+                                                   VerticalAlignment="Center"
+                                                   Margin="5"/>
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" 
-                                VerticalAlignment="Center" 
-                                Orientation="Horizontal"
-                                Margin="0,0,15,0">
-                        <Border x:Name="BreedCount" 
-                                Width="150"
-                                Height="150"
-                                CornerRadius="5"
-                                Padding="15"
-                                Background="{StaticResource SystemAccentColor}">
-                            <StackPanel VerticalAlignment="Center"
-                                        HorizontalAlignment="Center">
-                                <TextBlock Text="TOTAL" 
-                                       FontWeight="Bold" 
-                                       FontSize="30"/>
-                                <!--<TextBlock Text="{x:Bind Species.Breeds.Count, Mode=OneWay}"
+                </StackPanel>
+                <StackPanel x:Name="StaticInfoStackPanel" 
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center" 
+                            Orientation="Horizontal">
+                    <Border Background="{StaticResource SystemAccentColor}"
+                            Width="150" Height="150" CornerRadius="5" Margin="20">
+                        <StackPanel Margin="15"
+                                    VerticalAlignment="Center">
+                            <FontIcon Glyph="&#xEB9F;" 
+                                  FontSize="60"/>
+                            <TextBlock Margin="5"
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"
-                                       FontSize="60" FontWeight="Bold"/>-->
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-        </toolkit:AdaptiveGridView.Header>
-    </toolkit:AdaptiveGridView>
+                                       Text="{x:Bind Pet.PetPhotos.Count, Mode=OneWay}"
+                                       Style="{StaticResource TitleTextBlockStyle}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="{StaticResource SystemAccentColor}"
+                            BorderThickness="3"
+                            Width="150" Height="150" CornerRadius="5" Margin="0,20,20,20">
+                        <StackPanel Margin="15"
+                                    VerticalAlignment="Center">
+                            <FontIcon Glyph="&#xEB51;" 
+                                      FontSize="60"
+                                      Foreground="{StaticResource SystemAccentColor}"/>
+                            <TextBlock Margin              = "5"
+                                       VerticalAlignment   = "Center"
+                                       HorizontalAlignment = "Center" 
+                                       Style               = "{StaticResource TitleTextBlockStyle}"
+                                       Text                = "{x:Bind Pet.PetPhotos.Count, Mode=OneWay}"
+                                       Foreground          = "{StaticResource SystemAccentColor}"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <labs:Mosaic ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
+                         ItemTemplate="{StaticResource ImageMosaicItemTemplate}"/>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

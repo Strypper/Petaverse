@@ -10,7 +10,7 @@
     xmlns:dtos="using:PetaVerse.Models.DTOs"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    mc:Ignorable="d"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
@@ -18,7 +18,7 @@
         <DataTemplate x:Key="PivotHeaderTemplate"
                       x:DataType="dtos:Animal">
             <StackPanel Orientation="Horizontal">
-                <PersonPicture ProfilePicture="{x:Bind Avatar, Mode=OneWay}"
+                <PersonPicture ProfilePicture="{x:Bind PetAvatar, Mode=OneWay}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Width="35"/>
@@ -43,6 +43,7 @@
                                                           CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"/>
         <Pivot Grid.Column="1"
                Margin="0,10,10,10"
+               Padding="0,0,0,15"
                ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
                ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"
                HeaderTemplate="{StaticResource PivotHeaderTemplate}"

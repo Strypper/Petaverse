@@ -1,13 +1,15 @@
 ﻿<Page
     x:Class="Petaverse.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
+    xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:local="using:Petaverse"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
 
     <Page.Resources>
         <DataTemplate x:Key="NavigationViewItemTemplate"
@@ -26,6 +28,10 @@
                           SelectionChanged="NavigationView_SelectionChanged"
                           MenuItemsSource="{x:Bind PetaverseNavigateViewItems}"
                           MenuItemTemplate="{StaticResource NavigationViewItemTemplate}">
+        <winui:NavigationView.Background>
+            <ImageBrush ImageSource="/Assets/Illustration/MainPageBackgroundillustration.jpg"
+                        Stretch="UniformToFill"/>
+        </winui:NavigationView.Background>
         <winui:NavigationView.PaneHeader>
             <StackPanel Orientation="Horizontal"
                         Padding="5"
@@ -90,11 +96,12 @@
             </StackPanel>
         </winui:NavigationView.PaneFooter>
         <Grid>
-            <!--<profilepageusercontrols:UserInfoPanelUserControl
-                                     VerticalAlignment="Top"
-                                     HorizontalAlignment="Center"/>-->
             <commonusercontrols:LoginUserControl/>
-            <Frame x:Name="TheMainFrame"/>
+            <Frame x:Name="TheMainFrame" />
+            <HyperlinkButton VerticalAlignment="Bottom"
+                             HorizontalAlignment="Right"
+                             NavigateUri="https://www.freepik.com/author/upklyak"
+                             Content="This illustration is from upklyak (www.freepik.com)"/>
         </Grid>
     </winui:NavigationView>
 </Page>

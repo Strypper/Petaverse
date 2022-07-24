@@ -26,7 +26,7 @@ namespace Petaverse.ContentDialogs
             ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
         })
         {
-            BaseAddress = new Uri("https://localhost:5001/api")
+            BaseAddress = new Uri("https://localhost:44371/api")
         });
 
         private StorageFile catPhoto;

@@ -14,8 +14,14 @@
                 <ResourceDictionary>
                     <TransitionCollection x:Key="AdaptiveGridViewLoadTransition">
                         <EntranceThemeTransition IsStaggeringEnabled="True" 
-                                     FromVerticalOffset="450"/>
+                                                 FromVerticalOffset="450"/>
                         <AddDeleteThemeTransition/>
+                    </TransitionCollection>
+
+                    <TransitionCollection x:Key="StackLoadAndAdTransition">
+                        <EntranceThemeTransition FromVerticalOffset="1000"
+                                                 IsStaggeringEnabled="True" />
+                        <AddDeleteThemeTransition />
                     </TransitionCollection>
 
                     <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0"/>

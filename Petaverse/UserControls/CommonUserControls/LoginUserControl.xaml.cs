@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 namespace Petaverse.UserControls.CommonUserControls
 {
@@ -57,7 +58,8 @@ namespace Petaverse.UserControls.CommonUserControls
                     await new ContentDialog()
                     {
                         Title = "Login success",
-                        Content = $"Hello {pricipalUserInfo.userInfo.fullName}"
+                        Content = $"Hello {pricipalUserInfo.userInfo.fullName}",
+                        SecondaryButtonText = "Close"
                     }.ShowAsync();
                 }
                 else await new ContentDialog()
@@ -72,6 +74,20 @@ namespace Petaverse.UserControls.CommonUserControls
                 Title = "Please fill all the feilds",
                 Content = "Please check your information again and fill all the feilds"
             }.ShowAsync();
+        }
+    }
+
+    public class BoolToSignInSignUpConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var visibility = (bool)value;
+            return visibility == true ? "Sign Up" : "Sign In";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

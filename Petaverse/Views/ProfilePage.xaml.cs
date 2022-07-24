@@ -11,5 +11,11 @@ namespace Petaverse.Views
             this.InitializeComponent();
             profilePageViewModel = new ProfilePageViewModel();
         }
+
+        private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+            profilePageViewModel.CurrentUser = await profilePageViewModel.LoadFakeUserData();
+        }
     }
 }
