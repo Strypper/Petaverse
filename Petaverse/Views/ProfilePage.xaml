@@ -35,18 +35,36 @@
             <local:PetGalleryPage Pet="{x:Bind}"/>
         </DataTemplate>
 
+        <DataTemplate x:Key="PivotRightHeaderTemplate">
+            <Button Margin="0,7,10,0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Click="AddNewPet_Clicked"
+                    Background="{StaticResource SystemAccentColor}">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="Add"
+                                VerticalAlignment="Center"/>
+                    <TextBlock Text="Add New Pet" 
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </DataTemplate>
+
     </Page.Resources>
 
     <Grid helpers:Grid.ColumnDefinitions="auto, *">
         <profilepageusercontrols:UserInfoPanelUserControl VerticalAlignment="Top"
                                                           HorizontalAlignment="Center"
                                                           CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"/>
-        <Pivot Grid.Column="1"
-               Margin="0,10,10,10"
-               Padding="0,0,0,15"
-               ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
-               ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"
-               HeaderTemplate="{StaticResource PivotHeaderTemplate}"
-               ItemTemplate="{StaticResource PivotItemTemplate}"/>
+        <Grid Grid.Column="1"
+              Margin="0,10,10,10"
+              Padding="0,0,0,15">
+            <Pivot ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
+                   HeaderTemplate="{StaticResource PivotHeaderTemplate}"
+                   ItemTemplate="{StaticResource PivotItemTemplate}"
+                   RightHeaderTemplate="{StaticResource PivotRightHeaderTemplate}"
+                   ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"/>
+        </Grid>
     </Grid>
 </Page>

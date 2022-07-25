@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Petaverse.Models.FEModels;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
 using Refit;
@@ -83,5 +84,8 @@ namespace Petaverse.ViewModels
                 throw new Exception(message);
             }
         }
+
+        public async Task<Animal> CreatePetAsync(FEPetInfo petInfo) 
+            => await animalData.Create(petInfo);
     }
 }

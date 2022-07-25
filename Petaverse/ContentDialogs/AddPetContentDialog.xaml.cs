@@ -1,4 +1,5 @@
-﻿using Petaverse.Refits;
+﻿using Petaverse.Models.FEModels;
+using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
 using Refit;
 using System;
@@ -10,6 +11,7 @@ using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -20,6 +22,7 @@ namespace Petaverse.ContentDialogs
     public sealed partial class AddPetContentDialog : ContentDialog
     {
         public ObservableCollection<Species> Species { get; set; } = new ObservableCollection<Species>();
+        public FEPetInfo                     PetInfo { get; set; }
 
         private readonly ISpeciesData speciestData = RestService.For<ISpeciesData>(new HttpClient(new HttpClientHandler()
         {
@@ -47,12 +50,22 @@ namespace Petaverse.ContentDialogs
             AddPetDialog.RequestedTheme = Windows.UI.Xaml.ElementTheme.Light;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void AddPetDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            var petStory = String.Empty;
+            StoryEditBox.Document.GetText(TextGetOptions.None, out petStory);
+            PetInfo = new FEPetInfo()
+            {
+                Name        = PetName.Text,
+                Bio         = petStory,
+                PetAvatar   = catPhoto,
+                PetColor    = String.Join(",", BreedColorGridView.SelectedItems.ToList()),
+                Gender      = GenderToggleSwitch.IsOn,
+                DateOfBirth = PetDateOfBirthDatePicker.Date.DateTime,
+                Age         = (int)AgeNumberBox.Value,
+                BreedId     = (BreedCombobox.SelectedItem as Breed).Id,
+                SpeciesId   = (SpeciesComboBox.SelectedItem as Species).Id
+            };
         }
 
         private async void AvatarUserControl_OpenFileEventHandler(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -86,11 +99,6 @@ namespace Petaverse.ContentDialogs
 
             }
         }
-
-        //private void SpeciesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    colorStoryboard.Begin();
-        //}
     }
 
     public class SpeciesToBreedsConverter : IValueConverter

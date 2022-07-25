@@ -1,4 +1,5 @@
-﻿using PetaVerse.Models.DTOs;
+﻿using Petaverse.Models.FEModels;
+using PetaVerse.Models.DTOs;
 using Refit;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -16,6 +17,9 @@ namespace Petaverse.Refits
 
         [Get("/Animal/GetAllByUserId/{userId}")]
         Task<List<Animal>> GetAllByUserId(int userId);
+
+        [Post("/Animal/Create")]
+        Task<Animal> Create(FEPetInfo petInfo);
 
         //[Post("/Animal/UploadAnimalMedias/{petId}")]
         //Task<List<Animal>> UploadAnimalMedias(int petId, IEnumerable<StreamPart> files);

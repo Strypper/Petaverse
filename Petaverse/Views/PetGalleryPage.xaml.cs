@@ -48,10 +48,7 @@ namespace Petaverse.Views
         private void AddMediaDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var photos = (sender as AddPetMediaContentDialog).UploadMedia;
-            //photos.ToList().ForEach(media => Pet.PetPhotos.Add(new PetaverseMedia()
-            //{
-
-            //});
+            //photos.ToList().ForEach(photo => Pet.PetPhotos);
         }
 
         private void InitAnimationHeader()

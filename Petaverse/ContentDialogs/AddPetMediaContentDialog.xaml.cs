@@ -7,6 +7,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using System;
 using System.Net.Http;
+using Petaverse.Models.Others;
+using Petaverse.Interfaces;
 
 namespace Petaverse.ContentDialogs
 {
@@ -15,31 +17,17 @@ namespace Petaverse.ContentDialogs
         public ObservableCollection<BitmapImage> UploadMedia   { get; set; } = new ObservableCollection<BitmapImage>();
         public List<PetPhotosStream>             UploadFiles   { get; set; } = new List<PetPhotosStream>();
 
+        private IUploadPetFileService _uploadPetFileService;
+
         public AddPetMediaContentDialog()
         {
             this.InitializeComponent();
+            _uploadPetFileService = MainPage.Context.GetRequiredService<IUploadPetFileService>();
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var client = new HttpClient(new HttpClientHandler(){ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true});
-            var multipartFormContent = new MultipartFormDataContent();
-
-            UploadFiles.ForEach(file =>
-            {
-                file.Stream.Position = 0;
-                var media = new StreamContent(file.Stream);
-                media.Headers.Add("Content-Type", "image/jpeg");
-                //media.Headers.ContentLength = file.Stream.Length;
-                multipartFormContent.Add(media, name: "medias", fileName: $"{file.FileName}");
-            });
-
-            var result = await client.PostAsync("https://localhost:44371/api/Animal/UploadAnimalMedias/2", multipartFormContent);
-            string stringReadResult = await result.Content.ReadAsStringAsync();
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            await _uploadPetFileService.UploadMultiplePetFilesAsync("https://localhost:44371/api/Animal/UploadAnimalMedias/2", 2, UploadFiles);
         }
 
         private async void OpenFileButton_Click(object sender, RoutedEventArgs e)
@@ -62,12 +50,6 @@ namespace Petaverse.ContentDialogs
                 UploadFiles.Add(new PetPhotosStream() { FileName = file.Name, Stream = stream.AsStream() });
                 //UploadStreams.Add(new StreamPart(stream.AsStream(), "Bravo " + file.Name, "image/jpeg"));
             }
-        }
-
-        public class PetPhotosStream
-        {
-            public string FileName { get; set; }
-            public Stream Stream   { get; set; }
         }
     }
 }
