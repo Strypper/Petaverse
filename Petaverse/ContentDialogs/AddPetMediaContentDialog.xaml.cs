@@ -9,6 +9,7 @@ using System;
 using System.Net.Http;
 using Petaverse.Models.Others;
 using Petaverse.Interfaces;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace Petaverse.ContentDialogs
 {
@@ -22,7 +23,7 @@ namespace Petaverse.ContentDialogs
         public AddPetMediaContentDialog()
         {
             this.InitializeComponent();
-            _uploadPetFileService = MainPage.Context.GetRequiredService<IUploadPetFileService>();
+            _uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -50,12 +50,12 @@ namespace PetaVerse.Models.DTOs
                     Bio = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                 },
                 Publisher = new Faker<User>()
-                               .RuleFor(x => x.firstName, fake => fake.Person.FirstName)
-                               .RuleFor(x => x.lastName, fake => fake.Person.LastName)
-                               .RuleFor(x => x.email, fake => fake.Person.Email)
-                               .RuleFor(x => x.phoneNumber, fake => fake.Person.Phone)
-                               .RuleFor(x => x.dateOfBirth, fake => fake.Person.DateOfBirth)
-                               .RuleFor(x => x.profilePicUrl, fake => fake.Person.Avatar)
+                               .RuleFor(x => x.FirstName, fake => fake.Person.FirstName)
+                               .RuleFor(x => x.LastName, fake => fake.Person.LastName)
+                               .RuleFor(x => x.Email, fake => fake.Person.Email)
+                               .RuleFor(x => x.PhoneNumber, fake => fake.Person.Phone)
+                               .RuleFor(x => x.DateOfBirth, fake => fake.Person.DateOfBirth)
+                               .RuleFor(x => x.ProfilePicUrl, fake => fake.Person.Avatar)
             });
 
             petShorts.Add(new PetShort()
@@ -77,12 +77,12 @@ namespace PetaVerse.Models.DTOs
                     Bio = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                 },
                 Publisher = new Faker<User>()
-                               .RuleFor(x => x.firstName, fake => fake.Person.FirstName)
-                               .RuleFor(x => x.lastName, fake => fake.Person.LastName)
-                               .RuleFor(x => x.email, fake => fake.Person.Email)
-                               .RuleFor(x => x.phoneNumber, fake => fake.Person.Phone)
-                               .RuleFor(x => x.dateOfBirth, fake => fake.Person.DateOfBirth)
-                               .RuleFor(x => x.profilePicUrl, fake => fake.Person.Avatar)
+                               .RuleFor(x => x.FirstName, fake => fake.Person.FirstName)
+                               .RuleFor(x => x.LastName, fake => fake.Person.LastName)
+                               .RuleFor(x => x.Email, fake => fake.Person.Email)
+                               .RuleFor(x => x.PhoneNumber, fake => fake.Person.Phone)
+                               .RuleFor(x => x.DateOfBirth, fake => fake.Person.DateOfBirth)
+                               .RuleFor(x => x.ProfilePicUrl, fake => fake.Person.Avatar)
             });
             return petShorts;
         }

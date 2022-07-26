@@ -1,15 +1,8 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using Petaverse.ContentDialogs;
+﻿using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
-using Petaverse.Refits;
-using Petaverse.Services;
 using Petaverse.Views;
-using Refit;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Net.Http;
 using Windows.UI.Xaml.Controls;
 
 namespace Petaverse
@@ -17,17 +10,10 @@ namespace Petaverse
     public sealed partial class MainPage : Page
     {
         public ObservableCollection<NavigationViewItem> PetaverseNavigateViewItems { get; set; } = new ObservableCollection<NavigationViewItem>();
-        private IInternetService internetService;
-
-        public static Ioc Context => _context;
-        public static Ioc _context = null;
-
-        private IServiceCollection _serviceCollection;
 
         public MainPage()
         {
             this.InitializeComponent();
-            this.InitializeEnvironment();
             PetaverseNavigateViewItems = PetaverseNavigationItem.InitPetaverseNavigationItems();
         }
 
@@ -48,28 +34,6 @@ namespace Petaverse
         {
             TheMainFrame.Navigate(typeof(ProfilePage));
             MainNavView.SelectedItem = null;
-        }
-
-        private void InitializeEnvironment()
-        {
-            _context = new Ioc();
-
-            if (_serviceCollection == null)
-            {
-                _serviceCollection = new ServiceCollection();
-            }
-            ConfigureServices(_serviceCollection);
-            Context.ConfigureServices(_serviceCollection.BuildServiceProvider());
-        }
-
-        private void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton((_) =>
-            {
-                return new HttpClient(new HttpClientHandler() { ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true });
-            });
-
-            services.AddSingleton<IUploadPetFileService, HttpClientUploadPetFileService>();
         }
     }
 

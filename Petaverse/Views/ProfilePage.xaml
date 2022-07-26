@@ -10,7 +10,7 @@
     xmlns:dtos="using:PetaVerse.Models.DTOs"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    mc:Ignorable="d" Loaded="Page_Loaded"
+    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>

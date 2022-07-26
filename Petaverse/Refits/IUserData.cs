@@ -6,7 +6,7 @@ namespace Petaverse.Refits
 {
     public interface IUserData
     {
-        [Get("/User/UseByGuid")]
-        Task<User> GetPetaverseUser(string guid);
+        [Get("/User/GetByUserGuid/{guid}")]
+        Task<User> GetByUserGuid(string guid);
     }
 }

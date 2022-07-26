@@ -11,6 +11,6 @@ namespace Petaverse.Refits
     public interface IAuthenticateServices
     {
         [Post("/Access/LoginWithPhoneNumber")]
-        Task<PetvaserveUser> Authenticate(LoginModel model);
+        Task<TotechsIdentityUser> Authenticate(LoginModel model);
     }
 }

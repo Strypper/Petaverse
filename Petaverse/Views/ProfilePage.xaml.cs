@@ -16,8 +16,7 @@ namespace Petaverse.Views
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
-            profilePageViewModel.CurrentUser = await profilePageViewModel.LoadFakeUserData();
+            profilePageViewModel.CurrentUser = await profilePageViewModel.LoadUserDataAsync();
         }
 
         private async void AddNewPet_Clicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)

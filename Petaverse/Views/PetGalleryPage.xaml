@@ -18,10 +18,20 @@
 
         <DataTemplate x:Key="ImageMosaicItemTemplate"
                       x:DataType="dtos:PetaverseMedia">
-            <Image Stretch="UniformToFill" Source="{x:Bind MediaUrl, Mode=OneWay}"/>
+            <Button DoubleTapped="Image_DoubleTapped"
+                    CommandParameter="{x:Bind}"
+                    CornerRadius="0" Padding="0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch">
+                <Image Stretch="UniformToFill"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Source="{x:Bind MediaUrl, Mode=OneWay}"/>
+            </Button>
         </DataTemplate>
     </Page.Resources>
 
+    <!--The Gallery Section-->
     <ScrollViewer x:Name="TheScrollView">
         <StackPanel>
             <Grid x:Name="Header" 
@@ -151,7 +161,8 @@
                     </Border>
                 </StackPanel>
             </Grid>
-            <labs:Mosaic ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
+            <labs:Mosaic x:Name="MosaicGallery"
+                         ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
                          ItemTemplate="{StaticResource ImageMosaicItemTemplate}"/>
         </StackPanel>
     </ScrollViewer>

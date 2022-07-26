@@ -30,6 +30,19 @@
                                            Value="0.0"/>
             </animations:ScalarAnimation>
         </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Key="HideIndeterminateAnimation">
+            <animations:ScalarAnimation Target="Opacity" 
+                                        Duration="0:0:1" 
+                                        To="0.0"/>
+            <animations:ScalarAnimation Target="Translation.X" 
+                                        Duration="0:0:1" 
+                                        To="200">
+                <animations:ScalarKeyFrame Key="0.1" 
+                                           Value="30"/>
+                <animations:ScalarKeyFrame Key="0.5" 
+                                           Value="0.0"/>
+            </animations:ScalarAnimation>
+        </animations:ImplicitAnimationSet>
 
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <local:BoolToSignInSignUpConverter x:Key="BoolToSignInSignUpConverter"/>
@@ -42,8 +55,8 @@
           Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
         <StackPanel MinWidth="300"
                     Padding="20"
-                    Margin="20,60,20,20"
                     CornerRadius="4"
+                    Margin="20,60,20,20"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Background="{ThemeResource SystemAltMediumLowColor}"
@@ -103,6 +116,13 @@
                     HorizontalAlignment="Stretch"
                     Click="Login_Click"
                     Background="{StaticResource SystemAccentColor}"/>
+            <winui:ProgressBar x:Name="LoginOrSignUpIndeterminateBar"
+                               VerticalAlignment="Top"
+                               Grid.ColumnSpan="2"
+                               IsIndeterminate="True"
+                               Visibility="Collapsed"
+                               animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
+                               animations:Implicit.HideAnimations="{StaticResource HideIndeterminateAnimation}"/>
         </StackPanel>
         <StackPanel Grid.Column="1"
                     VerticalAlignment="Center"
@@ -218,5 +238,9 @@
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
                       Grid.ColumnSpan="2"/>
+        <winui:ProgressBar x:Name="LoginOrSignUpProgressBar"
+                           VerticalAlignment="Top"
+                           Grid.ColumnSpan="2"
+                           Visibility="Collapsed"/>
     </Grid>
 </UserControl>

@@ -1158,7 +1158,7 @@
                        Margin="20"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Right"
-                       ToolTipService.ToolTip="{x:Bind PetShort.Publisher.fullName, Mode=OneWay}"
-                       ProfilePicture="{x:Bind PetShort.Publisher.profilePicUrl, Mode=OneWay}"/>
+                       ToolTipService.ToolTip="{x:Bind PetShort.Publisher.FullName, Mode=OneWay}"
+                       ProfilePicture="{x:Bind PetShort.Publisher.ProfilePicUrl, Mode=OneWay}"/>
     </Grid>
 </UserControl>

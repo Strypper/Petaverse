@@ -1,4 +1,6 @@
-﻿using Petaverse.Refits;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Interfaces;
+using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
 using Refit;
 using System;
@@ -19,7 +21,7 @@ namespace Petaverse.UserControls.CommonUserControls
             ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
         })
         {
-            BaseAddress = new Uri("https://localhost:5001/api")
+            BaseAddress = new Uri("https://localhost:44371/api")
         };
 
         private HttpClient authenticateClient = new HttpClient(new HttpClientHandler()
@@ -32,14 +34,16 @@ namespace Petaverse.UserControls.CommonUserControls
 
         private readonly IUserData userData;
         private readonly ISpeciesData speciestData;
+        private readonly ICurrentUserService currentUserService;
         private readonly IAuthenticateServices authenticateServices;
 
         public LoginUserControl()
         {
             this.InitializeComponent();
 
-            userData = RestService.For<IUserData>(httpClient);
+            userData             = RestService.For<IUserData>(httpClient);
             speciestData         = RestService.For<ISpeciesData>(httpClient);
+            currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
             authenticateServices = RestService.For<IAuthenticateServices>(authenticateClient);
         }
 
@@ -52,21 +56,39 @@ namespace Petaverse.UserControls.CommonUserControls
                     PhoneNumber = PhoneNumber.Text,
                     Password = Password.Password
                 });
+                LoginOrSignUpProgressBar.Visibility = Visibility.Visible;
+                LoginOrSignUpIndeterminateBar.Visibility = Visibility.Visible;
+                LoginOrSignUpProgressBar.Value = 30;
+
                 if (pricipalUserInfo != null)
                 {
-                    //LoginEventHandler.Invoke(pricipalUserInfo.userInfo);
+                    App.localSettings.Values["UserGuid"] = pricipalUserInfo.UserInfo.Guid;
+
+                    LoginOrSignUpProgressBar.Value += 20;
+
+                    var petaverseUser = await userData.GetByUserGuid(pricipalUserInfo.UserInfo.Guid);
+
+                    LoginOrSignUpProgressBar.Value += 30;
+
+                    petaverseUser.FillPricipalUserInfo(pricipalUserInfo.UserInfo);
+
+                    LoginOrSignUpProgressBar.Value += 10;
+
+                    await currentUserService.SaveLocalUserAsync(petaverseUser);
+
+                    LoginOrSignUpProgressBar.Value += 10;
+
+                    LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LoginOrSignUpIndeterminateBar.ShowError = true;
                     await new ContentDialog()
                     {
-                        Title = "Login success",
-                        Content = $"Hello {pricipalUserInfo.userInfo.fullName}",
-                        SecondaryButtonText = "Close"
+                        Title = "Invalid phone number or password",
+                        Content = "Please check your information again or press the forgot button"
                     }.ShowAsync();
                 }
-                else await new ContentDialog()
-                {
-                    Title = "Invalid phone number or password",
-                    Content = "Please check your information again or press the forgot button"
-                }.ShowAsync();
             }
 
             else await new ContentDialog()

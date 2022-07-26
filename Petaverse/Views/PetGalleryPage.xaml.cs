@@ -13,6 +13,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using Microsoft.Graphics.Canvas.Effects;
 using System.Numerics;
 using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Petaverse.Views
 {
@@ -146,6 +147,17 @@ namespace Petaverse.Views
             //ExpressionNode buttonOffsetAnimation = progressNode * -100;
             //buttonVisual.StartAnimation("Offset.Y", buttonOffsetAnimation);
             //buttonVisual.StartAnimation("Offset.X", progressNode * -40);
+        }
+
+        private async void Image_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            var SelectedPhoto = (PetaverseMedia)((Button)sender).CommandParameter;
+
+            var viewPetMediaDetailContentDialog = new ViewPetMediaDetailContentDialog() 
+            {
+                PetaverseMedia = SelectedPhoto
+            };
+            await viewPetMediaDetailContentDialog.ShowAsync();
         }
     }
 }

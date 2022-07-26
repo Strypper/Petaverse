@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Interfaces;
 using Petaverse.Models.FEModels;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
@@ -25,9 +27,13 @@ namespace Petaverse.ViewModels
             BaseAddress = new Uri("https://localhost:44371/api")
         });
 
+        private readonly ICurrentUserService currentUserService;
+        private readonly string currentUserGuid;
+
         public ProfilePageViewModel()
         {
-
+            currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
+            currentUserGuid = App.localSettings.Values["UserGuid"].ToString();
         }
 
         public async Task<User> LoadFakeUserData()
@@ -49,24 +55,35 @@ namespace Petaverse.ViewModels
             };
             var fakeUser = new User() 
             {
-                firstName = "Strypper",
-                lastName = "Jason",
-                email = "FutureWingsStrypper@outlook.com",
-                phoneNumber = "0348164682",
-                gender = true,
-                profilePicUrl = "https://intranetblobstorages.blob.core.windows.net/avatarstorage/Viet.jpg",
+                FirstName = "Strypper",
+                LastName = "Jason",
+                Email = "FutureWingsStrypper@outlook.com",
+                PhoneNumber = "0348164682",
+                Gender = true,
+                ProfilePicUrl = "https://intranetblobstorages.blob.core.windows.net/avatarstorage/Viet.jpg",
                 IsActive = true,
                 IsDeleted = false,
-                Pets = await animalData.GetAllByUserId(2)
+                //Pets = await animalData.GetAllByUserId(2)
             };
             return fakeUser;
+        }
+
+        public async Task<User> LoadUserDataAsync()
+        {
+            if (currentUserGuid != null && !String.IsNullOrEmpty(currentUserGuid))
+            {
+                var requestUser = await currentUserService.GetLocalUserAsync(currentUserGuid);
+                requestUser.Pets = await animalData.GetAllByUserId(currentUserGuid);
+                return requestUser;
+            }
+            else return null;
         }
 
         private async Task<IEnumerable<Animal>> GetAnimalAsync()
         {
             try
             {
-                var res = await animalData.GetAllByUserId(2);
+                var res = await animalData.GetAllByUserId(currentUserGuid);
                 return res;
             }
             catch (ApiException ex)
