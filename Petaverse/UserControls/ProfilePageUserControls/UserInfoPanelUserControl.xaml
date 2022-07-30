@@ -49,25 +49,33 @@
                                Text="Strypper Vandel Jason"
                                RelativePanel.Below="UserAvatar"
                                RelativePanel.AlignHorizontalCenterWithPanel="True"/>
-                    <HyperlinkButton x:Name="UserCode"
-                                     Content="#567889"                
-                                     RelativePanel.Below="UserName"
-                                     RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+                    <ToggleSwitch x:Name="UserCode"
+                                  MinWidth="0"
+                                  OnContent="Followed"    
+                                  OffContent="Unfollow"
+                                  RelativePanel.Below="UserName"
+                                  RelativePanel.AlignHorizontalCenterWithPanel="True"/>
                     <AppBarButton x:Name="EditProfileButton"
                                   Label="Edit"
                                   Icon="Edit"
                                   RelativePanel.AlignRightWithPanel="True"
                                   RelativePanel.AlignTopWithPanel="True"/>
+                    <Button x:Name="Logout" Content="&#xE7E8;" FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Foreground="Red" Click="Logout_Click" FontSize="18"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignTopWithPanel="True"/>
                 </RelativePanel>
                 <StackPanel Grid.Row="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-                    <Button Content="Follow Up"
-                    Margin="5"
-                    HorizontalAlignment="Stretch"
-                    Background="{StaticResource SystemAccentColor}"/>
+                    <Button Content="Create Slot"
+                            Margin="5" IsEnabled="False"
+                            HorizontalAlignment="Stretch"
+                            Background="{StaticResource SystemAccentColor}"/>
                     <winui:DropDownButton Content="Contact Via"
-                                  Margin="5,0,5,5">
+                                          Margin="5,0,5,5">
                         <winui:DropDownButton.Flyout>
                             <MenuFlyout Placement="Bottom">
                                 <MenuFlyoutItem Text="Chat"  Icon="Message"/>

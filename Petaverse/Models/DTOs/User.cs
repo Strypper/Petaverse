@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace PetaVerse.Models.DTOs
 {
@@ -11,7 +12,7 @@ namespace PetaVerse.Models.DTOs
         public string?      CoverImageUrl            { get; set; } = String.Empty;
         public string?      PetaverseProfileImageUrl { get; set; } = String.Empty;
 
-        public virtual ICollection<Animal> Pets { get; set; } = new HashSet<Animal>();
+        public ObservableCollection<Animal> Pets { get; set; } = new ObservableCollection<Animal>();
     }
     
     public class TotechsIdentityUser
@@ -24,8 +25,9 @@ namespace PetaVerse.Models.DTOs
     {
         public string Guid { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
+        public string MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string FullName => FirstName + LastName;
+        public string FullName => FirstName + " " + LastName;
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public bool? Gender { get; set; }

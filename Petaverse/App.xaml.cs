@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Petaverse.Enums;
 using Petaverse.Helpers;
 using Petaverse.Interfaces;
 using Petaverse.Services;
@@ -15,8 +16,6 @@ namespace Petaverse
 {
     sealed partial class App : Application
     {
-        public static Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
         private IServiceCollection _serviceCollection;
 
         public App()
@@ -40,12 +39,37 @@ namespace Petaverse
 
         private void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton((_) =>
+            services.AddTransient<Func<HttpClientEnum, HttpClient>>(serviceProvider => key =>
             {
-                return new HttpClient(new HttpClientHandler() { ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true });
+                switch (key)
+                {
+                    case HttpClientEnum.Petaverse:
+                        return new HttpClient(
+                                            new HttpClientHandler()
+                                            {
+                                                ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
+                                            })
+                                            {
+                                                BaseAddress = new Uri("http://localhost:44371/api")
+                                            };
+                    case HttpClientEnum.TotechIdentity:
+                        return new HttpClient(
+                                            new HttpClientHandler()
+                                            {
+                                                ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
+                                            })
+                                            { 
+                                                BaseAddress = new Uri("http://localhost:4300/api")
+                                            };
+                    default:
+                        return null;
+                }
             });
-            services.AddSingleton((_) => new ToolkitSerializer());
 
+            services.AddSingleton((_) => new ToolkitSerializer());
+            services.AddSingleton((_) => Windows.Storage.ApplicationData.Current.LocalSettings);
+
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUploadPetFileService, HttpClientUploadPetFileService>();
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
         }

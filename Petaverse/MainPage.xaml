@@ -8,13 +8,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
     xmlns:local="using:Petaverse"
-    mc:Ignorable="d"
-    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+    mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Page.Resources>
         <DataTemplate x:Key="NavigationViewItemTemplate"
                       x:DataType="local:NavigationViewItem">
-            <winui:NavigationViewItem Content="{x:Bind Content}">
+            <winui:NavigationViewItem Content="{x:Bind Content}"
+                                      IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon Glyph="{x:Bind Glyph}"/>
                 </winui:NavigationViewItem.Icon>
@@ -46,7 +46,9 @@
             </StackPanel>
         </winui:NavigationView.PaneHeader>
         <winui:NavigationView.PaneFooter>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel x:Name="NavigationViewPaneFooter" 
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
                 <Button Background="{StaticResource SystemAccentColor}">
                     <StackPanel Orientation="Horizontal">
                         <SymbolIcon Symbol="Video"/>
@@ -58,9 +60,10 @@
                 <Button Background="Transparent"
                         BorderBrush="Transparent">
                     <StackPanel Orientation="Horizontal">
-                        <PersonPicture Width="35"
+                        <PersonPicture x:Name="CurrentUserPersonPicture"
+                                       Width="35"
                                        VerticalAlignment="Center"/>
-                        <TextBlock Text="Strypper Vandel Jason"
+                        <TextBlock x:Name="CurrentUserFullNameText"
                                    VerticalAlignment="Center"
                                    Margin="5,0,0,0"/>
                     </StackPanel>
@@ -96,7 +99,7 @@
             </StackPanel>
         </winui:NavigationView.PaneFooter>
         <Grid>
-            <commonusercontrols:LoginUserControl/>
+            <commonusercontrols:LoginUserControl LoginSuccessEventHandler="LoginUserControl_LoginSuccessEventHandler"/>
             <Frame x:Name="TheMainFrame" />
             <HyperlinkButton VerticalAlignment="Bottom"
                              HorizontalAlignment="Right"

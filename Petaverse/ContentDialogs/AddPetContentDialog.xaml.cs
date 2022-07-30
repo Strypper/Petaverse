@@ -52,20 +52,20 @@ namespace Petaverse.ContentDialogs
 
         private void AddPetDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var petStory = String.Empty;
-            StoryEditBox.Document.GetText(TextGetOptions.None, out petStory);
-            PetInfo = new FEPetInfo()
-            {
-                Name        = PetName.Text,
-                Bio         = petStory,
-                PetAvatar   = catPhoto,
-                PetColor    = String.Join(",", BreedColorGridView.SelectedItems.ToList()),
-                Gender      = GenderToggleSwitch.IsOn,
-                DateOfBirth = PetDateOfBirthDatePicker.Date.DateTime,
-                Age         = (int)AgeNumberBox.Value,
-                BreedId     = (BreedCombobox.SelectedItem as Breed).Id,
-                SpeciesId   = (SpeciesComboBox.SelectedItem as Species).Id
-            };
+            //var petStory = String.Empty;
+            //StoryEditBox.Document.GetText(TextGetOptions.None, out petStory);
+            //PetInfo = new FEPetInfo()
+            //{
+            //    Name        = PetName.Text,
+            //    Bio         = petStory,
+            //    PetAvatar   = catPhoto,
+            //    PetColor    = String.Join(",", BreedColorGridView.SelectedItems.ToList()),
+            //    Gender      = GenderToggleSwitch.IsOn,
+            //    DateOfBirth = PetDateOfBirthDatePicker.Date.DateTime,
+            //    Age         = (int)AgeNumberBox.Value,
+            //    BreedId     = (BreedCombobox.SelectedItem as Breed).Id,
+            //    SpeciesId   = (SpeciesComboBox.SelectedItem as Species).Id
+            //};
         }
 
         private async void AvatarUserControl_OpenFileEventHandler(object sender, Windows.UI.Xaml.RoutedEventArgs e)

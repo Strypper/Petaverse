@@ -2,6 +2,8 @@
 using Petaverse.ViewModels;
 using Windows.UI.Xaml.Controls;
 using System;
+using Windows.ApplicationModel.Core;
+using PetaVerse.Models.DTOs;
 
 namespace Petaverse.Views
 {
@@ -21,8 +23,8 @@ namespace Petaverse.Views
 
         private async void AddNewPet_Clicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-              var addPetContentDialog = new AddPetContentDialog();
-                  addPetContentDialog.PrimaryButtonClick += AddPetContentDialog_PrimaryButtonClick;
+            var addPetContentDialog = new AddPetContentDialog();
+            addPetContentDialog.PrimaryButtonClick += AddPetContentDialog_PrimaryButtonClick;
             await addPetContentDialog.ShowAsync();
         }
 
@@ -32,6 +34,11 @@ namespace Petaverse.Views
             var createdPetInfo = await profilePageViewModel.CreatePetAsync(petInfo);
             if (createdPetInfo != null)
                 profilePageViewModel.CurrentUser.Pets.Add(createdPetInfo);
+        }
+
+        private void UserInfoPanelUserControl_LogoutEventHandler()
+        {
+            CoreApplication.Exit();
         }
     }
 }

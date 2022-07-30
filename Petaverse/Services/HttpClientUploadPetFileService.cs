@@ -1,19 +1,23 @@
-﻿using Newtonsoft.Json;
-using Petaverse.Interfaces;
-using Petaverse.Models.Others;
-using PetaVerse.Models.DTOs;
-using System.Collections.Generic;
+﻿using System;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Petaverse.Enums;
+using Petaverse.Interfaces;
+using PetaVerse.Models.DTOs;
 using System.Threading.Tasks;
+using Petaverse.Models.Others;
+using System.Collections.Generic;
+using Petaverse.ContentDialogs;
+using Refit;
 
 namespace Petaverse.Services
 {
     public class HttpClientUploadPetFileService : IUploadPetFileService
     {
         private HttpClient _httpClient;
-        public HttpClientUploadPetFileService(HttpClient httpClient)
+        public HttpClientUploadPetFileService(Func<HttpClientEnum, HttpClient> httpClient)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClient(HttpClientEnum.Petaverse);
         }
         public async Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(string uploadUrl, int petId, List<PetPhotosStream> uploadFiles)
         {
@@ -27,9 +31,20 @@ namespace Petaverse.Services
                 multipartFormContent.Add(media, name: "medias", fileName: $"{file.FileName}");
             });
 
-            var result = await _httpClient.PostAsync($"https://localhost:44371/api/Animal/UploadAnimalMedias/{petId}", multipartFormContent);
-            string stringReadResult = await result.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<PetaverseMedia>>(stringReadResult);
+            try
+            {
+                var result = await _httpClient.PostAsync($"{uploadUrl}{petId}", multipartFormContent);
+                string stringReadResult = await result.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<PetaverseMedia>>(stringReadResult);
+            }
+            catch (Exception ex)
+            {
+                await new HttpRequestErrorContentDialog()
+                {
+                    Title = "Can't upload these photo"
+                }.ShowAsync();
+                return null;
+            }
         }
     }
 }

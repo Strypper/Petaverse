@@ -126,6 +126,9 @@
     <Compile Include="ContentDialogs\AddPetMediaContentDialog.xaml.cs">
       <DependentUpon>AddPetMediaContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContentDialogs\HttpRequestErrorContentDialog.xaml.cs">
+      <DependentUpon>HttpRequestErrorContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ContentDialogs\ViewPetMediaDetailContentDialog.xaml.cs">
       <DependentUpon>ViewPetMediaDetailContentDialog.xaml</DependentUpon>
     </Compile>
@@ -134,8 +137,10 @@
     <Compile Include="Converters\StringToGlyphConverter.cs" />
     <Compile Include="Converters\StringToImageSourceConverter.cs" />
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
+    <Compile Include="Enums\HttpClientEnum.cs" />
     <Compile Include="Helpers\Grid.cs" />
     <Compile Include="Helpers\ToolkitSerializer.cs" />
+    <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />
     <Compile Include="Interfaces\IUploadPetFileService.cs" />
@@ -163,6 +168,7 @@
     <Compile Include="Refits\IAuthenticateServices.cs" />
     <Compile Include="Refits\ISpeciesData.cs" />
     <Compile Include="Refits\IUserData.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CurrentUserService.cs" />
     <Compile Include="Services\HttpClientUploadPetFileService.cs" />
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
@@ -240,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ContentDialogs\AddPetMediaContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentDialogs\HttpRequestErrorContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

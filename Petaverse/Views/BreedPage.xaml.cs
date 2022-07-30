@@ -32,6 +32,7 @@ namespace Petaverse.Views
         public BreedPage()
         {
             this.InitializeComponent();
+            //this.InitAnimatedHeader();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

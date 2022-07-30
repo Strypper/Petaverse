@@ -1,19 +1,19 @@
 ﻿using Petaverse.ContentDialogs;
-using PetaVerse.Models.DTOs;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using System;
-using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Media.Imaging;
 using System.Linq;
+using System.Numerics;
+using Windows.UI.Xaml;
+using PetaVerse.Models.DTOs;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
-using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
+using Windows.UI.Xaml.Controls;
 using Microsoft.Graphics.Canvas.Effects;
-using System.Numerics;
+using WinRTXamlToolkit.Controls.Extensions;
+using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
-using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Petaverse.Views
 {
@@ -29,19 +29,23 @@ namespace Petaverse.Views
 
         //public ObservableCollection<BitmapImage> UploadMedia { get; set; } = new ObservableCollection<BitmapImage>();
 
+        Compositor             _compositor;
         CompositionPropertySet _props;
         CompositionPropertySet _scrollerPropertySet;
-        Compositor             _compositor;
+        SpriteVisual           _blurredBackgroundImageVisual;
 
         public PetGalleryPage()
         {
             this.InitializeComponent();
+        }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             this.InitAnimationHeader();
         }
 
         private async void AddPetMedia_Click(object sender, RoutedEventArgs e)
         {
-            var addMediaDialog = new AddPetMediaContentDialog();
+            var addMediaDialog = new AddPetMediaContentDialog(Pet.Id);
             addMediaDialog.PrimaryButtonClick += AddMediaDialog_PrimaryButtonClick;
             await addMediaDialog.ShowAsync();
         }
@@ -49,13 +53,23 @@ namespace Petaverse.Views
         private void AddMediaDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var photos = (sender as AddPetMediaContentDialog).UploadMedia;
-            //photos.ToList().ForEach(photo => Pet.PetPhotos);
+            photos.ToList().ForEach(photo => Pet.PetPhotos.Add(new PetaverseMedia()
+            {
+                LocalImage = photo,
+                TimeUpload = DateTime.Today
+            }));
         }
 
         private void InitAnimationHeader()
-        {
+        {            
+            var scrollViewer = PetGalleryAdaptiveGridView.GetFirstDescendantOfType<ScrollViewer>();
+
+            var headerPresenter = (UIElement)VisualTreeHelper.GetParent((UIElement)PetGalleryAdaptiveGridView.Header);
+            var headerContainer = (UIElement)VisualTreeHelper.GetParent(headerPresenter);
+            Canvas.SetZIndex((UIElement)headerContainer, 1);
+
             // Get the PropertySet that contains the scroll values from the ScrollViewer
-            _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(TheScrollView);
+            _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
             _compositor = _scrollerPropertySet.Compositor;
 
             // Create a PropertySet that has values to be referenced in the ExpressionAnimations below
@@ -71,9 +85,36 @@ namespace Petaverse.Views
             var clampSizeNode = props.GetScalarProperty("clampSize");
             var scaleFactorNode = props.GetScalarProperty("scaleFactor");
 
+            // Create a blur effect to be animated based on scroll position
+            var blurEffect = new GaussianBlurEffect()
+            {
+                Name = "blur",
+                BlurAmount = 0.0f,
+                BorderMode = EffectBorderMode.Hard,
+                Optimization = EffectOptimization.Balanced,
+                Source = new CompositionEffectSourceParameter("source")
+            };
+
+            var blurBrush = _compositor.CreateEffectFactory(
+                blurEffect,
+                new[] { "blur.BlurAmount" })
+                .CreateBrush();
+
+            blurBrush.SetSourceParameter("source", _compositor.CreateBackdropBrush());
+
+            _blurredBackgroundImageVisual = _compositor.CreateSpriteVisual();
+            _blurredBackgroundImageVisual.Brush = blurBrush;
+            _blurredBackgroundImageVisual.Size = new Vector2((float)OverlayRectangle.ActualWidth, (float)OverlayRectangle.ActualHeight);
+
+            // Insert the blur visual at the right point in the Visual Tree
+            ElementCompositionPreview.SetElementChildVisual(OverlayRectangle, _blurredBackgroundImageVisual);
+
             // Create and start an ExpressionAnimation to track scroll progress over the desired distance
             ExpressionNode progressAnimation = EF.Clamp(-scrollingProperties.Translation.Y / clampSizeNode, 0, 1);
             _props.StartAnimation("progress", progressAnimation);
+
+            ExpressionNode blurAnimation = EF.Lerp(0, 15, progressNode);
+            _blurredBackgroundImageVisual.Brush.Properties.StartAnimation("blur.BlurAmount", blurAnimation);
 
             // Get the backing visual for the header so that its properties can be animated
             Visual headerVisual = ElementCompositionPreview.GetElementVisual(Header);
@@ -121,7 +162,7 @@ namespace Petaverse.Views
             // Start opacity and scale animations on the text block visuals
 
             petNameVisual.StartAnimation("Offset.X", progressNode * -40);
-            petNameVisual.StartAnimation("Offset.Y", progressNode * 40);
+            petNameVisual.StartAnimation("Offset.Y", progressNode * 20);
 
             //overlayRectangleVisual.StartAnimation("Opacity", EF.Clamp(1, 0, 1));
 
@@ -137,8 +178,8 @@ namespace Petaverse.Views
             staticInfoStackPanelVisual.StartAnimation("Scale.X", scaleAnimation);
             staticInfoStackPanelVisual.StartAnimation("Scale.Y", scaleAnimation);
 
-            buttonVisual.StartAnimation("Offset.X", progressNode * -40);
-            buttonVisual.StartAnimation("Offset.Y", progressNode * -100);
+            buttonVisual.StartAnimation("Offset.X", progressNode * -50);
+            buttonVisual.StartAnimation("Offset.Y", progressNode * -90);
             //buttonVisual.StartAnimation("Offset.Y", progressNode * -40);
 
             ExpressionNode contentOffsetAnimation = progressNode * 100;
@@ -149,15 +190,36 @@ namespace Petaverse.Views
             //buttonVisual.StartAnimation("Offset.X", progressNode * -40);
         }
 
-        private async void Image_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        private async void PetGalleryAdaptiveGridView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
         {
-            var SelectedPhoto = (PetaverseMedia)((Button)sender).CommandParameter;
-
-            var viewPetMediaDetailContentDialog = new ViewPetMediaDetailContentDialog() 
+            var SelectedPhoto = PetGalleryAdaptiveGridView.SelectedItem as PetaverseMedia;
+            if(SelectedPhoto != null)
             {
-                PetaverseMedia = SelectedPhoto
-            };
-            await viewPetMediaDetailContentDialog.ShowAsync();
+                PetGalleryAdaptiveGridView.PrepareConnectedAnimation("ForwardConnectedAnimation", SelectedPhoto, "PetMedia");
+
+                var viewPetMediaDetailContentDialog = new ViewPetMediaDetailContentDialog()
+                {
+                    PetaverseMedia = SelectedPhoto
+                };
+                await viewPetMediaDetailContentDialog.ShowAsync();
+            }
+        }
+    }
+
+    public class SwapStringToBitmapImageSourceConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var media = (PetaverseMedia)value;
+            if (string.IsNullOrEmpty(media.MediaUrl))
+            {
+                return media.LocalImage != null ? media.LocalImage : null;  
+            }
+            else return new BitmapImage(new Uri(media.MediaUrl));
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

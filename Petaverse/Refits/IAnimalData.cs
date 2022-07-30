@@ -2,6 +2,7 @@
 using PetaVerse.Models.DTOs;
 using Refit;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Petaverse.Refits
         Task<Animal> GetById(int id);
 
         [Get("/Animal/GetAllByUserId/{userGuid}")]
-        Task<List<Animal>> GetAllByUserId(string userGuid);
+        Task<ObservableCollection<Animal>> GetAllByUserId(string userGuid);
 
         [Post("/Animal/Create")]
         Task<Animal> Create(FEPetInfo petInfo);

@@ -18,17 +18,20 @@ namespace Petaverse.ContentDialogs
         public ObservableCollection<BitmapImage> UploadMedia   { get; set; } = new ObservableCollection<BitmapImage>();
         public List<PetPhotosStream>             UploadFiles   { get; set; } = new List<PetPhotosStream>();
 
+        public int PetId { get; set; }
         private IUploadPetFileService _uploadPetFileService;
 
-        public AddPetMediaContentDialog()
+        public AddPetMediaContentDialog(int petId)
         {
+            this.PetId = petId;
             this.InitializeComponent();
             _uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            await _uploadPetFileService.UploadMultiplePetFilesAsync("https://localhost:44371/api/Animal/UploadAnimalMedias/2", 2, UploadFiles);
+            if(PetId != 0)
+                await _uploadPetFileService.UploadMultiplePetFilesAsync("https://localhost:44371/api/Animal/UploadAnimalMedias/", PetId, UploadFiles);
         }
 
         private async void OpenFileButton_Click(object sender, RoutedEventArgs e)

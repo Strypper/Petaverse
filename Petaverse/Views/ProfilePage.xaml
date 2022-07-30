@@ -22,7 +22,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Width="35"/>
-                <TextBlock Text="{x:Bind Name}"
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}"
                            Margin="5,0,0,0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
@@ -56,9 +56,10 @@
     <Grid helpers:Grid.ColumnDefinitions="auto, *">
         <profilepageusercontrols:UserInfoPanelUserControl VerticalAlignment="Top"
                                                           HorizontalAlignment="Center"
+                                                          LogoutEventHandler="UserInfoPanelUserControl_LogoutEventHandler"
                                                           CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"/>
         <Grid Grid.Column="1"
-              Margin="0,10,10,10"
+              Margin="0,10,10,0"
               Padding="0,0,0,15">
             <Pivot ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
                    HeaderTemplate="{StaticResource PivotHeaderTemplate}"

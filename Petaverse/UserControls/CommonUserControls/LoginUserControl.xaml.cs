@@ -5,6 +5,7 @@ using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -13,8 +14,8 @@ namespace Petaverse.UserControls.CommonUserControls
 {
     public sealed partial class LoginUserControl : UserControl
     {
-        public delegate void LoginDelegate(UserPrincipal loginModel);
-        public event LoginDelegate LoginEventHandler;
+        public delegate void LoginSuccessDelegate(User pricipalUserInfo);
+        public event LoginSuccessDelegate LoginSuccessEventHandler;
 
         private HttpClient httpClient = new HttpClient(new HttpClientHandler()
         {
@@ -24,18 +25,10 @@ namespace Petaverse.UserControls.CommonUserControls
             BaseAddress = new Uri("https://localhost:44371/api")
         };
 
-        private HttpClient authenticateClient = new HttpClient(new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        })
-        {
-            BaseAddress = new Uri("http://localhost:4300/api")
-        };
-
         private readonly IUserData userData;
         private readonly ISpeciesData speciestData;
         private readonly ICurrentUserService currentUserService;
-        private readonly IAuthenticateServices authenticateServices;
+        private readonly IAuthenticationService authenticateServices;
 
         public LoginUserControl()
         {
@@ -44,50 +37,36 @@ namespace Petaverse.UserControls.CommonUserControls
             userData             = RestService.For<IUserData>(httpClient);
             speciestData         = RestService.For<ISpeciesData>(httpClient);
             currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            authenticateServices = RestService.For<IAuthenticateServices>(authenticateClient);
+            authenticateServices = Ioc.Default.GetRequiredService<IAuthenticationService>();
         }
 
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
+            LoginOrSignUpProgressBar.Visibility = Visibility.Visible;
+            LoginOrSignUpIndeterminateBar.Visibility = Visibility.Visible;
             if (!String.IsNullOrEmpty(PhoneNumber.Text) && !String.IsNullOrEmpty(Password.Password))
             {
+
                 var pricipalUserInfo = await authenticateServices.Authenticate(new LoginModel()
                 {
                     PhoneNumber = PhoneNumber.Text,
                     Password = Password.Password
                 });
-                LoginOrSignUpProgressBar.Visibility = Visibility.Visible;
-                LoginOrSignUpIndeterminateBar.Visibility = Visibility.Visible;
                 LoginOrSignUpProgressBar.Value = 30;
 
                 if (pricipalUserInfo != null)
                 {
-                    App.localSettings.Values["UserGuid"] = pricipalUserInfo.UserInfo.Guid;
+                    var petaverseUser =  await ProcessLogin(pricipalUserInfo);
 
-                    LoginOrSignUpProgressBar.Value += 20;
-
-                    var petaverseUser = await userData.GetByUserGuid(pricipalUserInfo.UserInfo.Guid);
-
-                    LoginOrSignUpProgressBar.Value += 30;
-
-                    petaverseUser.FillPricipalUserInfo(pricipalUserInfo.UserInfo);
-
-                    LoginOrSignUpProgressBar.Value += 10;
-
-                    await currentUserService.SaveLocalUserAsync(petaverseUser);
-
-                    LoginOrSignUpProgressBar.Value += 10;
-
-                    LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
+                    LoginComplete(petaverseUser);
                 }
                 else
                 {
                     LoginOrSignUpIndeterminateBar.ShowError = true;
-                    await new ContentDialog()
-                    {
-                        Title = "Invalid phone number or password",
-                        Content = "Please check your information again or press the forgot button"
-                    }.ShowAsync();
+                    LoginOrSignUpProgressBar.Value = 0;
+
+                    LoginOrSignUpProgressBar.Visibility = Visibility.Collapsed;
+                    LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -96,6 +75,38 @@ namespace Petaverse.UserControls.CommonUserControls
                 Title = "Please fill all the feilds",
                 Content = "Please check your information again and fill all the feilds"
             }.ShowAsync();
+        }
+
+        private async Task<User> ProcessLogin(TotechsIdentityUser pricipalUserInfo)
+        {
+            currentUserService.WriteLocalUserGuidToAppSettings(pricipalUserInfo.UserInfo.Guid);
+
+            LoginOrSignUpProgressBar.Value += 20;
+
+            var petaverseUser = await userData.GetByUserGuid(pricipalUserInfo.UserInfo.Guid);
+
+            LoginOrSignUpProgressBar.Value += 30;
+
+            petaverseUser.FillPricipalUserInfo(pricipalUserInfo.UserInfo);
+
+            LoginOrSignUpProgressBar.Value += 10;
+
+            await currentUserService.SaveLocalUserAsync(petaverseUser);
+
+            LoginOrSignUpProgressBar.Value += 10;
+            return petaverseUser;
+        }
+
+        private void LoginComplete(User pricipalUserInfo)
+        {
+            if(pricipalUserInfo != null)
+            {
+                LoginOrSignUpProgressBar.Visibility = Visibility.Collapsed;
+                LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
+                Password.Password = String.Empty;
+
+                LoginSuccessEventHandler.Invoke(pricipalUserInfo);
+            }
         }
     }
 

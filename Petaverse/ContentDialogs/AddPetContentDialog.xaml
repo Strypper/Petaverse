@@ -11,7 +11,6 @@
     xmlns:converters="using:Petaverse.Converters"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    CornerRadius="5"
     DefaultButton="Primary"
     PrimaryButtonText="Add Pet"
     SecondaryButtonText="Cancel"
@@ -105,9 +104,10 @@
                      MinWidth="250"
                      Grid.ColumnSpan="2"
                      PlaceholderText="Your pet name"/>
-            <Grid helpers:Grid.ColumnDefinitions="2*,*">
+            <Grid helpers:Grid.ColumnDefinitions="200,*">
                 <DatePicker x:Name="PetDateOfBirthDatePicker"
                             Margin="0,10,0,0"
+                            MaxWidth="200"
                             Header="Date of birth or Age"
                             HorizontalAlignment="Stretch"/>
                 <winui:NumberBox x:Name="AgeNumberBox"
@@ -133,6 +133,7 @@
                                            Mode=OneWay,
                                            Converter={StaticResource BreedToColorConverter}}"/>
             <ComboBox Margin="0,10,0,0"
+                      HorizontalAlignment="Stretch"
                       Header="How is this wonder creature enter your life ?"/>
         </StackPanel>
 
@@ -159,6 +160,7 @@
                                   Click="AvatarUserControl_OpenFileEventHandler"/>
                 </StackPanel>
                 <ToggleSwitch x:Name="GenderToggleSwitch"
+                              MinWidth="0"
                               Header="Gender"
                               Margin="5,0,0,0"
                               OnContent="Male"

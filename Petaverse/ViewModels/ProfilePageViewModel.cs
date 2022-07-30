@@ -33,7 +33,7 @@ namespace Petaverse.ViewModels
         public ProfilePageViewModel()
         {
             currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            currentUserGuid = App.localSettings.Values["UserGuid"].ToString();
+            currentUserGuid = currentUserService.GetLocalUserGuidFromAppSettings();
         }
 
         public async Task<User> LoadFakeUserData()

@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="ContentDialog_Loaded"
-    xmlns:helpers="using:Petaverse.Helpers" CornerRadius="4">
+    xmlns:helpers="using:Petaverse.Helpers" CornerRadius="4"
+    Style="{StaticResource DefaultContentDialogStyle}">
     <ContentDialog.Resources>
         <x:Double x:Key="ContentDialogMaxWidth">1800</x:Double>
         <x:Double x:Key="ContentDialogMaxHeight">2000</x:Double>
