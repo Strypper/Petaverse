@@ -119,9 +119,11 @@
                                  Margin="5,10,5,5"
                                  SpinButtonPlacementMode="Compact"/>
             </Grid>
-            <Button Content="Clear date"
+            <Button x:Name="ClearDateAndAgeButton"
                     Margin="0,10,0,0"
-                    HorizontalAlignment="Stretch"/>
+                    Content="Clear date and age"
+                    HorizontalAlignment="Stretch"
+                    Click="ClearDateAndAgeButton_Click"/>
             <GridView x:Name="BreedColorGridView"
                       Header="Breed Color"
                       SelectionMode="Multiple"

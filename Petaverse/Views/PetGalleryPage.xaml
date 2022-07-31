@@ -13,6 +13,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
 
     <Page.Resources>
+        <converters:BoolToGenderConverter             x:Key="BoolToGenderConverter"/>
+        <converters:StringToImageSourceConverter      x:Key="StringToImageSourceConverter"/>
         <converters:FromHexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
         <local:SwapStringToBitmapImageSourceConverter x:Key="SwapStringToBitmapImageSourceConverter"/>
 
@@ -33,10 +35,12 @@
                       x:DataType="dtos:PetaverseMedia">
             <Grid>
                 <Image x:Name="PetMedia"
+                       MinHeight="300"
                        Stretch="UniformToFill"
                        VerticalAlignment="Stretch"
                        HorizontalAlignment="Stretch"
-                       Source="{x:Bind Mode=OneWay, Converter={StaticResource SwapStringToBitmapImageSourceConverter}}"/>
+                       Source="{x:Bind Mode=OneWay, 
+                                       Converter={StaticResource SwapStringToBitmapImageSourceConverter}}"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -211,7 +215,11 @@
                                        Width="150" 
                                        VerticalAlignment="Center" 
                                        Margin="15,0,0,0"
-                                       ProfilePicture="{x:Bind Pet.PetAvatar, Mode=OneWay}"/>
+                                       ProfilePicture="{x:Bind Pet.PetAvatar, 
+                                                               Mode=OneWay,
+                                                               TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                                               FallbackValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                                               Converter={StaticResource StringToImageSourceConverter}}"/>
                         <StackPanel Orientation="Vertical" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Center" 
@@ -227,19 +235,24 @@
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
                                     <TextBlock Text="{x:Bind Pet.SixDigitCode, Mode=OneWay}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           Style="{StaticResource BaseTextBlockStyle}"/>
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Style="{StaticResource BaseTextBlockStyle}"/>
                                 </Border>
+                                <FontIcon FontFamily="Segoe UI Emoji"
+                                          VerticalAlignment="Center"
+                                          Margin="5,5,0,0"
+                                          Glyph="{x:Bind Pet.Gender, 
+                                                         Converter={StaticResource BoolToGenderConverter}}"/>
                             </StackPanel>
                             <Border x:Name="BreedInfo"
                                     Padding="5"
                                     CornerRadius="5"
                                     Background="#c39550"
                                     HorizontalAlignment="Left">
-                                <TextBlock Text="Tabby Cat"
-                                           VerticalAlignment="Center"
+                                <TextBlock VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
+                                           Text="{x:Bind Pet.Breed.BreedName, Mode=OneWay}"
                                            Style="{StaticResource BaseTextBlockStyle}"/>
                             </Border>
                             <TextBlock x:Name="Bio" 

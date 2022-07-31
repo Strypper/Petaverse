@@ -73,7 +73,7 @@ namespace Petaverse.ViewModels
             if (currentUserGuid != null && !String.IsNullOrEmpty(currentUserGuid))
             {
                 var requestUser = await currentUserService.GetLocalUserAsync(currentUserGuid);
-                requestUser.Pets = await animalData.GetAllByUserId(currentUserGuid);
+                requestUser.Pets = await animalData.GetAllByUserGuid(currentUserGuid);
                 return requestUser;
             }
             else return null;
@@ -83,7 +83,7 @@ namespace Petaverse.ViewModels
         {
             try
             {
-                var res = await animalData.GetAllByUserId(currentUserGuid);
+                var res = await animalData.GetAllByUserGuid(currentUserGuid);
                 return res;
             }
             catch (ApiException ex)

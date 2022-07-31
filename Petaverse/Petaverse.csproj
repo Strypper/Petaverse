@@ -132,6 +132,7 @@
     <Compile Include="ContentDialogs\ViewPetMediaDetailContentDialog.xaml.cs">
       <DependentUpon>ViewPetMediaDetailContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToGenderConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\FromHexToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\StringToGlyphConverter.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CurrentUserService.cs" />
     <Compile Include="Services\HttpClientUploadPetFileService.cs" />
+    <Compile Include="Services\PetaverseAPI\AnimalService.cs" />
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
       <DependentUpon>AvatarUserControl.xaml</DependentUpon>
     </Compile>
@@ -356,6 +358,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\FallBackImages\" />
     <Folder Include="Models\PageModels\" />
   </ItemGroup>
   <ItemGroup>

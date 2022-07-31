@@ -41,7 +41,7 @@ namespace Petaverse.Services
             {
                 await new HttpRequestErrorContentDialog()
                 {
-                    Title = "Can't upload these photo"
+                    Title = "Can't upload these photos"
                 }.ShowAsync();
                 return null;
             }

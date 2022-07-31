@@ -94,7 +94,7 @@
                                 HorizontalAlignment="Stretch">
                         <TextBlock Text="Country" 
                            controls:DockPanel.Dock="Left"/>
-                        <TextBlock Text="Viet Nam" 
+                        <TextBlock Text="Comming soon" 
                            controls:DockPanel.Dock="Right"
                            Style="{StaticResource BodyStrongTextBlockStyle}"/>
                     </controls:DockPanel>
@@ -103,7 +103,7 @@
                                 HorizontalAlignment="Stretch">
                         <TextBlock Text="City" 
                            controls:DockPanel.Dock="Left"/>
-                        <TextBlock Text="Ho Chi Minh" 
+                        <TextBlock Text="Comming soon" 
                            controls:DockPanel.Dock="Right"
                            Style="{StaticResource BodyStrongTextBlockStyle}"/>
                     </controls:DockPanel>
@@ -112,7 +112,7 @@
                                 HorizontalAlignment="Stretch">
                         <TextBlock Text="District" 
                            controls:DockPanel.Dock="Left"/>
-                        <TextBlock Text="District 3" 
+                        <TextBlock Text="Comming soon" 
                            controls:DockPanel.Dock="Right"
                            Style="{StaticResource BodyStrongTextBlockStyle}"/>
                     </controls:DockPanel>
@@ -121,7 +121,7 @@
                                 HorizontalAlignment="Stretch">
                         <TextBlock Text="Ward" 
                            controls:DockPanel.Dock="Left"/>
-                        <TextBlock Text="Vo Thi Sau" 
+                        <TextBlock Text="Comming soon" 
                            controls:DockPanel.Dock="Right"
                            Style="{StaticResource BodyStrongTextBlockStyle}"/>
                     </controls:DockPanel>
@@ -196,11 +196,11 @@
                     </StackPanel>
                 </Border>
                 <Border Background="{ThemeResource SystemAltMediumLowColor}"
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    Margin="10,10,0,0"
-                    Padding="10"
-                    CornerRadius="4">
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Margin="10,10,0,0"
+                        Padding="10"
+                        CornerRadius="4">
                     <StackPanel>
                         <FontIcon FontFamily="Segoe UI Emoji" 
                               Glyph="&#x1F96B;" 
@@ -236,11 +236,11 @@
                     </StackPanel>
                 </Border>
                 <Border Background="{ThemeResource SystemAltMediumLowColor}"
-                    Grid.Column="1"
-                    Grid.Row="2"
-                    Margin="10,10,0,0"
-                    Padding="10"
-                    CornerRadius="4">
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Margin="10,10,0,0"
+                        Padding="10"
+                        CornerRadius="4">
                     <StackPanel>
                         <FontIcon FontFamily="Segoe UI Emoji" 
                                   Glyph="&#x1F4DA;" 

@@ -16,8 +16,8 @@ namespace Petaverse.Refits
         [Get("/Animal/Get/{id}")]
         Task<Animal> GetById(int id);
 
-        [Get("/Animal/GetAllByUserId/{userGuid}")]
-        Task<ObservableCollection<Animal>> GetAllByUserId(string userGuid);
+        [Get("/Animal/GetAllByUserGuid/{userGuid}")]
+        Task<ObservableCollection<Animal>> GetAllByUserGuid(string userGuid);
 
         [Post("/Animal/Create")]
         Task<Animal> Create(FEPetInfo petInfo);

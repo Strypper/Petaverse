@@ -12,7 +12,7 @@ namespace PetaVerse.Models.DTOs
         public string?      CoverImageUrl            { get; set; } = String.Empty;
         public string?      PetaverseProfileImageUrl { get; set; } = String.Empty;
 
-        public ObservableCollection<Animal> Pets { get; set; } = new ObservableCollection<Animal>();
+        public ICollection<Animal> Pets { get; set; } = new ObservableCollection<Animal>();
     }
     
     public class TotechsIdentityUser

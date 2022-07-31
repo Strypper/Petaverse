@@ -28,12 +28,21 @@ namespace Petaverse.Views
             await addPetContentDialog.ShowAsync();
         }
 
-        private async void AddPetContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void AddPetContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var petInfo = (sender as AddPetContentDialog).PetInfo;
-            var createdPetInfo = await profilePageViewModel.CreatePetAsync(petInfo);
-            if (createdPetInfo != null)
-                profilePageViewModel.CurrentUser.Pets.Add(createdPetInfo);
+            //var createdPetInfo = await profilePageViewModel.CreatePetAsync(petInfo);
+            //if (createdPetInfo != null)
+            //    profilePageViewModel.CurrentUser.Pets.Add(createdPetInfo);
+            var sampleData = new Animal()
+            {
+                Id = 11,
+                Name = petInfo.Name,
+                Bio = petInfo.Bio,
+                //PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Yumi.jpg"
+                //Breed = profilePageViewModel.
+            };
+            profilePageViewModel.CurrentUser.Pets.Add(sampleData);
         }
 
         private void UserInfoPanelUserControl_LogoutEventHandler()
@@ -42,3 +51,14 @@ namespace Petaverse.Views
         }
     }
 }
+//{
+//    "id": 0,
+//  "name": "Yumi",
+//  "bio": "Abandoned from his mother, Yumi was a brave cat and often stick with the people who help her. A very active and lovely cat",
+//  "petAvatar": "https://intranetblobstorages.blob.core.windows.net/petaverse/Yumi.jpg",
+//  "petColor": "#43423d, #8c816f",
+//  "gender": false,
+//  "age": 1,
+//  "speciesId": 1,
+//  "breedId": 4
+//}

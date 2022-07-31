@@ -4,28 +4,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Petaverse.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="using:Petaverse.Helpers" 
-    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
     xmlns:dtos="using:PetaVerse.Models.DTOs"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media" 
+    xmlns:converters="using:Petaverse.Converters"
     mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" >
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
-        
+        <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
+
         <DataTemplate x:Key="PivotHeaderTemplate"
                       x:DataType="dtos:Animal">
             <StackPanel Orientation="Horizontal">
-                <PersonPicture ProfilePicture="{x:Bind PetAvatar, Mode=OneWay}"
-                               VerticalAlignment="Center"
+                <PersonPicture VerticalAlignment="Center"
                                HorizontalAlignment="Center"
-                               Width="35"/>
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}"
-                           Margin="5,0,0,0"
+                               Width="35"
+                               ProfilePicture="{x:Bind PetAvatar, 
+                                                       Mode=OneWay,
+                                                       Converter={StaticResource StringToImageSourceConverter},
+                                                       TargetNullValue='Assets/Logos/Petaverse.png'}"/>
+                <TextBlock Margin="5,0,0,0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
+                           Text="{x:Bind Name, Mode=OneWay}"
                            Style="{StaticResource TitleTextBlockStyle}"/>
             </StackPanel>
         </DataTemplate>

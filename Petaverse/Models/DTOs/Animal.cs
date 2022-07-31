@@ -29,3 +29,4 @@ namespace PetaVerse.Models.DTOs
         public ICollection<BitmapImage> PetPhotos { get; set; } = new ObservableCollection<BitmapImage>();
     }
 }
+ 
