@@ -12,5 +12,8 @@ namespace Petaverse.Refits
     {
         [Post("/Access/LoginWithPhoneNumber")]
         Task<TotechsIdentityUser> Authenticate(LoginModel model);
+
+        [Post("/Access/Register")]
+        Task<UserPrincipal> RegisterAsync(UserPrincipal mode);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Enums;
 using Petaverse.Interfaces;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
@@ -17,64 +18,66 @@ namespace Petaverse.UserControls.CommonUserControls
         public delegate void LoginSuccessDelegate(User pricipalUserInfo);
         public event LoginSuccessDelegate LoginSuccessEventHandler;
 
-        private HttpClient httpClient = new HttpClient(new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        })
-        {
-            BaseAddress = new Uri("https://localhost:44371/api")
-        };
+        private HttpClient _httpClient;
 
         private readonly IUserData userData;
         private readonly ISpeciesData speciestData;
         private readonly ICurrentUserService currentUserService;
         private readonly IAuthenticationService authenticateServices;
 
-        public LoginUserControl()
+        public LoginUserControl(Func<HttpClientEnum, HttpClient> httpClient)
         {
             this.InitializeComponent();
 
-            userData             = RestService.For<IUserData>(httpClient);
-            speciestData         = RestService.For<ISpeciesData>(httpClient);
+            _httpClient          = httpClient(HttpClientEnum.Petaverse);
+
+            userData             = RestService.For<IUserData>(_httpClient);
+            speciestData         = RestService.For<ISpeciesData>(_httpClient);
             currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
             authenticateServices = Ioc.Default.GetRequiredService<IAuthenticationService>();
         }
 
-        private async void Login_Click(object sender, RoutedEventArgs e)
+        private async void LoginOrSignUp_Click(object sender, RoutedEventArgs e)
         {
             LoginOrSignUpProgressBar.Visibility = Visibility.Visible;
             LoginOrSignUpIndeterminateBar.Visibility = Visibility.Visible;
-            if (!String.IsNullOrEmpty(PhoneNumber.Text) && !String.IsNullOrEmpty(Password.Password))
+            if (SignUpToggleSwitch.IsOn)
             {
 
-                var pricipalUserInfo = await authenticateServices.Authenticate(new LoginModel()
-                {
-                    PhoneNumber = PhoneNumber.Text,
-                    Password = Password.Password
-                });
-                LoginOrSignUpProgressBar.Value = 30;
-
-                if (pricipalUserInfo != null)
-                {
-                    var petaverseUser =  await ProcessLogin(pricipalUserInfo);
-
-                    LoginComplete(petaverseUser);
-                }
-                else
-                {
-                    LoginOrSignUpIndeterminateBar.ShowError = true;
-                    LoginOrSignUpProgressBar.Value = 0;
-
-                    LoginOrSignUpProgressBar.Visibility = Visibility.Collapsed;
-                    LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
-                }
             }
-
-            else await new ContentDialog()
+            else
             {
-                Title = "Please fill all the feilds",
-                Content = "Please check your information again and fill all the feilds"
-            }.ShowAsync();
+                if (!String.IsNullOrEmpty(PhoneNumber.Text) && !String.IsNullOrEmpty(Password.Password))
+                {
+
+                    var pricipalUserInfo = await authenticateServices.Authenticate(new LoginModel()
+                    {
+                        PhoneNumber = PhoneNumber.Text,
+                        Password = Password.Password
+                    });
+                    LoginOrSignUpProgressBar.Value = 30;
+
+                    if (pricipalUserInfo != null)
+                    {
+                        var petaverseUser = await ProcessLogin(pricipalUserInfo);
+
+                        LoginComplete(petaverseUser);
+                    }
+                    else
+                    {
+                        LoginOrSignUpIndeterminateBar.ShowError = true;
+                        LoginOrSignUpProgressBar.Value = 0;
+
+                        LoginOrSignUpProgressBar.Visibility = Visibility.Collapsed;
+                        LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else await new ContentDialog()
+                {
+                    Title = "Please fill all the feilds",
+                    Content = "Please check your information again and fill all the feilds"
+                }.ShowAsync();
+            }
         }
 
         private async Task<User> ProcessLogin(TotechsIdentityUser pricipalUserInfo)

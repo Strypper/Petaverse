@@ -114,7 +114,7 @@
                                     ,Converter={StaticResource BoolToSignInSignUpConverter}}"
                     Margin="5,10,5,5"
                     HorizontalAlignment="Stretch"
-                    Click="Login_Click"
+                    Click="LoginOrSignUp_Click"
                     Background="{StaticResource SystemAccentColor}"/>
             <winui:ProgressBar x:Name="LoginOrSignUpIndeterminateBar"
                                VerticalAlignment="Top"

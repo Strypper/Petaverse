@@ -32,11 +32,7 @@ namespace Petaverse.Services
         {
             try
             {
-               var pricipalUserInfo = await authenticateServices.Authenticate(new LoginModel()
-                {
-                    PhoneNumber = model.PhoneNumber,
-                    Password = model.Password
-                });
+               var pricipalUserInfo = await authenticateServices.Authenticate(model);
                 return pricipalUserInfo;
             }
             catch (ApiException ex)
@@ -46,6 +42,24 @@ namespace Petaverse.Services
                     Title    = ex.StatusCode == System.Net.HttpStatusCode.InternalServerError
                                     ? unableToAuthenticate
                                     : notFoundUser,
+                    Exception = ex
+                }.ShowAsync();
+                return null;
+            }
+        }
+
+        public async Task<UserPrincipal> RegisterAsync(UserPrincipal model)
+        {
+            try
+            {
+                var pricipalUserInfo = await authenticateServices.RegisterAsync(model);
+                return pricipalUserInfo;
+            }
+            catch (ApiException ex)
+            {
+                await new HttpRequestErrorContentDialog()
+                {
+                    Title = "Can't create a profile for you right now",
                     Exception = ex
                 }.ShowAsync();
                 return null;
