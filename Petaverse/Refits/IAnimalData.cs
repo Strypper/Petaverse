@@ -11,7 +11,7 @@ namespace Petaverse.Refits
     public interface IAnimalData
     {
         [Get("/Animal/GetAll")]
-        Task<List<Animal>> GetAllAnimal();
+        Task<ObservableCollection<Animal>> GetAllAnimal();
 
         [Get("/Animal/Get/{id}")]
         Task<Animal> GetById(int id);

@@ -43,6 +43,7 @@
                                    Message="{x:Bind Headers}"/>
                     <TextBlock Text="{x:Bind Content}"
                                Grid.Row="1"
+                               IsTextSelectionEnabled="True"
                                TextWrapping="Wrap"/>
                 </Grid>
             </ScrollViewer>

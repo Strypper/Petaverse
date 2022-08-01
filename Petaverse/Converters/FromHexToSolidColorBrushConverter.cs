@@ -11,7 +11,7 @@ namespace Petaverse.Converters
         {
             var hex = value as String;
 
-            if(hex != null)
+            if(hex != null && !string.IsNullOrWhiteSpace(hex) && !string.IsNullOrEmpty(hex))
             {
                 hex = hex.Replace("#", string.Empty);
                 // from #RRGGBB string

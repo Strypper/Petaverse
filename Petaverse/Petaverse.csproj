@@ -145,6 +145,7 @@
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />
     <Compile Include="Interfaces\IUploadPetFileService.cs" />
+    <Compile Include="Interfaces\PetaverseAPI\IAnimalService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

@@ -3,7 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Petaverse.Enums;
 using Petaverse.Helpers;
 using Petaverse.Interfaces;
+using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Services;
+using Petaverse.Services.PetaverseAPI;
 using System;
 using System.Net.Http;
 using Windows.ApplicationModel;
@@ -72,6 +74,8 @@ namespace Petaverse
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUploadPetFileService, HttpClientUploadPetFileService>();
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            services.AddSingleton<IAnimalService, AnimalService>();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)

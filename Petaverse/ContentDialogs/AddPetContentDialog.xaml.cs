@@ -1,4 +1,6 @@
-﻿using Petaverse.Models.FEModels;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Interfaces;
+using Petaverse.Models.FEModels;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
 using Refit;
@@ -34,11 +36,13 @@ namespace Petaverse.ContentDialogs
 
         private StorageFile catPhoto;
 
+        private readonly ICurrentUserService _currentUserService;
+
         public AddPetContentDialog()
         {
             this.InitializeComponent();
-
-            SpeciesComboBox.SelectionChanged += (sender, e) => colorStoryboard.Begin();
+            this.SpeciesComboBox.SelectionChanged += (sender, e) => colorStoryboard.Begin();
+            this._currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
         }
 
         private async void ContentDialog_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -63,7 +67,8 @@ namespace Petaverse.ContentDialogs
                 DateOfBirth = PetDateOfBirthDatePicker.Date.DateTime,
                 Age = (int)AgeNumberBox.Value,
                 BreedId = (BreedCombobox.SelectedItem as Breed).Id,
-                SpeciesId = (SpeciesComboBox.SelectedItem as Species).Id
+                SpeciesId = (SpeciesComboBox.SelectedItem as Species).Id,
+                OwnerGuids = _currentUserService.GetLocalUserGuidFromAppSettings()
             };
         }
 

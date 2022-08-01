@@ -14,5 +14,6 @@ namespace Petaverse.Models.FEModels
         public int Age { get; set; }
         public int BreedId { get; set; }
         public int SpeciesId { get; set; }
+        public string OwnerGuids { get; set; }
     }
 }

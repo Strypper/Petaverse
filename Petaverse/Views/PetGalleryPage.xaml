@@ -217,8 +217,8 @@
                                        Margin="15,0,0,0"
                                        ProfilePicture="{x:Bind Pet.PetAvatar, 
                                                                Mode=OneWay,
-                                                               TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',
                                                                FallbackValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                                               TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',
                                                                Converter={StaticResource StringToImageSourceConverter}}"/>
                         <StackPanel Orientation="Vertical" 
                                     HorizontalAlignment="Left" 

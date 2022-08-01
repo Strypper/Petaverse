@@ -28,21 +28,12 @@ namespace Petaverse.Views
             await addPetContentDialog.ShowAsync();
         }
 
-        private void AddPetContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void AddPetContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var petInfo = (sender as AddPetContentDialog).PetInfo;
-            //var createdPetInfo = await profilePageViewModel.CreatePetAsync(petInfo);
-            //if (createdPetInfo != null)
-            //    profilePageViewModel.CurrentUser.Pets.Add(createdPetInfo);
-            var sampleData = new Animal()
-            {
-                Id = 11,
-                Name = petInfo.Name,
-                Bio = petInfo.Bio,
-                //PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Yumi.jpg"
-                //Breed = profilePageViewModel.
-            };
-            profilePageViewModel.CurrentUser.Pets.Add(sampleData);
+            var createdPetInfo = await profilePageViewModel.CreatePetAsync(petInfo);
+            if (createdPetInfo != null)
+                profilePageViewModel.CurrentUser.Pets.Add(createdPetInfo);
         }
 
         private void UserInfoPanelUserControl_LogoutEventHandler()

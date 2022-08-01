@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.Interfaces;
+using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.FEModels;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
@@ -18,22 +19,15 @@ namespace Petaverse.ViewModels
         [ObservableProperty]
         User currentUser;
 
-
-        private readonly IAnimalData animalData = RestService.For<IAnimalData>(new HttpClient(new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        })
-        {
-            BaseAddress = new Uri("https://localhost:44371/api")
-        });
-
-        private readonly ICurrentUserService currentUserService;
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IAnimalService _animalService;
         private readonly string currentUserGuid;
 
         public ProfilePageViewModel()
         {
-            currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            currentUserGuid = currentUserService.GetLocalUserGuidFromAppSettings();
+            _currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
+            _animalService      = Ioc.Default.GetRequiredService<IAnimalService>();
+            currentUserGuid     = _currentUserService.GetLocalUserGuidFromAppSettings();
         }
 
         public async Task<User> LoadFakeUserData()
@@ -72,8 +66,8 @@ namespace Petaverse.ViewModels
         {
             if (currentUserGuid != null && !String.IsNullOrEmpty(currentUserGuid))
             {
-                var requestUser = await currentUserService.GetLocalUserAsync(currentUserGuid);
-                requestUser.Pets = await animalData.GetAllByUserGuid(currentUserGuid);
+                var requestUser  = await _currentUserService.GetLocalUserAsync(currentUserGuid);
+                requestUser.Pets = await _animalService.GetAllByUserGuidAsync(currentUserGuid);
                 return requestUser;
             }
             else return null;
@@ -83,7 +77,7 @@ namespace Petaverse.ViewModels
         {
             try
             {
-                var res = await animalData.GetAllByUserGuid(currentUserGuid);
+                var res = await _animalService.GetAllByUserGuidAsync(currentUserGuid);
                 return res;
             }
             catch (ApiException ex)
@@ -102,7 +96,7 @@ namespace Petaverse.ViewModels
             }
         }
 
-        public async Task<Animal> CreatePetAsync(FEPetInfo petInfo) 
-            => await animalData.Create(petInfo);
+        public async Task<Animal?> CreatePetAsync(FEPetInfo petInfo) 
+            => await _animalService.CreateAsync(petInfo);
     }
 }
