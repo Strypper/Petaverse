@@ -1,9 +1,12 @@
-﻿using Petaverse.Refits;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Interfaces.PetaverseAPI;
+using Petaverse.Refits;
 using Petaverse.ViewModels;
 using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using Windows.UI.Xaml.Controls;
 
@@ -13,22 +16,18 @@ namespace Petaverse.Views
     {
         public ObservableCollection<Species> Species { get; set; } = new ObservableCollection<Species>();
 
-        private readonly ISpeciesData speciestData = RestService.For<ISpeciesData>(new HttpClient(new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        })
-        {
-            BaseAddress = new Uri("https://localhost:44371/api")
-        });
+        private readonly ISpeciesService _speciestService;
         public WikiPage()
         {
             this.InitializeComponent();
+            _speciestService = Ioc.Default.GetRequiredService<ISpeciesService>();
+
         }
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var species = await speciestData.GetAllSpecies();
+            var species = await _speciestService.GetAllAsync();
             if (species != null)
-                species.ForEach(s => Species.Add(s));
+                species.ToList().ForEach(s => Species.Add(s));
         }
 
         private ObservableCollection<Species> LoadPetaverseSpeciesData()

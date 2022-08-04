@@ -1,4 +1,5 @@
-﻿using Petaverse.ContentDialogs;
+﻿using Petaverse.Constants;
+using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
@@ -11,13 +12,13 @@ namespace Petaverse.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private HttpClient authenticateClient = new HttpClient(new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        })
-        {
-            BaseAddress = new Uri("http://localhost:4300/api")
-        };
+        //private HttpClient authenticateClient = new HttpClient(new HttpClientHandler()
+        //{
+        //    ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
+        //})
+        //{
+        //    BaseAddress = new Uri("http://localhost:4300/api")
+        //};
 
         private readonly IAuthenticateServices authenticateServices;
 
@@ -26,7 +27,7 @@ namespace Petaverse.Services
 
         public AuthenticationService()
         {
-            authenticateServices = RestService.For<IAuthenticateServices>(authenticateClient);
+            authenticateServices = RestService.For<IAuthenticateServices>(AppConstants.TotechsIdentityBaseUrl);
         }
         public async Task<TotechsIdentityUser> Authenticate(LoginModel model)
         {

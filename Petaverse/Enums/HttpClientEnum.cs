@@ -3,6 +3,8 @@
     public enum HttpClientEnum
     {
         Petaverse,
-        TotechIdentity
+        TotechIdentity,
+        PetaverseLocal,
+        TotechIdentityLocal
     }
 }

@@ -25,11 +25,11 @@ namespace Petaverse.UserControls.CommonUserControls
         private readonly ICurrentUserService currentUserService;
         private readonly IAuthenticationService authenticateServices;
 
-        public LoginUserControl(Func<HttpClientEnum, HttpClient> httpClient)
+        public LoginUserControl()
         {
             this.InitializeComponent();
-
-            _httpClient          = httpClient(HttpClientEnum.Petaverse);
+            var httpService = Ioc.Default.GetRequiredService<Func<HttpClientEnum, HttpClient>>();
+            _httpClient     = httpService(HttpClientEnum.Petaverse);
 
             userData             = RestService.For<IUserData>(_httpClient);
             speciestData         = RestService.For<ISpeciesData>(_httpClient);

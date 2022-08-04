@@ -120,6 +120,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Constants\AppConstants.cs" />
     <Compile Include="ContentDialogs\AddPetContentDialog.xaml.cs">
       <DependentUpon>AddPetContentDialog.xaml</DependentUpon>
     </Compile>
@@ -146,6 +147,8 @@
     <Compile Include="Interfaces\IInternetService.cs" />
     <Compile Include="Interfaces\IUploadPetFileService.cs" />
     <Compile Include="Interfaces\PetaverseAPI\IAnimalService.cs" />
+    <Compile Include="Interfaces\PetaverseAPI\IAPIBaseService.cs" />
+    <Compile Include="Interfaces\PetaverseAPI\ISpeciesService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,7 @@
     <Compile Include="Services\CurrentUserService.cs" />
     <Compile Include="Services\HttpClientUploadPetFileService.cs" />
     <Compile Include="Services\PetaverseAPI\AnimalService.cs" />
+    <Compile Include="Services\PetaverseAPI\SpeciesService.cs" />
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
       <DependentUpon>AvatarUserControl.xaml</DependentUpon>
     </Compile>

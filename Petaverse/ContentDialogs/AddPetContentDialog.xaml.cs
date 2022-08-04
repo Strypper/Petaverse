@@ -1,13 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.Interfaces;
+using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.FEModels;
-using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
-using Refit;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http;
 using Windows.Foundation;
 using Windows.Media.Capture;
 using Windows.Storage;
@@ -16,8 +14,6 @@ using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Petaverse.ContentDialogs
 {
@@ -26,30 +22,25 @@ namespace Petaverse.ContentDialogs
         public ObservableCollection<Species> Species { get; set; } = new ObservableCollection<Species>();
         public FEPetInfo                     PetInfo { get; set; }
 
-        private readonly ISpeciesData speciestData = RestService.For<ISpeciesData>(new HttpClient(new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        })
-        {
-            BaseAddress = new Uri("https://localhost:44371/api")
-        });
-
+        private readonly ISpeciesService     _speciestService;
+        private readonly ICurrentUserService _currentUserService;
         private StorageFile catPhoto;
 
-        private readonly ICurrentUserService _currentUserService;
 
         public AddPetContentDialog()
         {
             this.InitializeComponent();
             this.SpeciesComboBox.SelectionChanged += (sender, e) => colorStoryboard.Begin();
             this._currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
+            this._speciestService = Ioc.Default.GetRequiredService<ISpeciesService>();
+            
         }
 
         private async void ContentDialog_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var species = await speciestData.GetAllSpecies();
+            var species = await _speciestService.GetAllAsync();
             if (species != null)
-                species.ForEach(s => Species.Add(s));
+                species.ToList().ForEach(s => Species.Add(s));
             SpeciesComboBox.SelectedIndex = species.Count > 0 ? 0 : -1;
             AddPetDialog.RequestedTheme = Windows.UI.Xaml.ElementTheme.Light;
         }
@@ -67,7 +58,6 @@ namespace Petaverse.ContentDialogs
                 DateOfBirth = PetDateOfBirthDatePicker.Date.DateTime,
                 Age = (int)AgeNumberBox.Value,
                 BreedId = (BreedCombobox.SelectedItem as Breed).Id,
-                SpeciesId = (SpeciesComboBox.SelectedItem as Species).Id,
                 OwnerGuids = _currentUserService.GetLocalUserGuidFromAppSettings()
             };
         }

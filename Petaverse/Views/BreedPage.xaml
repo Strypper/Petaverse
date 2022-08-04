@@ -21,7 +21,8 @@
             <GridViewItem Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                 <StackPanel>
                     <Image Source="{x:Bind ImageUrl, 
-                                           Mode=OneWay}"
+                                           Mode=OneWay,
+                                           Converter={StaticResource StringToImageSourceConverter}}"
                            Height="500"
                            Width="350"
                            VerticalAlignment="Center"

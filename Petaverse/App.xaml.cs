@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Petaverse.Constants;
 using Petaverse.Enums;
 using Petaverse.Helpers;
 using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Services;
 using Petaverse.Services.PetaverseAPI;
+using Petaverse.UserControls.CommonUserControls;
 using System;
 using System.Net.Http;
 using Windows.ApplicationModel;
@@ -45,26 +47,33 @@ namespace Petaverse
             {
                 switch (key)
                 {
-                    case HttpClientEnum.Petaverse:
+                    case HttpClientEnum.PetaverseLocal:
                         return new HttpClient(
                                             new HttpClientHandler()
                                             {
                                                 ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
                                             })
                                             {
-                                                BaseAddress = new Uri("http://localhost:44371/api")
+                                                BaseAddress = new Uri(AppConstants.PetaverseLocalBaseUrl)
                                             };
-                    case HttpClientEnum.TotechIdentity:
+                    case HttpClientEnum.TotechIdentityLocal:
                         return new HttpClient(
                                             new HttpClientHandler()
                                             {
                                                 ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
                                             })
                                             { 
-                                                BaseAddress = new Uri("http://localhost:4300/api")
+                                                BaseAddress = new Uri(AppConstants.TotechsIdentityLocalBaseUrl)
                                             };
+                    
+                    case HttpClientEnum.Petaverse:
+                        return new HttpClient() { BaseAddress = new Uri(AppConstants.PetaverseBaseUrl) };
+
+                    case HttpClientEnum.TotechIdentity:
+                        return new HttpClient() { BaseAddress = new Uri(AppConstants.PetaverseBaseUrl) };
                     default:
                         return null;
+                        
                 }
             });
 
@@ -76,6 +85,7 @@ namespace Petaverse
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
             services.AddSingleton<IAnimalService, AnimalService>();
+            services.AddSingleton<ISpeciesService, SpeciesService>();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
