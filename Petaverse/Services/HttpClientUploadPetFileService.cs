@@ -19,7 +19,7 @@ namespace Petaverse.Services
         {
             _httpClient = httpClient(HttpClientEnum.Petaverse);
         }
-        public async Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(string uploadUrl, int petId, List<PetPhotosStream> uploadFiles)
+        public async Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles)
         {
             var multipartFormContent = new MultipartFormDataContent();
 
@@ -33,7 +33,7 @@ namespace Petaverse.Services
 
             try
             {
-                var result = await _httpClient.PostAsync($"{uploadUrl}{petId}", multipartFormContent);
+                var result = await _httpClient.PostAsync($"api/Animal/UploadAnimalMedias/{petId}", multipartFormContent);
                 string stringReadResult = await result.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<List<PetaverseMedia>>(stringReadResult);
             }

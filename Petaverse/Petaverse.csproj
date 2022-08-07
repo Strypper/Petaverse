@@ -187,6 +187,9 @@
     <Compile Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml.cs">
       <DependentUpon>PetaverseMediaPlayerUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ProfilePageUserControls\PetGalleryGridViewItemUserControl.xaml.cs">
+      <DependentUpon>PetGalleryGridViewItemUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProfilePageUserControls\UserInfoPanelUserControl.xaml.cs">
       <DependentUpon>UserInfoPanelUserControl.xaml</DependentUpon>
     </Compile>
@@ -281,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ProfilePageUserControls\PetGalleryGridViewItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

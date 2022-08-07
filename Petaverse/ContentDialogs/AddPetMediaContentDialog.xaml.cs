@@ -32,7 +32,7 @@ namespace Petaverse.ContentDialogs
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             if(petId != 0)
-                await _uploadPetFileService.UploadMultiplePetFilesAsync("https://localhost:44371/api/Animal/UploadAnimalMedias/", this.petId, UploadFiles);
+                await _uploadPetFileService.UploadMultiplePetFilesAsync(this.petId, UploadFiles);
         }
 
         private async void OpenFileButton_Click(object sender, RoutedEventArgs e)

@@ -1,5 +1,7 @@
 ﻿using Refit;
 using System;
+using System.Net.Http;
+using Petaverse.Enums;
 using Petaverse.Refits;
 using Petaverse.Constants;
 using PetaVerse.Models.DTOs;
@@ -7,13 +9,18 @@ using System.Threading.Tasks;
 using Petaverse.ContentDialogs;
 using System.Collections.Generic;
 using Petaverse.Interfaces.PetaverseAPI;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace Petaverse.Services.PetaverseAPI
 {
     public class SpeciesService : ISpeciesService
     {
-        private readonly ISpeciesData _speciesData = RestService.For<ISpeciesData>(AppConstants.PetaverseBaseUrl);
-        public SpeciesService() { }
+        private readonly ISpeciesData _speciesData;
+
+        public SpeciesService(HttpClient httpClient) 
+        {
+            _speciesData = RestService.For<ISpeciesData>(httpClient);
+        }
 
         public async Task<ICollection<Species>> GetAllAsync()
         {

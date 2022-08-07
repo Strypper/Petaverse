@@ -63,7 +63,7 @@ namespace Petaverse
             if(petaverseUser != null)
             {
                 MainNavView.SelectedItem = PetaverseNavigateViewItems.FirstOrDefault(item => item.Id == 2);
-                CurrentUserPersonPicture.ProfilePicture = new BitmapImage(new Uri(petaverseUser.ProfilePicUrl));
+                CurrentUserPersonPicture.ProfilePicture = new BitmapImage(new Uri(petaverseUser.PetaverseProfileImageUrl));
                 CurrentUserFullNameText.Text = petaverseUser.FullName;
                 foreach (var item in PetaverseNavigateViewItems) { item.IsEnable = true; }
                 NavigationViewPaneFooter.Visibility = Windows.UI.Xaml.Visibility.Visible;

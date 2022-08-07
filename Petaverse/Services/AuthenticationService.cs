@@ -1,5 +1,6 @@
 ﻿using Petaverse.Constants;
 using Petaverse.ContentDialogs;
+using Petaverse.Enums;
 using Petaverse.Interfaces;
 using Petaverse.Refits;
 using PetaVerse.Models.DTOs;
@@ -25,9 +26,12 @@ namespace Petaverse.Services
         private readonly string unableToAuthenticate = "Unable to authenticate with Totechs Identity";
         private readonly string notFoundUser         = "Please check your phonenumber or password again";
 
-        public AuthenticationService()
+        public AuthenticationService(Func<HttpClientEnum, HttpClient> httpClient)
         {
-            authenticateServices = RestService.For<IAuthenticateServices>(AppConstants.TotechsIdentityBaseUrl);
+            //HttpClientEnum.TotechIdentityLocal: Localhost:4300 (required local server to start)
+
+            var _httpClient = httpClient(HttpClientEnum.TotechIdentity);
+            authenticateServices = RestService.For<IAuthenticateServices>(_httpClient);
         }
         public async Task<TotechsIdentityUser> Authenticate(LoginModel model)
         {

@@ -14,6 +14,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Petaverse.Views
 {

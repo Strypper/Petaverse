@@ -70,22 +70,30 @@ namespace Petaverse
                         return new HttpClient() { BaseAddress = new Uri(AppConstants.PetaverseBaseUrl) };
 
                     case HttpClientEnum.TotechIdentity:
-                        return new HttpClient() { BaseAddress = new Uri(AppConstants.PetaverseBaseUrl) };
+                        return new HttpClient() { BaseAddress = new Uri(AppConstants.TotechsIdentityBaseUrl) };
                     default:
                         return null;
                         
                 }
             });
 
+            services.AddSingleton((_) =>
+            {
+                var httpService = Ioc.Default.GetRequiredService<Func<HttpClientEnum, HttpClient>>();
+                return httpService(HttpClientEnum.Petaverse);
+            });
+
             services.AddSingleton((_) => new ToolkitSerializer());
             services.AddSingleton((_) => Windows.Storage.ApplicationData.Current.LocalSettings);
 
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUploadPetFileService, HttpClientUploadPetFileService>();
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IAnimalService, AnimalService>();
             services.AddSingleton<ISpeciesService, SpeciesService>();
+
+            services.AddSingleton<LoginUserControl>();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)

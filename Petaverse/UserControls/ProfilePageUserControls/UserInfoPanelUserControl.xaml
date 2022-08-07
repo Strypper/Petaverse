@@ -41,7 +41,7 @@
                 <RelativePanel HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch">
                     <PersonPicture x:Name="UserAvatar"
-                                   ProfilePicture="{x:Bind CurrentUser.ProfilePicUrl, Mode=OneWay}"
+                                   ProfilePicture="{x:Bind CurrentUser.PetaverseProfileImageUrl, Mode=OneWay}"
                                    BadgeImageSource="https://intranetblobstorages.blob.core.windows.net/appassets/TotechsLogo.png"
                                    RelativePanel.AlignHorizontalCenterWithPanel="True"
                                    RelativePanel.AlignVerticalCenterWithPanel="True"/>

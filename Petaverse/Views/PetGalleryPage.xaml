@@ -10,7 +10,7 @@
     Loaded="Page_Loaded" mc:Ignorable="d" 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls">
 
     <Page.Resources>
         <converters:BoolToGenderConverter             x:Key="BoolToGenderConverter"/>
@@ -20,28 +20,12 @@
 
         <DataTemplate x:Key="ImageMosaicItemTemplate"
                       x:DataType="dtos:PetaverseMedia">
-            <Button CommandParameter="{x:Bind}"
-                    CornerRadius="0" Padding="0"
-                    VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch">
-                <Image Stretch="UniformToFill"
-                       VerticalAlignment="Stretch"
-                       HorizontalAlignment="Stretch"
-                       Source="{x:Bind MediaUrl, Mode=OneWay}"/>
-            </Button>
+            <profilepageusercontrols:PetGalleryGridViewItemUserControl PetaverseMedia="{x:Bind Mode=OneWay}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="PetMediaAdaptiveGridViewItemTemplate"
                       x:DataType="dtos:PetaverseMedia">
-            <Grid>
-                <Image x:Name="PetMedia"
-                       MinHeight="300"
-                       Stretch="UniformToFill"
-                       VerticalAlignment="Stretch"
-                       HorizontalAlignment="Stretch"
-                       Source="{x:Bind Mode=OneWay, 
-                                       Converter={StaticResource SwapStringToBitmapImageSourceConverter}}"/>
-            </Grid>
+            <profilepageusercontrols:PetGalleryGridViewItemUserControl PetaverseMedia="{x:Bind Mode=OneWay}"/>
         </DataTemplate>
     </Page.Resources>
 
@@ -182,6 +166,7 @@
     </ScrollViewer>-->
 
     <toolkit:AdaptiveGridView x:Name="PetGalleryAdaptiveGridView"
+                              SelectionMode="Single"
                               DesiredWidth="400" Margin="0,0,0,15"
                               DoubleTapped="PetGalleryAdaptiveGridView_DoubleTapped"
                               ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"

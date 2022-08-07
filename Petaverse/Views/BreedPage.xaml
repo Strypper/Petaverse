@@ -70,7 +70,8 @@
                                        Height="150" 
                                        Width="150" 
                                        VerticalAlignment="Center" 
-                                       Margin="15,0,0,0"/>
+                                       Margin="15,0,0,0"
+                                       ProfilePicture="{x:Bind Species.TopLovedPetOfTheWeek, Converter={StaticResource StringToImageSourceConverter}}"/>
                         <StackPanel Orientation="Vertical" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Center" 

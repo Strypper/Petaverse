@@ -1,26 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 
 namespace PetaVerse.Models.DTOs
 {
-    public class Breed : BaseEntity
+    public partial class Breed : BaseEntity
     {
-        public int          SpeciesId           { get; set; }
-        public string       BreedName           { get; set; } = string.Empty;
-        public string       BreedDescription    { get; set; } = string.Empty;
-        public string       ImageUrl            { get; set; } = string.Empty;
-        public double       MinimunSize         { get; set; }
-        public double       MaximumSize         { get; set; }
-        public double       MinimumWeight       { get; set; }
-        public double       MaximumWeight       { get; set; }
-        public int          MinimumLifeSpan     { get; set; }
-        public int          MaximumLifeSpan     { get; set; }
-        public CoatType     Coat                { get; set; }
-        public string       Color               { get; set; } = string.Empty;
+        [ObservableProperty]
+        int speciesId;
+        [ObservableProperty]
+        string breedName;
+        [ObservableProperty]
+        string breedDescription;
+        [ObservableProperty]
+        string imageUrl;
+        [ObservableProperty]
+        double minimunSize;
+        [ObservableProperty]
+        double maximumSize;
+        [ObservableProperty]
+        double minimumWeight;
+        [ObservableProperty]
+        double maximumWeight;
+        [ObservableProperty]
+        int minimumLifeSpan;
+        [ObservableProperty]
+        int maximumLifeSpan;
+        [ObservableProperty]
+        string color;
+        [ObservableProperty]
+        Species species;
 
-        public Species     Species              { get; set; }
+        [ObservableProperty]
+        ObservableCollection<Animal> animals;
 
-        public virtual ICollection<Animal>  Animals     { get; set; } = new HashSet<Animal>();
+        public CoatType Coat;
     }
 
     public enum CoatType

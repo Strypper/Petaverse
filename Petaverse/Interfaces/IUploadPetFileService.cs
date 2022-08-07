@@ -7,6 +7,6 @@ namespace Petaverse.Interfaces
 {
     public interface IUploadPetFileService
     {
-        public Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(string uploadUrl, int petId, List<PetPhotosStream> uploadFiles);
+        public Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles);
     }
 }

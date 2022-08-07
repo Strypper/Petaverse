@@ -1,15 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace PetaVerse.Models.DTOs
 {
-    public class Species : BaseEntity
+    public partial class Species : BaseEntity
     {
-        public string Name        { get; set; } = string.Empty;
-        public string Icon        { get; set; } = string.Empty;
-        public string Color       { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        [ObservableProperty]
+        string name;
+        [ObservableProperty]
+        string icon;
+        [ObservableProperty]
+        string color;
+        [ObservableProperty]
+        string description;
+        [ObservableProperty]
+        string topLovedPetOfTheWeek;
 
-        public ICollection<Breed>       Breeds      { get; set; } = new HashSet<Breed>(); 
-        public ICollection<Animal>      Animals     { get; set; } = new HashSet<Animal>();
+        [ObservableProperty]
+        ObservableCollection<Breed> breeds;
     }
 }

@@ -18,21 +18,16 @@ namespace Petaverse.UserControls.CommonUserControls
         public delegate void LoginSuccessDelegate(User pricipalUserInfo);
         public event LoginSuccessDelegate LoginSuccessEventHandler;
 
-        private HttpClient _httpClient;
-
         private readonly IUserData userData;
-        private readonly ISpeciesData speciestData;
         private readonly ICurrentUserService currentUserService;
         private readonly IAuthenticationService authenticateServices;
 
         public LoginUserControl()
         {
             this.InitializeComponent();
-            var httpService = Ioc.Default.GetRequiredService<Func<HttpClientEnum, HttpClient>>();
-            _httpClient     = httpService(HttpClientEnum.Petaverse);
 
-            userData             = RestService.For<IUserData>(_httpClient);
-            speciestData         = RestService.For<ISpeciesData>(_httpClient);
+            var httpClient       = Ioc.Default.GetRequiredService<HttpClient>();
+            userData             = RestService.For<IUserData>(httpClient);
             currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
             authenticateServices = Ioc.Default.GetRequiredService<IAuthenticationService>();
         }
