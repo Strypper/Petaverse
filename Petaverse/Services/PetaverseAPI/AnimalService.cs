@@ -22,7 +22,7 @@ namespace Petaverse.Services.PetaverseAPI
             _animalData = RestService.For<IAnimalData>(httpClient);
         }
 
-        public async Task<Animal?> CreateAsync(FEPetInfo petInfo)
+        public async Task<Animal?> CreateAsync(CreatePetDTO petInfo)
         {
             try
             {

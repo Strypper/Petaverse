@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
+using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.FEModels;
@@ -8,6 +10,7 @@ using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
@@ -18,10 +21,10 @@ namespace Petaverse.ViewModels
     {
         [ObservableProperty]
         User currentUser;
+        string currentUserGuid;
 
         private readonly ICurrentUserService _currentUserService;
         private readonly IAnimalService _animalService;
-        private readonly string currentUserGuid;
 
         public ProfilePageViewModel()
         {
@@ -29,6 +32,13 @@ namespace Petaverse.ViewModels
             _animalService      = Ioc.Default.GetRequiredService<IAnimalService>();
             currentUserGuid     = _currentUserService.GetLocalUserGuidFromAppSettings();
         }
+
+        [RelayCommand]
+        async Task OpenCreatePetContentDialog()
+            => await new AddPetContentDialog()
+                {
+                    //CreatePetCommand = CreatePetCommand
+                }.ShowAsync();
 
         public async Task<User> LoadFakeUserData()
         {
@@ -96,7 +106,10 @@ namespace Petaverse.ViewModels
             }
         }
 
-        public async Task<Animal?> CreatePetAsync(FEPetInfo petInfo) 
-            => await _animalService.CreateAsync(petInfo);
+        //<Animal?>
+        [RelayCommand]
+        public async Task CreatePetAsync(CreatePetDTO petInfo)
+            //=> await _animalService.CreateAsync(petInfo);
+            => Debug.WriteLine(petInfo);
     }
 }

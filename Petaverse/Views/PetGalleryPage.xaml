@@ -15,7 +15,7 @@
     <Page.Resources>
         <converters:BoolToGenderConverter             x:Key="BoolToGenderConverter"/>
         <converters:StringToImageSourceConverter      x:Key="StringToImageSourceConverter"/>
-        <converters:FromHexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
+        <converters:HexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
         <local:SwapStringToBitmapImageSourceConverter x:Key="SwapStringToBitmapImageSourceConverter"/>
 
         <DataTemplate x:Key="ImageMosaicItemTemplate"

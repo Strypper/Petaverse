@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Media;
 
 namespace Petaverse.Converters
 {
-    class FromHexToSolidColorBrushConverter : IValueConverter
+    class HexToSolidColorBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

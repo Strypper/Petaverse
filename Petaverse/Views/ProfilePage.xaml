@@ -12,7 +12,7 @@
     mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" >
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" xmlns:viewmodels="using:Petaverse.ViewModels">
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
         <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
@@ -40,12 +40,13 @@
             <local:PetGalleryPage Pet="{x:Bind}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="PivotRightHeaderTemplate">
+        <DataTemplate x:Key="PivotRightHeaderTemplate"
+                      x:DataType="viewmodels:ProfilePageViewModel">
             <Button Margin="0,7,10,0"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
-                    Click="AddNewPet_Clicked"
-                    Background="{StaticResource SystemAccentColor}">
+                    Background="{StaticResource SystemAccentColor}"
+                    Command="{x:Bind OpenCreatePetContentDialogCommand}">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Symbol="Add"
                                 VerticalAlignment="Center"/>
@@ -70,6 +71,7 @@
                    HeaderTemplate="{StaticResource PivotHeaderTemplate}"
                    ItemTemplate="{StaticResource PivotItemTemplate}"
                    RightHeaderTemplate="{StaticResource PivotRightHeaderTemplate}"
+                   RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
                    ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"/>
         </Grid>
     </Grid>

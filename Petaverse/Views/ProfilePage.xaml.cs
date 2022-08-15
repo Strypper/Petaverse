@@ -21,21 +21,6 @@ namespace Petaverse.Views
             profilePageViewModel.CurrentUser = await profilePageViewModel.LoadUserDataAsync();
         }
 
-        private async void AddNewPet_Clicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            var addPetContentDialog = new AddPetContentDialog();
-            addPetContentDialog.PrimaryButtonClick += AddPetContentDialog_PrimaryButtonClick;
-            await addPetContentDialog.ShowAsync();
-        }
-
-        private async void AddPetContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            var petInfo = (sender as AddPetContentDialog).PetInfo;
-            var createdPetInfo = await profilePageViewModel.CreatePetAsync(petInfo);
-            if (createdPetInfo != null)
-                profilePageViewModel.CurrentUser.Pets.Add(createdPetInfo);
-        }
-
         private void UserInfoPanelUserControl_LogoutEventHandler()
         {
             CoreApplication.Exit();

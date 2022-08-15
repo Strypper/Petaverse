@@ -30,7 +30,7 @@ namespace Petaverse.Services
         {
             //HttpClientEnum.TotechIdentityLocal: Localhost:4300 (required local server to start)
 
-            var _httpClient = httpClient(HttpClientEnum.TotechIdentity);
+            var _httpClient = httpClient(HttpClientEnum.TotechIdentityLocal);
             authenticateServices = RestService.For<IAuthenticateServices>(_httpClient);
         }
         public async Task<TotechsIdentityUser> Authenticate(LoginModel model)

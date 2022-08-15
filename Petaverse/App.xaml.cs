@@ -80,7 +80,7 @@ namespace Petaverse
             services.AddSingleton((_) =>
             {
                 var httpService = Ioc.Default.GetRequiredService<Func<HttpClientEnum, HttpClient>>();
-                return httpService(HttpClientEnum.Petaverse);
+                return httpService(HttpClientEnum.PetaverseLocal);
             });
 
             services.AddSingleton((_) => new ToolkitSerializer());

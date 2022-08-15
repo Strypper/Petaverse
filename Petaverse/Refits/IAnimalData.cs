@@ -20,7 +20,7 @@ namespace Petaverse.Refits
         Task<ObservableCollection<Animal>> GetAllByUserGuid(string userGuid);
 
         [Post("/Animal/Create")]
-        Task<Animal> Create(FEPetInfo petInfo);
+        Task<Animal> Create(CreatePetDTO petInfo);
 
         //[Post("/Animal/UploadAnimalMedias/{petId}")]
         //Task<List<Animal>> UploadAnimalMedias(int petId, IEnumerable<StreamPart> files);

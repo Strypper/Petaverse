@@ -13,7 +13,7 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:FromHexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
+        <converters:HexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
         <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
 
         <DataTemplate x:Key="BreedGridViewItemTemplate"

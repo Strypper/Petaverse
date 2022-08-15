@@ -10,6 +10,6 @@ namespace Petaverse.Interfaces.PetaverseAPI
         Task<ObservableCollection<Animal?>> GetAllAnimalsAsync();
         Task<Animal?> GetByIdAsync(int id);
         Task<ObservableCollection<Animal?>> GetAllByUserGuidAsync(string userGuid);
-        Task<Animal?> CreateAsync(FEPetInfo petInfo);
+        Task<Animal?> CreateAsync(CreatePetDTO petInfo);
     }
 }

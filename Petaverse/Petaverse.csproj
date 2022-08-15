@@ -135,7 +135,7 @@
     </Compile>
     <Compile Include="Converters\BoolToGenderConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\FromHexToSolidColorBrushConverter.cs" />
+    <Compile Include="Converters\HexToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\StringToGlyphConverter.cs" />
     <Compile Include="Converters\StringToImageSourceConverter.cs" />
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
@@ -152,7 +152,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\FEModels\FEPetInfo.cs" />
+    <Compile Include="Models\FEModels\CreatePetDTO.cs" />
     <Compile Include="Models\DTOs\Animal.cs" />
     <Compile Include="Models\DTOs\BaseEntity.cs" />
     <Compile Include="Models\DTOs\Breed.cs" />
@@ -178,6 +178,7 @@
     <Compile Include="Services\HttpClientUploadPetFileService.cs" />
     <Compile Include="Services\PetaverseAPI\AnimalService.cs" />
     <Compile Include="Services\PetaverseAPI\SpeciesService.cs" />
+    <Compile Include="Services\ValidationService.cs" />
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
       <DependentUpon>AvatarUserControl.xaml</DependentUpon>
     </Compile>

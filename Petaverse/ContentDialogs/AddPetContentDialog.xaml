@@ -1,4 +1,5 @@
 ﻿<ContentDialog
+    mc:Ignorable="d"
     x:Name="AddPetDialog"
     x:Class="Petaverse.ContentDialogs.AddPetContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,15 +8,22 @@
     xmlns:helpers="using:Petaverse.Helpers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:dtos="using:PetaVerse.Models.DTOs" 
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:dtos="using:PetaVerse.Models.DTOs" 
     xmlns:converters="using:Petaverse.Converters"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d"
     DefaultButton="Primary"
     PrimaryButtonText="Add Pet"
     SecondaryButtonText="Cancel"
     Loaded="ContentDialog_Loaded"
-    PrimaryButtonClick="AddPetDialog_PrimaryButtonClick">
+    Style="{StaticResource DefaultContentDialogStyle}"
+    PrimaryButtonClick="AddPetDialog_PrimaryButtonClick"
+    IsPrimaryButtonEnabled="{x:Bind IsPrimaryEnable, 
+                                    Mode=OneWay}">
+
+    <!--IsPrimaryButtonEnabled="{x:Bind PetInfo, 
+                                    Mode=OneWay,
+                                    Converter={StaticResource FEPetInfoToBoolConverter}}"-->
     <ContentControl.Background>
         <SolidColorBrush x:Name="addPetSolidColorBrush" 
                          Color="{ThemeResource SystemAltHighColor}"/>
@@ -35,9 +43,13 @@
         </Storyboard>
 
         <converters:StringToGlyphConverter x:Key="StringToGlyphConverter"/>
-        <local:SpeciesToBreedsConverter x:Key="SpeciesToBreedsConverter"/>
-        <local:BreedToColorConverter x:Key="BreedToColorConverter"/>
-        <local:SpeciesToColorConverter x:Key="SpeciesToColorConverter"/>
+
+        <local:BreedToColorConverter                x:Key="BreedToColorConverter"/>
+        <local:BreedToBreedIdConverter              x:Key="BreedToBreedIdConverter"/>
+        <local:SpeciesToColorConverter              x:Key="SpeciesToColorConverter"/>
+        <local:SpeciesToBreedsConverter             x:Key="SpeciesToBreedsConverter"/>
+        <local:CreatePetDTOToBoolConverter          x:Key="CreatePetDTOToBoolConverter"/>
+        <local:DateTimeToDateTimeOffsetConverter    x:Key="DateTimeToDateTimeOffsetConverter"/>
 
         <DataTemplate x:Key="SpeciesComboBoxItemTempalate"
                       x:DataType="dtos:Species">
@@ -68,6 +80,12 @@
                        Margin="5,5,5,5"
                        Fill="{x:Bind}"/>
         </DataTemplate>
+
+        <DataTemplate x:Key="ErrorValidationItemTemplate"
+                      x:DataType="local:ValidationProperty">
+            <TextBlock Text="{x:Bind ErrorMessage}"
+                       Foreground="{StaticResource SystemErrorTextColor}"/>
+        </DataTemplate>
     </ContentDialog.Resources>
 
     <Grid helpers:Grid.ColumnDefinitions="*,*"
@@ -78,49 +96,65 @@
                    Foreground="{StaticResource SystemAccentColor}"
                    Style="{StaticResource TitleTextBlockStyle}"/>
         <ComboBox x:Name="SpeciesComboBox"
-                  Header="Species"
                   Margin="5"
                   Grid.Row="1"
-                  HorizontalAlignment="Center"
+                  Header="Species"
                   VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
                   PlaceholderText="Choose species"
                   ItemsSource="{x:Bind Species, Mode=OneWay}"
                   ItemTemplate="{StaticResource SpeciesComboBoxItemTempalate}"/>
         <ComboBox x:Name="BreedCombobox"
-                  Header="Breed"
-                  Margin="0,10,0,0"
                   Grid.Row="1"
+                  Header="Breed"
                   Grid.Column="1"
+                  Margin="0,10,0,0"
                   HorizontalAlignment="Center"
                   PlaceholderText="Choose breed"
+                  SelectedItem="{x:Bind PetInfo.BreedId, 
+                                        Mode=TwoWay,
+                                        Converter={StaticResource BreedToBreedIdConverter},
+                                        ConverterParameter={Binding ElementName=SpeciesComboBox, 
+                                                                    Path=SelectedItem, 
+                                                                    Mode=OneWay,
+                                                                    Converter={StaticResource SpeciesToBreedsConverter}}}"
                   ItemTemplate="{StaticResource BreedsComboBoxItemTempalate}"
                   ItemsSource="{x:Bind SpeciesComboBox.SelectedItem, 
                                        Mode=OneWay,
                                        Converter={StaticResource SpeciesToBreedsConverter}}"/>
         <StackPanel Grid.Row="2"
                     Padding="5">
-            <TextBox x:Name="PetName"
-                     Header="Name"
+            <TextBox Header="Name"
                      MinWidth="250"
                      Grid.ColumnSpan="2"
-                     PlaceholderText="Your pet name"/>
+                     PlaceholderText="Your pet name"
+                     Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <!--<TextBlock Text="{x:Bind ErrorsList, Mode=OneWay}"
+                       Visibility="{x:Bind ErrorsList, Mode=OneWay}"/>-->
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
+                      ItemsSource="{x:Bind NameErrorsList, 
+                                           Mode=OneWay}"/>
             <Grid helpers:Grid.ColumnDefinitions="200,*">
-                <DatePicker x:Name="PetDateOfBirthDatePicker"
-                            Margin="0,10,0,0"
+                <DatePicker Margin="0,10,0,0"
                             MaxWidth="200"
                             Header="Date of birth or Age"
-                            HorizontalAlignment="Stretch"/>
-                <winui:NumberBox x:Name="AgeNumberBox"
-                                 Header="Age"
-                                 Value="1"
+                            HorizontalAlignment="Stretch"
+                            SelectedDate="{x:Bind PetInfo.DateOfBirth, 
+                                                  Mode=TwoWay,
+                                                  Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"/>
+                <winui:NumberBox Header="Age"
                                  Grid.Column="1"
+                                 Margin="5,10,5,5"
                                  SmallChange="1"
                                  LargeChange="2"
-                                 Margin="5,10,5,5"
-                                 SpinButtonPlacementMode="Compact"/>
+                                 ValidationMode="InvalidInputOverwritten"
+                                 SpinButtonPlacementMode="Compact"
+                                 Value="{x:Bind Age, Mode=TwoWay}"/>
             </Grid>
-            <Button x:Name="ClearDateAndAgeButton"
-                    Margin="0,10,0,0"
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
+                      ItemsSource="{x:Bind AgeErrorsList, 
+                                           Mode=OneWay}"/>
+            <Button Margin="0,10,0,0"
                     Content="Clear date and age"
                     HorizontalAlignment="Stretch"
                     Click="ClearDateAndAgeButton_Click"/>
@@ -150,8 +184,8 @@
                                        Padding="0"
                                        CropShape="Circular"
                                        ThumbPlacement="All"
-                                       BorderBrush="{StaticResource SystemAccentColor}"
-                                       BorderThickness="2"/>
+                                       BorderThickness="2"
+                                       BorderBrush="{StaticResource SystemAccentColor}"/>
                 <StackPanel VerticalAlignment="Center"
                             Margin="5,0,0,0">
                     <AppBarButton Icon="Camera"
@@ -161,18 +195,18 @@
                                   Label="Open Folder"
                                   Click="AvatarUserControl_OpenFileEventHandler"/>
                 </StackPanel>
-                <ToggleSwitch x:Name="GenderToggleSwitch"
-                              MinWidth="0"
+                <ToggleSwitch MinWidth="0"
                               Header="Gender"
                               Margin="5,0,0,0"
                               OnContent="Male"
                               OffContent="Female"
-                              IsOn="True"/>
+                              IsOn="{x:Bind PetInfo.Gender, Mode=TwoWay}"/>
             </StackPanel>
-            <RichEditBox x:Name="StoryEditBox"
-                         Header="Story"
-                         Height="200"
-                         MinWidth="300"/>
+            <TextBox Header="Story"
+                     Height="200"
+                     MinWidth="300"
+                     TextWrapping="Wrap"
+                     Text="{x:Bind PetInfo.Bio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>
 </ContentDialog>
