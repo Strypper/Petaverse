@@ -12,7 +12,9 @@
     mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" xmlns:viewmodels="using:Petaverse.ViewModels">
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
+    xmlns:viewmodels="using:Petaverse.ViewModels" 
+    xmlns:winui2="using:Microsoft.UI.Xaml.Controls">
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
         <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
@@ -74,5 +76,11 @@
                    RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
                    ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"/>
         </Grid>
+        <winui2:InfoBar Grid.ColumnSpan="2"
+                        IsOpen="{x:Bind profilePageViewModel.InfoBarIsOpen, Mode=OneWay}"
+                        Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
+                        Message="{x:Bind profilePageViewModel.InfoBarMessage, Mode=OneWay}"
+                        Severity="{x:Bind profilePageViewModel.InfoBarServerity, Mode=OneWay}"
+                        Background="Gray"/>
     </Grid>
 </Page>

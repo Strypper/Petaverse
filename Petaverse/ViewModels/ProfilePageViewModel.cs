@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
 using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
@@ -21,24 +22,38 @@ namespace Petaverse.ViewModels
     {
         [ObservableProperty]
         User currentUser;
+
+        [ObservableProperty]
+        bool infoBarIsOpen;
+
+        [ObservableProperty]
+        string infoBarTitle;
+
+        [ObservableProperty]
+        string infoBarMessage;
+
+        [ObservableProperty]
+        InfoBarSeverity infoBarServerity;
+
         string currentUserGuid;
 
-        private readonly ICurrentUserService _currentUserService;
-        private readonly IAnimalService _animalService;
+        private readonly IAnimalService        _animalService;
+        private readonly ICurrentUserService   _currentUserService;
+        private readonly IUploadPetFileService _uploadPetFileService;
 
         public ProfilePageViewModel()
         {
-            _currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            _animalService      = Ioc.Default.GetRequiredService<IAnimalService>();
-            currentUserGuid     = _currentUserService.GetLocalUserGuidFromAppSettings();
+            _animalService        = Ioc.Default.GetRequiredService<IAnimalService>();
+            _currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
+            _uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
+
+
+            currentUserGuid = _currentUserService.GetLocalUserGuidFromAppSettings();
         }
 
         [RelayCommand]
         async Task OpenCreatePetContentDialog()
-            => await new AddPetContentDialog()
-                {
-                    //CreatePetCommand = CreatePetCommand
-                }.ShowAsync();
+            => await new AddPetContentDialog(){CreatePetCommand = CreatePetCommand}.ShowAsync();
 
         public async Task<User> LoadFakeUserData()
         {
@@ -108,8 +123,50 @@ namespace Petaverse.ViewModels
 
         //<Animal?>
         [RelayCommand]
-        public async Task CreatePetAsync(CreatePetDTO petInfo)
-            //=> await _animalService.CreateAsync(petInfo);
-            => Debug.WriteLine(petInfo);
+        public async Task<Animal> CreatePetAsync(CreatePetDTO petInfo)
+        {
+            var newPet = await _animalService.CreateAsync(petInfo);
+            if (newPet != null)
+            {
+                var avatarUrl = await _uploadPetFileService.CreatePetAvatarAsync(newPet, petInfo.PetAvatar);
+                if (!string.IsNullOrEmpty(avatarUrl) && !string.IsNullOrWhiteSpace(avatarUrl))
+                {
+                    newPet.PetAvatar = avatarUrl;
+                    return newPet;
+                }
+                else
+                {
+                    CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetAvatarTitle
+                                 , ProfilePageConstant.ErrorCantCreatePetAvatarContent
+                                 , InfoBarSeverity.Warning);
+                    return null;
+                }
+            }
+            else
+            {
+                CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetTitle
+                             , ProfilePageConstant.ErrorCantCreatePetContent
+                             , InfoBarSeverity.Error);
+                return null;
+            }
+        }
+
+        void CreateInfoBar(string title, string message, InfoBarSeverity infoBarSeverity)
+        {
+            InfoBarTitle = title;
+            InfoBarMessage = message;
+            InfoBarServerity = infoBarServerity;
+
+            InfoBarIsOpen = true;
+        }
+    }
+
+    public class ProfilePageConstant
+    {
+        public const string ErrorCantCreatePetTitle = "Can't create this pet";
+        public const string ErrorCantCreatePetAvatarTitle = "Can't create your pet avatar";
+
+        public const string ErrorCantCreatePetContent = "Please try again or report us";
+        public const string ErrorCantCreatePetAvatarContent = "We created your pet but the avatar couldn't upload please try again";
     }
 }

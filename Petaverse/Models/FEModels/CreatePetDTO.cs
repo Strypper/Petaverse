@@ -7,7 +7,7 @@ namespace Petaverse.Models.FEModels
     public partial class CreatePetDTO : ObservableRecipient
     {
         [ObservableProperty]
-        int age;
+        double age;
         [ObservableProperty]
         string bio;
         [ObservableProperty]
@@ -23,9 +23,10 @@ namespace Petaverse.Models.FEModels
         [ObservableProperty]
         string ownerGuids;
         [ObservableProperty]
-        DateTime dateOfBirth;
+        string avatarUrl;
+        [ObservableProperty]
+        DateTime? dateOfBirth;
         [ObservableProperty]
         StorageFile petAvatar;
-
     }
 }

@@ -13,7 +13,7 @@ namespace Petaverse.Converters
 
             if(hex != null && !string.IsNullOrWhiteSpace(hex) && !string.IsNullOrEmpty(hex))
             {
-                hex = hex.Replace("#", string.Empty);
+                hex = hex.Replace("#", string.Empty).Trim();
                 // from #RRGGBB string
                 var r = (byte)System.Convert.ToUInt32(hex.Substring(0, 2), 16);
                 var g = (byte)System.Convert.ToUInt32(hex.Substring(2, 2), 16);

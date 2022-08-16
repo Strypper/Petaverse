@@ -2,6 +2,7 @@
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.FEModels;
 using Petaverse.Services;
+using Petaverse.Helpers;
 using PetaVerse.Models.DTOs;
 using System;
 using System.Linq;
@@ -21,6 +22,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Collections.Specialized;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage.Streams;
 
 namespace Petaverse.ContentDialogs
 {
@@ -36,10 +40,10 @@ namespace Petaverse.ContentDialogs
         private StorageFile catPhoto;
 
         [ObservableProperty]
-        private CreatePetDTO petInfo;
+        private CreatePetDTO petInfo = new CreatePetDTO();
 
         [ObservableProperty]
-        private ObservableCollection<Species>            species    = new ObservableCollection<Species>();
+        private ObservableCollection<Species> species = new ObservableCollection<Species>();
 
         [ObservableProperty]
         private ObservableCollection<ValidationProperty> errorsList = new ObservableCollection<ValidationProperty>();
@@ -51,17 +55,23 @@ namespace Petaverse.ContentDialogs
         private ObservableCollection<ValidationProperty> ageErrorsList = new ObservableCollection<ValidationProperty>();
 
         [ObservableProperty]
-        private ObservableCollection<ValidationProperty> dateOfBirthErrorsList = new ObservableCollection<ValidationProperty>();
+        private ObservableCollection<ValidationProperty> breedErrorList = new ObservableCollection<ValidationProperty>();
 
         [ObservableProperty]
         private ObservableCollection<ValidationProperty> bioErrorsList = new ObservableCollection<ValidationProperty>();
 
 
+
+        public IRelayCommand<CreatePetDTO> CreatePetCommand
+        {
+            get { return (IRelayCommand<CreatePetDTO>)GetValue(CreatePetCommandProperty); }
+            set { SetValue(CreatePetCommandProperty, value); }
+        }
+
         public static readonly DependencyProperty CreatePetCommandProperty =
-            DependencyProperty.Register("CreatePetCommand",
-                                        typeof(IRelayCommand<CreatePetDTO>),
-                                        typeof(AddPetContentDialog),
-                                        new PropertyMetadata(0));
+            DependencyProperty.Register("CreatePetCommand", typeof(IRelayCommand<CreatePetDTO>), typeof(AddPetContentDialog), null);
+
+
 
         public AddPetContentDialog()
         {
@@ -74,22 +84,23 @@ namespace Petaverse.ContentDialogs
             this._validationService.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
 
             this.ErrorsList.CollectionChanged += ErrorsList_CollectionChanged;
+
         }
 
         void AddPetDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            //Get the text from rich edit box
+            StoryEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string story);
+
+            PetInfo.Name = Name;
+            PetInfo.Age = Age;
+            PetInfo.Bio = story;
+            PetInfo.BreedId = SelectedBreed.Id;
             PetInfo.OwnerGuids = _currentUserService.GetLocalUserGuidFromAppSettings();
             PetInfo.PetColor = String.Join(",", BreedColorGridView.SelectedItems.ToList());
-            //CreatePetCommand.Execute(PetInfo);
+
+            CreatePetCommand.Execute(PetInfo);
         }
-
-        void ClearDateAndAgeButton_Click(object sender, RoutedEventArgs e)
-        {
-            //PetInfo.DateOfBirth = DateTime.UtcNow;
-            //PetInfo.Age = 0;
-
-        }
-
         async void ContentDialog_Loaded(object sender, RoutedEventArgs e)
         {
             var species = await _speciestService.GetAllAsync();
@@ -97,7 +108,22 @@ namespace Petaverse.ContentDialogs
                 species.ToList().ForEach(s => Species.Add(s));
             SpeciesComboBox.SelectedIndex = species.Count > 0 ? 0 : -1;
             //AddPetDialog.RequestedTheme = ElementTheme.Default;
+            this.IsPrimaryButtonEnabled = false;
         }
+
+        void ClearDateAndAgeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Age = 0;
+            AgeNumberBox.IsEnabled = true;
+            DateOfBirthDatePicker.SelectedDate = null;
+        }
+        void DatePicker_SelectedDateChanged(DatePicker sender, DatePickerSelectedValueChangedEventArgs args)
+        {
+            var dateTime = sender.SelectedDate?.DateTime;
+            Age = dateTime.GetAgeSupportNullDateTime();
+            AgeNumberBox.IsEnabled = false;
+        }
+
 
         async void AvatarUserControl_OpenFileEventHandler(object sender, RoutedEventArgs e)
         {
@@ -135,7 +161,25 @@ namespace Petaverse.ContentDialogs
         }
 
         [ObservableProperty]
-        string name;
+        Breed selectedBreed;
+
+        partial void OnSelectedBreedChanged(Breed value)
+        {
+            _validationService.ClearErrors(nameof(SelectedBreed));
+            ErrorsList.ToList()
+                      .Where(error => error.PropId == 0)
+                      .All(error => ErrorsList.Remove(error));
+            if(value == null)
+            {
+                _validationService.AddError(nameof(SelectedBreed), "You need to select a breed type for you pet");
+
+                var errors = GetErrors(nameof(SelectedBreed)).OfType<string>().ToList();
+                errors.ForEach(error => ErrorsList.Add(new ValidationProperty(0, error)));
+            }
+        }
+
+        [ObservableProperty]
+        string name = string.Empty;
 
         partial void OnNameChanging(string value)
         {
@@ -152,9 +196,16 @@ namespace Petaverse.ContentDialogs
                 errors.ForEach(error => ErrorsList.Add(new ValidationProperty(1, error)));
 
             }
-            else if (value.Length < 5)
+            else if (value.Length < 3)
             {
                 _validationService.AddError(nameof(Name), "Your pet name is a little short");
+
+                var errors = GetErrors(nameof(Name)).OfType<string>().ToList();
+                errors.ForEach(error => ErrorsList.Add(new ValidationProperty(1, error)));
+            }
+            else if (value == "Snow")
+            {
+                _validationService.AddError(nameof(Name), "Wait! ain't Snow is already in your profile ?");
 
                 var errors = GetErrors(nameof(Name)).OfType<string>().ToList();
                 errors.ForEach(error => ErrorsList.Add(new ValidationProperty(1, error)));
@@ -170,15 +221,14 @@ namespace Petaverse.ContentDialogs
             ErrorsList.ToList()
                       .Where(error => error.PropId == 2)
                       .All(error => ErrorsList.Remove(error));
-            if (value > 50)
+            if (value > 20)
             {
-                _validationService.AddError(nameof(Age), "Invalid price. The max product price is $50.00.");
+                _validationService.AddError(nameof(Age), "This breed life span only from 12 to 18 years 😅");
 
                 var errors = GetErrors(nameof(Age)).OfType<string>().ToList();
                 errors.ForEach(error => ErrorsList.Add(new ValidationProperty(2, error)));
             }
         }
-
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         public IEnumerable GetErrors(string propertyName)
@@ -199,7 +249,10 @@ namespace Petaverse.ContentDialogs
                 {
                     var validationProp = item as ValidationProperty;
                     switch (validationProp.PropId)
-                    {   
+                    {
+                        case 0:
+                            BreedErrorList.Add(validationProp);
+                            break;
                         case 1:
                             NameErrorsList.Add(validationProp);
                             break;
@@ -217,6 +270,9 @@ namespace Petaverse.ContentDialogs
                     var validationProp = item as ValidationProperty;
                     switch (validationProp.PropId)
                     {
+                        case 0:
+                            BreedErrorList.Remove(validationProp);
+                            break;
                         case 1:
                             NameErrorsList.Remove(validationProp);
                             break;
@@ -228,6 +284,7 @@ namespace Petaverse.ContentDialogs
                 }
             }
         }
+
     }
 
     public class ValidationProperty
@@ -239,6 +296,21 @@ namespace Petaverse.ContentDialogs
         {
             PropId = propId;
             ErrorMessage = errorMessage;
+        }
+    }
+
+    public class ErrorListToForegroundConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var errorCount = (int)value;
+            return errorCount != 0 
+                        ? new SolidColorBrush(Colors.Yellow) 
+                        : new SolidColorBrush(Color.FromArgb(255, 146, 228, 146));
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -334,16 +406,24 @@ namespace Petaverse.ContentDialogs
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var time = (DateTime)value;
-            return time != null ? time.ToUniversalTime() <= DateTimeOffset.MinValue.UtcDateTime
-                                    ? DateTimeOffset.MinValue
-                                    : new DateTimeOffset(time)
-                                : null;
+            if (value != null)
+            {
+                var time = (DateTime)value;
+                return time != null ? time.ToUniversalTime() <= DateTimeOffset.MinValue.UtcDateTime
+                                        ? DateTimeOffset.MinValue
+                                        : new DateTimeOffset(time)
+                                    : null;
+            }
+            else return null;
         }
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            var time = (DateTimeOffset)value;
-            return time != null ? time.DateTime : null;
+            if (value != null)
+            {
+                var time = (DateTimeOffset)value;
+                return time != null ? time.DateTime : null;
+            }
+            else return null;
         }
     }
 }
