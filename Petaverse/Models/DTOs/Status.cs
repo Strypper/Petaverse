@@ -1,4 +1,4 @@
-﻿namespace PetaVerse.Models.DTOs
+﻿namespace Petaverse.Models.DTOs
 {
     public class Status : BaseEntity
     {

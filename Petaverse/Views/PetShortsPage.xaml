@@ -6,7 +6,7 @@
     xmlns:helpers="using:Petaverse.Helpers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:dto="using:PetaVerse.Models.DTOs" 
+    xmlns:dto="using:Petaverse.Models.DTOs" 
     xmlns:petshortsusercontrols="using:Petaverse.UserControls.PetShortsUserControls" 
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     mc:Ignorable="d"

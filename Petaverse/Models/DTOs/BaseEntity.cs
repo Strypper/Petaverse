@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace PetaVerse.Models.DTOs
+namespace Petaverse.Models.DTOs
 {
     public class BaseEntity : ObservableRecipient
     {

@@ -1,4 +1,4 @@
-﻿using PetaVerse.Models.DTOs;
+﻿using Petaverse.Models.DTOs;
 using Refit;
 using System.Threading.Tasks;
 

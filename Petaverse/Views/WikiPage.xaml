@@ -5,7 +5,7 @@
     xmlns:local="using:Petaverse.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:dtos="using:PetaVerse.Models.DTOs" 
+    xmlns:dtos="using:Petaverse.Models.DTOs" 
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     xmlns:converters="using:Petaverse.Converters"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 

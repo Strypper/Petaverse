@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PetaVerse.Models.DTOs
+namespace Petaverse.Models.DTOs
 {
     public class Temperament : BaseEntity
     {

@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
+using Petaverse.Models.DTOs;
 using Petaverse.Views;
-using PetaVerse.Models.DTOs;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace PetaVerse.Models.DTOs
+namespace Petaverse.Models.DTOs
 {
     public partial class PetShort : BaseEntity
     {

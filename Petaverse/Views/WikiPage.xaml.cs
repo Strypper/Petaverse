@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.Interfaces.PetaverseAPI;
+using Petaverse.Models.DTOs;
 using Petaverse.Refits;
 using Petaverse.ViewModels;
-using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Collections.ObjectModel;

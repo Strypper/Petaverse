@@ -1,4 +1,4 @@
-﻿using PetaVerse.Models.DTOs;
+﻿using Petaverse.Models.DTOs;
 using System.Threading.Tasks;
 
 namespace Petaverse.Interfaces

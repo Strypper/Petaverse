@@ -3,7 +3,6 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Petaverse.Enums;
 using Petaverse.Interfaces;
-using PetaVerse.Models.DTOs;
 using System.Threading.Tasks;
 using Petaverse.Models.Others;
 using System.Collections.Generic;
@@ -12,6 +11,7 @@ using Refit;
 using Windows.Storage;
 using System.IO;
 using Petaverse.Models.FEModels;
+using Petaverse.Models.DTOs;
 
 namespace Petaverse.Services
 {
@@ -50,7 +50,7 @@ namespace Petaverse.Services
             }
         }
 
-        public async Task<string> CreatePetAvatarAsync(Animal petInfo, StorageFile avatar)
+        public async Task<PetaverseMedia> CreatePetAvatarAsync(Animal petInfo, StorageFile avatar)
         {
             if (avatar != null)
             {
@@ -66,7 +66,7 @@ namespace Petaverse.Services
                 {
                     var result = await _httpClient.PostAsync($"api/Animal/UploadPetAvatar/{petInfo.Id}", multipartFormContent);
                     string stringReadResult = await result.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<string>(stringReadResult);
+                    return JsonConvert.DeserializeObject<PetaverseMedia>(stringReadResult);
                 }
                 catch (Exception ex)
                 {

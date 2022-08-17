@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace PetaVerse.Models.DTOs
+namespace Petaverse.Models.DTOs
 {
     public partial class Animal : BaseEntity
     {
@@ -13,8 +13,6 @@ namespace PetaVerse.Models.DTOs
         string   name;
         [ObservableProperty]
         string   bio;
-        [ObservableProperty]
-        string   petAvatar;
         [ObservableProperty]
         string   sixDigitCode;
         [ObservableProperty]
@@ -24,11 +22,12 @@ namespace PetaVerse.Models.DTOs
         [ObservableProperty]
         DateTime dateOfBirth;
         [ObservableProperty]
-        int      age;
+        double   age;
         [ObservableProperty]
         Breed    breed;
+
         [ObservableProperty]
-        Species  species;
+        PetaverseMedia petAvatar;
 
         [ObservableProperty]
         ObservableCollection<PetaverseMedia> petPhotos;

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.Interfaces;
-using PetaVerse.Models.DTOs;
+using Petaverse.Models.DTOs;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

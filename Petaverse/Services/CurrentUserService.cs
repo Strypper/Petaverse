@@ -1,8 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Petaverse.Helpers;
 using Petaverse.Interfaces;
-using PetaVerse.Models.DTOs;
+using Petaverse.Models.DTOs;
+using Petaverse.Refits;
+using Refit;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -10,19 +13,20 @@ namespace Petaverse.Services
 {
     public class CurrentUserService : ICurrentUserService
     {
+        private IUserData                    _userData;
         private ApplicationDataContainer     _localSettings;
         private ApplicationDataStorageHelper _appDataStorageHelper;
-        public CurrentUserService(ToolkitSerializer serializer,
+        public CurrentUserService(HttpClient httpClient,
+                                  ToolkitSerializer serializer,
                                   ApplicationDataContainer appData)
         {
             _localSettings        = appData;
+            _userData             = RestService.For<IUserData>(httpClient);
             _appDataStorageHelper = ApplicationDataStorageHelper.GetCurrent(serializer);
         }
 
-        public Task<User> GetUserFromCloud()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<User> GetUserFromCloud(string userGuid)
+           => await _userData.GetByUserGuid(userGuid);
 
         public async Task<User> GetLocalUserAsync(string userGuid)
         {

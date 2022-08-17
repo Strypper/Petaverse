@@ -1,15 +1,12 @@
 ﻿using Refit;
 using System;
 using System.Net.Http;
-using Petaverse.Enums;
 using Petaverse.Refits;
-using Petaverse.Constants;
-using PetaVerse.Models.DTOs;
 using System.Threading.Tasks;
 using Petaverse.ContentDialogs;
 using System.Collections.Generic;
 using Petaverse.Interfaces.PetaverseAPI;
-using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Models.DTOs;
 
 namespace Petaverse.Services.PetaverseAPI
 {

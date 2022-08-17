@@ -1,5 +1,5 @@
-﻿using Petaverse.ViewModels;
-using PetaVerse.Models.DTOs;
+﻿using Petaverse.Models.DTOs;
+using Petaverse.ViewModels;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 

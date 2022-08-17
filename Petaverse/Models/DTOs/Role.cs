@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PetaVerse.Models.DTOs
+namespace Petaverse.Models.DTOs
 {
     public class Role : BaseEntity
     {

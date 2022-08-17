@@ -1,5 +1,5 @@
-﻿using Petaverse.Models.FEModels;
-using PetaVerse.Models.DTOs;
+﻿using Petaverse.Models.DTOs;
+using Petaverse.Models.FEModels;
 using Refit;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -1,11 +1,11 @@
-﻿using PetaVerse.Models.DTOs;
+﻿using Petaverse.Models.DTOs;
 using System.Threading.Tasks;
 
 namespace Petaverse.Interfaces
 {
     public interface ICurrentUserService
     {
-        Task<User> GetUserFromCloud();
+        Task<User> GetUserFromCloud(string userGuid);
         Task<User> GetLocalUserAsync(string userGuid);
         string GetLocalUserGuidFromAppSettings();
         void WriteLocalUserGuidToAppSettings(string userGuild);

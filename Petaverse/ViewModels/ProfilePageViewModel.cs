@@ -5,15 +5,16 @@ using Microsoft.UI.Xaml.Controls;
 using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
+using Petaverse.Models.DTOs;
 using Petaverse.Models.FEModels;
 using Petaverse.Refits;
-using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace Petaverse.ViewModels
@@ -57,34 +58,34 @@ namespace Petaverse.ViewModels
 
         public async Task<User> LoadFakeUserData()
         {
-            var loremIpsum = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            var bravo = new Animal()
-            {
-                Name   = "Bravo",
-                PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Bravo.jpg",
-                Gender = true,
-                Bio    = loremIpsum
-            };
-            var snow = new Animal()
-            {
-                Name   = "Snow",
-                PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Snow.jpg",
-                Gender = true,
-                Bio    = loremIpsum
-            };
-            var fakeUser = new User() 
-            {
-                FirstName = "Strypper",
-                LastName = "Jason",
-                Email = "FutureWingsStrypper@outlook.com",
-                PhoneNumber = "0348164682",
-                Gender = true,
-                ProfilePicUrl = "https://intranetblobstorages.blob.core.windows.net/avatarstorage/Viet.jpg",
-                IsActive = true,
-                IsDeleted = false,
-                //Pets = await animalData.GetAllByUserId(2)
-            };
-            return fakeUser;
+            //var loremIpsum = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+            //var bravo = new Animal()
+            //{
+            //    Name   = "Bravo",
+            //    PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Bravo.jpg",
+            //    Gender = true,
+            //    Bio    = loremIpsum
+            //};
+            //var snow = new Animal()
+            //{
+            //    Name   = "Snow",
+            //    PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Snow.jpg",
+            //    Gender = true,
+            //    Bio    = loremIpsum
+            //};
+            //var fakeUser = new User() 
+            //{
+            //    FirstName = "Strypper",
+            //    LastName = "Jason",
+            //    Email = "FutureWingsStrypper@outlook.com",
+            //    PhoneNumber = "0348164682",
+            //    Gender = true,
+            //    ProfilePicUrl = "https://intranetblobstorages.blob.core.windows.net/avatarstorage/Viet.jpg",
+            //    IsActive = true,
+            //    IsDeleted = false,
+            //    //Pets = await animalData.GetAllByUserId(2)
+            //};
+            return null;
         }
 
         public async Task<User> LoadUserDataAsync()
@@ -129,9 +130,10 @@ namespace Petaverse.ViewModels
             if (newPet != null)
             {
                 var avatarUrl = await _uploadPetFileService.CreatePetAvatarAsync(newPet, petInfo.PetAvatar);
-                if (!string.IsNullOrEmpty(avatarUrl) && !string.IsNullOrWhiteSpace(avatarUrl))
+                if (avatarUrl != null)
                 {
                     newPet.PetAvatar = avatarUrl;
+                    CurrentUser.Pets.Add(newPet);
                     return newPet;
                 }
                 else

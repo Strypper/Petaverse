@@ -1,10 +1,5 @@
-﻿using PetaVerse.Models.DTOs;
-using System;
-using System.Collections.Generic;
+﻿using Petaverse.Models.DTOs;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Petaverse.ViewModels
 {

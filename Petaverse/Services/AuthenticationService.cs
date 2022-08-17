@@ -2,8 +2,8 @@
 using Petaverse.ContentDialogs;
 using Petaverse.Enums;
 using Petaverse.Interfaces;
+using Petaverse.Models.DTOs;
 using Petaverse.Refits;
-using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Net.Http;

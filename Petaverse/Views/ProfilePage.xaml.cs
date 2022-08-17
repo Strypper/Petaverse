@@ -3,7 +3,6 @@ using Petaverse.ViewModels;
 using Windows.UI.Xaml.Controls;
 using System;
 using Windows.ApplicationModel.Core;
-using PetaVerse.Models.DTOs;
 
 namespace Petaverse.Views
 {

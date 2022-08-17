@@ -9,14 +9,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
-    xmlns:dtos="using:PetaVerse.Models.DTOs" 
+    xmlns:dtos="using:Petaverse.Models.DTOs" 
     xmlns:converters="using:Petaverse.Converters"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:markDown="using:Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.MarkDown"
-    xmlns:richText="using:Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.RichText" 
-    xmlns:interactivity="using:WinRTXamlToolkit.Interactivity"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors" 
-    xmlns:System="using:System"
     DefaultButton="Primary"
     PrimaryButtonText="Add Pet"
     SecondaryButtonText="Cancel"
@@ -214,6 +209,9 @@
                               OffContent="Female"
                               IsOn="{x:Bind PetInfo.Gender, Mode=TwoWay}"/>
             </StackPanel>
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
+                      ItemsSource="{x:Bind PetAvatarErrorsList, 
+                                           Mode=OneWay}"/>
             <!--<Border CornerRadius="4">
                 <controls:TextToolbar x:Name="Toolbar"
                                   IsEnabled="True"

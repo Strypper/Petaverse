@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using System.Numerics;
 using Windows.UI.Xaml;
-using PetaVerse.Models.DTOs;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
@@ -15,6 +14,7 @@ using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Controls.Primitives;
+using Petaverse.Models.DTOs;
 
 namespace Petaverse.Views
 {

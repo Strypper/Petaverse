@@ -3,7 +3,6 @@ using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.FEModels;
 using Petaverse.Services;
 using Petaverse.Helpers;
-using PetaVerse.Models.DTOs;
 using System;
 using System.Linq;
 using System.Collections;
@@ -25,6 +24,9 @@ using System.Collections.Specialized;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
+using Petaverse.Models.DTOs;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using System.Threading.Tasks;
 
 namespace Petaverse.ContentDialogs
 {
@@ -34,10 +36,15 @@ namespace Petaverse.ContentDialogs
         public bool IsPrimaryEnable => !HasErrors;
         public bool HasErrors => _validationService.HasErrors;
 
-        private readonly ValidationService _validationService;
-        private readonly ISpeciesService _speciestService;
+        private readonly ValidationService   _validationService;
+        private readonly IAnimalService      _animalService;
+        private readonly ISpeciesService     _speciestService;
         private readonly ICurrentUserService _currentUserService;
+
         private StorageFile catPhoto;
+
+        [ObservableProperty]
+        private ObservableCollection<Animal> ownedPets = new ObservableCollection<Animal>();
 
         [ObservableProperty]
         private CreatePetDTO petInfo = new CreatePetDTO();
@@ -60,6 +67,9 @@ namespace Petaverse.ContentDialogs
         [ObservableProperty]
         private ObservableCollection<ValidationProperty> bioErrorsList = new ObservableCollection<ValidationProperty>();
 
+        [ObservableProperty]
+        private ObservableCollection<ValidationProperty> petAvatarErrorsList = new ObservableCollection<ValidationProperty>();
+
 
 
         public IRelayCommand<CreatePetDTO> CreatePetCommand
@@ -77,6 +87,7 @@ namespace Petaverse.ContentDialogs
         {
             this.InitializeComponent();
             //this.SpeciesComboBox.SelectionChanged += (sender, e) => colorStoryboard.Begin();
+            this._animalService      = Ioc.Default.GetRequiredService<IAnimalService>();
             this._currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
             this._speciestService    = Ioc.Default.GetRequiredService<ISpeciesService>();
 
@@ -87,10 +98,17 @@ namespace Petaverse.ContentDialogs
 
         }
 
-        void AddPetDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        async void AddPetDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             //Get the text from rich edit box
             StoryEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string story);
+
+            //Crop Image
+            if(CatAvatar != null)
+            {
+                var croppedAvatar = await CropImage(catPhoto, AvatarCropper);
+                PetInfo.PetAvatar = croppedAvatar;
+            }
 
             PetInfo.Name = Name;
             PetInfo.Age = Age;
@@ -107,10 +125,12 @@ namespace Petaverse.ContentDialogs
             if (species != null)
                 species.ToList().ForEach(s => Species.Add(s));
             SpeciesComboBox.SelectedIndex = species.Count > 0 ? 0 : -1;
-            //AddPetDialog.RequestedTheme = ElementTheme.Default;
-            this.IsPrimaryButtonEnabled = false;
-        }
+            InitializeErrors();
 
+            await ApplicationData.Current.TemporaryFolder.DeleteAsync();
+            OwnedPets = await _animalService.GetAllByUserGuidAsync(_currentUserService
+                                                                        .GetLocalUserGuidFromAppSettings());
+        }
         void ClearDateAndAgeButton_Click(object sender, RoutedEventArgs e)
         {
             Age = 0;
@@ -123,8 +143,6 @@ namespace Petaverse.ContentDialogs
             Age = dateTime.GetAgeSupportNullDateTime();
             AgeNumberBox.IsEnabled = false;
         }
-
-
         async void AvatarUserControl_OpenFileEventHandler(object sender, RoutedEventArgs e)
         {
             var picker = new FileOpenPicker();
@@ -137,10 +155,9 @@ namespace Petaverse.ContentDialogs
             if (catPhoto != null)
             {
                 await AvatarCropper.LoadImageFromFile(catPhoto);
-                PetInfo.PetAvatar = catPhoto;
+                CatAvatar = catPhoto;
             }
         }
-
         async void AvatarUserControl_OpenCameraEventHandler(object sender, RoutedEventArgs e)
         {
             CameraCaptureUI captureUI = new CameraCaptureUI();
@@ -158,6 +175,15 @@ namespace Petaverse.ContentDialogs
             {
 
             }
+        }
+        async Task<StorageFile> CropImage(StorageFile storageFile, ImageCropper imageCropper)
+        {
+            var copiedStorageFile = await storageFile.CopyAsync(ApplicationData.Current.TemporaryFolder);
+            using (var fileStream = await copiedStorageFile.OpenAsync(FileAccessMode.ReadWrite, StorageOpenOptions.None))
+            {
+                await imageCropper.SaveAsync(fileStream, BitmapFileFormat.Png);
+            }
+            return copiedStorageFile;
         }
 
         [ObservableProperty]
@@ -203,9 +229,9 @@ namespace Petaverse.ContentDialogs
                 var errors = GetErrors(nameof(Name)).OfType<string>().ToList();
                 errors.ForEach(error => ErrorsList.Add(new ValidationProperty(1, error)));
             }
-            else if (value == "Snow")
+            else if (OwnedPets.Any(pet => pet.Name == value))
             {
-                _validationService.AddError(nameof(Name), "Wait! ain't Snow is already in your profile ?");
+                _validationService.AddError(nameof(Name), $"Wait! ain't {value} is already in your profile ?");
 
                 var errors = GetErrors(nameof(Name)).OfType<string>().ToList();
                 errors.ForEach(error => ErrorsList.Add(new ValidationProperty(1, error)));
@@ -229,7 +255,42 @@ namespace Petaverse.ContentDialogs
                 errors.ForEach(error => ErrorsList.Add(new ValidationProperty(2, error)));
             }
         }
+
+        [ObservableProperty]
+        StorageFile catAvatar;
+
+        partial void OnCatAvatarChanged(StorageFile value)
+        {
+            _validationService.ClearErrors(nameof(CatAvatar));
+            ErrorsList.ToList()
+                      .Where(error => error.PropId == 3)
+                      .All(error => ErrorsList.Remove(error));
+            if (value == null)
+            {
+                _validationService.AddError(nameof(CatAvatar), "You need to provide your cat an avatar !");
+
+                var errors = GetErrors(nameof(CatAvatar)).OfType<string>().ToList();
+                errors.ForEach(error => ErrorsList.Add(new ValidationProperty(3, error)));
+            }
+        }
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+
+        void InitializeErrors()
+        {
+            _validationService.AddError(nameof(SelectedBreed), "How exciting what is the breed of your pet ?");
+            var selectedBreederrors = GetErrors(nameof(SelectedBreed)).OfType<string>().ToList();
+            selectedBreederrors.ForEach(error => ErrorsList.Add(new ValidationProperty(0, error)));
+
+            _validationService.AddError(nameof(Name), "Give it a name ! give it a name 🤩");
+            var nameErrors = GetErrors(nameof(Name)).OfType<string>().ToList();
+            nameErrors.ForEach(error => ErrorsList.Add(new ValidationProperty(1, error)));
+
+
+            _validationService.AddError(nameof(CatAvatar), "Someone gonna need a beautiful face");
+            var catAvatarerrors = GetErrors(nameof(CatAvatar)).OfType<string>().ToList();
+            catAvatarerrors.ForEach(error => ErrorsList.Add(new ValidationProperty(3, error)));
+        }
 
         public IEnumerable GetErrors(string propertyName)
             => _validationService.GetErrors(propertyName);
@@ -260,6 +321,10 @@ namespace Petaverse.ContentDialogs
                         case 2:
                             AgeErrorsList.Add(validationProp);
                             break;
+
+                        case 3:
+                            PetAvatarErrorsList.Add(validationProp);
+                            break;
                     }
                 }
             }
@@ -279,6 +344,10 @@ namespace Petaverse.ContentDialogs
 
                         case 2:
                             AgeErrorsList.Remove(validationProp);
+                            break;
+
+                        case 3:
+                            PetAvatarErrorsList.Remove(validationProp);
                             break;
                     }
                 }

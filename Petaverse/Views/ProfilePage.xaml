@@ -5,7 +5,7 @@
     xmlns:local="using:Petaverse.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Petaverse.Helpers" 
-    xmlns:dtos="using:PetaVerse.Models.DTOs"
+    xmlns:dtos="using:Petaverse.Models.DTOs"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media" 
     xmlns:converters="using:Petaverse.Converters"
@@ -25,7 +25,7 @@
                 <PersonPicture VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Width="35"
-                               ProfilePicture="{x:Bind PetAvatar, 
+                               ProfilePicture="{x:Bind PetAvatar.MediaUrl, 
                                                        Mode=OneWay,
                                                        Converter={StaticResource StringToImageSourceConverter},
                                                        TargetNullValue='Assets/Logos/Petaverse.png'}"/>

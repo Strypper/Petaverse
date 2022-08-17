@@ -1,11 +1,8 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Petaverse.Constants;
-using Petaverse.ContentDialogs;
-using Petaverse.Enums;
+﻿using Petaverse.ContentDialogs;
 using Petaverse.Interfaces.PetaverseAPI;
+using Petaverse.Models.DTOs;
 using Petaverse.Models.FEModels;
 using Petaverse.Refits;
-using PetaVerse.Models.DTOs;
 using Refit;
 using System;
 using System.Collections.ObjectModel;
