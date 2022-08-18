@@ -10,29 +10,36 @@ using System.Net.Http;
 using Petaverse.Models.Others;
 using Petaverse.Interfaces;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Petaverse.ContentDialogs
 {
     public sealed partial class AddPetMediaContentDialog : ContentDialog
     {
-        private int petId;
-        private IUploadPetFileService _uploadPetFileService;
-
         public ObservableCollection<BitmapImage> UploadMedia   { get; set; } = new ObservableCollection<BitmapImage>();
         public List<PetPhotosStream>             UploadFiles   { get; set; } = new List<PetPhotosStream>();
 
-
-        public AddPetMediaContentDialog(int petId)
+        public IRelayCommand<List<PetPhotosStream>> UploadPhotosCommand
         {
-            this.petId = petId;
+            get { return (IRelayCommand<List<PetPhotosStream>>)GetValue(UploadPhotosCommandProperty); }
+            set { SetValue(UploadPhotosCommandProperty, value); }
+        }
+        public static readonly DependencyProperty UploadPhotosCommandProperty =
+            DependencyProperty.Register("UploadPhotosCommand", 
+                                        typeof(IRelayCommand<List<PetPhotosStream>>), 
+                                        typeof(AddPetMediaContentDialog), 
+                                        null);
+
+
+
+        public AddPetMediaContentDialog()
+        {
             this.InitializeComponent();
-            _uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if(petId != 0)
-                await _uploadPetFileService.UploadMultiplePetFilesAsync(this.petId, UploadFiles);
+            UploadPhotosCommand.Execute(UploadFiles);
         }
 
         private async void OpenFileButton_Click(object sender, RoutedEventArgs e)

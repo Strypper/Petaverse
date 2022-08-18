@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using Petaverse.ContentDialogs;
+using Petaverse.Enums;
 using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
@@ -12,9 +13,11 @@ using Refit;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Petaverse.ViewModels
@@ -34,7 +37,13 @@ namespace Petaverse.ViewModels
         string infoBarMessage;
 
         [ObservableProperty]
-        InfoBarSeverity infoBarServerity;
+        Severity infoBarServerity;
+
+        [ObservableProperty]
+        bool overLayPopUpVisibility;
+
+        [ObservableProperty]
+        PetaverseMedia petaverseMedia;
 
         string currentUserGuid;
 
@@ -101,6 +110,7 @@ namespace Petaverse.ViewModels
 
         private async Task<IEnumerable<Animal>> GetAnimalAsync()
         {
+            IsBusy = true;
             try
             {
                 var res = await _animalService.GetAllByUserGuidAsync(currentUserGuid);
@@ -120,12 +130,16 @@ namespace Petaverse.ViewModels
                 // Throw a normal exception
                 throw new Exception(message);
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        //<Animal?>
         [RelayCommand]
-        public async Task<Animal> CreatePetAsync(CreatePetDTO petInfo)
+        public async Task CreatePetAsync(CreatePetDTO petInfo)
         {
+            IsBusy = true;
             var newPet = await _animalService.CreateAsync(petInfo);
             if (newPet != null)
             {
@@ -134,14 +148,15 @@ namespace Petaverse.ViewModels
                 {
                     newPet.PetAvatar = avatarUrl;
                     CurrentUser.Pets.Add(newPet);
-                    return newPet;
+                    CreateInfoBar(ProfilePageConstant.SuccessCreatePetAvatarTitle
+                                 ,ProfilePageConstant.SuccessCreatePetContent
+                                 ,InfoBarSeverity.Success);
                 }
                 else
                 {
                     CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetAvatarTitle
                                  , ProfilePageConstant.ErrorCantCreatePetAvatarContent
                                  , InfoBarSeverity.Warning);
-                    return null;
                 }
             }
             else
@@ -149,8 +164,20 @@ namespace Petaverse.ViewModels
                 CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetTitle
                              , ProfilePageConstant.ErrorCantCreatePetContent
                              , InfoBarSeverity.Error);
-                return null;
             }
+            //await ApplicationData.Current.TemporaryFolder.DeleteAsync();
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        public async Task DeletePetAsync(int petId)
+        {
+            IsBusy = true;
+            await _animalService.DeleteAsync(petId);
+
+            var deletedPet = CurrentUser.Pets.FirstOrDefault(pet => pet.Id == petId);
+            CurrentUser.Pets.Remove(deletedPet);
+            IsBusy = false;
         }
 
         void CreateInfoBar(string title, string message, InfoBarSeverity infoBarSeverity)
@@ -165,9 +192,11 @@ namespace Petaverse.ViewModels
 
     public class ProfilePageConstant
     {
+        public const string SuccessCreatePetAvatarTitle = "Yay new pet added !";
         public const string ErrorCantCreatePetTitle = "Can't create this pet";
         public const string ErrorCantCreatePetAvatarTitle = "Can't create your pet avatar";
 
+        public const string SuccessCreatePetContent = "Cool let explore our new friend";
         public const string ErrorCantCreatePetContent = "Please try again or report us";
         public const string ErrorCantCreatePetAvatarContent = "We created your pet but the avatar couldn't upload please try again";
     }

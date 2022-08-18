@@ -1,8 +1,9 @@
-﻿using Petaverse.ContentDialogs;
-using Petaverse.ViewModels;
+﻿using Petaverse.ViewModels;
 using Windows.UI.Xaml.Controls;
-using System;
 using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml.Media.Animation;
+using System;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Petaverse.Views
 {
@@ -24,16 +25,27 @@ namespace Petaverse.Views
         {
             CoreApplication.Exit();
         }
+
+        private async void PetGalleryPage_DeletePetClick(int petId)
+            => await profilePageViewModel.DeletePetAsync(petId);
+
+
+
+
+        private void PetGalleryPage_SelectPhoto(Models.DTOs.PetaverseMedia petaverseMedia)
+        {
+            profilePageViewModel.OverLayPopUpVisibility = true;
+            var anim = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardConnectedAnimation");
+            if (anim != null)
+            {
+                anim.TryStart(PetMedia);
+            }
+            profilePageViewModel.PetaverseMedia = petaverseMedia;
+        }
+
+        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            profilePageViewModel.OverLayPopUpVisibility = false;
+        }
     }
 }
-//{
-//    "id": 0,
-//  "name": "Yumi",
-//  "bio": "Abandoned from his mother, Yumi was a brave cat and often stick with the people who help her. A very active and lovely cat",
-//  "petAvatar": "https://intranetblobstorages.blob.core.windows.net/petaverse/Yumi.jpg",
-//  "petColor": "#43423d, #8c816f",
-//  "gender": false,
-//  "age": 1,
-//  "speciesId": 1,
-//  "breedId": 4
-//}

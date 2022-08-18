@@ -6,6 +6,7 @@ using Petaverse.Refits;
 using Refit;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -32,9 +33,17 @@ namespace Petaverse.Services.PetaverseAPI
             }
         }
 
-        public Task<ObservableCollection<Animal>> GetAllAnimalsAsync()
+        public async Task<ObservableCollection<Animal>> GetAllAnimalsAsync()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return await _animalData.GetAllAnimal();
+            }
+            catch (ApiException ex)
+            {
+                await new HttpRequestErrorContentDialog() { Exception = ex }.ShowAsync();
+                return null;
+            }
         }
 
         public async Task<ObservableCollection<Animal?>> GetAllByUserGuidAsync(string userGuid)
@@ -53,6 +62,23 @@ namespace Petaverse.Services.PetaverseAPI
         public Task<Animal> GetByIdAsync(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            try
+            {
+                await _animalData.DeleteAnimal(id);
+            }
+            catch (ApiException ex)
+            {
+                await new HttpRequestErrorContentDialog() { Exception = ex }.ShowAsync();
+            }
+        }
+
+        public Task<Animal> UpdateAsync(Animal petInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

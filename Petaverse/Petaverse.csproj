@@ -135,11 +135,14 @@
     </Compile>
     <Compile Include="Converters\BoolToGenderConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumToSeverityConverter.cs" />
     <Compile Include="Converters\HexToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\StringToGlyphConverter.cs" />
     <Compile Include="Converters\StringToImageSourceConverter.cs" />
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
     <Compile Include="Enums\HttpClientEnum.cs" />
+    <Compile Include="Enums\Severity.cs" />
+    <Compile Include="Helpers\AppExt.cs" />
     <Compile Include="Helpers\DateToAge.cs" />
     <Compile Include="Helpers\Grid.cs" />
     <Compile Include="Helpers\ToolkitSerializer.cs" />
@@ -185,6 +188,9 @@
     </Compile>
     <Compile Include="UserControls\CommonUserControls\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml.cs">
+      <DependentUpon>StatusInfoBarUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml.cs">
       <DependentUpon>PetaverseMediaPlayerUserControl.xaml</DependentUpon>
@@ -282,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CommonUserControls\LoginUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

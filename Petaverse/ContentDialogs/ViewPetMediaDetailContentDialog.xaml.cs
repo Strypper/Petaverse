@@ -29,12 +29,6 @@ namespace Petaverse.ContentDialogs
             {
                 anim.TryStart(MediaDetail);
             }
-
-            //From Stuhub
-            //await Task.Delay(3500);
-            //SchoolShimmer.Opacity = 0.0;
-            //await Task.Delay(2000);
-            //SchoolGrid.Opacity = 1.0;
         }
 
         private void CloseButton_Clicked(object sender, RoutedEventArgs e)

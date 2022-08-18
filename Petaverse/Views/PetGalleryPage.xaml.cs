@@ -13,8 +13,13 @@ using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Controls.Primitives;
 using Petaverse.Models.DTOs;
+using CommunityToolkit.Mvvm.Input;
+using Petaverse.Interfaces;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Models.Others;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Petaverse.Views
 {
@@ -28,41 +33,31 @@ namespace Petaverse.Views
         public static readonly DependencyProperty PetProperty =
             DependencyProperty.Register("Pet", typeof(Animal), typeof(PetGalleryPage), null);
 
-        //public ObservableCollection<BitmapImage> UploadMedia { get; set; } = new ObservableCollection<BitmapImage>();
-
         Compositor             _compositor;
         CompositionPropertySet _props;
         CompositionPropertySet _scrollerPropertySet;
         SpriteVisual           _blurredBackgroundImageVisual;
 
+        public delegate void DeletePetEventHandler(int petId);
+        public event DeletePetEventHandler DeletePetClick;
+
+        public delegate void SelectImageEventHandler(PetaverseMedia petaverseMedia);
+        public event SelectImageEventHandler SelectPhoto;
+
+        private IUploadPetFileService _uploadPetFileService;
+
         public PetGalleryPage()
         {
             this.InitializeComponent();
+            this._uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.InitAnimationHeader();
         }
 
-        private async void AddPetMedia_Click(object sender, RoutedEventArgs e)
-        {
-            var addMediaDialog = new AddPetMediaContentDialog(Pet.Id);
-            addMediaDialog.PrimaryButtonClick += AddMediaDialog_PrimaryButtonClick;
-            await addMediaDialog.ShowAsync();
-        }
-
-        private void AddMediaDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            var photos = (sender as AddPetMediaContentDialog).UploadMedia;
-            photos.ToList().ForEach(photo => Pet.PetPhotos.Add(new PetaverseMedia()
-            {
-                LocalImage = photo,
-                TimeUpload = DateTime.Today
-            }));
-        }
-
         private void InitAnimationHeader()
-        {            
+        {
             var scrollViewer = PetGalleryAdaptiveGridView.GetFirstDescendantOfType<ScrollViewer>();
 
             var headerPresenter = (UIElement)VisualTreeHelper.GetParent((UIElement)PetGalleryAdaptiveGridView.Header);
@@ -149,12 +144,12 @@ namespace Petaverse.Views
             profileVisual.StartAnimation("Scale.Y", scaleAnimation);
 
             // Get backing visuals for the text blocks so that their properties can be animated
-            Visual bioVisual                  = ElementCompositionPreview.GetElementVisual(Bio);
-            Visual textVisual                 = ElementCompositionPreview.GetElementVisual(TextContainer);
-            Visual buttonVisual               = ElementCompositionPreview.GetElementVisual(ButtonPanel);
-            Visual petNameVisual              = ElementCompositionPreview.GetElementVisual(PetName);
-            Visual breedInfoVisual            = ElementCompositionPreview.GetElementVisual(BreedInfo);
-            Visual overlayRectangleVisual     = ElementCompositionPreview.GetElementVisual(OverlayRectangle);
+            Visual bioVisual = ElementCompositionPreview.GetElementVisual(Bio);
+            Visual textVisual = ElementCompositionPreview.GetElementVisual(TextContainer);
+            Visual buttonVisual = ElementCompositionPreview.GetElementVisual(ButtonPanel);
+            Visual petNameVisual = ElementCompositionPreview.GetElementVisual(PetName);
+            Visual breedInfoVisual = ElementCompositionPreview.GetElementVisual(BreedInfo);
+            Visual overlayRectangleVisual = ElementCompositionPreview.GetElementVisual(OverlayRectangle);
             Visual staticInfoStackPanelVisual = ElementCompositionPreview.GetElementVisual(StaticInfoStackPanel);
 
             // Create an ExpressionAnimation that moves between 1 and 0 with scroll progress, to be used for text block opacity
@@ -191,20 +186,33 @@ namespace Petaverse.Views
             //buttonVisual.StartAnimation("Offset.X", progressNode * -40);
         }
 
-        private async void PetGalleryAdaptiveGridView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        private async void AddPetMedia_Click(object sender, RoutedEventArgs e)
+        {
+            var addMediaDialog = new AddPetMediaContentDialog()
+            {
+                UploadPhotosCommand = UploadPhotoCommand
+            };
+            await addMediaDialog.ShowAsync();
+        }
+
+        [RelayCommand]
+        async Task UploadPhotoAsync(List<PetPhotosStream> petPhotosStream)
+        {
+            await _uploadPetFileService.UploadMultiplePetFilesAsync(Pet.Id, petPhotosStream);
+        }
+
+        private void PetGalleryAdaptiveGridView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
         {
             var SelectedPhoto = PetGalleryAdaptiveGridView.SelectedItem as PetaverseMedia;
             if(SelectedPhoto != null)
             {
                 PetGalleryAdaptiveGridView.PrepareConnectedAnimation("ForwardConnectedAnimation", SelectedPhoto, "PetMedia");
-
-                var viewPetMediaDetailContentDialog = new ViewPetMediaDetailContentDialog()
-                {
-                    PetaverseMedia = SelectedPhoto
-                };
-                await viewPetMediaDetailContentDialog.ShowAsync();
+                SelectPhoto.Invoke(SelectedPhoto);
             }
         }
+
+        private void DeletePet_Click(object sender, RoutedEventArgs e)
+          => DeletePetClick?.Invoke(Pet.Id);
     }
 
     public class SwapStringToBitmapImageSourceConverter : IValueConverter

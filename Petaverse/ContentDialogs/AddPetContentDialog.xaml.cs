@@ -27,6 +27,8 @@ using Windows.Storage.Streams;
 using Petaverse.Models.DTOs;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.Threading.Tasks;
+using WinRTXamlToolkit.IO.Extensions;
+using System.IO;
 
 namespace Petaverse.ContentDialogs
 {
@@ -36,9 +38,9 @@ namespace Petaverse.ContentDialogs
         public bool IsPrimaryEnable => !HasErrors;
         public bool HasErrors => _validationService.HasErrors;
 
-        private readonly ValidationService   _validationService;
-        private readonly IAnimalService      _animalService;
-        private readonly ISpeciesService     _speciestService;
+        private readonly ValidationService _validationService;
+        private readonly IAnimalService _animalService;
+        private readonly ISpeciesService _speciestService;
         private readonly ICurrentUserService _currentUserService;
 
         private StorageFile catPhoto;
@@ -87,27 +89,42 @@ namespace Petaverse.ContentDialogs
         {
             this.InitializeComponent();
             //this.SpeciesComboBox.SelectionChanged += (sender, e) => colorStoryboard.Begin();
-            this._animalService      = Ioc.Default.GetRequiredService<IAnimalService>();
+            this._animalService = Ioc.Default.GetRequiredService<IAnimalService>();
             this._currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            this._speciestService    = Ioc.Default.GetRequiredService<ISpeciesService>();
+            this._speciestService = Ioc.Default.GetRequiredService<ISpeciesService>();
 
-            this._validationService  = new ValidationService();
+            this._validationService = new ValidationService();
             this._validationService.ErrorsChanged += ErrorsViewModel_ErrorsChanged;
 
             this.ErrorsList.CollectionChanged += ErrorsList_CollectionChanged;
 
-        }
 
+        }
+        async void ContentDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            var species = await _speciestService.GetAllAsync();
+            if (species != null)
+                species.ToList().ForEach(s => Species.Add(s));
+            SpeciesComboBox.SelectedIndex = species.Count > 0 ? 0 : -1;
+            InitializeErrors();
+
+            OwnedPets = await _animalService.GetAllByUserGuidAsync(_currentUserService
+                                                                        .GetLocalUserGuidFromAppSettings());
+        }
         async void AddPetDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             //Get the text from rich edit box
             StoryEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string story);
 
             //Crop Image
-            if(CatAvatar != null)
+            if (CatAvatar != null)
             {
-                var croppedAvatar = await CropImage(catPhoto, AvatarCropper);
-                PetInfo.PetAvatar = croppedAvatar;
+                var croppedAvatar = await catPhoto.CreateTempCopyAsync();
+                await CropImageAsync(croppedAvatar, AvatarCropper);
+                if (croppedAvatar != null)
+                {
+                    PetInfo.PetAvatar = croppedAvatar;
+                }
             }
 
             PetInfo.Name = Name;
@@ -118,18 +135,6 @@ namespace Petaverse.ContentDialogs
             PetInfo.PetColor = String.Join(",", BreedColorGridView.SelectedItems.ToList());
 
             CreatePetCommand.Execute(PetInfo);
-        }
-        async void ContentDialog_Loaded(object sender, RoutedEventArgs e)
-        {
-            var species = await _speciestService.GetAllAsync();
-            if (species != null)
-                species.ToList().ForEach(s => Species.Add(s));
-            SpeciesComboBox.SelectedIndex = species.Count > 0 ? 0 : -1;
-            InitializeErrors();
-
-            await ApplicationData.Current.TemporaryFolder.DeleteAsync();
-            OwnedPets = await _animalService.GetAllByUserGuidAsync(_currentUserService
-                                                                        .GetLocalUserGuidFromAppSettings());
         }
         void ClearDateAndAgeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -176,15 +181,14 @@ namespace Petaverse.ContentDialogs
 
             }
         }
-        async Task<StorageFile> CropImage(StorageFile storageFile, ImageCropper imageCropper)
+
+        //Want me to try this ? Calm
+
+        async Task CropImageAsync(StorageFile outputfile, ImageCropper cropper)
         {
-            var copiedStorageFile = await storageFile.CopyAsync(ApplicationData.Current.TemporaryFolder);
-            using (var fileStream = await copiedStorageFile.OpenAsync(FileAccessMode.ReadWrite, StorageOpenOptions.None))
-            {
-                await imageCropper.SaveAsync(fileStream, BitmapFileFormat.Png);
-            }
-            return copiedStorageFile;
-        }
+            using var stream = await outputfile.OpenAsync(FileAccessMode.ReadWrite, StorageOpenOptions.None);
+            await cropper.SaveAsync(stream, BitmapFileFormat.Png);
+        } 
 
         [ObservableProperty]
         Breed selectedBreed;

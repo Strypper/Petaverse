@@ -292,7 +292,10 @@
                                                 <MenuFlyoutItem Icon="Help" Text="Request help (Comming soon)" IsEnabled="False"/>
                                                 <MenuFlyoutSeparator/>
                                                 <MenuFlyoutItem Icon="Send" Text="Transfer to owner (Comming soon)" IsEnabled="False"/>
-                                                <MenuFlyoutItem Icon="Delete" Text="Delete pet" Background="Red"/>
+                                                <MenuFlyoutItem Icon="Delete" 
+                                                                Text="Delete pet" 
+                                                                Background="Red"
+                                                                Click="DeletePet_Click"/>
                                             </MenuFlyout>
                                         </winui:DropDownButton.Flyout>
                                     </winui:DropDownButton>

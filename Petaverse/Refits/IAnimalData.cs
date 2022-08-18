@@ -22,11 +22,7 @@ namespace Petaverse.Refits
         [Post("/Animal/Create")]
         Task<Animal> Create(CreatePetDTO petInfo);
 
-        //[Post("/Animal/UploadAnimalMedias/{petId}")]
-        //Task<List<Animal>> UploadAnimalMedias(int petId, IEnumerable<StreamPart> files);
-
-        [Multipart("media")]
-        [Post("/Animal/UploadAnimalMedias/upload-media")]
-        Task<HttpResponseMessage> UploadAnimalMedias([AliasAs("file")] StreamPart file);
+        [Delete("/Animal/Delete/{id}")]
+        Task<HttpResponseMessage> DeleteAnimal(int id);
     }
 }

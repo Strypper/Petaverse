@@ -9,37 +9,113 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media" 
     xmlns:converters="using:Petaverse.Converters"
-    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
     xmlns:viewmodels="using:Petaverse.ViewModels" 
-    xmlns:winui2="using:Microsoft.UI.Xaml.Controls">
+    xmlns:winui2="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
+    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Disabled"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
+        <animations:ImplicitAnimationSet x:Key="ShowAnimation">
+            <animations:OpacityAnimation Duration="0:0:0.5" To="1.0"/>
+        </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Key="HideAnimation">
+            <animations:ScalarAnimation Target="Opacity" 
+                                        Duration="0:0:1" 
+                                        To="0.0"/>
+        </animations:ImplicitAnimationSet>
         <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
 
         <DataTemplate x:Key="PivotHeaderTemplate"
                       x:DataType="dtos:Animal">
-            <StackPanel Orientation="Horizontal">
-                <PersonPicture VerticalAlignment="Center"
+            <StackPanel x:Name="PivotHeader"
+                        Orientation="Horizontal">
+                <PersonPicture x:Name="PetAvatar"
+                               VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Width="35"
                                ProfilePicture="{x:Bind PetAvatar.MediaUrl, 
                                                        Mode=OneWay,
                                                        Converter={StaticResource StringToImageSourceConverter},
-                                                       TargetNullValue='Assets/Logos/Petaverse.png'}"/>
-                <TextBlock Margin="5,0,0,0"
+                                                       TargetNullValue='Assets/Logos/Petaverse.png'}">
+                    <PersonPicture.Triggers>
+                        <EventTrigger>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PetAvatar" Storyboard.TargetProperty="Opacity" 
+                                                 From="0" To="1">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </PersonPicture.Triggers>
+                </PersonPicture>
+                <TextBlock x:Name="PetName"
+                           Margin="5,0,0,0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{x:Bind Name, Mode=OneWay}"
-                           Style="{StaticResource TitleTextBlockStyle}"/>
+                           Style="{StaticResource TitleTextBlockStyle}">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform x:Name="TranslateTitle"/>
+                    </TextBlock.RenderTransform>
+                    <TextBlock.Triggers>
+                        <EventTrigger>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="PetName"
+                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    To="{ThemeResource SystemAccentColor}" Duration="0:0:3" AutoReverse="True"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="TranslateTitle" 
+                                                     Storyboard.TargetProperty="Y" 
+                                                     From="-200" To="0">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
             </StackPanel>
         </DataTemplate>
             
         <DataTemplate x:Key="PivotItemTemplate"
                       x:DataType="dtos:Animal">
-            <local:PetGalleryPage Pet="{x:Bind}"/>
+            <local:PetGalleryPage x:Name="PetGallery"
+                                  Pet="{x:Bind}"
+                                  DeletePetClick="PetGalleryPage_DeletePetClick"
+                                  SelectPhoto="PetGalleryPage_SelectPhoto">
+                <local:PetGalleryPage.Triggers>
+                    <EventTrigger>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="PetGallery" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 From="0" To="1">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CircleEase EasingMode="EaseInOut" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </local:PetGalleryPage.Triggers>
+            </local:PetGalleryPage>
         </DataTemplate>
 
         <DataTemplate x:Key="PivotRightHeaderTemplate"
@@ -76,11 +152,51 @@
                    RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
                    ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"/>
         </Grid>
-        <winui2:InfoBar Grid.ColumnSpan="2"
-                        IsOpen="{x:Bind profilePageViewModel.InfoBarIsOpen, Mode=OneWay}"
-                        Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
-                        Message="{x:Bind profilePageViewModel.InfoBarMessage, Mode=OneWay}"
-                        Severity="{x:Bind profilePageViewModel.InfoBarServerity, Mode=OneWay}"
-                        Background="Gray"/>
+
+        <Grid Grid.ColumnSpan="2"  
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Visibility="{x:Bind profilePageViewModel.OverLayPopUpVisibility, Mode=OneWay
+                                 ,Converter={StaticResource BoolToVisibilityConverter}}"
+              Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+              animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
+              animations:Implicit.HideAnimations="{StaticResource HideAnimation}">
+            <Image x:Name="PetMedia"
+                   Margin="50"
+                   Source="{x:Bind profilePageViewModel.PetaverseMedia.MediaUrl, Mode=OneWay}"/>
+            <StackPanel Margin="10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Top">
+                <Button Click="AppBarButton_Click"
+                        Width="45" Height="45" 
+                        CornerRadius="25"
+                        Background="{StaticResource SystemAccentColor}">
+                    <FontIcon Glyph="&#xE10A;" />
+                </Button>
+            </StackPanel>
+            <TextBlock Margin="10"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Text="{x:Bind profilePageViewModel.PetaverseMedia.TimeUpload.ToShortDateString()}"/>
+        </Grid>
+
+        <StackPanel Grid.ColumnSpan="2">
+            <winui2:ProgressBar Visibility="{x:Bind profilePageViewModel.IsBusy, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource BoolToVisibilityConverter}}"
+                                IsIndeterminate="{x:Bind profilePageViewModel.IsBusy, 
+                                                         Mode=OneWay}"/>
+            <!--<winui2:InfoBar IsOpen="{x:Bind profilePageViewModel.InfoBarIsOpen, 
+                                            Mode=OneWay}"
+                            Title="{x:Bind profilePageViewModel.InfoBarTitle, 
+                                           Mode=OneWay}"
+                            Message="{x:Bind profilePageViewModel.InfoBarMessage, 
+                                             Mode=OneWay}"
+                            Severity="{Binding profilePageViewModel.InfoBarServerity, 
+                                               Mode=OneWay, 
+                                               Converter={StaticResource EnumToSeverityConverter}}"/>-->
+            <commonusercontrols:StatusInfoBarUserControl Margin="20"
+                                                         Visibility="Visible"/>
+        </StackPanel>
     </Grid>
 </Page>
