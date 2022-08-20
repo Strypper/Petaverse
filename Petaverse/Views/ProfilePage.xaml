@@ -28,6 +28,24 @@
                                         Duration="0:0:1" 
                                         To="0.0"/>
         </animations:ImplicitAnimationSet>
+
+        <animations:ImplicitAnimationSet x:Key="ShowInfoAnimation">
+            <animations:TranslationAnimation Duration="0:0:0.5" To="0, 0, 0"/>
+            <animations:OpacityAnimation Duration="0:0:0.5" To="1.0"/>
+        </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Key="HideInfoAnimation">
+            <animations:ScalarAnimation Target="Opacity" 
+                                        Duration="0:0:1" 
+                                        To="0.0"/>
+            <animations:ScalarAnimation Target="Translation.Y" 
+                                            Duration="0:0:1" 
+                                            To="-200">
+                <animations:ScalarKeyFrame Key="0.1" 
+                                           Value="30"/>
+                <animations:ScalarKeyFrame Key="0.5" 
+                                           Value="0.0"/>
+            </animations:ScalarAnimation>
+        </animations:ImplicitAnimationSet>
         <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
 
         <DataTemplate x:Key="PivotHeaderTemplate"
@@ -186,17 +204,15 @@
                                                     Converter={StaticResource BoolToVisibilityConverter}}"
                                 IsIndeterminate="{x:Bind profilePageViewModel.IsBusy, 
                                                          Mode=OneWay}"/>
-            <!--<winui2:InfoBar IsOpen="{x:Bind profilePageViewModel.InfoBarIsOpen, 
-                                            Mode=OneWay}"
-                            Title="{x:Bind profilePageViewModel.InfoBarTitle, 
-                                           Mode=OneWay}"
-                            Message="{x:Bind profilePageViewModel.InfoBarMessage, 
-                                             Mode=OneWay}"
-                            Severity="{Binding profilePageViewModel.InfoBarServerity, 
-                                               Mode=OneWay, 
-                                               Converter={StaticResource EnumToSeverityConverter}}"/>-->
             <commonusercontrols:StatusInfoBarUserControl Margin="20"
-                                                         Visibility="Visible"/>
+                                                         Icon="{x:Bind profilePageViewModel.InfoBarIcon, Mode=OneWay}"
+                                                         Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
+                                                         BarColor="{x:Bind profilePageViewModel.InfoBarColor, Mode=OneWay}"
+                                                         Message="{x:Bind profilePageViewModel.InfoBarMessage, Mode=OneWay}"
+                                                         Visibility="{x:Bind profilePageViewModel.InfoBarIsOpen, Mode=OneWay}"
+                                                         animations:Implicit.ShowAnimations="{StaticResource ShowInfoAnimation}"
+                                                         animations:Implicit.HideAnimations="{StaticResource HideInfoAnimation}"
+                                                         DismissInfoBarCommand="{x:Bind profilePageViewModel.DismissStatusInfoCommand}"/>
         </StackPanel>
     </Grid>
 </Page>

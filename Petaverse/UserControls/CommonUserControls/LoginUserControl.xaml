@@ -53,184 +53,236 @@
           helpers:Grid.ColumnDefinitions="Auto, auto"
           ui:Effects.Shadow="{StaticResource CommonShadow}"
           Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
-        <StackPanel MinWidth="300"
-                    Padding="20"
-                    CornerRadius="4"
-                    Margin="20,60,20,20"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Background="{ThemeResource SystemAltMediumLowColor}"
-                    ChildrenTransitions="{StaticResource StackLoadAndAdTransition}">
-            <Image Source="/Assets/Logos/Petaverse.png"
-                   Width="100" Height="100"
-                   Margin="0,0,0,15"
-                   VerticalAlignment="Stretch"
-                   HorizontalAlignment="Stretch"/>
-            <TextBox x:Name="PhoneNumber"
-                     Header="Phone Number"
-                     Margin="5"
-                     Text="0348164682"
-                     HorizontalAlignment="Stretch"/>
-            <PasswordBox x:Name="Password"
+        <ScrollViewer Margin="20,60,20,20">
+            <StackPanel MinWidth="300"
+                        Padding="20"
+                        CornerRadius="4"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Background="{ThemeResource SystemAltMediumLowColor}"
+                        ChildrenTransitions="{StaticResource StackLoadAndAdTransition}">
+                <Grid helpers:Grid.ColumnDefinitions="120, Auto"
+                      Margin="0,0,0,15"
+                      HorizontalAlignment="Center">
+                    <Image Source="/Assets/Logos/Petaverse.png"
+                           Width="100" Height="100"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Stretch"/>
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="1"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                                ,Converter={StaticResource BoolToVisibilityConverter}}">
+                        <PersonPicture Width="100"
+                                       Height="100"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <AppBarButton Icon="Camera"
+                                          Label="Take a picture"/>
+                                <AppBarButton Icon="OpenFile"
+                                          Label="Get from local device"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid helpers:Grid.ColumnDefinitions="*, auto">
+                    <TextBox x:Name="PhoneNumber"
+                             Header="Phone Number"
+                             Margin="5"
+                             Text="0348164682"
+                             HorizontalAlignment="Stretch"/>
+                    <TextBox x:Name="Email"
+                             Header="Email"
+                             Margin="5"
+                             Grid.Column="1"
+                             MinWidth="365"
+                             Text="viet.to@totechs.com.vn"
+                             HorizontalAlignment="Stretch"
+                             Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                                ,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </Grid>
+                <Grid helpers:Grid.ColumnDefinitions="*, Auto">
+                    <PasswordBox x:Name="Password"
                          Header="Password"
                          Margin="5,0,5,5"
                          Password="Welkom112!!@"
                          HorizontalAlignment="Stretch"/>
-            <StackPanel ChildrenTransitions="{StaticResource StackLoadAndAdTransition}"
-                        Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
-                                           ,Converter={StaticResource BoolToVisibilityConverter}}">
-                <TextBox x:Name="Email"
-                         Header="Email"
-                         Margin="5"
-                         Text="viet.to@totechs.com.vn"
-                         HorizontalAlignment="Stretch"/>
-                <TextBox x:Name="FirstName"
+
+                    <PasswordBox x:Name="ConfirmPassword"
+                                 Grid.Column="1"
+                                 Header="Confirm Password"
+                                 Margin="5,0,5,5"
+                                 MinWidth="300"
+                                 Password="Welkom112!!@"
+                                 HorizontalAlignment="Stretch"
+                                 Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                                    ,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </Grid>
+                <Grid helpers:Grid.ColumnDefinitions="*, *, *"
+                      Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                          ,Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBox x:Name="FirstName"
                          Header="First Name"
                          Margin="5"
                          Text="Strypper"
                          HorizontalAlignment="Stretch"/>
-                <TextBox x:Name="MiddleName"
-                         Header="Middle Name"
-                         Margin="5"
-                         Text="Vandel"
-                         HorizontalAlignment="Stretch"/>
-                <TextBox x:Name="LastName"
-                         Header="Last Name"
-                         Margin="5"
-                         Text="Jason"
-                         HorizontalAlignment="Stretch"/>
-                <CalendarDatePicker Header="Date Of Birth"
-                                    Margin="5"
-                                    HorizontalAlignment="Stretch"/>
-                <ToggleSwitch Header="Gender"
-                              MinWidth="0"
-                              OnContent="Male"
-                              OffContent="Female"
-                              HorizontalAlignment="Center"/>
-            </StackPanel>
-            <HyperlinkButton Content="Forgot ?"
+                    <TextBox x:Name="MiddleName"
+                             Grid.Column="1"
+                             Header="Middle Name"
+                             Margin="5"
+                             Text="Vandel"
+                             HorizontalAlignment="Stretch"/>
+                    <TextBox x:Name="LastName"
+                             Grid.Column="2"
+                             Header="Last Name"
+                             Margin="5"
+                             Text="Jason"
+                             HorizontalAlignment="Stretch"/>
+                </Grid>
+                <Grid helpers:Grid.ColumnDefinitions="*, auto">
+                    <CalendarDatePicker Header="Date Of Birth"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                                           ,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <ToggleSwitch Header="Gender"
+                                  Grid.Column="1"
+                                  MinWidth="0"
+                                  OnContent="Male"
+                                  OffContent="Female"
+                                  HorizontalAlignment="Center"
+                                  Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                                     ,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </Grid>
+                <HyperlinkButton Content="Forgot ?"
                              HorizontalAlignment="Center"/>
-            <Button Content="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                <Button Content="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
                                     ,Converter={StaticResource BoolToSignInSignUpConverter}}"
-                    Margin="5,10,5,5"
-                    HorizontalAlignment="Stretch"
-                    Click="LoginOrSignUp_Click"
-                    Background="{StaticResource SystemAccentColor}"/>
-            <winui:ProgressBar x:Name="LoginOrSignUpIndeterminateBar"
+                        Margin="5,10,5,5"
+                        HorizontalAlignment="Center"
+                        Click="LoginOrSignUp_Click"
+                        Background="{StaticResource SystemAccentColor}"/>
+                <winui:ProgressBar x:Name="LoginOrSignUpIndeterminateBar"
                                VerticalAlignment="Top"
                                Grid.ColumnSpan="2"
                                IsIndeterminate="True"
                                Visibility="Collapsed"
                                animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
                                animations:Implicit.HideAnimations="{StaticResource HideIndeterminateAnimation}"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Padding="20"
-                    animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
-                    animations:Implicit.HideAnimations="{StaticResource HideAnimation}"
-                    Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
-                                       ,Converter={StaticResource BoolToVisibilityConverter}}">
-            <TextBlock Text="Join the community"
+            </StackPanel>
+        </ScrollViewer>
+        <ScrollViewer Grid.Column="1"
+                      MaxHeight="600"
+                      Padding="10">
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Padding="20"
+                        animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
+                        animations:Implicit.HideAnimations="{StaticResource HideAnimation}"
+                        Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                           ,Converter={StaticResource BoolToVisibilityConverter}}">
+                <TextBlock Text="Join the community"
                        HorizontalAlignment="Center"
                        Style="{StaticResource TitleTextBlockStyle}"/>
-            <TextBlock Text="And save many of pets life as possible"
+                <TextBlock Text="And save many of pets life as possible"
                        HorizontalAlignment="Center"
                        Style="{StaticResource SubtitleTextBlockStyle}"/>
-            <winui:AnimatedVisualPlayer x:Name="LottiePlayer"
+                <winui:AnimatedVisualPlayer x:Name="LottiePlayer"
 									     MaxWidth="300"
                                          MaxHeight="300"
 										 Margin="5"
 										 HorizontalAlignment="Center"
 										 VerticalAlignment="Center">
-                <lottie:LottieVisualSource x:Name="LottieJsonSource" 
+                    <lottie:LottieVisualSource x:Name="LottieJsonSource" 
                                              UriSource="ms-appx:///Assets/Lotties/SignUpLottie.json" />
-            </winui:AnimatedVisualPlayer>
-            <Grid helpers:Grid.ColumnDefinitions="*,*"
+                </winui:AnimatedVisualPlayer>
+                <Grid helpers:Grid.ColumnDefinitions="*,*"
                   helpers:Grid.RowDefinitions="*,*">
-                <StackPanel>
-                    <Border Width="210"
+                    <StackPanel>
+                        <Border Width="210"
                             Height="210"
                             CornerRadius="4"
                             Margin="5,5,5,0"
                             Background="White">
-                        <winui:AnimatedVisualPlayer
+                            <winui:AnimatedVisualPlayer
 									             MaxWidth="200"
                                                  MaxHeight="200"
 										         Margin="5"
 										         HorizontalAlignment="Stretch"
 										         VerticalAlignment="Stretch">
-                            <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/PetsHugLottie.json" />
-                        </winui:AnimatedVisualPlayer>
-                    </Border>
-                    <TextBlock Text="Pets Entertainments"
+                                <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/PetsHugLottie.json" />
+                            </winui:AnimatedVisualPlayer>
+                        </Border>
+                        <TextBlock Text="Pets Entertainments"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Grid.Column="1">
-                    <Border Width="210"
+                    <StackPanel Grid.Column="1">
+                        <Border Width="210"
                             Height="210"
                             CornerRadius="4"
                             Margin="5,5,5,0"
                             Background="White">
-                        <winui:AnimatedVisualPlayer
+                            <winui:AnimatedVisualPlayer
 									             MaxWidth="200"
                                                  MaxHeight="200"
 										         Margin="5"
 										         HorizontalAlignment="Stretch"
 										         VerticalAlignment="Stretch">
-                            <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/PetsSpa.json" />
-                        </winui:AnimatedVisualPlayer>
-                    </Border>
-                    <TextBlock Text="Pets Services"
+                                <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/PetsSpa.json" />
+                            </winui:AnimatedVisualPlayer>
+                        </Border>
+                        <TextBlock Text="Pets Services"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="1"
+                    <StackPanel Grid.Row="1"
                             Grid.Column="0">
-                    <Border Width="210"
+                        <Border Width="210"
                             Height="210"
                             CornerRadius="4"
                             Margin="0,5,5,0"
                             Background="White">
-                        <winui:AnimatedVisualPlayer
+                            <winui:AnimatedVisualPlayer
 									             MaxWidth="200"
                                                  MaxHeight="200"
 										         Margin="5"
 										         HorizontalAlignment="Stretch"
 										         VerticalAlignment="Stretch">
-                            <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/AdoptAnnouce.json" />
-                        </winui:AnimatedVisualPlayer>
-                    </Border>
-                    <TextBlock Text="Pets Finders and Adoptors"
+                                <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/AdoptAnnouce.json" />
+                            </winui:AnimatedVisualPlayer>
+                        </Border>
+                        <TextBlock Text="Pets Finders and Adoptors"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="1"
+                    <StackPanel Grid.Row="1"
                             Grid.Column="1">
-                    <Border Width="210"
+                        <Border Width="210"
                             Height="210"
                             CornerRadius="4"
                             Margin="5,5,0,0"
                             Background="White">
-                        <winui:AnimatedVisualPlayer MaxWidth="200"
-                                                    MaxHeight="200"
-										            Margin="5"
-										            HorizontalAlignment="Stretch"
-										            VerticalAlignment="Stretch">
-                            <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/PetaverseCommunity.json" />
-                        </winui:AnimatedVisualPlayer>
-                    </Border>
-                    <TextBlock Text="Pets Communuties"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
+                            <winui:AnimatedVisualPlayer MaxWidth="200"
+                                                        MaxHeight="200"
+										                Margin="5"
+										                HorizontalAlignment="Stretch"
+										                VerticalAlignment="Stretch">
+                                <lottie:LottieVisualSource UriSource="ms-appx:///Assets/Lotties/PetaverseCommunity.json" />
+                            </winui:AnimatedVisualPlayer>
+                        </Border>
+                        <TextBlock Text="Pets Communities"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
         <ToggleSwitch x:Name="SignUpToggleSwitch"
                       Margin="20,10,0,0"
                       OnContent="Sign Up"

@@ -27,6 +27,7 @@
 
                     <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0"/>
 
+                    <converters:HexToSolidColorBrushConverter x:Key="HexToSolidColorBrushConverter"/>
                     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
                     <converters:EnumToSeverityConverter x:Key="EnumToSeverityConverter"/>
                 </ResourceDictionary>

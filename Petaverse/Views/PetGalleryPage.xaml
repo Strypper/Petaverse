@@ -17,7 +17,7 @@
         <converters:BoolToGenderConverter             x:Key="BoolToGenderConverter"/>
         <converters:StringToImageSourceConverter      x:Key="StringToImageSourceConverter"/>
         <converters:HexToSolidColorBrushConverter     x:Key="FromHexToSolidColorBrushConverter"/>
-        
+
         <local:SwapStringToBitmapImageSourceConverter x:Key="SwapStringToBitmapImageSourceConverter"/>
 
         <DataTemplate x:Key="ImageMosaicItemTemplate"
@@ -171,9 +171,9 @@
                               SelectionMode="Single"
                               DesiredWidth="400" Margin="0,0,0,15"
                               DoubleTapped="PetGalleryAdaptiveGridView_DoubleTapped"
-                              ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
                               ItemTemplate="{StaticResource PetMediaAdaptiveGridViewItemTemplate}"
-                              ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}">
+                              ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}"
+                              ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}">
         <toolkit:AdaptiveGridView.Header>
             <StackPanel>
                 <Grid x:Name="Header" 
@@ -328,7 +328,7 @@
                                 <FontIcon Glyph="&#xEB51;" 
                                       FontSize="60"
                                       Foreground="{StaticResource SystemAccentColor}"/>
-                                <TextBlock Margin              = "5"
+                                <TextBlock Margin          = "5"
                                        VerticalAlignment   = "Center"
                                        HorizontalAlignment = "Center" 
                                        Style               = "{StaticResource TitleTextBlockStyle}"

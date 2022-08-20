@@ -37,7 +37,10 @@ namespace Petaverse.ViewModels
         string infoBarMessage;
 
         [ObservableProperty]
-        Severity infoBarServerity;
+        string infoBarColor;
+
+        [ObservableProperty]
+        string infoBarIcon;
 
         [ObservableProperty]
         bool overLayPopUpVisibility;
@@ -99,13 +102,22 @@ namespace Petaverse.ViewModels
 
         public async Task<User> LoadUserDataAsync()
         {
+            IsBusy = true;
             if (currentUserGuid != null && !String.IsNullOrEmpty(currentUserGuid))
             {
                 var requestUser  = await _currentUserService.GetLocalUserAsync(currentUserGuid);
                 requestUser.Pets = await _animalService.GetAllByUserGuidAsync(currentUserGuid);
+                IsBusy = false;
                 return requestUser;
             }
-            else return null;
+            else {
+                IsBusy = false;
+                CreateInfoBar(ProfilePageConstant.SuccessRemovePetTitle
+                             ,ProfilePageConstant.SuccessRemovePetContent
+                             ,ProfilePageConstant.ErrorColor
+                             ,ProfilePageConstant.BrokenHeartIcon);
+                return null;
+            };
         }
 
         private async Task<IEnumerable<Animal>> GetAnimalAsync()
@@ -150,20 +162,23 @@ namespace Petaverse.ViewModels
                     CurrentUser.Pets.Add(newPet);
                     CreateInfoBar(ProfilePageConstant.SuccessCreatePetAvatarTitle
                                  ,ProfilePageConstant.SuccessCreatePetContent
-                                 ,InfoBarSeverity.Success);
+                                 ,ProfilePageConstant.SuccessColor
+                                 ,ProfilePageConstant.SuccessIcon);
                 }
                 else
                 {
                     CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetAvatarTitle
-                                 , ProfilePageConstant.ErrorCantCreatePetAvatarContent
-                                 , InfoBarSeverity.Warning);
+                                 ,ProfilePageConstant.ErrorCantCreatePetAvatarContent
+                                 ,ProfilePageConstant.WarningColor
+                                 ,ProfilePageConstant.WarningIcon);
                 }
             }
             else
             {
                 CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetTitle
-                             , ProfilePageConstant.ErrorCantCreatePetContent
-                             , InfoBarSeverity.Error);
+                             ,ProfilePageConstant.ErrorCantCreatePetContent
+                             ,ProfilePageConstant.ErrorColor
+                             ,ProfilePageConstant.ErrorIcon);
             }
             //await ApplicationData.Current.TemporaryFolder.DeleteAsync();
             IsBusy = false;
@@ -177,14 +192,25 @@ namespace Petaverse.ViewModels
 
             var deletedPet = CurrentUser.Pets.FirstOrDefault(pet => pet.Id == petId);
             CurrentUser.Pets.Remove(deletedPet);
+            CreateInfoBar(ProfilePageConstant.SuccessRemovePetTitle
+                         ,ProfilePageConstant.SuccessRemovePetContent
+                         ,ProfilePageConstant.ErrorColor
+                         ,ProfilePageConstant.BrokenHeartIcon);
             IsBusy = false;
         }
 
-        void CreateInfoBar(string title, string message, InfoBarSeverity infoBarSeverity)
+        [RelayCommand]
+        public async Task DismissStatusInfo()
         {
-            InfoBarTitle = title;
+            InfoBarIsOpen = false;
+        }
+
+        void CreateInfoBar(string title, string message, string infoBarColor, string icon)
+        {
+            InfoBarTitle   = title;
             InfoBarMessage = message;
-            InfoBarServerity = infoBarServerity;
+            InfoBarColor   = infoBarColor;
+            InfoBarIcon    = icon;
 
             InfoBarIsOpen = true;
         }
@@ -196,8 +222,21 @@ namespace Petaverse.ViewModels
         public const string ErrorCantCreatePetTitle = "Can't create this pet";
         public const string ErrorCantCreatePetAvatarTitle = "Can't create your pet avatar";
 
+
+        public const string SuccessRemovePetTitle = "Rest in peace";
+        public const string SuccessRemovePetContent = "No longer at your side, but always in your heart!";
+
         public const string SuccessCreatePetContent = "Cool let explore our new friend";
         public const string ErrorCantCreatePetContent = "Please try again or report us";
         public const string ErrorCantCreatePetAvatarContent = "We created your pet but the avatar couldn't upload please try again";
+
+        public const string SuccessColor = "#2de99a";
+        public const string WarningColor = "#ffd669";
+        public const string ErrorColor = "#ff6a98";
+
+        public const string SuccessIcon     = "\uEC61";
+        public const string WarningIcon     = "\uE7BA";
+        public const string ErrorIcon       = "\uEA39";
+        public const string BrokenHeartIcon = "\uE00C";
     }
 }

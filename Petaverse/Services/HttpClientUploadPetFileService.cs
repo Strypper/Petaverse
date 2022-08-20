@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Petaverse.Enums;
 using Petaverse.Interfaces;
 using System.Threading.Tasks;
 using Petaverse.Models.Others;
 using System.Collections.Generic;
 using Petaverse.ContentDialogs;
-using Refit;
 using Windows.Storage;
 using System.IO;
-using Petaverse.Models.FEModels;
 using Petaverse.Models.DTOs;
 
 namespace Petaverse.Services
@@ -46,7 +43,7 @@ namespace Petaverse.Services
                 {
                     Title = "Can't upload these photos"
                 }.ShowAsync();
-                return null;
+                return new List<PetaverseMedia>();
             }
         }
 

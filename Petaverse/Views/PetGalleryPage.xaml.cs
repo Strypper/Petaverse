@@ -20,6 +20,7 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.Models.Others;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Petaverse.Views
 {
@@ -198,7 +199,11 @@ namespace Petaverse.Views
         [RelayCommand]
         async Task UploadPhotoAsync(List<PetPhotosStream> petPhotosStream)
         {
-            await _uploadPetFileService.UploadMultiplePetFilesAsync(Pet.Id, petPhotosStream);
+            var uploadedMedia = await _uploadPetFileService.UploadMultiplePetFilesAsync(Pet.Id, petPhotosStream);
+            if(uploadedMedia.Count > 0)
+            {
+                uploadedMedia.ForEach(media => Pet.PetPhotos.Add(media));
+            }
         }
 
         private void PetGalleryAdaptiveGridView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
