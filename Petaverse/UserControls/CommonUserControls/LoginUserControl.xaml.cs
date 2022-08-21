@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Petaverse.Constants;
 using Petaverse.Enums;
 using Petaverse.Interfaces;
 using Petaverse.Models.DTOs;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using static Bogus.DataSets.Name;
+using static System.Net.WebRequestMethods;
 
 namespace Petaverse.UserControls.CommonUserControls
 {
@@ -18,8 +21,8 @@ namespace Petaverse.UserControls.CommonUserControls
         public delegate void LoginSuccessDelegate(User pricipalUserInfo);
         public event LoginSuccessDelegate LoginSuccessEventHandler;
 
-        private readonly IUserData userData;
-        private readonly ICurrentUserService currentUserService;
+        private readonly IUserData              userData;
+        private readonly ICurrentUserService    currentUserService;
         private readonly IAuthenticationService authenticateServices;
 
         public LoginUserControl()
@@ -34,10 +37,40 @@ namespace Petaverse.UserControls.CommonUserControls
 
         private async void LoginOrSignUp_Click(object sender, RoutedEventArgs e)
         {
-            LoginOrSignUpProgressBar.Visibility = Visibility.Visible;
+            LoginOrSignUpProgressBar.Visibility      = Visibility.Visible;
             LoginOrSignUpIndeterminateBar.Visibility = Visibility.Visible;
             if (SignUpToggleSwitch.IsOn)
             {
+                var registerPetaverseUser = await authenticateServices
+                                                    .RegisterAsync(new RegisterModel()
+                                                    {
+                                                        UserName    = Email.Text,
+                                                        Email       = Email.Text,
+                                                        Password    = ConfirmPassword.Password,
+                                                        FirstName   = FirstName.Text,
+                                                        MiddleName  = MiddleName.Text,
+                                                        LastName    = LastName.Text,
+                                                        PhoneNumber = PhoneNumber.Text,
+                                                        Gender      = GenderToggleSwitch.IsOn,
+                                                        RoleGuid    = AppConstants.TotechsIdentityPetaverseRoleGuid,
+
+
+                                                        ProfilePicUrl = "https://i.imgur.com/deS4147.png"
+                                                    });
+                LoginOrSignUpProgressBar.Value = 30;
+                if (registerPetaverseUser != null && registerPetaverseUser.UserInfo != null)
+                {
+                    var petaverseUser = await ProcessLogin(registerPetaverseUser);
+                    LoginComplete(petaverseUser);
+                }
+                else
+                {
+                    LoginOrSignUpIndeterminateBar.ShowError = true;
+                    LoginOrSignUpProgressBar.Value = 0;
+
+                    LoginOrSignUpProgressBar.Visibility = Visibility.Collapsed;
+                    LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
+                }
 
             }
             else

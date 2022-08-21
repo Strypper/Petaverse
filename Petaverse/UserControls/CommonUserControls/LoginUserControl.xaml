@@ -73,7 +73,7 @@
                                 Margin="5,0,0,0"
                                 HorizontalAlignment="Left"
                                 Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
-                                                ,Converter={StaticResource BoolToVisibilityConverter}}">
+                                                  , Converter={StaticResource BoolToVisibilityConverter}}">
                         <PersonPicture Width="100"
                                        Height="100"/>
                         <StackPanel VerticalAlignment="Center">
@@ -147,7 +147,8 @@
                                         HorizontalAlignment="Stretch"
                                         Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
                                                            ,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                    <ToggleSwitch Header="Gender"
+                    <ToggleSwitch x:Name="GenderToggleSwitch"
+                                  Header="Gender"
                                   Grid.Column="1"
                                   MinWidth="0"
                                   OnContent="Male"

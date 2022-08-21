@@ -13,14 +13,6 @@ namespace Petaverse.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        //private HttpClient authenticateClient = new HttpClient(new HttpClientHandler()
-        //{
-        //    ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
-        //})
-        //{
-        //    BaseAddress = new Uri("http://localhost:4300/api")
-        //};
-
         private readonly IAuthenticateServices authenticateServices;
 
         private readonly string unableToAuthenticate = "Unable to authenticate with Totechs Identity";
@@ -53,7 +45,7 @@ namespace Petaverse.Services
             }
         }
 
-        public async Task<UserPrincipal> RegisterAsync(UserPrincipal model)
+        public async Task<TotechsIdentityUser> RegisterAsync(RegisterModel model)
         {
             try
             {

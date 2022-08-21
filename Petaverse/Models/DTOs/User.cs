@@ -23,16 +23,23 @@ namespace Petaverse.Models.DTOs
 
     public class UserPrincipal : BaseEntity
     {
-        public string Guid { get; set; } = string.Empty;
-        public string FirstName { get; set; } = string.Empty;
-        public string MiddleName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string FullName => FirstName + " " + LastName;
-        public string Email { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public bool? Gender { get; set; }
-        public DateTime? DateOfBirth { get; set; }
-        public string? ProfilePicUrl { get; set; }
+        public string    Guid          { get; set; } = string.Empty;
+        public string    UserName      { get; set; } = string.Empty;
+        public string    FirstName     { get; set; } = string.Empty;
+        public string    MiddleName    { get; set; } = string.Empty;
+        public string    LastName      { get; set; } = string.Empty;
+        public string    FullName => FirstName + " " + LastName;
+        public string    Email         { get; set; } = string.Empty;
+        public string    PhoneNumber   { get; set; } = string.Empty;
+        public bool?     Gender        { get; set; }
+        public DateTime? DateOfBirth   { get; set; }
+        public string?   ProfilePicUrl { get; set; }
+    }
+
+    public class RegisterModel : UserPrincipal
+    {
+        public string Password { get; set; }
+        public string RoleGuid { get; set; }
     }
 
     public class LoginModel 
