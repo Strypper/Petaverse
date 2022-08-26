@@ -6,6 +6,6 @@ namespace Petaverse.Interfaces
     public interface IAuthenticationService
     {
         Task<TotechsIdentityUser> Authenticate(LoginModel model);
-        Task<TotechsIdentityUser> RegisterAsync(RegisterModel model);
+        Task<UserPrincipal> RegisterAsync(RegisterModel model);
     }
 }

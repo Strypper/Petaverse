@@ -126,7 +126,6 @@ namespace Petaverse.Views
             Visual speciesName = ElementCompositionPreview.GetElementVisual(SpeciesName);
             Visual blurbVisual = ElementCompositionPreview.GetElementVisual(Life);
             Visual breedCountVisual = ElementCompositionPreview.GetElementVisual(BreedCount);
-            Visual ratingVisual = ElementCompositionPreview.GetElementVisual(Rating);
 
             // Create an ExpressionAnimation that moves between 1 and 0 with scroll progress, to be used for text block opacity
             ExpressionNode textOpacityAnimation = EF.Clamp(1 - (progressNode * 2), 0, 1);
@@ -138,10 +137,6 @@ namespace Petaverse.Views
             blurbVisual.StartAnimation("Opacity", textOpacityAnimation);
             blurbVisual.StartAnimation("Scale.X", scaleAnimation);
             blurbVisual.StartAnimation("Scale.Y", scaleAnimation);
-
-            ratingVisual.StartAnimation("Opacity", textOpacityAnimation);
-            ratingVisual.StartAnimation("Scale.X", scaleAnimation);
-            ratingVisual.StartAnimation("Scale.Y", scaleAnimation);
 
             breedCountVisual.StartAnimation("Opacity", textOpacityAnimation);
             breedCountVisual.StartAnimation("Scale.X", scaleAnimation);
@@ -156,7 +151,7 @@ namespace Petaverse.Views
             ExpressionNode contentOffsetAnimation = progressNode * 100;
             textVisual.StartAnimation("Offset.Y", contentOffsetAnimation);
 
-            ExpressionNode buttonOffsetAnimation = progressNode * -100;
+            ExpressionNode buttonOffsetAnimation = progressNode * -80;
             buttonVisual.StartAnimation("Offset.Y", buttonOffsetAnimation);
             buttonVisual.StartAnimation("Offset.X", progressNode * -40);
         }

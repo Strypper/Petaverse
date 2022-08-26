@@ -6,7 +6,6 @@ using Petaverse.Refits;
 using Refit;
 using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -24,7 +23,8 @@ namespace Petaverse.Services.PetaverseAPI
         {
             try
             {
-                return await _animalData.Create(petInfo);
+                var animalId = await _animalData.Create(petInfo);
+                return animalId != 0 ? await _animalData.GetById(animalId) : null;
             }
             catch (ApiException ex)
             {

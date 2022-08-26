@@ -41,7 +41,11 @@
                 <RelativePanel HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch">
                     <PersonPicture x:Name="UserAvatar"
-                                   ProfilePicture="{x:Bind CurrentUser.PetaverseProfileImageUrl, Mode=OneWay}"
+                                   ProfilePicture="{x:Bind CurrentUser.PetaverseProfileImageUrl, 
+                                                           Mode=OneWay,
+                                                           FallbackValue='https://i.imgur.com/deS4147.png',
+                                                           TargetNullValue='https://i.imgur.com/deS4147.png',
+                                                           Converter={StaticResource StringToImageSourceConverter}}"
                                    BadgeImageSource="https://intranetblobstorages.blob.core.windows.net/appassets/TotechsLogo.png"
                                    RelativePanel.AlignHorizontalCenterWithPanel="True"
                                    RelativePanel.AlignVerticalCenterWithPanel="True"/>
@@ -55,11 +59,13 @@
                                   OffContent="Unfollow"
                                   RelativePanel.Below="UserName"
                                   RelativePanel.AlignHorizontalCenterWithPanel="True"/>
-                    <AppBarButton x:Name="EditProfileButton"
-                                  Label="Edit"
-                                  Icon="Edit"
+                    <AppBarButton Label="Donate"
                                   RelativePanel.AlignRightWithPanel="True"
-                                  RelativePanel.AlignTopWithPanel="True"/>
+                                  RelativePanel.AlignTopWithPanel="True">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE11D;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
                     <Button x:Name="Logout" Content="&#xE7E8;" FontFamily="{ThemeResource SymbolThemeFontFamily}"
                             Foreground="Red" Click="Logout_Click" FontSize="18"
                             Background="Transparent"

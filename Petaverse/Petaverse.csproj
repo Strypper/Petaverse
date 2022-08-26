@@ -152,6 +152,7 @@
     <Compile Include="Interfaces\IUploadPetFileService.cs" />
     <Compile Include="Interfaces\PetaverseAPI\IAnimalService.cs" />
     <Compile Include="Interfaces\PetaverseAPI\IAPIBaseService.cs" />
+    <Compile Include="Interfaces\PetaverseAPI\IPetaverseUserService.cs" />
     <Compile Include="Interfaces\PetaverseAPI\ISpeciesService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -164,7 +165,6 @@
     <Compile Include="Models\DTOs\PetaverseMedia.cs" />
     <Compile Include="Models\DTOs\PetShort.cs" />
     <Compile Include="Models\DTOs\Role.cs" />
-    <Compile Include="Models\DTOs\Shedding.cs" />
     <Compile Include="Models\DTOs\Species.cs" />
     <Compile Include="Models\DTOs\Status.cs" />
     <Compile Include="Models\DTOs\Temperament.cs" />
@@ -181,6 +181,7 @@
     <Compile Include="Services\CurrentUserService.cs" />
     <Compile Include="Services\HttpClientUploadPetFileService.cs" />
     <Compile Include="Services\PetaverseAPI\AnimalService.cs" />
+    <Compile Include="Services\PetaverseAPI\PetaverseUserService.cs" />
     <Compile Include="Services\PetaverseAPI\SpeciesService.cs" />
     <Compile Include="Services\ValidationService.cs" />
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
@@ -241,6 +242,7 @@
     <Content Include="Assets\Breeds\PersianCatBreed.png" />
     <Content Include="Assets\Breeds\SelkirkRexCatBreed.png" />
     <Content Include="Assets\Breeds\TurkishAngoraCatBreed.png" />
+    <Content Include="Assets\Gifs\UAsu.gif" />
     <Content Include="Assets\Illustration\MainPageBackgroundillustration.jpg" />
     <Content Include="Assets\Logos\Petaverse.png" />
     <Content Include="Assets\Logos\TotechsLogo.png" />

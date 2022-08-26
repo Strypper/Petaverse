@@ -86,12 +86,13 @@ namespace Petaverse
             services.AddSingleton((_) => new ToolkitSerializer());
             services.AddSingleton((_) => Windows.Storage.ApplicationData.Current.LocalSettings);
 
+            services.AddSingleton<ICurrentUserService,   CurrentUserService>();
             services.AddSingleton<IUploadPetFileService, HttpClientUploadPetFileService>();
-            services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
+            services.AddSingleton<IAnimalService,         AnimalService>();
+            services.AddSingleton<ISpeciesService,        SpeciesService>();
+            services.AddSingleton<IPetaverseUserService,  PetaverseUserService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddSingleton<IAnimalService, AnimalService>();
-            services.AddSingleton<ISpeciesService, SpeciesService>();
 
             services.AddSingleton<LoginUserControl>();
         }

@@ -105,10 +105,10 @@
                 </Grid>
                 <Grid helpers:Grid.ColumnDefinitions="*, Auto">
                     <PasswordBox x:Name="Password"
-                         Header="Password"
-                         Margin="5,0,5,5"
-                         Password="Welkom112!!@"
-                         HorizontalAlignment="Stretch"/>
+                                 Header="Password"
+                                 Margin="5,0,5,5"
+                                 Password="Welkom112!!@"
+                                 HorizontalAlignment="Stretch"/>
 
                     <PasswordBox x:Name="ConfirmPassword"
                                  Grid.Column="1"
@@ -176,14 +176,13 @@
         </ScrollViewer>
         <ScrollViewer Grid.Column="1"
                       MaxHeight="600"
-                      Padding="10">
+                      Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
+                                        ,Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Padding="20"
                         animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
-                        animations:Implicit.HideAnimations="{StaticResource HideAnimation}"
-                        Visibility="{x:Bind SignUpToggleSwitch.IsOn, Mode=OneWay
-                                           ,Converter={StaticResource BoolToVisibilityConverter}}">
+                        animations:Implicit.HideAnimations="{StaticResource HideAnimation}">
                 <TextBlock Text="Join the community"
                        HorizontalAlignment="Center"
                        Style="{StaticResource TitleTextBlockStyle}"/>

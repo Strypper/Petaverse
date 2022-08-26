@@ -2,12 +2,14 @@
 using Petaverse.Constants;
 using Petaverse.Enums;
 using Petaverse.Interfaces;
+using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
 using Petaverse.Refits;
 using Refit;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -23,16 +25,19 @@ namespace Petaverse.UserControls.CommonUserControls
 
         private readonly IUserData              userData;
         private readonly ICurrentUserService    currentUserService;
-        private readonly IAuthenticationService authenticateServices;
+        private readonly IPetaverseUserService  petaverseUserService;
+        private readonly IAuthenticationService authenticationService;
 
         public LoginUserControl()
         {
             this.InitializeComponent();
+            //We call this control in xaml so we cannot use constructor injection
+            var httpClient        = Ioc.Default.GetRequiredService<HttpClient>();
 
-            var httpClient       = Ioc.Default.GetRequiredService<HttpClient>();
-            userData             = RestService.For<IUserData>(httpClient);
-            currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            authenticateServices = Ioc.Default.GetRequiredService<IAuthenticationService>();
+            userData              = RestService.For<IUserData>(httpClient);
+            currentUserService    = Ioc.Default.GetRequiredService<ICurrentUserService>();
+            petaverseUserService  = Ioc.Default.GetRequiredService<IPetaverseUserService>();
+            authenticationService = Ioc.Default.GetRequiredService<IAuthenticationService>();
         }
 
         private async void LoginOrSignUp_Click(object sender, RoutedEventArgs e)
@@ -41,7 +46,8 @@ namespace Petaverse.UserControls.CommonUserControls
             LoginOrSignUpIndeterminateBar.Visibility = Visibility.Visible;
             if (SignUpToggleSwitch.IsOn)
             {
-                var registerPetaverseUser = await authenticateServices
+                //This one null ?
+                var registerTotechsUser = await authenticationService
                                                     .RegisterAsync(new RegisterModel()
                                                     {
                                                         UserName    = Email.Text,
@@ -52,16 +58,24 @@ namespace Petaverse.UserControls.CommonUserControls
                                                         LastName    = LastName.Text,
                                                         PhoneNumber = PhoneNumber.Text,
                                                         Gender      = GenderToggleSwitch.IsOn,
-                                                        RoleGuid    = AppConstants.TotechsIdentityPetaverseRoleGuid,
-
-
-                                                        ProfilePicUrl = "https://i.imgur.com/deS4147.png"
+                                                        RoleGuid    = AppConstants.TotechsIdentityPetaverseRoleGuid
                                                     });
                 LoginOrSignUpProgressBar.Value = 30;
-                if (registerPetaverseUser != null && registerPetaverseUser.UserInfo != null)
+                if (registerTotechsUser != null)
                 {
-                    var petaverseUser = await ProcessLogin(registerPetaverseUser);
-                    LoginComplete(petaverseUser);
+                    //Register petaverse account
+                    var petaverseUserGuid = await petaverseUserService.RegisterPetaverseUserAsync(new User()
+                    {
+                        Guid                     = registerTotechsUser.Guid,
+                        PetaverseProfileImageUrl = "https://i.imgur.com/deS4147.png"
+                    });
+
+                    //Process Login
+                    if (registerTotechsUser.Guid.Equals(petaverseUserGuid))
+                    {
+                        var petaverseUser = await ProcessLogin(registerTotechsUser);
+                        LoginComplete(petaverseUser);
+                    }
                 }
                 else
                 {
@@ -78,7 +92,7 @@ namespace Petaverse.UserControls.CommonUserControls
                 if (!String.IsNullOrEmpty(PhoneNumber.Text) && !String.IsNullOrEmpty(Password.Password))
                 {
 
-                    var pricipalUserInfo = await authenticateServices.Authenticate(new LoginModel()
+                    var pricipalUserInfo = await authenticationService.Authenticate(new LoginModel()
                     {
                         PhoneNumber = PhoneNumber.Text,
                         Password = Password.Password
@@ -87,7 +101,7 @@ namespace Petaverse.UserControls.CommonUserControls
 
                     if (pricipalUserInfo != null)
                     {
-                        var petaverseUser = await ProcessLogin(pricipalUserInfo);
+                        var petaverseUser = await ProcessLogin(pricipalUserInfo.UserInfo);
 
                         LoginComplete(petaverseUser);
                     }
@@ -108,24 +122,30 @@ namespace Petaverse.UserControls.CommonUserControls
             }
         }
 
-        private async Task<User> ProcessLogin(TotechsIdentityUser pricipalUserInfo)
+        private async Task<User> ProcessLogin(UserPrincipal pricipalUserInfo)
         {
-            currentUserService.WriteLocalUserGuidToAppSettings(pricipalUserInfo.UserInfo.Guid);
+            var petaverseUser = await petaverseUserService.LoginPetaverseByGuidAsync(pricipalUserInfo.Guid);
+            if (petaverseUser != null)
+            {
+                LoginOrSignUpProgressBar.Value += 50;
 
-            LoginOrSignUpProgressBar.Value += 20;
+                petaverseUser.FillPricipalUserInfo(pricipalUserInfo);
 
-            var petaverseUser = await userData.GetByUserGuid(pricipalUserInfo.UserInfo.Guid);
+                LoginOrSignUpProgressBar.Value += 10;
 
-            LoginOrSignUpProgressBar.Value += 30;
+                await currentUserService.SaveLocalUserAsync(petaverseUser);
 
-            petaverseUser.FillPricipalUserInfo(pricipalUserInfo.UserInfo);
+                currentUserService.WriteLocalUserGuidToAppSettings(pricipalUserInfo.Guid);
 
-            LoginOrSignUpProgressBar.Value += 10;
-
-            await currentUserService.SaveLocalUserAsync(petaverseUser);
-
-            LoginOrSignUpProgressBar.Value += 10;
-            return petaverseUser;
+                LoginOrSignUpProgressBar.Value += 10;
+                return petaverseUser;
+            }
+            else
+            {
+                LoginOrSignUpProgressBar.Value = 0;
+                LoginOrSignUpIndeterminateBar.Visibility = Visibility.Collapsed;
+                return null;
+            };
         }
 
         private void LoginComplete(User pricipalUserInfo)

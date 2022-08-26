@@ -1,9 +1,11 @@
-﻿using Petaverse.Models.DTOs;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Petaverse.Models.DTOs;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Petaverse.UserControls.PetShortsUserControls
 {
+    [INotifyPropertyChanged]
     public sealed partial class PetaverseMediaPlayerUserControl : UserControl
     {
         public PetShort PetShort
@@ -17,6 +19,9 @@ namespace Petaverse.UserControls.PetShortsUserControls
 
         private bool isToggledLove;
 
+        [ObservableProperty]
+        bool isVisibleVideoTitle;
+
         public PetaverseMediaPlayerUserControl()
         {
             this.InitializeComponent();
@@ -26,6 +31,16 @@ namespace Petaverse.UserControls.PetShortsUserControls
         {
             PetShort.Love += (isToggledLove ? 1 : -1);
             isToggledLove = !isToggledLove;
+        }
+
+        private void Grid_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            IsVisibleVideoTitle = true;
+        }
+
+        private void Grid_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            IsVisibleVideoTitle = false;
         }
     }
 }

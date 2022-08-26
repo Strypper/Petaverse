@@ -30,7 +30,7 @@ namespace Petaverse.Services
             try
             {
                var pricipalUserInfo = await authenticateServices.Authenticate(model);
-                return pricipalUserInfo;
+               return pricipalUserInfo;
             }
             catch (ApiException ex)
             {
@@ -45,7 +45,7 @@ namespace Petaverse.Services
             }
         }
 
-        public async Task<TotechsIdentityUser> RegisterAsync(RegisterModel model)
+        public async Task<UserPrincipal> RegisterAsync(RegisterModel model)
         {
             try
             {

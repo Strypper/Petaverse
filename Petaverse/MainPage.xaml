@@ -13,7 +13,8 @@
     <Page.Resources>
         <DataTemplate x:Key="NavigationViewItemTemplate"
                       x:DataType="local:NavigationViewItem">
-            <winui:NavigationViewItem Content="{x:Bind Content}"
+            <winui:NavigationViewItem FontWeight="Bold"
+                                      Content="{x:Bind Content}"
                                       IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon Glyph="{x:Bind Glyph}"/>
@@ -62,7 +63,8 @@
                     <StackPanel Orientation="Horizontal">
                         <PersonPicture x:Name="CurrentUserPersonPicture"
                                        Width="35"
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       />
                         <TextBlock x:Name="CurrentUserFullNameText"
                                    VerticalAlignment="Center"
                                    Margin="5,0,0,0"/>

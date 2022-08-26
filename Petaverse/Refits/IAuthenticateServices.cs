@@ -10,6 +10,6 @@ namespace Petaverse.Refits
         Task<TotechsIdentityUser> Authenticate(LoginModel model);
 
         [Post("/Access/Register")]
-        Task<TotechsIdentityUser> RegisterAsync(UserPrincipal mode);
+        Task<UserPrincipal> RegisterAsync(UserPrincipal model);
     }
 }

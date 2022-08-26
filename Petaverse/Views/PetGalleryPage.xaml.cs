@@ -21,6 +21,7 @@ using Petaverse.Models.Others;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Microsoft.Toolkit.Uwp.UI;
 
 namespace Petaverse.Views
 {
@@ -33,6 +34,8 @@ namespace Petaverse.Views
         }
         public static readonly DependencyProperty PetProperty =
             DependencyProperty.Register("Pet", typeof(Animal), typeof(PetGalleryPage), null);
+
+        public AdvancedCollectionView Gallery { get; set; }
 
         Compositor             _compositor;
         CompositionPropertySet _props;
@@ -55,6 +58,14 @@ namespace Petaverse.Views
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.InitAnimationHeader();
+            this.InitAdvanceCollection();
+        }
+
+        private void InitAdvanceCollection()
+        {
+            this.Gallery = new AdvancedCollectionView(Pet?.PetPhotos);
+            this.Gallery.Filter = media => ((PetaverseMedia)media).Type != MediaType.Avatar;
+            this.PetGalleryAdaptiveGridView.ItemsSource = this.Gallery;
         }
 
         private void InitAnimationHeader()
@@ -202,7 +213,7 @@ namespace Petaverse.Views
             var uploadedMedia = await _uploadPetFileService.UploadMultiplePetFilesAsync(Pet.Id, petPhotosStream);
             if(uploadedMedia.Count > 0)
             {
-                uploadedMedia.ForEach(media => Pet.PetPhotos.Add(media));
+                uploadedMedia.ForEach(media => Gallery.Add(media));
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Petaverse.Models.DTOs;
 using Refit;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Petaverse.Refits
@@ -8,5 +9,8 @@ namespace Petaverse.Refits
     {
         [Get("/User/GetByUserGuid/{guid}")]
         Task<User> GetByUserGuid(string guid);
+
+        [Post("/User/Register/")]
+        Task<string> RegisterUserAsync(User petaverseUser);
     }
 }

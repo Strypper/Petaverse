@@ -1,10 +1,9 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+
 
 namespace Petaverse.Models.DTOs
 {
@@ -39,6 +38,26 @@ namespace Petaverse.Models.DTOs
         public int                      PetId { get; set; }
 
         public ICollection<BitmapImage> PetPhotos { get; set; } = new ObservableCollection<BitmapImage>();
+    }
+
+    public enum AnimalSize
+    {
+        Tiny, Small, Medium, MediumLarge, Large
+    }
+
+    public enum Shedding
+    {
+        None, Minimal, Medium, Heavy
+    }
+
+    public enum Coat
+    {
+        Short, Medium, Long
+    }
+
+    public enum Energy
+    {
+        Low, Medium, Energy
     }
 }
  

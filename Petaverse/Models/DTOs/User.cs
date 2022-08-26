@@ -48,6 +48,16 @@ namespace Petaverse.Models.DTOs
         public string Password { get; set; }
     }
 
+    public class CreatePetaverseUserModel
+    {
+        public string Guid { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        public string? CoverImageUrl { get; set; } = String.Empty;
+        public string PetaverseProfileUrl { get; set; }
+    }
+
 
     public static class UserExtensions
     {

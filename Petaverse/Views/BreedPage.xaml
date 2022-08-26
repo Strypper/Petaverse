@@ -10,6 +10,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:converters="using:Petaverse.Converters"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:enums="using:Petaverse.Models.DTOs"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
@@ -85,22 +87,18 @@
                                        Height="80"
                                        TextWrapping="Wrap" 
                                        Text="{x:Bind Species.Description}"/>
-                            <RatingControl x:Name="Rating" Value="5" HorizontalAlignment="Left" 
-                                           IsClearEnabled="False" IsReadOnly="True"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
                                 <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
-                                    <Button x:Name="ReturnHomeRoot" Padding="0" Background="Transparent" BorderBrush="Transparent">
-                                        <StackPanel Orientation="Horizontal">
-                                            <SymbolIcon Symbol="Add"/>
-                                            <TextBlock Text="Suggest breed" Margin="5"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Button x:Name="CreateSubject" Padding="0" Background="Transparent" BorderBrush="Transparent">
-                                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                            <SymbolIcon Symbol="Camera" VerticalAlignment="Center" Margin="5"/>
-                                            <TextBlock Text="Scan breed" VerticalAlignment="Center" Margin="5"/>
-                                        </StackPanel>
-                                    </Button>
+                                    <ComboBox PlaceholderText="Shedding"
+                                          Header="Shedding"
+                                          ToolTipService.ToolTip="Show how much hair fall"
+                                          ItemsSource="{ui:EnumValues Type=enums:Shedding}"/>
+                                    <ComboBox Margin="10,0,0,0" PlaceholderText="Coat"
+                                          Header="Coat"
+                                          ItemsSource="{ui:EnumValues Type=enums:Coat}"/>
+                                    <ComboBox Margin="10,0,0,0" PlaceholderText="Energy"
+                                          Header="Energy"
+                                          ItemsSource="{ui:EnumValues Type=enums:Energy}"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

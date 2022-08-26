@@ -8,6 +8,7 @@
     xmlns:converters="using:Petaverse.Converters" 
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -1102,8 +1103,28 @@
 
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
         <converters:StringToMediaSourceConverter x:Key="StringToMediaSourceConverter"/>
+
+        <animations:ImplicitAnimationSet x:Key="ShowVideoTitleAnimation">
+            <animations:TranslationAnimation Duration="0:0:0.5" To="0, 0, 0"/>
+            <animations:OpacityAnimation Duration="0:0:0.5" To="1.0"/>
+        </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Key="HideVideoTitleAnimation">
+            <animations:ScalarAnimation Target="Opacity" 
+                                        Duration="0:0:1" 
+                                        To="0.0"/>
+            <animations:ScalarAnimation Target="Translation.Y" 
+                                            Duration="0:0:1" 
+                                            To="-200">
+                <animations:ScalarKeyFrame Key="0.1" 
+                                           Value="30"/>
+                <animations:ScalarKeyFrame Key="0.5" 
+                                           Value="0.0"/>
+            </animations:ScalarAnimation>
+        </animations:ImplicitAnimationSet>
     </UserControl.Resources>
     <Grid Margin="0,20,20,20"
+          PointerEntered="Grid_PointerEntered"
+          PointerExited="Grid_PointerExited"
           ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}">
         <Border CornerRadius="10">
             <MediaPlayerElement Source="{x:Bind PetShort.MediaUrl
@@ -1120,13 +1141,13 @@
                 </MediaPlayerElement.TransportControls>
             </MediaPlayerElement>
         </Border>
-        <StackPanel Orientation="Horizontal"
-                                CornerRadius="10"
-                                Padding="20"
-                                Margin="20"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Left"
-                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+        <StackPanel Padding="20"
+                    Margin="20"
+                    CornerRadius="10"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
             <StackPanel>
                 <TextBlock Text="94"
                                HorizontalAlignment="Center"
@@ -1160,5 +1181,14 @@
                        HorizontalAlignment="Right"
                        ToolTipService.ToolTip="{x:Bind PetShort.Publisher.FullName, Mode=OneWay}"
                        ProfilePicture="{x:Bind PetShort.Publisher.ProfilePicUrl, Mode=OneWay}"/>
+        <TextBlock Margin="0,0,0,130"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Center"
+                   Text="Little brat keep pushing me !!!!"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   animations:Implicit.ShowAnimations="{StaticResource ShowVideoTitleAnimation}"
+                   animations:Implicit.HideAnimations="{StaticResource HideVideoTitleAnimation}"
+                   Visibility="{x:Bind IsVisibleVideoTitle, Mode=OneWay, 
+                                       Converter={StaticResource BoolToVisibilityConverter}}"/>
     </Grid>
 </UserControl>
