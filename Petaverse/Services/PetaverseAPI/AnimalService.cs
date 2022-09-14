@@ -5,17 +5,21 @@ using Petaverse.Models.FEModels;
 using Petaverse.Refits;
 using Refit;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace Petaverse.Services.PetaverseAPI
 {
     public class AnimalService : IAnimalService
     {
+        private readonly HttpClient  _httpClient;
         private readonly IAnimalData _animalData;
         public AnimalService(HttpClient httpClient)
         {
+            _httpClient = httpClient;
             _animalData = RestService.For<IAnimalData>(httpClient);
         }
 
@@ -55,6 +59,20 @@ namespace Petaverse.Services.PetaverseAPI
             catch (ApiException ex)
             {
                 await new HttpRequestErrorContentDialog() { Exception = ex }.ShowAsync();
+                return null;
+            }
+            catch (Exception e)
+            {
+                await new ServerNotFoundContentDialog()
+                {
+                    HttpClientInfo = _httpClient,
+                    Action = "Trying to get user based on their Guid",
+                    DestinationTryingToReach = "/Animal/GetAllByUserGuid/{userGuid}",
+                    ServiceImageUrl = "https://i.imgur.com/EieEOMK.png",
+                    ProblemsCouldCauseList = new List<string>() { "Server is shutted down", "Wrong URL", "IDK Maybe ur mum is gei" },
+                    SolutionsList = new List<string>() { "Start the server", "Contact to IT", "Go Fck urself !" }
+                }
+                .ShowAsync();
                 return null;
             }
         }

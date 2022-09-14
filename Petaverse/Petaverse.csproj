@@ -12,8 +12,8 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <LangVersion>9.0</LangVersion>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -129,6 +129,9 @@
     </Compile>
     <Compile Include="ContentDialogs\HttpRequestErrorContentDialog.xaml.cs">
       <DependentUpon>HttpRequestErrorContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContentDialogs\ServerNotFoundContentDialog.xaml.cs">
+      <DependentUpon>ServerNotFoundContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContentDialogs\ViewPetMediaDetailContentDialog.xaml.cs">
       <DependentUpon>ViewPetMediaDetailContentDialog.xaml</DependentUpon>
@@ -273,6 +276,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ContentDialogs\ServerNotFoundContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ContentDialogs\ViewPetMediaDetailContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -389,6 +396,9 @@
     <Content Include="Assets\Lotties\PetaverseCommunity.json" />
     <Content Include="Assets\Lotties\PetsHugLottie.json" />
     <Content Include="Assets\Lotties\PetsSpa.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Lotties\CannotFindServer.json" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

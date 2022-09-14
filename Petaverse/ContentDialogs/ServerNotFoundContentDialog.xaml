@@ -1,0 +1,71 @@
+﻿<ContentDialog
+    x:Class="Petaverse.ContentDialogs.ServerNotFoundContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:local="using:Petaverse.ContentDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
+    mc:Ignorable="d"
+    Title="SERVER ERROR ⚠️"
+    DefaultButton="Primary"
+    PrimaryButtonText="Report"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonText="Nah ! I'm gonna try again"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+
+    <StackPanel>
+        <TextBlock>
+            <Run Text="Can't reach the server MATE !:"/>
+            <Run Text="{x:Bind HttpClientInfo.BaseAddress, Mode=OneWay}" 
+                 FontWeight="Bold"
+                 TextDecorations="Underline"/>
+        </TextBlock>
+        <Grid helpers:Grid.ColumnDefinitions="*, *">
+            <winui:AnimatedVisualPlayer x:Name="LottiePlayer"
+									     MaxWidth="200"
+                                         MaxHeight="200"
+										 HorizontalAlignment="Center"
+										 VerticalAlignment="Center">
+                <lottie:LottieVisualSource x:Name="LottieJsonSource" 
+                                       UriSource="ms-appx:///Assets/Lotties/CannotFindServer.json" />
+            </winui:AnimatedVisualPlayer>
+            <Image Width="145"
+                   Height="145"
+                   Grid.Column="1"
+                   Source="{x:Bind ServiceImageUrl, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}"/>
+        </Grid>
+        <Border Background="{ThemeResource SystemAltMediumLowColor}"
+                Padding="10" CornerRadius="5">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Technical information:"
+                           TextDecorations="Underline"
+                           Margin="0,0,0,5"
+                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock Margin="0,0,0,5">
+                    <Run Text="Action:"/>
+                    <Run Text="{x:Bind Action, Mode=OneWay}"
+                         FontWeight="SemiBold"/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="Destination trying to reach:"/>
+                    <Run Text="{x:Bind DestinationTryingToReach, Mode=OneWay}"
+                         Foreground="{StaticResource SystemErrorTextColor}"
+                         TextDecorations="Underline"/>
+                </TextBlock>
+                <Grid Margin="0,5,0,0"
+                      ColumnSpacing="5"
+                      helpers:Grid.ColumnDefinitions="*, *">
+                    <ListView Header="Problems might cause"
+                              ItemsSource="{x:Bind ProblemsCouldCauseList, Mode=OneWay}"
+                              Background="#fe405f" Padding="10" Margin="0,5,5,5" CornerRadius="5"/>
+                    <ListView Header="Solutions"
+                              HorizontalAlignment="Stretch"
+                              ItemsSource="{x:Bind SolutionsList, Mode=OneWay}"
+                              Grid.Column="1" Background="#7eba00" Padding="10" Margin="0,5,5,5" CornerRadius="5"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</ContentDialog>
