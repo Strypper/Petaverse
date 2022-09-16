@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Petaverse.Models.DTOs;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -17,7 +18,7 @@ namespace Petaverse.UserControls.PetShortsUserControls
         public static readonly DependencyProperty PetShortProperty =
             DependencyProperty.Register("PetShort", typeof(PetShort), typeof(PetaverseMediaPlayerUserControl), null);
 
-        private bool isToggledLove;
+
 
         [ObservableProperty]
         bool isVisibleVideoTitle;
@@ -25,12 +26,6 @@ namespace Petaverse.UserControls.PetShortsUserControls
         public PetaverseMediaPlayerUserControl()
         {
             this.InitializeComponent();
-        }
-
-        private void HeartButton_Click(object sender, RoutedEventArgs e)
-        {
-            PetShort.Love += (isToggledLove ? 1 : -1);
-            isToggledLove = !isToggledLove;
         }
 
         private void Grid_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -41,6 +36,12 @@ namespace Petaverse.UserControls.PetShortsUserControls
         private void Grid_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             IsVisibleVideoTitle = false;
+        }
+
+        private void PetShortMediaPlayer_ToggleLoveEvent(object sender, EventArgs e)
+        {
+            PetShort.IsLoved = !PetShort.IsLoved;
+            PetShort.Love += (PetShort.IsLoved ? 1 : -1);
         }
     }
 }

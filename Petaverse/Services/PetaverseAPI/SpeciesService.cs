@@ -12,10 +12,12 @@ namespace Petaverse.Services.PetaverseAPI
 {
     public class SpeciesService : ISpeciesService
     {
+        private readonly HttpClient _httpClient;
         private readonly ISpeciesData _speciesData;
 
         public SpeciesService(HttpClient httpClient) 
         {
+            _httpClient  = httpClient;
             _speciesData = RestService.For<ISpeciesData>(httpClient);
         }
 
@@ -28,6 +30,20 @@ namespace Petaverse.Services.PetaverseAPI
             catch (ApiException ex)
             {
                 await new HttpRequestErrorContentDialog() { Exception = ex }.ShowAsync();
+                return null;
+            }
+            catch (Exception ex)
+            {
+                await new ServerNotFoundContentDialog()
+                {
+                    HttpClientInfo = _httpClient,
+                    Action = "Trying to get all the species from PetaverseAPI",
+                    DestinationTryingToReach = "/Species/GetAll",
+                    ServiceImageUrl = "https://i.imgur.com/EieEOMK.png",
+                    ProblemsCouldCauseList = new List<string>() { "PetaverseAPI is shutted down", "Wrong URL" },
+                    SolutionsList = new List<string>() { "Start the PetaverseAPI", "Contact to IT" }
+                }
+                .ShowAsync();
                 return null;
             }
         }

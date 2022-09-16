@@ -9,10 +9,16 @@
     xmlns:dto="using:Petaverse.Models.DTOs" 
     xmlns:petshortsusercontrols="using:Petaverse.UserControls.PetShortsUserControls" 
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls"
     mc:Ignorable="d"
     NavigationCacheMode="Disabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
+
+        <DataTemplate x:Key="PetGalleryGridViewItemTemplate">
+            <profilepageusercontrols:PetGalleryGridViewItemUserControl/>
+        </DataTemplate>
+        
         <DataTemplate x:Key="FlipViewItemTemplate"
                       x:DataType="dto:PetShort">
             <Grid helpers:Grid.ColumnDefinitions="0.7*,*">
@@ -51,14 +57,10 @@
                                       MinWidth="0"/>
                     </RelativePanel>
                     <Grid Grid.Row="1"
+                          Margin="5,20,0,0"
                           VerticalAlignment="Stretch"
                           HorizontalAlignment="Stretch"
-                          Margin="5,20,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                          helpers:Grid.ColumnDefinitions="*, *, *">
                         <Border Padding="10"
                                 CornerRadius="4"
                                 VerticalAlignment="Stretch"
@@ -115,6 +117,8 @@
                                     <TextBlock Text="Photos"/>
                                 </StackPanel>
                             </PivotItem.Header>
+                            <GridView ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
+                                      ItemTemplate="{StaticResource PetGalleryGridViewItemTemplate}"/>
                         </PivotItem>
                         <PivotItem>
                             <PivotItem.Header>

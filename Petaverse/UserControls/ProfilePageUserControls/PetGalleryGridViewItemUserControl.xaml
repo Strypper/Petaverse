@@ -11,9 +11,9 @@
     <UserControl.Resources>
         <MenuFlyout x:Key="PetGalleryGridViewItemUserControlFlyout">
             <MenuFlyout.Items>
-                <MenuFlyoutItem Text="Delete Image" 
-                                Icon="Delete" 
-                                Background="Red"/>
+                <MenuFlyoutItem Icon="Delete" 
+                                Background="Red"
+                                Text="Delete Image"/>
             </MenuFlyout.Items>
         </MenuFlyout>
     </UserControl.Resources>

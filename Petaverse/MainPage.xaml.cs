@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
+using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
 using Petaverse.Views;
 using System;
@@ -14,12 +15,15 @@ namespace Petaverse
 {
     public sealed partial class MainPage : Page
     {
+        private User currentUser;
         public ObservableCollection<NavigationViewItem> PetaverseNavigateViewItems { get; set; } = new ObservableCollection<NavigationViewItem>();
         private ICurrentUserService currentUserService;
+        private readonly IAnimalService animalService;
 
         public MainPage()
         {
             this.InitializeComponent();
+            animalService = Ioc.Default.GetRequiredService<IAnimalService>();
             currentUserService = Ioc.Default.GetRequiredService<ICurrentUserService>();
             PetaverseNavigateViewItems = PetaverseNavigationItem.InitPetaverseNavigationItems();
         }
@@ -29,7 +33,7 @@ namespace Petaverse
             var currentUserGuid = currentUserService.GetLocalUserGuidFromAppSettings();
             if (!string.IsNullOrEmpty(currentUserGuid))
             {
-                var currentUser = await currentUserService.GetLocalUserAsync(currentUserGuid);
+                currentUser = await currentUserService.GetLocalUserAsync(currentUserGuid);
                 this.ProccessLogin(currentUser);
             }
         }
@@ -71,6 +75,12 @@ namespace Petaverse
                 foreach (var item in PetaverseNavigateViewItems) { item.IsEnable = true; }
                 NavigationViewPaneFooter.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
+        }
+
+        private async void AddPetShort_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            currentUser.Pets = await animalService.GetAllByUserGuidAsync(currentUserService.GetLocalUserGuidFromAppSettings());
+            await new AddPetShortsContentDialog() { CurrentUser = currentUser }.ShowAsync();
         }
     }
 

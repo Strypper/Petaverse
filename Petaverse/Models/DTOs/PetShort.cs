@@ -34,6 +34,7 @@ namespace Petaverse.Models.DTOs
             petShorts.Add(new PetShort()
             {
                 Id = 1,
+                IsLoved = true,
                 Title = "Playing with his brother",
                 Love = random.Next(0, 10000),
                 Media = new PetaverseMedia()

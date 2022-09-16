@@ -9,7 +9,9 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     xmlns:converters="using:Petaverse.Converters"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
     mc:Ignorable="d" Loaded="Page_Loaded"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
