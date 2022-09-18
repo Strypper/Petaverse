@@ -395,10 +395,10 @@
                                 <!--animations:Implicit.ShowAnimations="{StaticResource ShowVideoTitleAnimation}"
                                     animations:Implicit.HideAnimations="{StaticResource HideVideoTitleAnimation}"-->
                                 <TextBlock Margin="0,0,0,110"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Text="{TemplateBinding Title}"
-                                               Style="{StaticResource TitleTextBlockStyle}"/>
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Text="{TemplateBinding Title}"
+                                           Style="{StaticResource TitleTextBlockStyle}"/>
                                 <Grid x:Name="ControlPanelGrid" Background="{ThemeResource MediaTransportControlsPanelBackground}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -425,8 +425,21 @@
                                                 <RowDefinition/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <Slider x:Name="ProgressSlider" Height="33" IsThumbToolTipEnabled="False" Margin="12,0" MinWidth="80" Style="{StaticResource MediaSliderStyle}" VerticalAlignment="Center"/>
-                                            <ProgressBar x:Name="BufferingProgressBar" Height="4" IsIndeterminate="True" IsHitTestVisible="False" Margin="0,2,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+                                            <Slider x:Name="ProgressSlider" 
+                                                    Height="33" 
+                                                    Margin="12,0" 
+                                                    MinWidth="80" 
+                                                    IsThumbToolTipEnabled="False" 
+                                                    Style="{StaticResource MediaSliderStyle}" 
+                                                    VerticalAlignment="Center"
+                                                    CornerRadius="4"/>
+                                            <ProgressBar x:Name="BufferingProgressBar" 
+                                                         Height="4" 
+                                                         IsIndeterminate="True" 
+                                                         IsHitTestVisible="False" 
+                                                         Margin="0,2,0,0" 
+                                                         VerticalAlignment="Top" 
+                                                         Visibility="Collapsed"/>
                                             <Grid x:Name="TimeTextGrid" Margin="12,0" Grid.Row="1">
                                                 <TextBlock x:Name="TimeElapsedElement" HorizontalAlignment="Left" Margin="0" Style="{StaticResource MediaTextBlockStyle}" Text="00:00" VerticalAlignment="Bottom"/>
                                                 <TextBlock x:Name="TimeRemainingElement" HorizontalAlignment="Right" Style="{StaticResource MediaTextBlockStyle}" Text="00:00" VerticalAlignment="Bottom"/>
@@ -440,19 +453,41 @@
                                             </AppBarButton.Icon>
                                         </AppBarButton>
                                     </Border>
-                                    <Border x:Name="MediaTransportControls_Command_Border" Grid.Column="1" Grid.Row="2">
+                                    <Border x:Name="MediaTransportControls_Command_Border" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="2">
                                         <CommandBar x:Name="MediaControlsCommandBar" IsDynamicOverflowEnabled="False" Margin="0,0" Style="{StaticResource CommandBarStyle}">
-                                            <AppBarButton x:Name="VolumeMuteButton" MediaTransportControlsHelper.DropoutOrder="19" Style="{StaticResource AppBarButtonStyle}">
+                                            <AppBarButton x:Name="VolumeMuteButton"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="19" 
+                                                          Style="{StaticResource AppBarButtonStyle}">
                                                 <AppBarButton.Flyout>
-                                                    <Flyout x:Name="VolumeFlyout" FlyoutPresenterStyle="{StaticResource FlyoutStyle}" ShouldConstrainToRootBounds="False">
+                                                    <Flyout x:Name="VolumeFlyout" 
+                                                            FlyoutPresenterStyle="{StaticResource FlyoutStyle}" 
+                                                            ShouldConstrainToRootBounds="False">
                                                         <StackPanel Orientation="Horizontal">
-                                                            <AppBarButton x:Name="AudioMuteButton" HorizontalAlignment="Center" Margin="12" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center">
+                                                            <AppBarButton x:Name="AudioMuteButton" 
+                                                                          HorizontalAlignment="Center" 
+                                                                          Margin="12" 
+                                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                                          VerticalAlignment="Center">
                                                                 <AppBarButton.Icon>
-                                                                    <SymbolIcon x:Name="AudioMuteSymbol" Symbol="Volume"/>
+                                                                    <SymbolIcon x:Name="AudioMuteSymbol" 
+                                                                                Symbol="Volume"/>
                                                                 </AppBarButton.Icon>
                                                             </AppBarButton>
-                                                            <Slider x:Name="VolumeSlider" HorizontalAlignment="Center" IsThumbToolTipEnabled="False" Margin="0" Value="50" VerticalAlignment="Center" Width="{ThemeResource MTCHorizontalVolumeSliderWidth}"/>
-                                                            <TextBlock x:Name="VolumeValue" HorizontalAlignment="Center" Margin="12" Style="{StaticResource MediaTextBlockStyle}" Text="{Binding Value, ElementName=VolumeSlider}" VerticalAlignment="Center"/>
+                                                            <Slider x:Name="VolumeSlider" 
+                                                                    HorizontalAlignment="Center" 
+                                                                    IsThumbToolTipEnabled="False" 
+                                                                    Margin="0" 
+                                                                    Value="50" 
+                                                                    VerticalAlignment="Center" 
+                                                                    Width="{ThemeResource MTCHorizontalVolumeSliderWidth}"/>
+                                                            <TextBlock x:Name="VolumeValue" 
+                                                                       HorizontalAlignment="Center" 
+                                                                       Margin="12" 
+                                                                       Style="{StaticResource MediaTextBlockStyle}" 
+                                                                       Text="{Binding Value, ElementName=VolumeSlider}" 
+                                                                       VerticalAlignment="Center"/>
                                                         </StackPanel>
                                                     </Flyout>
                                                 </AppBarButton.Flyout>
@@ -461,78 +496,153 @@
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarToggleButton x:Name="HeartButton"
+                                                                CornerRadius="4"
+                                                                Margin="0,0,0,8"
+                                                                Click="HeartButton_Click"
                                                                 IsChecked="{TemplateBinding IsLoved}"
-                                                                Click="HeartButton_Click">
+                                                                ToolTipService.ToolTip="Love this short">
                                                 <AppBarToggleButton.Icon>
                                                     <FontIcon Glyph="&#xE006;"/>
                                                 </AppBarToggleButton.Icon>
                                             </AppBarToggleButton>
-                                            <AppBarButton x:Name="CCSelectionButton" MediaTransportControlsHelper.DropoutOrder="15" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="CCSelectionButton"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="15" 
+                                                          Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xED1E;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="AudioTracksSelectionButton" MediaTransportControlsHelper.DropoutOrder="13" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="AudioTracksSelectionButton"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="13" 
+                                                          Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xED1F;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarSeparator x:Name="LeftSeparator" Height="0" Margin="0,0" Width="0"/>
-                                            <AppBarButton x:Name="StopButton" MediaTransportControlsHelper.DropoutOrder="7" Icon="Stop" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed"/>
+                                            <AppBarButton x:Name="StopButton" 
+                                                          MediaTransportControlsHelper.DropoutOrder="7" 
+                                                          Icon="Stop" 
+                                                          Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed"
+                                                          Margin="0,0,0,8"/>
                                             <AppBarButton x:Name="SkipBackwardButton" MediaTransportControlsHelper.DropoutOrder="5" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xED3C;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="PreviousTrackButton" MediaTransportControlsHelper.DropoutOrder="3" Icon="Previous" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed"/>
-                                            <AppBarButton x:Name="RewindButton" MediaTransportControlsHelper.DropoutOrder="1" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="PreviousTrackButton" 
+                                                          MediaTransportControlsHelper.DropoutOrder="3" 
+                                                          Icon="Previous" 
+                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                          Visibility="Collapsed"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"/>
+                                            <AppBarButton x:Name="RewindButton" 
+                                                          MediaTransportControlsHelper.DropoutOrder="1" 
+                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                          Visibility="Collapsed"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEB9E;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="PlayPauseButton" MediaTransportControlsHelper.DropoutOrder="23" Style="{StaticResource AppBarButtonStyle}">
+                                            <AppBarButton x:Name="PlayPauseButton" 
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          Style="{StaticResource AppBarButtonStyle}"
+                                                          Foreground="{StaticResource SystemAccentColor}"
+                                                          MediaTransportControlsHelper.DropoutOrder="23" >
                                                 <AppBarButton.Icon>
                                                     <SymbolIcon x:Name="PlayPauseSymbol" Symbol="Play"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="FastForwardButton" MediaTransportControlsHelper.DropoutOrder="1" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="FastForwardButton" 
+                                                          MediaTransportControlsHelper.DropoutOrder="1" 
+                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                          Visibility="Collapsed"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEB9D;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="NextTrackButton" MediaTransportControlsHelper.DropoutOrder="3" Icon="Next" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed"/>
-                                            <AppBarButton x:Name="SkipForwardButton" MediaTransportControlsHelper.DropoutOrder="5" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="NextTrackButton" 
+                                                          Icon="Next" 
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          Visibility="Collapsed"
+                                                          MediaTransportControlsHelper.DropoutOrder="3" 
+                                                          Style="{StaticResource AppBarButtonStyle}"/>
+                                            <AppBarButton x:Name="SkipForwardButton" 
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          Visibility="Collapsed"
+                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                          MediaTransportControlsHelper.DropoutOrder="5">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xED3D;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="PlaybackRateButton" MediaTransportControlsHelper.DropoutOrder="10" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="PlaybackRateButton" 
+                                                          MediaTransportControlsHelper.DropoutOrder="10" 
+                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                          Visibility="Collapsed"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEC57;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarSeparator x:Name="RightSeparator" Height="0" Margin="0,0" Width="0"/>
-                                            <AppBarToggleButton x:Name="RepeatButton" MediaTransportControlsHelper.DropoutOrder="1" Style="{StaticResource AppBarToggleButtonStyle}" Visibility="Collapsed">
+                                            <AppBarSeparator x:Name="RightSeparator" 
+                                                             Height="0" 
+                                                             Margin="0,0" 
+                                                             Width="0"/>
+                                            <AppBarToggleButton x:Name="RepeatButton" 
+                                                                MediaTransportControlsHelper.DropoutOrder="1" 
+                                                                Style="{StaticResource AppBarToggleButtonStyle}" 
+                                                                Visibility="Collapsed"
+                                                                CornerRadius="4"
+                                                                Margin="0,0,0,8">
                                                 <AppBarToggleButton.Icon>
                                                     <SymbolIcon x:Name="RepeatSymbol" Symbol="RepeatAll"/>
                                                 </AppBarToggleButton.Icon>
                                             </AppBarToggleButton>
-                                            <AppBarButton x:Name="ZoomButton" MediaTransportControlsHelper.DropoutOrder="9" Style="{StaticResource AppBarButtonStyle}">
+                                            <AppBarButton x:Name="ZoomButton"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="9" 
+                                                          Style="{StaticResource AppBarButtonStyle}">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xE799;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="CastButton" MediaTransportControlsHelper.DropoutOrder="11" Style="{StaticResource AppBarButtonStyle}">
+                                            <AppBarButton x:Name="CastButton"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="11" 
+                                                          Style="{StaticResource AppBarButtonStyle}">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEC15;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="CompactOverlayButton" MediaTransportControlsHelper.DropoutOrder="24" Style="{StaticResource AppBarButtonStyle}" Visibility="Collapsed">
+                                            <AppBarButton x:Name="CompactOverlayButton"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="24" 
+                                                          Style="{StaticResource AppBarButtonStyle}" 
+                                                          Visibility="Collapsed">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xE8B9;"/>
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="FullWindowButton" MediaTransportControlsHelper.DropoutOrder="17" Style="{StaticResource AppBarButtonStyle}">
+                                            <AppBarButton x:Name="FullWindowButton"
+                                                          CornerRadius="4"
+                                                          Margin="0,0,0,8"
+                                                          MediaTransportControlsHelper.DropoutOrder="17" 
+                                                          Style="{StaticResource AppBarButtonStyle}">
                                                 <AppBarButton.Icon>
                                                     <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen"/>
                                                 </AppBarButton.Icon>

@@ -94,13 +94,16 @@
               CornerRadius="5"
               BorderThickness="2"
               BorderBrush="{StaticResource SystemAccentColor}">
-            <MediaPlayerElement AreTransportControlsEnabled="True"/>
-            <StackPanel Margin="0,0,0,80"
+            <MediaPlayerElement x:Name="PreviewMediaPlayer"
+                                AreTransportControlsEnabled="True"/>
+            <StackPanel x:Name="CommandButtons"
+                        Margin="0,0,0,80"
                         Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                 <AppBarButton Label="Upload Video"
-                              Icon="Video"/>
+                              Icon="Video"
+                              Click="UploadVideo_Click"/>
             </StackPanel>
         </Grid>
     </Grid>
