@@ -26,7 +26,7 @@
                                            Mode=OneWay,
                                            Converter={StaticResource StringToImageSourceConverter}}"
                            Height="500"
-                           Width="350"
+                           Width="300"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"/>
                     <TextBlock Text="{x:Bind BreedName, Mode=OneWay}"

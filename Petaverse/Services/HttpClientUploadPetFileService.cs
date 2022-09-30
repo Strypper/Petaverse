@@ -76,5 +76,35 @@ namespace Petaverse.Services
             }
             else return null;
         }
+
+        public async Task<PetaverseMedia> UploadVideoAsync(PetShort petShort, StorageFile video)
+        {
+            if (video != null)
+            {
+                var multipartFormContent = new MultipartFormDataContent();
+
+                var handle = video.CreateSafeFileHandle(options: FileOptions.RandomAccess);
+                var stream = new FileStream(handle, FileAccess.ReadWrite) { Position = 0 };
+                var media = new StreamContent(stream);
+                media.Headers.Add("Content-Type", "video/mp4");
+                multipartFormContent.Add(media, name: "video", fileName: $"{petShort.Title}");
+
+                try
+                {
+                    var result = await _httpClient.PostAsync($"api/PetShort/UploadPetAvatar/{petShort.Id}", multipartFormContent);
+                    string stringReadResult = await result.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<PetaverseMedia>(stringReadResult);
+                }
+                catch (Exception ex)
+                {
+                    await new HttpRequestErrorContentDialog()
+                    {
+                        Title = "Can't upload video"
+                    }.ShowAsync();
+                    return null;
+                }
+            }
+            else return null;
+        }
     }
 }

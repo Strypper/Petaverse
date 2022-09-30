@@ -69,8 +69,8 @@ namespace Petaverse.Services.PetaverseAPI
                     Action = "Trying to get user based on their Guid",
                     DestinationTryingToReach = "/Animal/GetAllByUserGuid/{userGuid}",
                     ServiceImageUrl = "https://i.imgur.com/EieEOMK.png",
-                    ProblemsCouldCauseList = new List<string>() { "Server is shutted down", "Wrong URL", "IDK Maybe ur mum is gei" },
-                    SolutionsList = new List<string>() { "Start the server", "Contact to IT", "Go Fck urself !" }
+                    ProblemsCouldCauseList = new List<string>() { "Server is shutted down", "Wrong URL" },
+                    SolutionsList = new List<string>() { "Start the server", "Contact to IT"}
                 }
                 .ShowAsync();
                 return null;

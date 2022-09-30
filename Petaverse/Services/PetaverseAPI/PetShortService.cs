@@ -15,11 +15,10 @@ namespace Petaverse.Services.PetaverseAPI
     {
         private readonly HttpClient    _httpClient;
         private readonly IPetShortData _petShortData;
-        public PetShortService(HttpClient    httpClient, 
-                               IPetShortData petShortData)
+        public PetShortService(HttpClient httpClient)
         {
             _httpClient   = httpClient;
-            _petShortData = petShortData;
+            _petShortData = RestService.For<IPetShortData>(httpClient); ;
         }
 
         public async Task<ObservableCollection<PetShort>> GetAllPetShortsAsync()

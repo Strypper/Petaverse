@@ -29,7 +29,8 @@
                   HorizontalAlignment="Center"
                   Foreground="{StaticResource SystemAccentColor}"/>
         <!--Footer="Please select the representative pet"-->
-        <GridView Grid.Row="1"
+        <GridView x:Name="SelectedPets"
+                  Grid.Row="1"
                   Margin="0,0,5,5" 
                   SelectionMode="Single"
                   SelectionChanged="Avatars_SelectionChanged"
@@ -79,7 +80,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBox Grid.Row="1"
+        <TextBox x:Name="TitleTextBox"
+                 Grid.Row="1"
                  Grid.Column="1"
                  FontWeight="Bold"
                  Margin="0,10,0,0"

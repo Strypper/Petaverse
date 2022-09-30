@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
 using Petaverse.Constants;
 using Petaverse.Enums;
 using Petaverse.Helpers;
@@ -20,6 +21,8 @@ namespace Petaverse
 {
     sealed partial class App : Application
     {
+        public static IPublicClientApplication PublicClientApp;
+
         private IServiceCollection _serviceCollection;
 
         public App()
@@ -39,6 +42,10 @@ namespace Petaverse
             }
             ConfigureServices(_serviceCollection);
             Ioc.Default.ConfigureServices(_serviceCollection.BuildServiceProvider());
+
+
+            PublicClientApp = PublicClientApplicationBuilder.Create("67e912a6-adcc-4957-aa07-1980d3a09bc0")
+                                .WithRedirectUri("https://login.microsoftonline.com/common/oauth2/nativeclient").Build();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -91,6 +98,7 @@ namespace Petaverse
 
             services.AddSingleton<IAnimalService,         AnimalService>();
             services.AddSingleton<ISpeciesService,        SpeciesService>();
+            services.AddSingleton<IPetShortService,       PetShortService>();
             services.AddSingleton<IPetaverseUserService,  PetaverseUserService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
 

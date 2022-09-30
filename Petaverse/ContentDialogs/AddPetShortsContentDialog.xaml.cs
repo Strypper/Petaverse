@@ -11,6 +11,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Petaverse.Interfaces;
+using Petaverse.Services.PetaverseAPI;
+using Petaverse.Services;
+using Petaverse.Models.FEModels;
+using System.Linq;
 
 namespace Petaverse.ContentDialogs
 {
@@ -19,13 +24,31 @@ namespace Petaverse.ContentDialogs
     {
         [ObservableProperty]
         User currentUser;
+
+        public readonly IPetShortService _petShortService;
+        private readonly IUploadPetFileService _uploadPetFileService;
         public AddPetShortsContentDialog()
         {
             this.InitializeComponent();
+
+            _petShortService      = Ioc.Default.GetRequiredService<IPetShortService>();
+            _uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            var petShort = new CreatePetShortDTO()
+            {
+                Title = TitleTextBox.Text,
+                PetIds = PetList.SelectedItems.Cast<Animal>().Select(pet => pet.Id).ToList(),
+                RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
+            };
+            //var newPetShort = await _petShortService.CreateAsync(new CreatePetShortDTO()
+            //{
+            //    Title = TitleTextBox.Text,
+            //    PetIds = PetList.SelectedItems.Cast<Animal>().Select(pet => pet.Id).ToList(),
+            //    RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
+            //});
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

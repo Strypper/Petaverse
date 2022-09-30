@@ -13,8 +13,10 @@ using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Microsoft.Identity.Client;
 using static Bogus.DataSets.Name;
 using static System.Net.WebRequestMethods;
+using ColorCode.Parsing;
 
 namespace Petaverse.UserControls.CommonUserControls
 {
@@ -28,6 +30,7 @@ namespace Petaverse.UserControls.CommonUserControls
         private readonly IPetaverseUserService  petaverseUserService;
         private readonly IAuthenticationService authenticationService;
 
+        private IPublicClientApplication PublicClientApp;
         public LoginUserControl()
         {
             this.InitializeComponent();
@@ -158,6 +161,12 @@ namespace Petaverse.UserControls.CommonUserControls
 
                 LoginSuccessEventHandler.Invoke(pricipalUserInfo);
             }
+        }
+
+        private async void LoginWithMicrosoft_Click(object sender, RoutedEventArgs e)
+        {
+            var authResult = await App.PublicClientApp.AcquireTokenInteractive(new string[] {"user.read"})
+                            .ExecuteAsync();
         }
     }
 
