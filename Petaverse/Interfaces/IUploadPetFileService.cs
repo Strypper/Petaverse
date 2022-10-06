@@ -11,5 +11,6 @@ namespace Petaverse.Interfaces
     {
         public Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles);
         public Task<PetaverseMedia> CreatePetAvatarAsync(Animal petInfo, StorageFile avatar);
+        public Task<PetaverseMedia> UploadVideoAsync(PetShort petShort, StorageFile video);
     }
 }

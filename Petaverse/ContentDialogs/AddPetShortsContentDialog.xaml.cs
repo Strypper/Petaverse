@@ -16,6 +16,7 @@ using Petaverse.Services.PetaverseAPI;
 using Petaverse.Services;
 using Petaverse.Models.FEModels;
 using System.Linq;
+using Windows.Storage;
 
 namespace Petaverse.ContentDialogs
 {
@@ -24,6 +25,9 @@ namespace Petaverse.ContentDialogs
     {
         [ObservableProperty]
         User currentUser;
+
+        [ObservableProperty]
+        StorageFile video;
 
         public readonly IPetShortService _petShortService;
         private readonly IUploadPetFileService _uploadPetFileService;
@@ -40,15 +44,12 @@ namespace Petaverse.ContentDialogs
             var petShort = new CreatePetShortDTO()
             {
                 Title = TitleTextBox.Text,
+                AuthorGuid = CurrentUser.Guid,
                 PetIds = PetList.SelectedItems.Cast<Animal>().Select(pet => pet.Id).ToList(),
                 RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
             };
-            //var newPetShort = await _petShortService.CreateAsync(new CreatePetShortDTO()
-            //{
-            //    Title = TitleTextBox.Text,
-            //    PetIds = PetList.SelectedItems.Cast<Animal>().Select(pet => pet.Id).ToList(),
-            //    RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
-            //});
+            var newPetShortWithoutVideo = await _petShortService.CreateAsync(petShort);
+            var completePetShort = await _petShortService.UploadVideo(newPetShortWithoutVideo, video);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -71,7 +72,7 @@ namespace Petaverse.ContentDialogs
             picker.ViewMode = PickerViewMode.Thumbnail;
             picker.FileTypeFilter.Add(".mp4");
 
-            var video = await picker.PickSingleFileAsync();
+            video = await picker.PickSingleFileAsync();
             if (video != null)
             {
                 PreviewMediaPlayer.Source = MediaSource.CreateFromStorageFile(video);

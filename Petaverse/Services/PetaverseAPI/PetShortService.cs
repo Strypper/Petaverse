@@ -1,4 +1,5 @@
 ﻿using Petaverse.ContentDialogs;
+using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
 using Petaverse.Models.FEModels;
@@ -8,17 +9,21 @@ using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Petaverse.Services.PetaverseAPI
 {
     public class PetShortService : IPetShortService
     {
-        private readonly HttpClient    _httpClient;
-        private readonly IPetShortData _petShortData;
-        public PetShortService(HttpClient httpClient)
+        private readonly HttpClient            _httpClient;
+        private readonly IPetShortData         _petShortData;
+        private readonly IUploadPetFileService _uploadPetFileService;
+        public PetShortService(HttpClient            httpClient,
+                               IUploadPetFileService uploadPetFileService)
         {
-            _httpClient   = httpClient;
-            _petShortData = RestService.For<IPetShortData>(httpClient); ;
+            _httpClient           = httpClient;
+            _petShortData         = RestService.For<IPetShortData>(httpClient);
+            _uploadPetFileService = uploadPetFileService;
         }
 
         public async Task<ObservableCollection<PetShort>> GetAllPetShortsAsync()
@@ -40,6 +45,23 @@ namespace Petaverse.Services.PetaverseAPI
             {
                 var petShortId = await _petShortData.Create(petInfo);
                 return petShortId != 0 ? await _petShortData.GetById(petShortId) : null;
+            }
+            catch (ApiException ex)
+            {
+                await new HttpRequestErrorContentDialog() { Exception = ex }.ShowAsync();
+                return null;
+            }
+        }
+
+        public async Task<PetShort?> UploadVideo(PetShort    petShort, 
+                                                 StorageFile video)
+        {
+            try
+            {
+                var petaverseMedia = await _uploadPetFileService.UploadVideoAsync(petShort, video);
+                return petaverseMedia != null  
+                            ? await _petShortData.GetById(petShort.Id) 
+                            : null;
             }
             catch (ApiException ex)
             {

@@ -91,7 +91,7 @@ namespace Petaverse.Services
 
                 try
                 {
-                    var result = await _httpClient.PostAsync($"api/PetShort/UploadPetAvatar/{petShort.Id}", multipartFormContent);
+                    var result = await _httpClient.PostAsync($"api/PetShorts/UploadVideo/{petShort.Id}", multipartFormContent);
                     string stringReadResult = await result.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<PetaverseMedia>(stringReadResult);
                 }

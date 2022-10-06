@@ -77,6 +77,7 @@ namespace Petaverse
             }
         }
 
+        //https://github.com/Strypper/Petaverse/issues/13
         private async void AddPetShort_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             currentUser.Pets = await animalService.GetAllByUserGuidAsync(currentUserService.GetLocalUserGuidFromAppSettings());

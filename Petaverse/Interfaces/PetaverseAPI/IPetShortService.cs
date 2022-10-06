@@ -2,6 +2,7 @@
 using Petaverse.Models.FEModels;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Petaverse.Interfaces.PetaverseAPI
 {
@@ -13,5 +14,6 @@ namespace Petaverse.Interfaces.PetaverseAPI
         Task<PetShort?> CreateAsync(CreatePetShortDTO createPetShortDTO);
         Task DeleteAsync(int id);
         Task<PetShort?> UpdateAsync(PetShort petInfo);
+        public Task<PetShort?> UploadVideo(PetShort petShort, StorageFile video);
     }
 }

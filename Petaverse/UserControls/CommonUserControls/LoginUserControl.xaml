@@ -165,8 +165,9 @@
                         HorizontalAlignment="Center"
                         Click="LoginOrSignUp_Click"
                         Background="{StaticResource SystemAccentColor}"/>
-                <Button Content="Login with Microsoft"
+                <Button IsEnabled="False"
                         HorizontalAlignment="Center"
+                        Content="Login with Microsoft"
                         Click="LoginWithMicrosoft_Click"/>
                 <winui:ProgressBar x:Name="LoginOrSignUpIndeterminateBar"
                                VerticalAlignment="Top"

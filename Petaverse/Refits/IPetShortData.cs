@@ -8,13 +8,13 @@ namespace Petaverse.Refits
 {
     public interface IPetShortData
     {
-        [Get("/PetShort/GetAll")]
+        [Get("/PetShorts/GetAll")]
         Task<ObservableCollection<PetShort>> GetAllPetShort();
 
-        [Get("/PetShort/GetById/{petShortId}")]
+        [Get("/PetShorts/GetById/{petShortId}")]
         Task<PetShort> GetById(int petShortId);
 
-        [Post("/PetShort/Create")]
+        [Post("/PetShorts/Create")]
         Task<int> Create(CreatePetShortDTO createPetShortDTO);
 
 
