@@ -26,6 +26,10 @@
                 Stretch="UniformToFill"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                Source="{x:Bind PetaverseMedia.MediaUrl, Mode=OneWay}"/>
+                Source="{x:Bind PetaverseMedia.MediaUrl, 
+                                Mode=OneWay,
+                                FallbackValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                Converter={StaticResource StringToImageSourceConverter}}"/>
     </Grid>
 </UserControl>

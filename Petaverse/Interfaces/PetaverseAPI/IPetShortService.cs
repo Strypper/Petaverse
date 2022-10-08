@@ -1,5 +1,6 @@
 ﻿using Petaverse.Models.DTOs;
 using Petaverse.Models.FEModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -8,7 +9,7 @@ namespace Petaverse.Interfaces.PetaverseAPI
 {
     public interface IPetShortService
     {
-        Task<ObservableCollection<PetShort?>> GetAllPetShortsAsync();
+        Task<List<PetShort>> GetAllPetShortsAsync();
         Task<PetShort?> GetByIdAsync(int id);
         Task<ObservableCollection<PetShort?>> GetAllByUserGuidAsync(string userGuid);
         Task<PetShort?> CreateAsync(CreatePetShortDTO createPetShortDTO);

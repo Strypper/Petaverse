@@ -1,11 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinRTXamlToolkit.Tools;
 
 namespace Petaverse.ViewModels
 {
@@ -13,13 +18,15 @@ namespace Petaverse.ViewModels
     {
         [ObservableProperty]
         private PetShort currentPetShort;
-        public ObservableCollection<PetShort> PetShorts { get; set; } = new ObservableCollection<PetShort>();
         public ICommand LoveCommand { get; set; }
+
+        private readonly IPetShortService _petShortService;
+        public ICollection<PetShort> PetShorts { get; set; } = new ObservableCollection<PetShort>();
         public PetShortsPageViewModel()
         {
+            _petShortService = Ioc.Default.GetRequiredService<IPetShortService>();
             LoveCommand = new AsyncRelayCommand(LovePost);
-            PetShorts = DemoPetShortData.GetPetShortsList();
-            InitFirstVideo(PetShorts);
+            InitFirstVideo();
         }
 
         private async Task LovePost()
@@ -27,11 +34,16 @@ namespace Petaverse.ViewModels
             CurrentPetShort.IsLoved = !CurrentPetShort.IsLoved;
         }
 
-        private void InitFirstVideo(ObservableCollection<PetShort> petShorts)
+        private async Task InitFirstVideo()
         {
-            if(petShorts.Count > 0)
+            var petShortsList = await _petShortService.GetAllPetShortsAsync();
+            petShortsList.ForEach(petShort =>
             {
-                var firstPetShort = petShorts.FirstOrDefault();
+                PetShorts.Add(petShort);
+             });
+            if(PetShorts.Count > 0)
+            {
+                var firstPetShort = PetShorts.FirstOrDefault();
                 firstPetShort.MediaUrl = firstPetShort.Media.MediaUrl;
             }
         }

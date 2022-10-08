@@ -9,14 +9,17 @@
     xmlns:dto="using:Petaverse.Models.DTOs" 
     xmlns:petshortsusercontrols="using:Petaverse.UserControls.PetShortsUserControls" 
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
-    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls"
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Disabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
 
-        <DataTemplate x:Key="PetGalleryGridViewItemTemplate">
-            <profilepageusercontrols:PetGalleryGridViewItemUserControl/>
+        <DataTemplate x:Key="PetGalleryGridViewItemTemplate"
+                      x:DataType="dto:PetaverseMedia">
+            <profilepageusercontrols:PetGalleryGridViewItemUserControl
+                                     Width="150" Height="150"
+                                     PetaverseMedia="{x:Bind Mode=OneWay}"/>
         </DataTemplate>
         
         <DataTemplate x:Key="FlipViewItemTemplate"
@@ -28,7 +31,12 @@
                     <RelativePanel VerticalAlignment="Top"
                                    HorizontalAlignment="Stretch">
                         <PersonPicture x:Name="PetAvatar" 
-                                       Width="70"/>
+                                       Width="70"
+                                       ProfilePicture="{x:Bind Pet.PetAvatar.MediaUrl,   
+                                                               Mode=OneWay,
+                                                               FallbackValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                                               TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                                               Converter={StaticResource StringToImageSourceConverter}}"/>
                         <TextBlock x:Name="PetName"
                                    Text="{x:Bind Pet.Name, Mode=OneWay}"
                                    RelativePanel.RightOf="PetAvatar"
@@ -36,9 +44,11 @@
                                    Style="{StaticResource TitleTextBlockStyle}"/>
                         <TextBlock x:Name="PetAge"
                                    Margin="10,0,0,0"
-                                   Text="2 Years old"
                                    RelativePanel.RightOf="PetAvatar"
-                                   RelativePanel.Below="PetName"/>
+                                   RelativePanel.Below="PetName">
+                            <Run Text="{x:Bind Pet.Age, Mode=OneWay}"/>
+                            <Run Text="Year old"/>
+                        </TextBlock>
                         <Border x:Name="BreedBadge"
                                 RelativePanel.AlignRightWithPanel="True"
                                 Padding="5"
@@ -117,8 +127,9 @@
                                     <TextBlock Text="Photos"/>
                                 </StackPanel>
                             </PivotItem.Header>
-                            <GridView ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
-                                      ItemTemplate="{StaticResource PetGalleryGridViewItemTemplate}"/>
+                            <controls:AdaptiveGridView DesiredWidth="150"
+                                                       ItemsSource="{x:Bind Pet.PetPhotos, Mode=OneWay}"
+                                                       ItemTemplate="{StaticResource PetGalleryGridViewItemTemplate}"/>
                         </PivotItem>
                         <PivotItem>
                             <PivotItem.Header>

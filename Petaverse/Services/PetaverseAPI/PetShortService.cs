@@ -6,6 +6,7 @@ using Petaverse.Models.FEModels;
 using Petaverse.Refits;
 using Refit;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,11 +27,12 @@ namespace Petaverse.Services.PetaverseAPI
             _uploadPetFileService = uploadPetFileService;
         }
 
-        public async Task<ObservableCollection<PetShort>> GetAllPetShortsAsync()
+        public async Task<List<PetShort>> GetAllPetShortsAsync()
         {
             try
             {
-                return await _petShortData.GetAllPetShort();
+                var petShorts = await _petShortData.GetAllPetShort();
+                return petShorts;
             }
             catch (ApiException ex)
             {

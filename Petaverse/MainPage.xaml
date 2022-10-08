@@ -104,11 +104,11 @@
         </winui:NavigationView.PaneFooter>
         <Grid>
             <commonusercontrols:LoginUserControl LoginSuccessEventHandler="LoginUserControl_LoginSuccessEventHandler"/>
-            <Frame x:Name="TheMainFrame" />
             <HyperlinkButton VerticalAlignment="Bottom"
                              HorizontalAlignment="Right"
                              NavigateUri="https://www.freepik.com/author/upklyak"
                              Content="This illustration is from upklyak (www.freepik.com)"/>
+            <Frame x:Name="TheMainFrame"/>
         </Grid>
     </winui:NavigationView>
 </Page>

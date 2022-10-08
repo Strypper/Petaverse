@@ -651,7 +651,12 @@
                        Margin="20"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Right"
-                       ToolTipService.ToolTip="{x:Bind PetShort.Publisher.FullName, Mode=OneWay}"
-                       ProfilePicture="{x:Bind PetShort.Publisher.ProfilePicUrl, Mode=OneWay}"/>
+                       ToolTipService.ToolTip="{x:Bind PetShort.Publisher.FullName, 
+                                                       Mode=OneWay}"
+                       ProfilePicture="{x:Bind PetShort.Publisher.ProfilePicUrl, 
+                                               Mode=OneWay,
+                                               FallbackValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                               TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',
+                                               Converter={StaticResource StringToImageSourceConverter}}"/>
     </Grid>
 </UserControl>

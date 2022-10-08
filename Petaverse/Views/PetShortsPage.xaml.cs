@@ -28,7 +28,7 @@ namespace Petaverse.Views
             var selectedView = flipView.SelectedItem as PetShort;
             if (selectedView != null && petShortPageViewModel.CurrentPetShort != null)
             {
-                if (string.IsNullOrEmpty(selectedView.MediaUrl))
+                if (string.IsNullOrEmpty(selectedView.MediaUrl) && petShortPageViewModel.CurrentPetShort.Media != null)
                 {
                     selectedView.MediaUrl = petShortPageViewModel.CurrentPetShort.Media.MediaUrl;
                 }

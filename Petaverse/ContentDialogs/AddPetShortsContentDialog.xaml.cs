@@ -44,12 +44,15 @@ namespace Petaverse.ContentDialogs
             var petShort = new CreatePetShortDTO()
             {
                 Title = TitleTextBox.Text,
-                AuthorGuid = CurrentUser.Guid,
+                PublisherGuid = CurrentUser.Guid,
                 PetIds = PetList.SelectedItems.Cast<Animal>().Select(pet => pet.Id).ToList(),
                 RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
             };
             var newPetShortWithoutVideo = await _petShortService.CreateAsync(petShort);
-            var completePetShort = await _petShortService.UploadVideo(newPetShortWithoutVideo, video);
+            if(newPetShortWithoutVideo != null)
+            {
+                var completePetShort = await _petShortService.UploadVideo(newPetShortWithoutVideo, video);
+            }
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

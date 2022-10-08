@@ -20,7 +20,7 @@
 
         <DataTemplate x:Key="BreedGridViewItemTemplate"
                       x:DataType="dtos:Breed">
-            <GridViewItem Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+            <GridViewItem>
                 <StackPanel>
                     <Image Source="{x:Bind ImageUrl, 
                                            Mode=OneWay,
@@ -48,6 +48,7 @@
             <StackPanel>
                 <Grid x:Name="Header" 
                       Height="270" 
+                      Margin="0,0,0,5"
                       VerticalAlignment="Top">
                     <toolkit:TileControl x:Name="BackgroundRectangle" 
                                      AnimationStepX="1" 
