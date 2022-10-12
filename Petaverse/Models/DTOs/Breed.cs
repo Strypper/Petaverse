@@ -33,14 +33,13 @@ namespace Petaverse.Models.DTOs
         [ObservableProperty]
         ObservableCollection<Animal> animals;
 
-        public CoatType Coat;
+        [ObservableProperty]
+        public Coat coat;
     }
 
-    public enum CoatType
+    public enum Coat
     {
-        Medium, 
-        Heavy, 
-        Light
+        None = 0, Short = 1, Medium = 2, Long = 3
     }
 
     public class DemoBreedData

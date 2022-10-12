@@ -27,12 +27,12 @@ namespace Petaverse.Services.PetaverseAPI
             _uploadPetFileService = uploadPetFileService;
         }
 
-        public async Task<List<PetShort>> GetAllPetShortsAsync()
+        public async Task<ObservableCollection<PetShort>> GetAllPetShortsAsync()
         {
             try
             {
-                var petShorts = await _petShortData.GetAllPetShort();
-                return petShorts;
+                //var result = await _petShortData.GetAllPetShort();
+                return await _petShortData.GetAllPetShort();
             }
             catch (ApiException ex)
             {

@@ -9,7 +9,7 @@ namespace Petaverse.Interfaces.PetaverseAPI
 {
     public interface IPetShortService
     {
-        Task<List<PetShort>> GetAllPetShortsAsync();
+        Task<ObservableCollection<PetShort>> GetAllPetShortsAsync();
         Task<PetShort?> GetByIdAsync(int id);
         Task<ObservableCollection<PetShort?>> GetAllByUserGuidAsync(string userGuid);
         Task<PetShort?> CreateAsync(CreatePetShortDTO createPetShortDTO);

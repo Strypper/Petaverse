@@ -50,14 +50,9 @@ namespace Petaverse.Models.DTOs
         None, Minimal, Medium, Heavy
     }
 
-    public enum Coat
-    {
-        Short, Medium, Long
-    }
-
     public enum Energy
     {
-        Low, Medium, Energy
+        Low, Medium, Energetic
     }
 }
  

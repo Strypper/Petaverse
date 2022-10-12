@@ -205,6 +205,9 @@
     <Compile Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml.cs">
       <DependentUpon>StatusInfoBarUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CommonUserControls\ValidationTextBox.xaml.cs">
+      <DependentUpon>ValidationTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml.cs">
       <DependentUpon>PetaverseMediaPlayerUserControl.xaml</DependentUpon>
     </Compile>
@@ -366,6 +369,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CommonUserControls\ValidationTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

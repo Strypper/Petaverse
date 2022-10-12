@@ -9,6 +9,7 @@ using Petaverse.ContentDialogs;
 using Windows.Storage;
 using System.IO;
 using Petaverse.Models.DTOs;
+using System.Net.Http.Headers;
 
 namespace Petaverse.Services
 {
@@ -84,7 +85,7 @@ namespace Petaverse.Services
                 var multipartFormContent = new MultipartFormDataContent();
 
                 var handle = video.CreateSafeFileHandle(options: FileOptions.RandomAccess);
-                var stream = new FileStream(handle, FileAccess.ReadWrite) { Position = 0 };
+                var stream = new FileStream(handle, FileAccess.Read) { Position = 0 };
                 var media = new StreamContent(stream);
                 media.Headers.Add("Content-Type", "video/mp4");
                 multipartFormContent.Add(media, name: "video", fileName: $"{petShort.Title}");

@@ -41,7 +41,7 @@
     <toolkit:AdaptiveGridView x:Name="BreedGridView"
                               DesiredWidth="350"
                               ItemTemplate="{StaticResource BreedGridViewItemTemplate}"
-                              ItemsSource="{x:Bind Species.Breeds, Mode=OneWay}"
+                              ItemsSource="{x:Bind BreedsList, Mode=OneWay}"
                               ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}"
                               animations:ItemsReorderAnimation.Duration="00:00:00.4000000">
         <toolkit:AdaptiveGridView.Header>
@@ -56,9 +56,9 @@
                                      AnimationStepY="1" 
                                      ImageAlignment="None" 
                                      IsAnimated="True"
-                                     ImageSource="/Assets/TitleIcons/Flame.png" 
                                      OffsetX="0" OffsetY="0"
-                                     ScrollOrientation="Both">
+                                     ScrollOrientation="Both"
+                                     ImageSource="/Assets/TitleIcons/Flame.png" >
                     </toolkit:TileControl>
                     <Rectangle x:Name="OverlayRectangle" 
                                Height="270" 
@@ -91,15 +91,20 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
                                 <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
                                     <ComboBox PlaceholderText="Shedding"
-                                          Header="Shedding"
-                                          ToolTipService.ToolTip="Show how much hair fall"
-                                          ItemsSource="{ui:EnumValues Type=enums:Shedding}"/>
-                                    <ComboBox Margin="10,0,0,0" PlaceholderText="Coat"
-                                          Header="Coat"
-                                          ItemsSource="{ui:EnumValues Type=enums:Coat}"/>
-                                    <ComboBox Margin="10,0,0,0" PlaceholderText="Energy"
-                                          Header="Energy"
-                                          ItemsSource="{ui:EnumValues Type=enums:Energy}"/>
+                                              Header="Shedding"
+                                              IsEnabled="False"
+                                              ToolTipService.ToolTip="Show how much hair fall"
+                                              ItemsSource="{ui:EnumValues Type=enums:Shedding}"/>
+                                    <ComboBox Header="Coat"
+                                              Margin="10,0,0,0" 
+                                              PlaceholderText="Coat"
+                                              SelectionChanged="ComboBox_SelectionChanged"
+                                              ItemsSource="{ui:EnumValues Type=enums:Coat}"/>
+                                    <ComboBox Header="Energy"
+                                              IsEnabled="False"
+                                              Margin="10,0,0,0" 
+                                              PlaceholderText="Energy"
+                                              ItemsSource="{ui:EnumValues Type=enums:Energy}"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

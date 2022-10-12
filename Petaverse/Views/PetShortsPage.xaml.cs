@@ -13,6 +13,11 @@ namespace Petaverse.Views
             this.InitializeComponent();
         }
 
+        private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            await petShortPageViewModel.InitFirstVideo();
+        }
+
         private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //foreach (var petShort in petShortPageViewModel.PetShorts)

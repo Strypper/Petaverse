@@ -17,6 +17,8 @@ using Petaverse.Services;
 using Petaverse.Models.FEModels;
 using System.Linq;
 using Windows.Storage;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Petaverse.ContentDialogs
 {
@@ -28,6 +30,9 @@ namespace Petaverse.ContentDialogs
 
         [ObservableProperty]
         StorageFile video;
+
+
+        PetShortDialogValidationForm ValidationForm { get; set; } = new PetShortDialogValidationForm();
 
         public readonly IPetShortService _petShortService;
         private readonly IUploadPetFileService _uploadPetFileService;
@@ -49,10 +54,17 @@ namespace Petaverse.ContentDialogs
                 RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
             };
             var newPetShortWithoutVideo = await _petShortService.CreateAsync(petShort);
-            if(newPetShortWithoutVideo != null)
+            if (newPetShortWithoutVideo != null && !string.IsNullOrEmpty(TitleTextBox.Text) && (SelectedPets.SelectedItem as Animal).Id != 0)
             {
                 var completePetShort = await _petShortService.UploadVideo(newPetShortWithoutVideo, video);
             }
+            //ValidationForm.Validate();
+
+            //if (ValidationForm.HasErrors)
+            //{
+            //    Debug.WriteLine("Bruhhh");
+            //}
+
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -82,5 +94,21 @@ namespace Petaverse.ContentDialogs
                 CommandButtons.Visibility = Visibility.Collapsed;
             }
         }
+    }
+
+    public partial class PetShortDialogValidationForm : ObservableValidator
+    {
+        public PetShortDialogValidationForm()
+        {
+
+        }
+
+        [ObservableProperty]
+        [Required]
+        [MinLength(100)]
+        [MaxLength(100)]
+        private string? title;
+
+        public void Validate() => ValidateAllProperties();
     }
 }

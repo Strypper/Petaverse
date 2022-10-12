@@ -1,6 +1,9 @@
-﻿using Microsoft.Graphics.Canvas.Effects;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using Petaverse.Models.DTOs;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -12,6 +15,7 @@ using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
 
 namespace Petaverse.Views
 {
+    [INotifyPropertyChanged]
     public sealed partial class BreedPage : Page
     {
         public Species Species
@@ -23,6 +27,8 @@ namespace Petaverse.Views
         public static readonly DependencyProperty SpeciesProperty =
             DependencyProperty.Register("Species", typeof(Species), typeof(BreedPage), new PropertyMetadata(null));
 
+        [ObservableProperty]
+        private ObservableCollection<Breed> breedsList; 
 
         CompositionPropertySet _props;
         CompositionPropertySet _scrollerPropertySet;
@@ -38,6 +44,7 @@ namespace Petaverse.Views
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             InitAnimatedHeader();
+            BreedsList = Species.Breeds;
         }
 
         private void InitAnimatedHeader()
@@ -154,6 +161,14 @@ namespace Petaverse.Views
             ExpressionNode buttonOffsetAnimation = progressNode * -80;
             buttonVisual.StartAnimation("Offset.Y", buttonOffsetAnimation);
             buttonVisual.StartAnimation("Offset.X", progressNode * -40);
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var value = (Coat)(sender as ComboBox).SelectedItem;
+            BreedsList = value != Coat.None
+                                ? new ObservableCollection<Breed>(Species.Breeds.Where(breed => breed.Coat == value))
+                                : Species.Breeds;
         }
     }
 }

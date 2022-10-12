@@ -10,8 +10,7 @@
     xmlns:converters="using:Petaverse.Converters"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
-    mc:Ignorable="d" Loaded="Page_Loaded"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Page.Resources>
         <converters:StringToGlyphConverter x:Key="StringToGlyphConverter"/>

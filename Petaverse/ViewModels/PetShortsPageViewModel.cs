@@ -18,15 +18,17 @@ namespace Petaverse.ViewModels
     {
         [ObservableProperty]
         private PetShort currentPetShort;
+
+        [ObservableProperty]
+        public ObservableCollection<PetShort> petShorts;
         public ICommand LoveCommand { get; set; }
 
         private readonly IPetShortService _petShortService;
-        public ICollection<PetShort> PetShorts { get; set; } = new ObservableCollection<PetShort>();
+
         public PetShortsPageViewModel()
         {
             _petShortService = Ioc.Default.GetRequiredService<IPetShortService>();
             LoveCommand = new AsyncRelayCommand(LovePost);
-            InitFirstVideo();
         }
 
         private async Task LovePost()
@@ -34,17 +36,15 @@ namespace Petaverse.ViewModels
             CurrentPetShort.IsLoved = !CurrentPetShort.IsLoved;
         }
 
-        private async Task InitFirstVideo()
+        public async Task InitFirstVideo()
         {
-            var petShortsList = await _petShortService.GetAllPetShortsAsync();
-            petShortsList.ForEach(petShort =>
-            {
-                PetShorts.Add(petShort);
-             });
+            //var petShorts = await _petShortService.GetAllPetShortsAsync();
+            //petShorts.ToList().ForEach(petShort => PetShorts.Add(petShort));
+            PetShorts = await _petShortService.GetAllPetShortsAsync();
             if(PetShorts.Count > 0)
             {
                 var firstPetShort = PetShorts.FirstOrDefault();
-                firstPetShort.MediaUrl = firstPetShort.Media.MediaUrl;
+                firstPetShort.MediaUrl = firstPetShort.Media != null ? firstPetShort.Media.MediaUrl : "";
             }
         }
     }

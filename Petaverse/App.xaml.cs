@@ -13,6 +13,7 @@ using System;
 using System.Net.Http;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -55,7 +56,7 @@ namespace Petaverse
                 switch (key)
                 {
                     case HttpClientEnum.PetaverseLocal:
-                        return new HttpClient(
+                        var httpClient = new HttpClient(
                                             new HttpClientHandler()
                                             {
                                                 ServerCertificateCustomValidationCallback = (message, cert, chain, sslErrors) => true
@@ -63,6 +64,8 @@ namespace Petaverse
                                             {
                                                 BaseAddress = new Uri(AppConstants.PetaverseLocalBaseUrl)
                                             };
+                        httpClient.Timeout = TimeSpan.FromMinutes(2);
+                        return httpClient;
                     case HttpClientEnum.TotechIdentityLocal:
                         return new HttpClient(
                                             new HttpClientHandler()
@@ -74,7 +77,9 @@ namespace Petaverse
                                             };
                     
                     case HttpClientEnum.Petaverse:
-                        return new HttpClient() { BaseAddress = new Uri(AppConstants.PetaverseBaseUrl) };
+                        var petaverseHttpClient = new HttpClient() { BaseAddress = new Uri(AppConstants.PetaverseBaseUrl) };
+                        petaverseHttpClient.Timeout = TimeSpan.FromMinutes(2);
+                        return petaverseHttpClient;
 
                     case HttpClientEnum.TotechIdentity:
                         return new HttpClient() { BaseAddress = new Uri(AppConstants.TotechsIdentityBaseUrl) };
@@ -131,6 +136,9 @@ namespace Petaverse
                 }
 
                 Window.Current.Activate();
+
+                var appView = ApplicationView.GetForCurrentView();
+                appView.Title = "BETA! Your data might be lost, this build is only for demo purpose";
             }
         }
 

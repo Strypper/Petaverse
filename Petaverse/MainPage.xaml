@@ -30,10 +30,10 @@
                           SelectionChanged="NavigationView_SelectionChanged"
                           MenuItemsSource="{x:Bind PetaverseNavigateViewItems}"
                           MenuItemTemplate="{StaticResource NavigationViewItemTemplate}">
-        <winui:NavigationView.Background>
+        <!--<winui:NavigationView.Background>
             <ImageBrush ImageSource="/Assets/Illustration/MainPageBackgroundillustration.jpg"
                         Stretch="UniformToFill"/>
-        </winui:NavigationView.Background>
+        </winui:NavigationView.Background>-->
         <winui:NavigationView.PaneHeader>
             <StackPanel Orientation="Horizontal"
                         Padding="5"
@@ -103,12 +103,21 @@
             </StackPanel>
         </winui:NavigationView.PaneFooter>
         <Grid>
-            <commonusercontrols:LoginUserControl LoginSuccessEventHandler="LoginUserControl_LoginSuccessEventHandler"/>
-            <HyperlinkButton VerticalAlignment="Bottom"
+            <Grid x:Name="LoginControls"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+                <Image Stretch="UniformToFill"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Source="/Assets/Illustration/MainPageBackgroundillustration.jpg"/>
+                <commonusercontrols:LoginUserControl LoginSuccessEventHandler="LoginUserControl_LoginSuccessEventHandler"/>
+                <HyperlinkButton x:Name="AuthorRefLink"
+                             VerticalAlignment="Bottom"
                              HorizontalAlignment="Right"
                              NavigateUri="https://www.freepik.com/author/upklyak"
                              Content="This illustration is from upklyak (www.freepik.com)"/>
-            <Frame x:Name="TheMainFrame"/>
+            </Grid>
+            <Frame x:Name="TheMainFrame" Margin="0,-1,0,0"/>
         </Grid>
     </winui:NavigationView>
 </Page>

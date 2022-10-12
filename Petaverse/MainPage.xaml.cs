@@ -4,10 +4,12 @@ using Petaverse.ContentDialogs;
 using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
+using Petaverse.UserControls.CommonUserControls;
 using Petaverse.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -75,13 +77,17 @@ namespace Petaverse
                 foreach (var item in PetaverseNavigateViewItems) { item.IsEnable = true; }
                 NavigationViewPaneFooter.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
+            LoginControls.Visibility = Visibility.Collapsed;
         }
 
         //https://github.com/Strypper/Petaverse/issues/13
         private async void AddPetShort_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            currentUser.Pets = await animalService.GetAllByUserGuidAsync(currentUserService.GetLocalUserGuidFromAppSettings());
-            await new AddPetShortsContentDialog() { CurrentUser = currentUser }.ShowAsync();
+            if(currentUser is not null)
+            {
+                currentUser.Pets = await animalService.GetAllByUserGuidAsync(currentUserService.GetLocalUserGuidFromAppSettings());
+                await new AddPetShortsContentDialog() { CurrentUser = currentUser }.ShowAsync();
+            }
         }
     }
 

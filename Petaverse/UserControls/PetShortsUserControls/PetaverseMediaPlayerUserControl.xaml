@@ -653,7 +653,7 @@
                        HorizontalAlignment="Right"
                        ToolTipService.ToolTip="{x:Bind PetShort.Publisher.FullName, 
                                                        Mode=OneWay}"
-                       ProfilePicture="{x:Bind PetShort.Publisher.ProfilePicUrl, 
+                       ProfilePicture="{x:Bind PetShort.Publisher.PetaverseProfileImageUrl, 
                                                Mode=OneWay,
                                                FallbackValue='ms-appx:///Assets/Logos/Petaverse.png',
                                                TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png',

@@ -16,8 +16,7 @@
     xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
-    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Disabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Disabled">
     <Page.Resources>
         <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
         <animations:ImplicitAnimationSet x:Key="ShowAnimation">
@@ -154,7 +153,8 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid helpers:Grid.ColumnDefinitions="auto, *">
+    <Grid helpers:Grid.ColumnDefinitions="auto, *"
+          Background="Transparent">
         <profilepageusercontrols:UserInfoPanelUserControl VerticalAlignment="Top"
                                                           HorizontalAlignment="Center"
                                                           LogoutEventHandler="UserInfoPanelUserControl_LogoutEventHandler"
