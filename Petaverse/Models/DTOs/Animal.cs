@@ -39,20 +39,5 @@ namespace Petaverse.Models.DTOs
 
         public ICollection<BitmapImage> PetPhotos { get; set; } = new ObservableCollection<BitmapImage>();
     }
-
-    public enum AnimalSize
-    {
-        Tiny, Small, Medium, MediumLarge, Large
-    }
-
-    public enum Shedding
-    {
-        None, Minimal, Medium, Heavy
-    }
-
-    public enum Energy
-    {
-        Low, Medium, Energetic
-    }
 }
  

@@ -13,10 +13,14 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:enums="using:Petaverse.Models.DTOs"
     Loaded="Page_Loaded"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
     <Page.Resources>
+        <enums:Coat     x:Key="BreedCoat"></enums:Coat>
+        <enums:Energy   x:Key="BreedEnergy"></enums:Energy>
+        <enums:Shedding x:Key="BreedShedding"></enums:Shedding>
         <converters:HexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
-        <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
 
         <DataTemplate x:Key="BreedGridViewItemTemplate"
                       x:DataType="dtos:Breed">
@@ -39,7 +43,7 @@
     </Page.Resources>
 
     <toolkit:AdaptiveGridView x:Name="BreedGridView"
-                              DesiredWidth="350"
+                              DesiredWidth="370"
                               ItemTemplate="{StaticResource BreedGridViewItemTemplate}"
                               ItemsSource="{x:Bind BreedsList, Mode=OneWay}"
                               ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}"
@@ -92,19 +96,25 @@
                                 <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
                                     <ComboBox PlaceholderText="Shedding"
                                               Header="Shedding"
-                                              IsEnabled="False"
-                                              ToolTipService.ToolTip="Show how much hair fall"
-                                              ItemsSource="{ui:EnumValues Type=enums:Shedding}"/>
+                                              IsEnabled="True"
+                                              ItemsSource="{ui:EnumValues Type=enums:Shedding}"
+                                              ToolTipService.ToolTip="Show how much hair fall"/>
+
+                                    <!--ItemsSource="{ui:EnumValues Type=enums:Shedding}"-->
                                     <ComboBox Header="Coat"
                                               Margin="10,0,0,0" 
                                               PlaceholderText="Coat"
                                               SelectionChanged="ComboBox_SelectionChanged"
                                               ItemsSource="{ui:EnumValues Type=enums:Coat}"/>
+                                    
+                                    <!--ItemsSource="{ui:EnumValues Type=enums:Coat}"-->
                                     <ComboBox Header="Energy"
                                               IsEnabled="False"
                                               Margin="10,0,0,0" 
                                               PlaceholderText="Energy"
                                               ItemsSource="{ui:EnumValues Type=enums:Energy}"/>
+
+                                    <!--ItemsSource="{ui:EnumValues Type=enums:Energy}"-->
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

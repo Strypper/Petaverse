@@ -56,7 +56,8 @@ namespace Petaverse.ContentDialogs
             var newPetShortWithoutVideo = await _petShortService.CreateAsync(petShort);
             if (newPetShortWithoutVideo != null && !string.IsNullOrEmpty(TitleTextBox.Text) && (SelectedPets.SelectedItem as Animal).Id != 0)
             {
-                var completePetShort = await _petShortService.UploadVideo(newPetShortWithoutVideo, video);
+                var petShortSAS = await _petShortService.GetPetShortSAS(newPetShortWithoutVideo.Id);
+                var completePetShort = await _petShortService.UploadVideo(petShortSAS, video);
             }
             //ValidationForm.Validate();
 

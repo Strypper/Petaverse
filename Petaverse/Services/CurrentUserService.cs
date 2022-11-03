@@ -58,5 +58,14 @@ namespace Petaverse.Services
 
         public void RemoveAllLocalData()
             => _localSettings.Values.Clear();
+
+        public void SaveUserLoginInfo(string Guid, string userName, string passWord)
+        {
+            var vault = new Windows.Security.Credentials.PasswordVault();
+            vault.Add(new Windows.Security.Credentials.PasswordCredential(
+                Guid, userName, passWord));
+
+
+        }
     }
 }

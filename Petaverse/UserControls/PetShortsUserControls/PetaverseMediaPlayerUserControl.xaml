@@ -9,6 +9,8 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations" 
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:helpers="using:Petaverse.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -591,18 +593,23 @@
         </animations:ImplicitAnimationSet>
     </UserControl.Resources>
     <Grid Margin="0,20,20,20"
-          PointerEntered="Grid_PointerEntered"
-          PointerExited="Grid_PointerExited"
           ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}">
+
+        <interactivity:Interaction.Behaviors>
+            <behaviors:ViewportBehavior x:Name="ViewportBehavior"
+                                        EnteredViewport="Element_EnteredViewport"
+                                        EnteringViewport="Element_EnteringViewport"
+                                        ExitedViewport="Element_ExitedViewport"
+                                        ExitingViewport="Element_ExitingViewport"/>
+        </interactivity:Interaction.Behaviors>
         <Border CornerRadius="10">
-            
-            <MediaPlayerElement Source="{x:Bind PetShort.MediaUrl
+            <MediaPlayerElement x:Name="MediaPlayer"
+                                Source="{x:Bind PetShort.MediaUrl
                                                ,Mode=OneWay
                                                ,Converter={StaticResource StringToMediaSourceConverter}}"
-                                            Stretch="UniformToFill"
-                                            AutoPlay="True"
-                                            AreTransportControlsEnabled="True"
-                                >
+                                Stretch="UniformToFill"
+                                AutoPlay="True"
+                                AreTransportControlsEnabled="True">
                 <MediaPlayerElement.TransportControls>
                     <helpers:PetShortMediaPlayer IsCompact="False"
                                                  IsVolumeEnabled="True"
@@ -611,6 +618,7 @@
                                                  IsLoved="{x:Bind PetShort.IsLoved, Mode=TwoWay}"
                                                  ToggleLoveEvent="PetShortMediaPlayer_ToggleLoveEvent"/>
                 </MediaPlayerElement.TransportControls>
+
             </MediaPlayerElement>
         </Border>
         <StackPanel Padding="20"

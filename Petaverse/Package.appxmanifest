@@ -8,8 +8,8 @@
 
   <Identity
     Name="d81709bf-28c6-498a-bdec-29469ffa968e"
-    Publisher="CN=viet.to"
-    Version="1.0.0.0" />
+    Publisher="CN=Totechs"
+    Version="1.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="d81709bf-28c6-498a-bdec-29469ffa968e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

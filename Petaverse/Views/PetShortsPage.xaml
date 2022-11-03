@@ -79,8 +79,7 @@
                             </ToolTipService.ToolTip>
                             <TextBlock Text="{x:Bind Pet.Breed.BreedName, Mode=OneWay}"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Style="{StaticResource BaseTextBlockStyle}"/>
+                                       HorizontalAlignment="Center"/>
                         </Border>
                         <ToggleSwitch RelativePanel.AlignRightWithPanel="True"
                                       RelativePanel.Below="BreedBadge"

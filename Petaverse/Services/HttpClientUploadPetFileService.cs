@@ -10,6 +10,8 @@ using Windows.Storage;
 using System.IO;
 using Petaverse.Models.DTOs;
 using System.Net.Http.Headers;
+using Azure.Storage.Blobs;
+using System.Text;
 
 namespace Petaverse.Services
 {
@@ -78,29 +80,38 @@ namespace Petaverse.Services
             else return null;
         }
 
-        public async Task<PetaverseMedia> UploadVideoAsync(PetShort petShort, StorageFile video)
+        public async Task<PetShortSAS> UploadVideoAsync(int petShortId,
+                                                        BlobClientSAS blobClientSAS, 
+                                                        StorageFile video)
         {
             if (video != null)
             {
-                var multipartFormContent = new MultipartFormDataContent();
-
                 var handle = video.CreateSafeFileHandle(options: FileOptions.RandomAccess);
                 var stream = new FileStream(handle, FileAccess.Read) { Position = 0 };
-                var media = new StreamContent(stream);
-                media.Headers.Add("Content-Type", "video/mp4");
-                multipartFormContent.Add(media, name: "video", fileName: $"{petShort.Title}");
 
                 try
                 {
-                    var result = await _httpClient.PostAsync($"api/PetShorts/UploadVideo/{petShort.Id}", multipartFormContent);
-                    string stringReadResult = await result.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<PetaverseMedia>(stringReadResult);
+                    var client = new BlobClient(blobClientSAS.SASUri, null);
+
+                    // Upload stream
+                    var blobInfo = await client.UploadAsync(stream);
+                    if (blobInfo != null)
+                    {
+                        return new PetShortSAS()
+                        {
+                            SASUri = blobClientSAS.SASUri,
+                            BlobUrl = blobClientSAS.BlobUrl,
+                            PetShortId = petShortId
+                        };
+                    }
+                    else return null;
                 }
-                catch (Exception ex)
+                catch (Azure.RequestFailedException ex)
                 {
                     await new HttpRequestErrorContentDialog()
                     {
-                        Title = "Can't upload video"
+                        Title = "Can't upload video",
+                        Content = ex.ErrorCode
                     }.ShowAsync();
                     return null;
                 }

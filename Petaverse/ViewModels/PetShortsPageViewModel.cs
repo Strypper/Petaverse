@@ -41,7 +41,7 @@ namespace Petaverse.ViewModels
             //var petShorts = await _petShortService.GetAllPetShortsAsync();
             //petShorts.ToList().ForEach(petShort => PetShorts.Add(petShort));
             PetShorts = await _petShortService.GetAllPetShortsAsync();
-            if(PetShorts.Count > 0)
+            if(PetShorts?.Count > 0)
             {
                 var firstPetShort = PetShorts.FirstOrDefault();
                 firstPetShort.MediaUrl = firstPetShort.Media != null ? firstPetShort.Media.MediaUrl : "";

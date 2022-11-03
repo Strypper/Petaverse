@@ -9,10 +9,20 @@ namespace Petaverse.Models.DTOs
         public DateTime     CreatedAt                { get; set; } = DateTime.UtcNow;
         public bool         IsActive                 { get; set; }
         public bool         IsDeleted                { get; set; } = false;
-        public string?      CoverImageUrl            { get; set; } = String.Empty;
-        public string?      PetaverseProfileImageUrl { get; set; } = String.Empty;
+        public string?      CoverImageUrl            { get; set; } = string.Empty;
+        public string?      TeamLogo                 { get; set; } = string.Empty;
+        public string?      PetaverseProfileImageUrl { get; set; } = string.Empty;
 
         public ICollection<Animal> Pets { get; set; } = new ObservableCollection<Animal>();
+
+        //Fake Data
+        public int NumberOfCats { get; set; }
+        public int NumberOfDogs { get; set; }
+        public int Foster { get; set; }
+        public int Hero { get; set; }
+        public string City { get; set; }
+        public string DummyWord { get; set; }
+
     }
     
     public class TotechsIdentityUser

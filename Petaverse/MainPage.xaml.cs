@@ -7,6 +7,7 @@ using Petaverse.Models.DTOs;
 using Petaverse.UserControls.CommonUserControls;
 using Petaverse.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -98,6 +99,8 @@ namespace Petaverse
         public string Content         { get; set; }
         public Type   DestinationPage { get; set; }
 
+        public List<NavigationViewItem> SubMenuItems { get; set; }
+
         [ObservableProperty]
         private bool isEnable;
 
@@ -108,6 +111,7 @@ namespace Petaverse
             Content = content;
             IsEnable = isEnable;
             DestinationPage = destinationPage;
+            SubMenuItems = new List<NavigationViewItem>();
         }
     }
 
@@ -115,9 +119,17 @@ namespace Petaverse
     {
         public static ObservableCollection<NavigationViewItem> InitPetaverseNavigationItems()
         {
+            var communityItem = new NavigationViewItem(3, "\uE125", "Community", false, typeof(CommunityPage));
+            communityItem.SubMenuItems.Add(new NavigationViewItem(4, "\uE125", "People", true, typeof(CommunityPeoplePage)));
+            communityItem.SubMenuItems.Add(new NavigationViewItem(5, "\uE902", "Group", true, typeof(CommunityPeoplePage)));
+
+
             var itemsList = new ObservableCollection<NavigationViewItem>();
             itemsList.Add(new NavigationViewItem(1, "\uE946", "Wiki"     , false, typeof(WikiPage)));
-            itemsList.Add(new NavigationViewItem(2, "\uEF3B", "PetShorts", false, typeof(PetShortsPage)));
+            itemsList.Add(new NavigationViewItem(2, "\uEF3B", "PetShorts (Beta)", false, typeof(PetShortsPage)));
+            itemsList.Add(communityItem);
+
+
             return itemsList;
         }
     }

@@ -42,6 +42,21 @@ namespace Petaverse.Models.DTOs
         None = 0, Short = 1, Medium = 2, Long = 3
     }
 
+    public enum AnimalSize
+    {
+        Tiny, Small, Medium, MediumLarge, Large
+    }
+
+    public enum Shedding
+    {
+        None, Minimal, Medium, Heavy
+    }
+
+    public enum Energy
+    {
+        Low, Medium, Energetic
+    }
+
     public class DemoBreedData
     {
         public static ObservableCollection<Breed> GetBreedsList()

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Petaverse.Models.DTOs;
 using System;
+using Windows.Media.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,24 +19,10 @@ namespace Petaverse.UserControls.PetShortsUserControls
         public static readonly DependencyProperty PetShortProperty =
             DependencyProperty.Register("PetShort", typeof(PetShort), typeof(PetaverseMediaPlayerUserControl), null);
 
-
-
-        [ObservableProperty]
-        bool isVisibleVideoTitle;
-
         public PetaverseMediaPlayerUserControl()
         {
             this.InitializeComponent();
-        }
-
-        private void Grid_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            IsVisibleVideoTitle = true;
-        }
-
-        private void Grid_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            IsVisibleVideoTitle = false;
+            var a = ViewportBehavior.IsInViewport;
         }
 
         private void PetShortMediaPlayer_ToggleLoveEvent(object sender, EventArgs e)
@@ -43,5 +30,25 @@ namespace Petaverse.UserControls.PetShortsUserControls
             PetShort.IsLoved = !PetShort.IsLoved;
             PetShort.Love += (PetShort.IsLoved ? 1 : -1);
         }
+
+        private void Element_EnteredViewport(object sender, EventArgs e)
+        {
+        }
+
+        private void Element_EnteringViewport(object sender, EventArgs e)
+        {
+            // A part of the control enter the ScrollViewer viewport
+        }
+
+        private void Element_ExitedViewport(object sender, EventArgs e)
+        {
+        }
+
+        private void Element_ExitingViewport(object sender, EventArgs e)
+        {
+            // A part of the control outside of the ScrollViewer viewport
+        }
+
+
     }
 }

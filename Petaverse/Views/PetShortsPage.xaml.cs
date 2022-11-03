@@ -1,7 +1,9 @@
 ﻿using Petaverse.Models.DTOs;
 using Petaverse.ViewModels;
 using System.Linq;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Petaverse.Views
 {
@@ -33,13 +35,27 @@ namespace Petaverse.Views
             var selectedView = flipView.SelectedItem as PetShort;
             if (selectedView != null && petShortPageViewModel.CurrentPetShort != null)
             {
-                if (string.IsNullOrEmpty(selectedView.MediaUrl) && petShortPageViewModel.CurrentPetShort.Media != null)
+                if (string.IsNullOrEmpty(selectedView.MediaUrl) 
+                    && 
+                    petShortPageViewModel.CurrentPetShort.Media != null)
                 {
                     selectedView.MediaUrl = petShortPageViewModel.CurrentPetShort.Media.MediaUrl;
                 }
                 foreach (var petShort in petShortPageViewModel.PetShorts.Where(ps => ps.Id != selectedView.Id))
                 {
                     petShort.MediaUrl = string.Empty;
+                }
+            }
+        }
+
+        protected async override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            if(petShortPageViewModel.PetShorts is not null)
+            {
+                foreach (var petShort in petShortPageViewModel.PetShorts)
+                {
+                    petShort.MediaUrl = null;
                 }
             }
         }

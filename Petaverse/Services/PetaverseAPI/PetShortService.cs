@@ -3,11 +3,13 @@ using Petaverse.Interfaces;
 using Petaverse.Interfaces.PetaverseAPI;
 using Petaverse.Models.DTOs;
 using Petaverse.Models.FEModels;
+using Petaverse.Models.Others;
 using Petaverse.Refits;
 using Refit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -39,6 +41,20 @@ namespace Petaverse.Services.PetaverseAPI
                 await new HttpRequestErrorContentDialog() { Exception = ex }.ShowAsync();
                 return null;
             }
+            catch (Exception e)
+            {
+                await new ServerNotFoundContentDialog()
+                {
+                    HttpClientInfo = _httpClient,
+                    Action = "Trying to get Pet Shorts",
+                    ServiceImageUrl = "https://i.imgur.com/EieEOMK.png",
+                    DestinationTryingToReach = "/Animal/GetAllByUserGuid/{userGuid}",
+                    ProblemsCouldCauseList = new List<string>() { "Server is shutted down", "Wrong URL" },
+                    SolutionsList = new List<string>() { "Start the server", "Contact to IT" }
+                }
+                .ShowAsync();
+                return null;
+            }
         }
 
         public async Task<PetShort?> CreateAsync(CreatePetShortDTO petInfo)
@@ -55,14 +71,15 @@ namespace Petaverse.Services.PetaverseAPI
             }
         }
 
-        public async Task<PetShort?> UploadVideo(PetShort    petShort, 
+        public async Task<PetShort?> UploadVideo(PetShortSAS blobClientSAS, 
                                                  StorageFile video)
         {
             try
             {
-                var petaverseMedia = await _uploadPetFileService.UploadVideoAsync(petShort, video);
-                return petaverseMedia != null  
-                            ? await _petShortData.GetById(petShort.Id) 
+                var petShortSAS = await _uploadPetFileService.UploadVideoAsync(blobClientSAS.PetShortId, blobClientSAS, video);
+                var responseMessage =  await _petShortData.UpdatePetShortVideo(petShortSAS.PetShortId, petShortSAS.BlobUrl);
+                return responseMessage != HttpStatusCode.OK  
+                            ? await _petShortData.GetById(petShortSAS.PetShortId) 
                             : null;
             }
             catch (ApiException ex)
@@ -91,5 +108,8 @@ namespace Petaverse.Services.PetaverseAPI
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<PetShortSAS> GetPetShortSAS(int petShortId)
+            => _petShortData.GetPetShortSAS(petShortId);
     }
 }

@@ -1,0 +1,255 @@
+﻿<UserControl
+    mc:Ignorable="d"
+    d:DesignWidth="330"
+    d:DesignHeight="530"
+    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:local="using:Petaverse.UserControls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    x:Class="Petaverse.UserControls.CommunityPeopleCardUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <UserControl.Resources>
+        <MenuFlyout x:Key="MoreOptionsFlyout">
+            <MenuFlyoutItem Text="Báo cáo xấu"
+                            Foreground="#e64852">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Foreground="#e64852" Glyph="&#xE1DE;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutSeparator/>
+            <MenuFlyoutItem Text="Kết bạn">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE1E2;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="Xem nhóm">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE902;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="Theo dõi">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE052;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutSeparator/>
+            <MenuFlyoutItem Text="Giao pet">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xF0AF;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+    </UserControl.Resources>
+
+    <!--helpers:Grid.RowDefinitions="auto, 80, auto, auto, *"-->
+    <Grid MaxWidth="330"
+          MaxHeight="530"
+          Background="Transparent"
+          ui:Effects.Shadow="{StaticResource CommonShadow}"
+          helpers:Grid.RowDefinitions="auto, 80, 25, 25, 25, *">
+        <Grid HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="10,0,5,5">
+                <Button Width="35"
+                        Height="35"
+                        Padding="0"
+                        CornerRadius="30"
+                        BorderThickness="1">
+                    <FontIcon Glyph="&#xEC61;" 
+                              Foreground="LightGreen"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+                </Button>
+                <Button Height="25"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        Margin="5,0,0,0"
+                        Padding="10,0,10,0"
+                        BorderBrush="#ffb02e">
+                    <TextBlock FontSize="12"
+                               VerticalAlignment="Center">
+                        <Run FontFamily="Segoe UI Emoji" Text="&#x1F975;"/>
+                        <Run Text="Cần giúp đỡ" Foreground="#ffb02e"/>
+                    </TextBlock>
+                </Button>
+            </StackPanel>
+            <AppBarButton Icon="More" 
+                          Label="More"
+                          Margin="0,0,5,0"
+                          HorizontalAlignment="Right"
+                          Flyout="{StaticResource MoreOptionsFlyout}"/>
+        </Grid>
+        <RelativePanel Grid.Row="1"
+                       HorizontalAlignment="Center">
+            <AppBarButton x:Name="MailButton"
+                          Icon="Mail"
+                          Label="Mail"
+                          RelativePanel.AlignVerticalCenterWithPanel="True"
+                          ToolTipService.ToolTip="{x:Bind User.Email, Mode=OneWay}"/>
+            <!--BadgeImageSource="{x:Bind User.TeamLogo, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}"-->
+            <PersonPicture x:Name="ProfilePicture"
+                           Height="80"
+                           Grid.Row="1"
+                           RelativePanel.RightOf="MailButton"
+                           ProfilePicture="{x:Bind User.PetaverseProfileImageUrl, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}"/>
+            <AppBarButton x:Name="PhoneButton"
+                          Icon="Phone"
+                          Label="Phone"
+                          RelativePanel.RightOf="ProfilePicture"
+                          RelativePanel.AlignVerticalCenterWithPanel="True"
+                          ToolTipService.ToolTip="{x:Bind User.PhoneNumber, Mode=OneWay}"/>
+        </RelativePanel>
+        <TextBlock Grid.Row="2"
+                   FontWeight="Bold"
+                   Text="{x:Bind User.FullName, Mode=OneWay}"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="3"
+                   FontWeight="Thin"
+                   Text="{x:Bind User.DummyWord, Mode=OneWay}"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="4"
+                   FontWeight="Thin"
+                   Text="{x:Bind User.City, Mode=OneWay}"
+                   TextDecorations="Underline"
+                   HorizontalAlignment="Center"/>
+        <StackPanel Margin="10"
+              Grid.Row="5"
+              CornerRadius="4"
+              Background="{ThemeResource SystemAltMediumLowColor}">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center">
+                <Button Padding="10"
+                    CornerRadius="4"
+                    Background="Transparent"
+                    BorderBrush="Transparent">
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe UI Emoji" 
+                              Glyph="&#x1F49E;" 
+                              FontSize="40"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind User.Foster, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Text="Foster"
+                               HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Padding="10"
+                        CornerRadius="4"
+                        Background="Transparent"
+                        BorderBrush="Transparent">
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe UI Emoji" 
+                              Glyph="&#x1F9B8;" 
+                              FontSize="40"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind User.Hero, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Text="Hero"
+                               HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Padding="10"
+                    CornerRadius="4"
+                    Background="Transparent"
+                    BorderBrush="Transparent">
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe UI Emoji" 
+                              Glyph="&#x1F408;" 
+                              FontSize="40"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind User.NumberOfCats,Mode=OneWay}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Text="Cats"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Padding="10"
+                    CornerRadius="4"
+                    Background="Transparent"
+                    BorderBrush="Transparent">
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe UI Emoji" 
+                              Glyph="&#x1F415;" 
+                              FontSize="40"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind User.NumberOfDogs, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Text="Dog"
+                               HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <TextBlock Text="Hỗ trợ tôi"
+                       FontWeight="Bold"
+                       TextDecorations="Underline"
+                       HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Button Padding="10"
+                        CornerRadius="4"
+                        Background="Transparent"
+                        BorderBrush="Transparent">
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe UI Emoji" 
+                              Glyph="&#x1F3E7;" 
+                              FontSize="40"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="ATM"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Padding="10"
+                        CornerRadius="4"
+                        Background="Transparent"
+                        BorderBrush="Transparent">
+                    <StackPanel>
+                        <Image Source="https://i.imgur.com/gYRlYSd.png"
+                              Height="40" Width="40" Margin="0,8,0,5"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="MOMO"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Padding="10"
+                        CornerRadius="4"
+                        Background="Transparent"
+                        BorderBrush="Transparent">
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe UI Emoji" 
+                              Glyph="&#x1F96B;" 
+                              FontSize="40"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        <TextBlock Text="ĐỒ ĂN"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Button Margin="0,5,0,0"
+                    Content="Xem trang cá nhân"
+                    HorizontalAlignment="Center"
+                    Background="{StaticResource SystemAccentColor}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

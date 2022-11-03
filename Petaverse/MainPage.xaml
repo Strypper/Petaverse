@@ -16,6 +16,7 @@
                       x:DataType="local:NavigationViewItem">
             <winui:NavigationViewItem FontWeight="Bold"
                                       Content="{x:Bind Content}"
+                                      MenuItemsSource="{x:Bind SubMenuItems}"
                                       IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon Glyph="{x:Bind Glyph}"/>
