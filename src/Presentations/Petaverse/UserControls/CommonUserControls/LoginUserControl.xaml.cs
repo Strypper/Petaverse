@@ -17,6 +17,8 @@ using Microsoft.Identity.Client;
 using static Bogus.DataSets.Name;
 using static System.Net.WebRequestMethods;
 using ColorCode.Parsing;
+using Petaverse.UWP.LogicProvider.Offline;
+using Petaverse.UWP.Contracts;
 
 namespace Petaverse.UserControls.CommonUserControls
 {
@@ -50,8 +52,8 @@ namespace Petaverse.UserControls.CommonUserControls
             if (SignUpToggleSwitch.IsOn)
             {
                 //This one null ?
-                var registerTotechsUser = await authenticationService
-                                                    .RegisterAsync(new RegisterModel()
+                var registerResponse = await authenticationService
+                                                    .RegisterPetaverseUserAsync(new()
                                                     {
                                                         UserName    = Email.Text,
                                                         Email       = Email.Text,
@@ -60,25 +62,12 @@ namespace Petaverse.UserControls.CommonUserControls
                                                         MiddleName  = MiddleName.Text,
                                                         LastName    = LastName.Text,
                                                         PhoneNumber = PhoneNumber.Text,
-                                                        Gender      = GenderToggleSwitch.IsOn,
-                                                        RoleGuid    = AppConstants.TotechsIdentityPetaverseRoleGuid
+                                                        Gender      = GenderToggleSwitch.IsOn
                                                     });
                 LoginOrSignUpProgressBar.Value = 30;
-                if (registerTotechsUser != null)
+                if (registerResponse.IsSuccess)
                 {
-                    //Register petaverse account
-                    var petaverseUserGuid = await petaverseUserService.RegisterPetaverseUserAsync(new User()
-                    {
-                        Guid                     = registerTotechsUser.Guid,
-                        PetaverseProfileImageUrl = "https://i.imgur.com/deS4147.png"
-                    });
 
-                    //Process Login
-                    if (registerTotechsUser.Guid.Equals(petaverseUserGuid))
-                    {
-                        var petaverseUser = await ProcessLogin(registerTotechsUser);
-                        LoginComplete(petaverseUser);
-                    }
                 }
                 else
                 {
@@ -95,18 +84,26 @@ namespace Petaverse.UserControls.CommonUserControls
                 if (!String.IsNullOrEmpty(PhoneNumber.Text) && !String.IsNullOrEmpty(Password.Password))
                 {
 
-                    var pricipalUserInfo = await authenticationService.Authenticate(new LoginModel()
+                    var result = await authenticationService.AuthenticateWithPhoneNumberAsync(new()
                     {
                         PhoneNumber = PhoneNumber.Text,
                         Password = Password.Password
                     });
                     LoginOrSignUpProgressBar.Value = 30;
 
-                    if (pricipalUserInfo != null)
+                    if (result.IsSuccess)
                     {
-                        var petaverseUser = await ProcessLogin(pricipalUserInfo.UserInfo);
-
-                        LoginComplete(petaverseUser);
+                        LoginComplete(new()
+                        {
+                            Guid = result.Id,
+                            UserName = result.UserName,
+                            FirstName = result.FirstName,
+                            MiddleName = result.MiddleName,
+                            LastName = result.LastName,
+                            Email = result.Email,
+                            PhoneNumber = result.PhoneNumber,
+                            ProfilePicUrl = result.AvatarUrl
+                        });
                     }
                     else
                     {
@@ -165,8 +162,7 @@ namespace Petaverse.UserControls.CommonUserControls
 
         private async void LoginWithMicrosoft_Click(object sender, RoutedEventArgs e)
         {
-            var authResult = await App.PublicClientApp.AcquireTokenInteractive(new string[] {"user.read"})
-                            .ExecuteAsync();
+
         }
     }
 

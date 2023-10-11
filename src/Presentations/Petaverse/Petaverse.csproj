@@ -10,9 +10,9 @@
     <RootNamespace>Petaverse</RootNamespace>
     <AssemblyName>Petaverse</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22621.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -159,12 +159,14 @@
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
     <Compile Include="Enums\HttpClientEnum.cs" />
     <Compile Include="Enums\Severity.cs" />
+    <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
+    <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\AppExt.cs" />
     <Compile Include="Helpers\DateToAge.cs" />
     <Compile Include="Helpers\Grid.cs" />
     <Compile Include="Helpers\PetShortMediaPlayer.cs" />
     <Compile Include="Helpers\ToolkitSerializer.cs" />
-    <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />
     <Compile Include="Interfaces\IUploadPetFileService.cs" />
@@ -173,8 +175,8 @@
     <Compile Include="Interfaces\PetaverseAPI\IPetaverseUserService.cs" />
     <Compile Include="Interfaces\PetaverseAPI\IPetShortService.cs" />
     <Compile Include="Interfaces\PetaverseAPI\ISpeciesService.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Features\Authentication\Pages\AuthenticationPage.xaml.cs">
+      <DependentUpon>AuthenticationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\Adoption.cs" />
     <Compile Include="Models\DTOs\Post.cs" />
@@ -202,7 +204,6 @@
     <Compile Include="Refits\IPetShortData.cs" />
     <Compile Include="Refits\ISpeciesData.cs" />
     <Compile Include="Refits\IUserData.cs" />
-    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CurrentUserService.cs" />
     <Compile Include="Services\HttpClientUploadPetFileService.cs" />
     <Compile Include="Services\PetaverseAPI\AnimalService.cs" />
@@ -376,7 +377,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Features\Authentication\Pages\AuthenticationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -497,7 +498,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.2-prerelease.220830001</Version>
+      <Version>2.8.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -514,6 +515,34 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\FallBackImages\" />
+    <Folder Include="Features\Authentication\Converters\" />
+    <Folder Include="Features\Authentication\Services\Implementations\" />
+    <Folder Include="Features\Authentication\Services\Interfaces\" />
+    <Folder Include="Features\Authentication\UserControls\" />
+    <Folder Include="Features\IronShield\Converters\" />
+    <Folder Include="Features\IronShield\Models\" />
+    <Folder Include="Features\IronShield\Pages\" />
+    <Folder Include="Features\IronShield\Services\Implementations\" />
+    <Folder Include="Features\IronShield\Services\Interfaces\" />
+    <Folder Include="Features\IronShield\UserControls\" />
+    <Folder Include="Features\PersonalProfile\Converters\" />
+    <Folder Include="Features\PersonalProfile\Models\" />
+    <Folder Include="Features\PersonalProfile\Pages\" />
+    <Folder Include="Features\PersonalProfile\Services\Implementations\" />
+    <Folder Include="Features\PersonalProfile\Services\Interfaces\" />
+    <Folder Include="Features\PersonalProfile\UserControls\" />
+    <Folder Include="Features\PetaverseWiki\Converters\" />
+    <Folder Include="Features\PetaverseWiki\Models\" />
+    <Folder Include="Features\PetaverseWiki\Pages\" />
+    <Folder Include="Features\PetaverseWiki\Services\Implementations\" />
+    <Folder Include="Features\PetaverseWiki\Services\Interfaces\" />
+    <Folder Include="Features\PetaverseWiki\UserControls\" />
+    <Folder Include="Features\PetShorts\Converters\" />
+    <Folder Include="Features\PetShorts\Models\" />
+    <Folder Include="Features\PetShorts\Pages\" />
+    <Folder Include="Features\PetShorts\Services\Implementations\" />
+    <Folder Include="Features\PetShorts\Services\Interfaces\" />
+    <Folder Include="Features\PetShorts\UserControls\" />
     <Folder Include="Models\PageModels\" />
     <Folder Include="UserControls\CommunityPageUserControls\" />
   </ItemGroup>
@@ -530,7 +559,18 @@
     <Content Include="Assets\Lotties\CannotFindServer.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Petaverse_TemporaryKey.pfx" />
+    <ProjectReference Include="..\..\Core\Petaverse.UWP.Contracts\Petaverse.UWP.Contracts.csproj">
+      <Project>{31280A9C-BBD1-431E-B618-B26EFD95C4AE}</Project>
+      <Name>Petaverse.UWP.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Petaverse.UWP.Core\Petaverse.UWP.Core.csproj">
+      <Project>{cec86a4c-6ca1-413b-a095-01c871f05daf}</Project>
+      <Name>Petaverse.UWP.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LogicProviders\Petaverse.UWP.LogicProvider.Offline\Petaverse.UWP.LogicProvider.Offline.csproj">
+      <Project>{d98228c9-010b-4ace-87c3-6866e57c7dec}</Project>
+      <Name>Petaverse.UWP.LogicProvider.Offline</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
