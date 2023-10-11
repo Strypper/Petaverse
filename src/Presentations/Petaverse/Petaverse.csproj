@@ -200,7 +200,6 @@
     <Compile Include="Models\UserControlModels\BlogCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Refits\IAnimalData.cs" />
-    <Compile Include="Refits\IAuthenticateServices.cs" />
     <Compile Include="Refits\IPetShortData.cs" />
     <Compile Include="Refits\ISpeciesData.cs" />
     <Compile Include="Refits\IUserData.cs" />
@@ -214,7 +213,7 @@
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
       <DependentUpon>AvatarUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CommonUserControls\LoginUserControl.xaml.cs">
+    <Compile Include="Features\Authentication\UserControls\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml.cs">
@@ -397,7 +396,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CommonUserControls\LoginUserControl.xaml">
+    <Page Include="Features\Authentication\UserControls\LoginUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -518,7 +517,6 @@
     <Folder Include="Features\Authentication\Converters\" />
     <Folder Include="Features\Authentication\Services\Implementations\" />
     <Folder Include="Features\Authentication\Services\Interfaces\" />
-    <Folder Include="Features\Authentication\UserControls\" />
     <Folder Include="Features\IronShield\Converters\" />
     <Folder Include="Features\IronShield\Models\" />
     <Folder Include="Features\IronShield\Pages\" />
