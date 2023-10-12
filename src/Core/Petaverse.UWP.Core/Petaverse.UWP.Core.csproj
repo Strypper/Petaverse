@@ -122,12 +122,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants\SettingsConstants.cs" />
+    <Compile Include="Converters\HexToWinUIColorConverter.cs" />
     <Compile Include="Enums\MediaType.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Breed.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\FosterCenter.cs" />
     <Compile Include="Models\PetaverseMedia.cs" />
     <Compile Include="Models\Species.cs" />
     <Compile Include="Models\User.cs" />
@@ -158,9 +161,7 @@
       <Version>2.8.5</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Styles\AutoSuggestBox.xaml">
       <SubType>Designer</SubType>

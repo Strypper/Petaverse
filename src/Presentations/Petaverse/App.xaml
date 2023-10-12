@@ -2,43 +2,44 @@
     x:Class="Petaverse.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls" 
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media" 
-    xmlns:converters="using:Petaverse.Converters">
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converters="using:Petaverse.Converters"
+    xmlns:core="using:Petaverse.UWP.Core"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media">
     <Application.Resources>
-        
+
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
-                <!-- Other app resources here -->
-                <ResourceDictionary Source="/Styles/TextBlock_themeresources.xaml"/>
-                <ResourceDictionary Source="/Styles/GridViewAvatarItemStyle.xaml"/>
-                <ResourceDictionary Source="/Styles/PetaverseMediaPlayerStyle.xaml"/>
+                <!--  Other app resources here  -->
+                <ResourceDictionary Source="/Styles/TextBlock_themeresources.xaml" />
+                <ResourceDictionary Source="/Styles/GridViewAvatarItemStyle.xaml" />
+                <ResourceDictionary Source="/Styles/PetaverseMediaPlayerStyle.xaml" />
                 <ResourceDictionary Source="UserControls/CommonUserControls/ValidationTextBox.xaml" />
-                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/NavigationView.xaml"/>
-                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/GridViewItem.xaml"/>
-                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/AutoSuggestBox.xaml"/>
-                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/TextBlock.xaml"/>
-                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/ToggleSwitch.xaml"/>
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/NavigationView.xaml" />
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/GridViewItem.xaml" />
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/AutoSuggestBox.xaml" />
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/TextBlock.xaml" />
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/ToggleSwitch.xaml" />
 
                 <ResourceDictionary>
                     <TransitionCollection x:Key="AdaptiveGridViewLoadTransition">
-                        <EntranceThemeTransition IsStaggeringEnabled="True" 
-                                                 FromVerticalOffset="450"/>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-
-                    <TransitionCollection x:Key="StackLoadAndAdTransition">
-                        <EntranceThemeTransition FromVerticalOffset="1000"
-                                                 IsStaggeringEnabled="True" />
+                        <EntranceThemeTransition FromVerticalOffset="450" IsStaggeringEnabled="True" />
                         <AddDeleteThemeTransition />
                     </TransitionCollection>
 
-                    <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0"/>
+                    <TransitionCollection x:Key="StackLoadAndAdTransition">
+                        <EntranceThemeTransition FromVerticalOffset="1000" IsStaggeringEnabled="True" />
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
 
-                    <converters:HexToSolidColorBrushConverter x:Key="HexToSolidColorBrushConverter"/>
-                    <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
-                    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-                    <converters:EnumToSeverityConverter x:Key="EnumToSeverityConverter"/>
+                    <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0" />
+
+                    <core:HexToWinUIColorConverter x:Key="HexToWinUIColorConverter" />
+
+                    <converters:HexToSolidColorBrushConverter x:Key="HexToSolidColorBrushConverter" />
+                    <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
+                    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                    <converters:EnumToSeverityConverter x:Key="EnumToSeverityConverter" />
                 </ResourceDictionary>
 
             </controls:XamlControlsResources.MergedDictionaries>

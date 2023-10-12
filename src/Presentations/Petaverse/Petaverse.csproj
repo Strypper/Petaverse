@@ -161,6 +161,23 @@
     <Compile Include="Enums\Severity.cs" />
     <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
     <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
+    <Compile Include="Features\Home\Models\HomeCarouselItemUserControlModel.cs" />
+    <Compile Include="Features\Home\Models\TopFosterCenterModel.cs" />
+    <Compile Include="Features\Home\Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Home\Pages\HomePageViewModel.cs" />
+    <Compile Include="Features\Home\Services\Implementations\HomePageService.cs" />
+    <Compile Include="Features\Home\Services\Interfaces\IHomePageService.cs" />
+    <Compile Include="Features\Home\UserControls\HomeCarouselItemUserControl.xaml.cs">
+      <DependentUpon>HomeCarouselItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Home\UserControls\TopFosterCenterUserControl.xaml.cs">
+      <DependentUpon>TopFosterCenterUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\IronShield\Pages\IronShieldPage.xaml.cs">
+      <DependentUpon>IronShieldPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\AppExt.cs" />
     <Compile Include="Helpers\DateToAge.cs" />
@@ -300,6 +317,17 @@
     <Content Include="Assets\Mocks\AbandonedAnimals\MockAdoptPet2.jpg" />
     <Content Include="Assets\Mocks\AbandonedAnimals\MockAdoptPet3.jpg" />
     <Content Include="Assets\Mocks\AbandonedAnimals\MockAdoptPet4.jpg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo1.jpg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo2.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo3.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo4.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo5.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo6.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo7.jpeg" />
+    <Content Include="Assets\Mocks\HomePage\TitleDemo1.jpg" />
+    <Content Include="Assets\Mocks\HomePage\TitleDemo2.jpg" />
+    <Content Include="Assets\Mocks\HomePage\TitleDemo3.jpeg" />
+    <Content Include="Assets\Mocks\HomePage\TitleDemo4.jpg" />
     <Content Include="Assets\PortraitImages\ladyholdingcat.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
@@ -382,6 +410,22 @@
     <Page Include="Features\Authentication\Pages\AuthenticationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Home\Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Home\UserControls\HomeCarouselItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Home\UserControls\TopFosterCenterUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\IronShield\Pages\IronShieldPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\GridViewAvatarItemStyle.xaml">
       <SubType>Designer</SubType>
@@ -468,7 +512,7 @@
       <Version>34.0.2</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
-      <Version>8.0.0</Version>
+      <Version>8.2.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>7.0.0-rc.1.22426.10</Version>
@@ -524,13 +568,6 @@
     <Folder Include="Features\Authentication\Converters\" />
     <Folder Include="Features\Authentication\Services\Implementations\" />
     <Folder Include="Features\Authentication\Services\Interfaces\" />
-    <Folder Include="Features\Homepage\" />
-    <Folder Include="Features\IronShield\Converters\" />
-    <Folder Include="Features\IronShield\Models\" />
-    <Folder Include="Features\IronShield\Pages\" />
-    <Folder Include="Features\IronShield\Services\Implementations\" />
-    <Folder Include="Features\IronShield\Services\Interfaces\" />
-    <Folder Include="Features\IronShield\UserControls\" />
     <Folder Include="Features\PersonalProfile\Converters\" />
     <Folder Include="Features\PersonalProfile\Models\" />
     <Folder Include="Features\PersonalProfile\Pages\" />

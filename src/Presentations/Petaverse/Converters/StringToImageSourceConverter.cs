@@ -1,23 +1,18 @@
-﻿using System;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media.Imaging;
+﻿namespace Petaverse.Converters;
 
-namespace Petaverse.Converters
+public class StringToImageSourceConverter : IValueConverter
 {
-    public class StringToImageSourceConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, string language)
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        if (string.IsNullOrEmpty(value as string))
         {
-            if (string.IsNullOrEmpty(value as string))
-            {
-                return null;
-            }
-            else return new BitmapImage(new Uri(value as string, UriKind.Absolute));
+            return null;
         }
+        else return new BitmapImage(new Uri(value as string, UriKind.Absolute));
+    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    {
+        throw new NotImplementedException();
     }
 }

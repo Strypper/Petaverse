@@ -1,14 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Graphics.Canvas.Effects;
+﻿using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
-using Petaverse.Models.DTOs;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Numerics;
 using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 using WinRTXamlToolkit.Controls.Extensions;
@@ -29,12 +22,12 @@ namespace Petaverse.Views
             DependencyProperty.Register("Species", typeof(Models.DTOs.Species), typeof(BreedPage), new PropertyMetadata(null));
 
         [ObservableProperty]
-        private ObservableCollection<Models.DTOs.Breed> breedsList; 
+        private ObservableCollection<Models.DTOs.Breed> breedsList;
 
         CompositionPropertySet _props;
         CompositionPropertySet _scrollerPropertySet;
-        Compositor             _compositor;
-        SpriteVisual           _blurredBackgroundImageVisual;
+        Compositor _compositor;
+        SpriteVisual _blurredBackgroundImageVisual;
 
         public BreedPage()
         {
@@ -140,7 +133,7 @@ namespace Petaverse.Views
 
             // Start opacity and scale animations on the text block visuals
             speciesName.StartAnimation("Offset.X", progressNode * -40);
-            speciesName.StartAnimation("Offset.Y", progressNode *  15);
+            speciesName.StartAnimation("Offset.Y", progressNode * 15);
 
             blurbVisual.StartAnimation("Opacity", textOpacityAnimation);
             blurbVisual.StartAnimation("Scale.X", scaleAnimation);

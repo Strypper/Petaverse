@@ -38,7 +38,7 @@ public sealed partial class TheMainFrame : Page
             return;
         }
 
-        //ContentFrame.Navigate(index % 2 == 0 ? typeof(Page1) : typeof(Page2));
+        ContentFrame.Navigate(index % 2 == 0 ? typeof(HomePage) : typeof(IronShieldPage));
     }
     #endregion
 }

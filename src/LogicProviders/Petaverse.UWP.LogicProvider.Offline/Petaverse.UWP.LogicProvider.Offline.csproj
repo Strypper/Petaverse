@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ServiceExtensions.cs" />
     <Compile Include="Features\Authentication\Services\Implementations\AuthenticationService.cs" />
+    <Compile Include="Features\Home\Services\Implementations\HomeService.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Petaverse.UWP.LogicProvider.Offline.rd.xml" />
@@ -143,7 +144,12 @@
       <Project>{31280a9c-bbd1-431e-b618-b26efd95c4ae}</Project>
       <Name>Petaverse.UWP.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Petaverse.UWP.Core\Petaverse.UWP.Core.csproj">
+      <Project>{CEC86A4C-6CA1-413B-A095-01C871F05DAF}</Project>
+      <Name>Petaverse.UWP.Core</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

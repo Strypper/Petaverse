@@ -131,7 +131,8 @@ sealed partial class App : Application
         services.AddSingleton<IPetaverseUserService, PetaverseUserService>();
         //services.AddSingleton<IAuthenticationService, AuthenticationService>();
 
-
+        services.AddTransient<IHomePageService, HomePageService>();
+        services.AddTransient<HomePageViewModel>();
 
         services.AddSingleton<LoginUserControl>();
 
