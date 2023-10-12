@@ -25,12 +25,12 @@ namespace Petaverse.Services
             _appDataStorageHelper = ApplicationDataStorageHelper.GetCurrent(serializer);
         }
 
-        public async Task<User> GetUserFromCloud(string userGuid)
+        public async Task<Models.DTOs.User> GetUserFromCloud(string userGuid)
            => await _userData.GetByUserGuid(userGuid);
 
-        public async Task<User> GetLocalUserAsync(string userGuid)
+        public async Task<Models.DTOs.User> GetLocalUserAsync(string userGuid)
         {
-            return _appDataStorageHelper.Read<User>(userGuid);
+            return _appDataStorageHelper.Read<Models.DTOs.User>(userGuid);
         }
 
         public void RemoveLocalUser(string userGuid)
@@ -43,7 +43,7 @@ namespace Petaverse.Services
             throw new NotImplementedException();
         }
 
-        public async Task SaveLocalUserAsync(User currentUser)
+        public async Task SaveLocalUserAsync(Models.DTOs.User currentUser)
         {
             _appDataStorageHelper.Save(currentUser.Guid, currentUser);
         }

@@ -1,12 +1,14 @@
-﻿namespace Petaverse;
+﻿using Windows.ApplicationModel.Core;
+
+namespace Petaverse;
 
 sealed partial class App : Application
 {
     #region [ Fields ]
 
+    private ThemeService _themeService;
     private IServiceCollection _serviceCollection;
     #endregion
-
 
     #region [ CTor ]
 
@@ -15,6 +17,8 @@ sealed partial class App : Application
         this.InitializeComponent();
         this.InitializeEnvironment();
         this.Suspending += OnSuspending;
+
+        SettingsHelper.CreateSettings();
     }
     #endregion
 
@@ -23,6 +27,12 @@ sealed partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs e)
     {
         Frame rootFrame = Window.Current.Content as Frame;
+
+        var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+        coreTitleBar.ExtendViewIntoTitleBar = true;
+
+        _themeService = new(Window.Current);
+        _themeService.SetTheme();
 
         if (rootFrame == null)
         {
@@ -42,13 +52,10 @@ sealed partial class App : Application
         {
             if (rootFrame.Content == null)
             {
-                rootFrame.Navigate(typeof(AuthenticationPage), e.Arguments);
+                rootFrame.Navigate(typeof(TheMainFrame), e.Arguments);
             }
 
             Window.Current.Activate();
-
-            var appView = ApplicationView.GetForCurrentView();
-            appView.Title = "BETA! Your data might be lost, this build is only for demo purpose";
         }
     }
     #endregion
@@ -145,7 +152,4 @@ sealed partial class App : Application
         deferral.Complete();
     }
     #endregion
-
-
-
 }

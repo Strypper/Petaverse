@@ -19,17 +19,17 @@ namespace Petaverse.Views
     [INotifyPropertyChanged]
     public sealed partial class BreedPage : Page
     {
-        public Species Species
+        public Models.DTOs.Species Species
         {
-            get { return (Species)GetValue(SpeciesProperty); }
+            get { return (Models.DTOs.Species)GetValue(SpeciesProperty); }
             set { SetValue(SpeciesProperty, value); }
         }
 
         public static readonly DependencyProperty SpeciesProperty =
-            DependencyProperty.Register("Species", typeof(Species), typeof(BreedPage), new PropertyMetadata(null));
+            DependencyProperty.Register("Species", typeof(Models.DTOs.Species), typeof(BreedPage), new PropertyMetadata(null));
 
         [ObservableProperty]
-        private ObservableCollection<Breed> breedsList; 
+        private ObservableCollection<Models.DTOs.Breed> breedsList; 
 
         CompositionPropertySet _props;
         CompositionPropertySet _scrollerPropertySet;
@@ -168,7 +168,7 @@ namespace Petaverse.Views
         {
             var value = (Coat)(sender as ComboBox).SelectedItem;
             BreedsList = value != Coat.None
-                                ? new ObservableCollection<Breed>(Species.Breeds.Where(breed => breed.Coat == value))
+                                ? new ObservableCollection<Models.DTOs.Breed>(Species.Breeds.Where(breed => breed.Coat == value))
                                 : Species.Breeds;
         }
     }

@@ -25,7 +25,7 @@ namespace Petaverse.ViewModels
     public partial class ProfilePageViewModel : ViewModelBase
     {
         [ObservableProperty]
-        User currentUser;
+        Models.DTOs.User currentUser;
 
         [ObservableProperty]
         bool infoBarIsOpen;
@@ -46,7 +46,7 @@ namespace Petaverse.ViewModels
         bool overLayPopUpVisibility;
 
         [ObservableProperty]
-        PetaverseMedia petaverseMedia;
+        Models.DTOs.PetaverseMedia petaverseMedia;
 
         string currentUserGuid;
 
@@ -68,7 +68,7 @@ namespace Petaverse.ViewModels
         async Task OpenCreatePetContentDialog()
             => await new AddPetContentDialog(){CreatePetCommand = CreatePetCommand}.ShowAsync();
 
-        public async Task<User> LoadFakeUserData()
+        public async Task<Models.DTOs.User> LoadFakeUserData()
         {
             //var loremIpsum = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             //var bravo = new Animal()
@@ -100,7 +100,7 @@ namespace Petaverse.ViewModels
             return null;
         }
 
-        public async Task<User> LoadUserDataAsync()
+        public async Task<Models.DTOs.User> LoadUserDataAsync()
         {
             IsBusy = true;
             if (currentUserGuid != null && !String.IsNullOrEmpty(currentUserGuid))
@@ -120,7 +120,7 @@ namespace Petaverse.ViewModels
             };
         }
 
-        private async Task<IEnumerable<Animal>> GetAnimalAsync()
+        private async Task<IEnumerable<Models.DTOs.Animal>> GetAnimalAsync()
         {
             IsBusy = true;
             try

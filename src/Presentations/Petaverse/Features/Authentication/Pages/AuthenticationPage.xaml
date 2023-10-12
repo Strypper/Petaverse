@@ -25,29 +25,12 @@
         </DataTemplate>
     </Page.Resources>
 
+    <!--MenuItemTemplate="{StaticResource NavigationViewItemTemplate}"-->
     <winui:NavigationView x:Name="MainNavView"
-                          PaneDisplayMode="Top"
                           IsBackButtonVisible="Collapsed"
                           SelectionChanged="NavigationView_SelectionChanged"
                           MenuItemsSource="{x:Bind PetaverseNavigateViewItems}"
-                          MenuItemTemplate="{StaticResource NavigationViewItemTemplate}">
-        <!--<winui:NavigationView.Background>
-            <ImageBrush ImageSource="/Assets/Illustration/MainPageBackgroundillustration.jpg"
-                        Stretch="UniformToFill"/>
-        </winui:NavigationView.Background>-->
-        <winui:NavigationView.PaneHeader>
-            <StackPanel Orientation="Horizontal"
-                        Padding="5"
-                        Background="#30556e">
-                <Image Source="/Assets/Logos/Petaverse.png"
-                       VerticalAlignment="Center"/>
-                <TextBlock Text="Petaverse"
-                           Margin="5,0,0,0"
-                           Foreground="White"
-                           VerticalAlignment="Center"
-                           Style="{StaticResource SubtitleTextBlockStyle}"/>
-            </StackPanel>
-        </winui:NavigationView.PaneHeader>
+                          Style="{ThemeResource StoreNavigationViewStyle}">
         <winui:NavigationView.PaneFooter>
             <StackPanel x:Name="NavigationViewPaneFooter" 
                         Orientation="Horizontal"

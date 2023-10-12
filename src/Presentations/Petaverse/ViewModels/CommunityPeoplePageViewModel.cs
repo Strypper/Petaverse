@@ -9,17 +9,17 @@ namespace Petaverse.ViewModels
     public partial class CommunityPeoplePageViewModel : ViewModelBase
     {
         [ObservableProperty]
-        public ObservableCollection<User> communityPeople;
+        public ObservableCollection<Models.DTOs.User> communityPeople;
         public CommunityPeoplePageViewModel()
         {
         }
 
         public async Task InitFakeData()
         {
-            CommunityPeople = new ObservableCollection<User>();
+            CommunityPeople = new ObservableCollection<Models.DTOs.User>();
             for (int i = 0; i < 30; i++)
             {
-                CommunityPeople.Add(new Faker<User>()
+                CommunityPeople.Add(new Faker<Models.DTOs.User>()
                     .RuleFor(u => u.FirstName, (f, u) => f.Name.FirstName())
                     .RuleFor(u => u.LastName, (f, u) => f.Name.LastName())
                     .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.FirstName, u.LastName))

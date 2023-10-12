@@ -21,7 +21,7 @@ namespace Petaverse.Services.PetaverseAPI
             _userData = RestService.For<IUserData>(httpClient);
         }
 
-        public async Task<User> LoginPetaverseByGuidAsync(string guid)
+        public async Task<Models.DTOs.User> LoginPetaverseByGuidAsync(string guid)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Petaverse.Services.PetaverseAPI
             }
         }
 
-        public async Task<string> RegisterPetaverseUserAsync(User petaverseUser)
+        public async Task<string> RegisterPetaverseUserAsync(Models.DTOs.User petaverseUser)
         {
             try
             {

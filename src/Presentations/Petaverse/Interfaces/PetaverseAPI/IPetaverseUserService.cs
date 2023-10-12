@@ -5,7 +5,7 @@ namespace Petaverse.Interfaces.PetaverseAPI
 {
     public interface IPetaverseUserService
     {
-        Task<User> LoginPetaverseByGuidAsync(string guid);
-        Task<string> RegisterPetaverseUserAsync(User petaverseUser);
+        Task<Models.DTOs.User> LoginPetaverseByGuidAsync(string guid);
+        Task<string> RegisterPetaverseUserAsync(Models.DTOs.User petaverseUser);
     }
 }

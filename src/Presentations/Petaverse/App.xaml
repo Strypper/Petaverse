@@ -14,6 +14,11 @@
                 <ResourceDictionary Source="/Styles/GridViewAvatarItemStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/PetaverseMediaPlayerStyle.xaml"/>
                 <ResourceDictionary Source="UserControls/CommonUserControls/ValidationTextBox.xaml" />
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/NavigationView.xaml"/>
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/GridViewItem.xaml"/>
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/AutoSuggestBox.xaml"/>
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/TextBlock.xaml"/>
+                <ResourceDictionary Source="Petaverse.UWP.Core/Styles/ToggleSwitch.xaml"/>
 
                 <ResourceDictionary>
                     <TransitionCollection x:Key="AdaptiveGridViewLoadTransition">

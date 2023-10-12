@@ -26,7 +26,7 @@ namespace Petaverse.ContentDialogs
     public sealed partial class AddPetShortsContentDialog : ContentDialog
     {
         [ObservableProperty]
-        User currentUser;
+        Models.DTOs.User currentUser;
 
         [ObservableProperty]
         StorageFile video;
@@ -50,11 +50,11 @@ namespace Petaverse.ContentDialogs
             {
                 Title = TitleTextBox.Text,
                 PublisherGuid = CurrentUser.Guid,
-                PetIds = PetList.SelectedItems.Cast<Animal>().Select(pet => pet.Id).ToList(),
-                RepresentativePetId = (SelectedPets.SelectedItem as Animal).Id
+                PetIds = PetList.SelectedItems.Cast<Models.DTOs.Animal>().Select(pet => pet.Id).ToList(),
+                RepresentativePetId = (SelectedPets.SelectedItem as Models.DTOs.Animal).Id
             };
             var newPetShortWithoutVideo = await _petShortService.CreateAsync(petShort);
-            if (newPetShortWithoutVideo != null && !string.IsNullOrEmpty(TitleTextBox.Text) && (SelectedPets.SelectedItem as Animal).Id != 0)
+            if (newPetShortWithoutVideo != null && !string.IsNullOrEmpty(TitleTextBox.Text) && (SelectedPets.SelectedItem as Models.DTOs.Animal).Id != 0)
             {
                 var petShortSAS = await _petShortService.GetPetShortSAS(newPetShortWithoutVideo.Id);
                 var completePetShort = await _petShortService.UploadVideo(petShortSAS, video);

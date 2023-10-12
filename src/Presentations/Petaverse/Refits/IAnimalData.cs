@@ -1,28 +1,21 @@
-﻿using Petaverse.Models.DTOs;
-using Petaverse.Models.FEModels;
-using Refit;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using Petaverse.Models.FEModels;
 
-namespace Petaverse.Refits
+namespace Petaverse.Refits;
+
+public interface IAnimalData
 {
-    public interface IAnimalData
-    {
-        [Get("/Animal/GetAll")]
-        Task<ObservableCollection<Animal>> GetAllAnimal();
+    [Get("/Animal/GetAll")]
+    Task<ObservableCollection<Models.DTOs.Animal>> GetAllAnimal();
 
-        [Get("/Animal/GetById/{animalId}")]
-        Task<Animal> GetById(int animalId);
+    [Get("/Animal/GetById/{animalId}")]
+    Task<Models.DTOs.Animal> GetById(int animalId);
 
-        [Get("/Animal/GetAllByUserGuid/{userGuid}")]
-        Task<ObservableCollection<Animal>> GetAllByUserGuid(string userGuid);
+    [Get("/Animal/GetAllByUserGuid/{userGuid}")]
+    Task<ObservableCollection<Models.DTOs.Animal>> GetAllByUserGuid(string userGuid);
 
-        [Post("/Animal/Create")]
-        Task<int> Create(CreatePetDTO petInfo);
+    [Post("/Animal/Create")]
+    Task<int> Create(CreatePetDTO petInfo);
 
-        [Delete("/Animal/Delete/{id}")]
-        Task<HttpResponseMessage> DeleteAnimal(int id);
-    }
+    [Delete("/Animal/Delete/{id}")]
+    Task<HttpResponseMessage> DeleteAnimal(int id);
 }

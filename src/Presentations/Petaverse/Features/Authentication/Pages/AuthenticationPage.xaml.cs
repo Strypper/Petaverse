@@ -4,7 +4,7 @@ public sealed partial class AuthenticationPage : Page
 {
     #region [ Fields ]
 
-    private User currentUser;
+    private Models.DTOs.User currentUser;
     private readonly IAnimalService animalService;
     private readonly ICurrentUserService currentUserService;
     public ObservableCollection<NavigationViewItem> PetaverseNavigateViewItems { get; set; } = new ObservableCollection<NavigationViewItem>();
@@ -52,13 +52,13 @@ public sealed partial class AuthenticationPage : Page
         MainNavView.SelectedItem = null;
     }
 
-    private void LoginUserControl_LoginSuccessEventHandler(User petaverseUser)
+    private void LoginUserControl_LoginSuccessEventHandler(Models.DTOs.User petaverseUser)
     {
         this.ProccessLogin(petaverseUser);
     }
     #endregion
 
-    private void ProccessLogin(User petaverseUser)
+    private void ProccessLogin(Models.DTOs.User petaverseUser)
     {
         if(petaverseUser != null)
         {

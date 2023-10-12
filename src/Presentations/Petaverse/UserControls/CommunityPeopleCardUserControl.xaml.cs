@@ -6,14 +6,14 @@ namespace Petaverse.UserControls
 {
     public sealed partial class CommunityPeopleCardUserControl : UserControl
     {
-        public User User
+        public Models.DTOs.User User
         {
-            get { return (User)GetValue(UserProperty); }
+            get { return (Models.DTOs.User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
         }
 
         public static readonly DependencyProperty UserProperty =
-            DependencyProperty.Register("User", typeof(User), typeof(CommunityPeopleCardUserControl), null);
+            DependencyProperty.Register("User", typeof(Models.DTOs.User), typeof(CommunityPeopleCardUserControl), null);
 
 
         public CommunityPeopleCardUserControl()

@@ -210,6 +210,9 @@
     <Compile Include="Services\PetaverseAPI\PetShortService.cs" />
     <Compile Include="Services\PetaverseAPI\SpeciesService.cs" />
     <Compile Include="Services\ValidationService.cs" />
+    <Compile Include="TheMainFrame.xaml.cs">
+      <DependentUpon>TheMainFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
       <DependentUpon>AvatarUserControl.xaml</DependentUpon>
     </Compile>
@@ -392,6 +395,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TheMainFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AvatarUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -517,6 +524,7 @@
     <Folder Include="Features\Authentication\Converters\" />
     <Folder Include="Features\Authentication\Services\Implementations\" />
     <Folder Include="Features\Authentication\Services\Interfaces\" />
+    <Folder Include="Features\Homepage\" />
     <Folder Include="Features\IronShield\Converters\" />
     <Folder Include="Features\IronShield\Models\" />
     <Folder Include="Features\IronShield\Pages\" />
@@ -569,6 +577,9 @@
       <Project>{d98228c9-010b-4ace-87c3-6866e57c7dec}</Project>
       <Name>Petaverse.UWP.LogicProvider.Offline</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Fonts\FluentSystemIcons-Resizable.ttf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

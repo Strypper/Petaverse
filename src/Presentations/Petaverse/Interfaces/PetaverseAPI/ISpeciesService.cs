@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 namespace Petaverse.Interfaces.PetaverseAPI
 {
-    public interface ISpeciesService : IAPIBaseService<Species>{}
+    public interface ISpeciesService : IAPIBaseService<Models.DTOs.Species>{}
 }

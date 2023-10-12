@@ -13,14 +13,14 @@ namespace Petaverse.UserControls.ProfilePageUserControls
         public event LogoutDelegate LogoutEventHandler;
 
         public List<string> Tags { get; set; } = new List<string>() { "Dog Lover", "Cat Lover", "Pet Hero", "Explorer", "Petaverse Core Creator" };
-        public User CurrentUser
+        public Models.DTOs.User CurrentUser
         {
-            get { return (User)GetValue(CurrentUserProperty); }
+            get { return (Models.DTOs.User)GetValue(CurrentUserProperty); }
             set { SetValue(CurrentUserProperty, value); }
         }
 
         public static readonly DependencyProperty CurrentUserProperty =
-            DependencyProperty.Register("CurrentUser", typeof(User), typeof(UserInfoPanelUserControl), null);
+            DependencyProperty.Register("CurrentUser", typeof(Models.DTOs.User), typeof(UserInfoPanelUserControl), null);
 
         private readonly ICurrentUserService currentUserService;
 

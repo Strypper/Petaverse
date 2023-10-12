@@ -22,7 +22,7 @@ namespace Petaverse.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles)
+        public async Task<List<Models.DTOs.PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles)
         {
             var multipartFormContent = new MultipartFormDataContent();
 
@@ -38,7 +38,7 @@ namespace Petaverse.Services
             {
                 var result = await _httpClient.PostAsync($"api/Animal/UploadAnimalMedias/{petId}", multipartFormContent);
                 string stringReadResult = await result.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<PetaverseMedia>>(stringReadResult);
+                return JsonConvert.DeserializeObject<List<Models.DTOs.PetaverseMedia>>(stringReadResult);
             }
             catch (Exception ex)
             {
@@ -46,11 +46,11 @@ namespace Petaverse.Services
                 {
                     Title = "Can't upload these photos"
                 }.ShowAsync();
-                return new List<PetaverseMedia>();
+                return new List<Models.DTOs.PetaverseMedia>();
             }
         }
 
-        public async Task<PetaverseMedia> CreatePetAvatarAsync(Animal petInfo, StorageFile avatar)
+        public async Task<Models.DTOs.PetaverseMedia> CreatePetAvatarAsync(Models.DTOs.Animal petInfo, StorageFile avatar)
         {
             if (avatar != null)
             {
@@ -66,7 +66,7 @@ namespace Petaverse.Services
                 {
                     var result = await _httpClient.PostAsync($"api/Animal/UploadPetAvatar/{petInfo.Id}", multipartFormContent);
                     string stringReadResult = await result.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<PetaverseMedia>(stringReadResult);
+                    return JsonConvert.DeserializeObject<Models.DTOs.PetaverseMedia>(stringReadResult);
                 }
                 catch (Exception ex)
                 {

@@ -2,7 +2,7 @@
 
 public sealed partial class LoginUserControl : UserControl
 {
-    public delegate void LoginSuccessDelegate(User pricipalUserInfo);
+    public delegate void LoginSuccessDelegate(Models.DTOs.User pricipalUserInfo);
     public event LoginSuccessDelegate LoginSuccessEventHandler;
 
     private readonly IUserData              userData;
@@ -100,7 +100,7 @@ public sealed partial class LoginUserControl : UserControl
         }
     }
 
-    private async Task<User> ProcessLogin(UserPrincipal pricipalUserInfo)
+    private async Task<Models.DTOs.User> ProcessLogin(UserPrincipal pricipalUserInfo)
     {
         var petaverseUser = await petaverseUserService.LoginPetaverseByGuidAsync(pricipalUserInfo.Guid);
         if (petaverseUser != null)
@@ -126,7 +126,7 @@ public sealed partial class LoginUserControl : UserControl
         };
     }
 
-    private void LoginComplete(User pricipalUserInfo)
+    private void LoginComplete(Models.DTOs.User pricipalUserInfo)
     {
         if(pricipalUserInfo != null)
         {

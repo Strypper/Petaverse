@@ -6,14 +6,14 @@ namespace Petaverse.UserControls.ProfilePageUserControls
 {
     public sealed partial class PetGalleryGridViewItemUserControl : UserControl
     {
-        public PetaverseMedia PetaverseMedia
+        public Models.DTOs.PetaverseMedia PetaverseMedia
         {
-            get { return (PetaverseMedia)GetValue(PetaverseMediaProperty); }
+            get { return (Models.DTOs.PetaverseMedia)GetValue(PetaverseMediaProperty); }
             set { SetValue(PetaverseMediaProperty, value); }
         }
 
         public static readonly DependencyProperty PetaverseMediaProperty =
-            DependencyProperty.Register("PetaverseMedia", typeof(PetaverseMedia), typeof(PetGalleryGridViewItemUserControl), null);
+            DependencyProperty.Register("PetaverseMedia", typeof(Models.DTOs.PetaverseMedia), typeof(PetGalleryGridViewItemUserControl), null);
 
 
         public PetGalleryGridViewItemUserControl()

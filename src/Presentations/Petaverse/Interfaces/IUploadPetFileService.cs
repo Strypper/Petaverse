@@ -1,16 +1,11 @@
-﻿using Petaverse.Models.DTOs;
-using Petaverse.Models.FEModels;
-using Petaverse.Models.Others;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Petaverse.Models.Others;
 using Windows.Storage;
 
-namespace Petaverse.Interfaces
+namespace Petaverse.Interfaces;
+
+public interface IUploadPetFileService
 {
-    public interface IUploadPetFileService
-    {
-        public Task<List<PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles);
-        public Task<PetaverseMedia> CreatePetAvatarAsync(Animal petInfo, StorageFile avatar);
-        public Task<PetShortSAS> UploadVideoAsync(int petShortId, BlobClientSAS blobClientSAS, StorageFile video);
-    }
+    public Task<List<Models.DTOs.PetaverseMedia>> UploadMultiplePetFilesAsync(int petId, List<PetPhotosStream> uploadFiles);
+    public Task<Models.DTOs.PetaverseMedia> CreatePetAvatarAsync(Models.DTOs.Animal petInfo, StorageFile avatar);
+    public Task<PetShortSAS> UploadVideoAsync(int petShortId, BlobClientSAS blobClientSAS, StorageFile video);
 }

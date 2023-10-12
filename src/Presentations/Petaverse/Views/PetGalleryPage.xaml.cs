@@ -27,13 +27,13 @@ namespace Petaverse.Views
 {
     public sealed partial class PetGalleryPage : Page
     {
-        public Animal Pet
+        public Models.DTOs.Animal Pet
         {
-            get { return (Animal)GetValue(PetProperty); }
+            get { return (Models.DTOs.Animal)GetValue(PetProperty); }
             set { SetValue(PetProperty, value); }
         }
         public static readonly DependencyProperty PetProperty =
-            DependencyProperty.Register("Pet", typeof(Animal), typeof(PetGalleryPage), null);
+            DependencyProperty.Register("Pet", typeof(Models.DTOs.Animal), typeof(PetGalleryPage), null);
 
         public AdvancedCollectionView Gallery { get; set; }
 
@@ -45,7 +45,7 @@ namespace Petaverse.Views
         public delegate void DeletePetEventHandler(int petId);
         public event DeletePetEventHandler DeletePetClick;
 
-        public delegate void SelectImageEventHandler(PetaverseMedia petaverseMedia);
+        public delegate void SelectImageEventHandler(Models.DTOs.PetaverseMedia petaverseMedia);
         public event SelectImageEventHandler SelectPhoto;
 
         private IUploadPetFileService _uploadPetFileService;
@@ -64,7 +64,7 @@ namespace Petaverse.Views
         private void InitAdvanceCollection()
         {
             this.Gallery = new AdvancedCollectionView(Pet?.PetPhotos);
-            this.Gallery.Filter = media => ((PetaverseMedia)media).Type != MediaType.Avatar;
+            this.Gallery.Filter = media => ((Models.DTOs.PetaverseMedia)media).Type != Models.DTOs.MediaType.Avatar;
             this.PetGalleryAdaptiveGridView.ItemsSource = this.Gallery;
         }
 
@@ -219,7 +219,7 @@ namespace Petaverse.Views
 
         private void PetGalleryAdaptiveGridView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
         {
-            var SelectedPhoto = PetGalleryAdaptiveGridView.SelectedItem as PetaverseMedia;
+            var SelectedPhoto = PetGalleryAdaptiveGridView.SelectedItem as Models.DTOs.PetaverseMedia;
             if(SelectedPhoto != null)
             {
                 PetGalleryAdaptiveGridView.PrepareConnectedAnimation("ForwardConnectedAnimation", SelectedPhoto, "PetMedia");
@@ -235,7 +235,7 @@ namespace Petaverse.Views
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var media = (PetaverseMedia)value;
+            var media = (Models.DTOs.PetaverseMedia)value;
             if (string.IsNullOrEmpty(media.MediaUrl))
             {
                 return media.LocalImage != null ? media.LocalImage : null;  
