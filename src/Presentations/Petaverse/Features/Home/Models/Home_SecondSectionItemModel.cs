@@ -1,6 +1,6 @@
 ﻿namespace Petaverse;
 
-public partial class TopFosterCenterModel : BaseModel<string>
+public partial class Home_SecondSectionItemModel : BaseModel<string>
 {
     [ObservableProperty]
     string fosterCenterId;

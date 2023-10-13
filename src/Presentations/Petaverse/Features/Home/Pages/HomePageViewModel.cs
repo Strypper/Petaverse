@@ -12,10 +12,16 @@ public partial class HomePageViewModel : ViewModelBase
     #region [ Properties ]
 
     [ObservableProperty]
-    ObservableCollection<HomeCarouselItemUserControlModel> events;
+    ObservableCollection<Home_FirstSectionItemModel> firstSectionItems;
 
     [ObservableProperty]
-    ObservableCollection<TopFosterCenterModel> topFosterCenters;
+    ObservableCollection<Home_SecondSectionItemModel> secondSectionItems;
+
+    [ObservableProperty]
+    ObservableCollection<Home_ThirdSectionItemModel> thirdSectionItems;
+
+    [ObservableProperty]
+    ObservableCollection<Home_FourthSectionItemModel> fourthSectionItems;
     #endregion
 
     #region [ CTors ]
@@ -23,8 +29,11 @@ public partial class HomePageViewModel : ViewModelBase
     {
         _homePageService = Ioc.Default.GetRequiredService<IHomePageService>();
 
-        events = new ObservableCollection<HomeCarouselItemUserControlModel>();
-        topFosterCenters = new ObservableCollection<TopFosterCenterModel>();
+        firstSectionItems = new();
+        secondSectionItems = new();
+        thirdSectionItems = new();
+        fourthSectionItems = new();
+
         LoadDataAsync();
     }
     #endregion
@@ -33,10 +42,10 @@ public partial class HomePageViewModel : ViewModelBase
 
     private async Task LoadDataAsync()
     {
-        var topEvents = await _homePageService.GetCarouselItemsAsync();
-        foreach (var item in topEvents)
+        var firstItems = await _homePageService.GetFirstItemsAsync();
+        foreach (var item in firstItems)
         {
-            Events.Add(new HomeCarouselItemUserControlModel()
+            FirstSectionItems.Add(new()
             {
                 EventTitle = item.EventTitle,
                 EventDominantColor = item.EventDominantColor,
@@ -46,10 +55,10 @@ public partial class HomePageViewModel : ViewModelBase
             });
         }
 
-        var topFosterCenter = await _homePageService.GetTopFosterCentersAsync();
-        foreach (var item in topFosterCenter)
+        var secondItems = await _homePageService.GetSecondItemsAsync();
+        foreach (var item in secondItems)
         {
-            TopFosterCenters.Add(new TopFosterCenterModel()
+            SecondSectionItems.Add(new()
             {
                 FosterCenterId = item.FosterCenterId,
                 FosterCenterName = item.FosterCenterName,
@@ -57,6 +66,31 @@ public partial class HomePageViewModel : ViewModelBase
                 FosterCenterAddress = item.FosterCenterAddress,
                 FosterCenterRating = item.FosterCenterRating,
                 IsUserFollowing = item.IsUserFollowing,
+            });
+        }
+
+        var thirdItems = await _homePageService.GetThirdItemsAsync();
+        foreach (var item in thirdItems)
+        {
+            ThirdSectionItems.Add(new()
+            {
+                Title = item.Title,
+                Location = item.Location,
+                ImageUrl = item.ImageUrl,
+                DisplayTime = item.DisplayTime
+            });
+        }
+
+        var fourthItems = await _homePageService.GetFourthItemsAsync();
+        foreach (var item in fourthItems)
+        {
+            FourthSectionItems.Add(new()
+            {
+                FirstText = item.FirstText,
+                FirstImageUrl = item.FirstImageUrl,
+                SecondText = item.SecondText,
+                SecondImageUrl = item.SecondImageUrl,
+                Activity = item.Activity
             });
         }
     }

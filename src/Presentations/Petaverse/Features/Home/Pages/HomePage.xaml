@@ -5,61 +5,142 @@
     xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Petaverse"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:Key="TopEventItemTemplate" x:DataType="local:HomeCarouselItemUserControlModel">
+        
+        <TransitionCollection x:Key="HomeGridViewTransitionCollection">
+            <RepositionThemeTransition />
+        </TransitionCollection>
+        
+        <DataTemplate x:Key="TopEventItemTemplate" x:DataType="local:Home_FirstSectionItemModel">
             <FlipViewItem>
-                <local:HomeCarouselItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
+                <local:HomeFirstItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
             </FlipViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="HomeGridViewHeaderTemplate" x:DataType="x:String">
+            <Grid>
+                <TextBlock
+                            Margin="0,0,0,14"
+                            Style="{ThemeResource SectionTitleTextBlockStyle}"
+                            Text="{x:Bind}" />
+                <HyperlinkButton HorizontalAlignment="Right" Content="Xem tất cả" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SecondSectionItemTemplate" x:DataType="local:Home_SecondSectionItemModel">
+            <Grid Width="400" Height="130">
+                <core:PetaverseContainer>
+                    <local:HomeSecondItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
+                </core:PetaverseContainer>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="SecondSectionGridViewStyle" TargetType="GridView">
+            <Setter Property="Height" Value="330"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="Margin" Value="-12,0,-24,0"/>
+            <Setter Property="Header" Value="Các trạm foster được đánh giá cao"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ItemContainerTransitions" Value="{ThemeResource HomeGridViewTransitionCollection}"/>
+            <Setter Property="HeaderTemplate" Value="{ThemeResource HomeGridViewHeaderTemplate}"/>
+            <Setter Property="ItemContainerStyle" Value="{ThemeResource CustomGridViewItemStyle}"/>
+            <Setter Property="ItemTemplate" Value="{ThemeResource SecondSectionItemTemplate}"/>
+        </Style>
+
+        <muxc:StackLayout x:Name="HorizontalStackLayout" Orientation="Horizontal" Spacing="8"/>
+
+        <DataTemplate x:Key="ThirdSectionItemTemplate" x:DataType="local:Home_ThirdSectionItemModel">
+            <local:HomeThirdItemUserControl ComponentData="{x:Bind Mode=OneTime}"/>
+        </DataTemplate>
+
+        <Style x:Key="ThirdSectionGridViewStyle" TargetType="GridView">
+            <Setter Property="Height" Value="420"/>
+            <Setter Property="MaxWidth" Value="800"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ItemContainerTransitions" Value="{ThemeResource HomeGridViewTransitionCollection}"/>
+            <Setter Property="ItemContainerStyle" Value="{ThemeResource CustomGridViewItemStyle}"/>
+            <Setter Property="ItemTemplate" Value="{ThemeResource ThirdSectionItemTemplate}"/>
+        </Style>
+
+        <DataTemplate x:Key="FourthSectionItemTemplate" x:DataType="local:Home_FourthSectionItemModel">
+            <Grid Width="430" Height="130">
+                <core:PetaverseContainer>
+                    <local:HomeFourthItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
+                </core:PetaverseContainer>
+            </Grid>
         </DataTemplate>
     </Page.Resources>
 
-    <ScrollViewer>
+    <ScrollViewer x:Name="RootScrollViewer">
         <Grid Padding="20" RowSpacing="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="500" />
                 <RowDefinition Height="330" />
+                <RowDefinition Height="500" />
+                <RowDefinition Height="350" />
             </Grid.RowDefinitions>
 
             <FlipView
                 HorizontalAlignment="Stretch"
                 ItemTemplate="{StaticResource TopEventItemTemplate}"
-                ItemsSource="{x:Bind viewModel.Events}" />
+                ItemsSource="{x:Bind viewModel.FirstSectionItems}" />
 
             <GridView
-                x:Name="TopFosterCentersGridView"
+                x:Name="SecondSection"
                 Grid.Row="1"
-                Height="330"
-                Padding="12"
-                ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
-                ItemsSource="{x:Bind viewModel.TopFosterCenters}"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                ScrollViewer.VerticalScrollMode="Disabled"
-                SelectionMode="None">
-                <GridView.ItemContainerTransitions>
-                    <TransitionCollection />
-                </GridView.ItemContainerTransitions>
-                <GridView.Header>
-                    <Grid>
-                        <TextBlock
-                            Margin="0,0,0,14"
-                            Style="{ThemeResource SectionTitleTextBlockStyle}"
-                            Text="Các trạm foster tốt nhất" />
-                        <HyperlinkButton HorizontalAlignment="Right" Content="Xem tất cả" />
-                    </Grid>
-                </GridView.Header>
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="local:TopFosterCenterModel">
-                        <Grid Width="400" Height="130">
-                            <core:PetaverseContainer>
-                                <local:TopFosterCenterUserControl ComponentData="{x:Bind Mode=OneTime}" />
-                            </core:PetaverseContainer>
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
+                ItemsSource="{x:Bind viewModel.SecondSectionItems}"
+                Style="{StaticResource SecondSectionGridViewStyle}"/>
+
+            <Grid x:Name="ThirdSection"
+                  Grid.Row="2"
+                  CornerRadius="8">
+                <ParallaxView Source="{Binding ElementName=RootScrollViewer}" VerticalShift="500">
+                    <Image Opacity="0.5"
+                           Stretch="UniformToFill"
+                           Source="ms-appx:///Assets/Illustration/Ilustration1.png" />
+                </ParallaxView>
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="30,0,0,0">
+                    <TextBlock Margin="10"
+                               Text="Hãy giúp các chú bé này"
+                               Style="{StaticResource TitleTextBlockStyle}"/>
+                    <TextBlock VerticalAlignment="Bottom"
+                               Margin="10,0,10,10"
+                               MaxWidth="400" 
+                               TextWrapping="Wrap"
+                               Text="Quá khứ đau thương không thể thay đổi, nhưng bạn có thể thay đổi tương lai của chúng."/>
+                    <Button Margin="10,10,0,0"
+                            Width="160"
+                            Content="Chung tay"
+                            VerticalAlignment="Bottom"/>
+                </StackPanel>
+                <GridView ItemsSource="{x:Bind viewModel.ThirdSectionItems}"
+                          Style="{StaticResource ThirdSectionGridViewStyle}"/>
+            </Grid>
+
+            <GridView x:Name="FourthSection"
+                      Grid.Row="3"
+                      Height="310"
+                      Header="Chúc mừng với các chủ nhân mới"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      HeaderTemplate="{StaticResource HomeGridViewHeaderTemplate}"
+                      ItemsSource="{x:Bind viewModel.FourthSectionItems}"
+                      ItemTemplate="{StaticResource FourthSectionItemTemplate}"
+                      ItemContainerStyle="{StaticResource CustomGridViewItemStyle}">
+                
             </GridView>
         </Grid>
     </ScrollViewer>

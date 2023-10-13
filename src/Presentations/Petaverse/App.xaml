@@ -40,6 +40,15 @@
                     <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
                     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
                     <converters:EnumToSeverityConverter x:Key="EnumToSeverityConverter" />
+                    <Style TargetType="Panel">
+                        <Setter Property="ChildrenTransitions">
+                            <Setter.Value>
+                                <TransitionCollection>
+                                    <RepositionThemeTransition />
+                                </TransitionCollection>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                 </ResourceDictionary>
 
             </controls:XamlControlsResources.MergedDictionaries>

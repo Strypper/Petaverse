@@ -161,19 +161,27 @@
     <Compile Include="Enums\Severity.cs" />
     <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
     <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
-    <Compile Include="Features\Home\Models\HomeCarouselItemUserControlModel.cs" />
-    <Compile Include="Features\Home\Models\TopFosterCenterModel.cs" />
+    <Compile Include="Features\Home\Models\Home_FirstSectionItemModel.cs" />
+    <Compile Include="Features\Home\Models\Home_FourthSectionItemModel.cs" />
+    <Compile Include="Features\Home\Models\Home_ThirdSectionItemModel.cs" />
+    <Compile Include="Features\Home\Models\Home_SecondSectionItemModel.cs" />
     <Compile Include="Features\Home\Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Home\Pages\HomePageViewModel.cs" />
     <Compile Include="Features\Home\Services\Implementations\HomePageService.cs" />
     <Compile Include="Features\Home\Services\Interfaces\IHomePageService.cs" />
-    <Compile Include="Features\Home\UserControls\HomeCarouselItemUserControl.xaml.cs">
-      <DependentUpon>HomeCarouselItemUserControl.xaml</DependentUpon>
+    <Compile Include="Features\Home\UserControls\HomeFirstItemUserControl.xaml.cs">
+      <DependentUpon>HomeFirstItemUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Home\UserControls\TopFosterCenterUserControl.xaml.cs">
-      <DependentUpon>TopFosterCenterUserControl.xaml</DependentUpon>
+    <Compile Include="Features\Home\UserControls\HomeFourthItemUserControl.xaml.cs">
+      <DependentUpon>HomeFourthItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Home\UserControls\HomeSecondItemUserControl.xaml.cs">
+      <DependentUpon>HomeSecondItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Home\UserControls\HomeThirdItemUserControl.xaml.cs">
+      <DependentUpon>HomeThirdItemUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\IronShield\Pages\IronShieldPage.xaml.cs">
       <DependentUpon>IronShieldPage.xaml</DependentUpon>
@@ -415,11 +423,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Home\UserControls\HomeCarouselItemUserControl.xaml">
+    <Page Include="Features\Home\UserControls\HomeFirstItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Home\UserControls\TopFosterCenterUserControl.xaml">
+    <Page Include="Features\Home\UserControls\HomeFourthItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Home\UserControls\HomeSecondItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Home\UserControls\HomeThirdItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

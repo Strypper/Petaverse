@@ -1,6 +1,6 @@
 ﻿namespace Petaverse;
 
-public partial class HomeCarouselItemUserControlModel : BaseModel<string>
+public partial class Home_FirstSectionItemModel : BaseModel<string>
 {
     [ObservableProperty]
     string eventTitle;

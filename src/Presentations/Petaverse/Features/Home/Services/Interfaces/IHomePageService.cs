@@ -2,6 +2,8 @@
 
 public interface IHomePageService
 {
-    Task<IEnumerable<HomeCarouselItemUserControlModel>> GetCarouselItemsAsync();
-    Task<IEnumerable<TopFosterCenterModel>> GetTopFosterCentersAsync();
+    Task<IEnumerable<Home_FirstSectionItemModel>> GetFirstItemsAsync();
+    Task<IEnumerable<Home_SecondSectionItemModel>> GetSecondItemsAsync();
+    Task<IEnumerable<Home_ThirdSectionItemModel>> GetThirdItemsAsync();
+    Task<IEnumerable<Home_FourthSectionItemModel>> GetFourthItemsAsync();
 }
