@@ -1,4 +1,4 @@
-﻿namespace Petaverse;
+﻿namespace Petaverse.Home;
 
 public sealed partial class HomeThirdItemUserControl : UserControl
 {

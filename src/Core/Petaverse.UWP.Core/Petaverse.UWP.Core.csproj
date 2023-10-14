@@ -122,6 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants\SettingsConstants.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\HexToWinUIColorConverter.cs" />
     <Compile Include="Enums\MediaType.cs" />
     <Compile Include="GlobalUsings.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="Models\Breed.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\FosterCenter.cs" />
+    <Compile Include="Models\FosterCenterMember.cs" />
+    <Compile Include="Models\FosterCenterTag.cs" />
     <Compile Include="Models\PetaverseMedia.cs" />
     <Compile Include="Models\Species.cs" />
     <Compile Include="Models\User.cs" />

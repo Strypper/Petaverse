@@ -1,4 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Petaverse.FosterCenter;
+using Petaverse.Home;
 using Windows.UI.Core;
 
 namespace Petaverse;
@@ -38,7 +40,7 @@ public sealed partial class TheMainFrame : Page
             return;
         }
 
-        ContentFrame.Navigate(index % 2 == 0 ? typeof(HomePage) : typeof(IronShieldPage));
+        ContentFrame.Navigate(index % 2 == 0 ? typeof(HomePage) : typeof(FosterCenterPage));
     }
     #endregion
 }

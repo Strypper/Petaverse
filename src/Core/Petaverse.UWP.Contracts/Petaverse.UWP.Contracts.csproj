@@ -128,6 +128,7 @@
     <Compile Include="Features\Authentication\ReturnTypes\AuthenticationResponse.cs" />
     <Compile Include="Features\Authentication\ReturnTypes\BaseReturnType.cs" />
     <Compile Include="Features\Authentication\ReturnTypes\RegistrationResponse.cs" />
+    <Compile Include="Features\FosterCenter\IFosterCenterService.cs" />
     <Compile Include="Features\Home\IHomeService.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

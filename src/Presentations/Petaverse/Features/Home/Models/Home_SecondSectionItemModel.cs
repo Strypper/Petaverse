@@ -1,4 +1,4 @@
-﻿namespace Petaverse;
+﻿namespace Petaverse.Home;
 
 public partial class Home_SecondSectionItemModel : BaseModel<string>
 {

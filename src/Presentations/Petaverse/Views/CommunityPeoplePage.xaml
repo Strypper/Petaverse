@@ -26,8 +26,7 @@
             <usercontrols:CommunityPeopleCardUserControl User="{x:Bind}" 
                                                          Height="530"
                                                          Margin="3"
-                                                         Background="Transparent"
-          animations:Implicit.Animations="{StaticResource Bruh}"/>
+                                                         Background="Transparent"/>
         </DataTemplate>
 
         <DataTemplate x:Key="PageHeaderTemplate"

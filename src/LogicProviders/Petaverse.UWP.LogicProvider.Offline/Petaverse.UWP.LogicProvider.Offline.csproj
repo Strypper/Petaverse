@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ServiceExtensions.cs" />
     <Compile Include="Features\Authentication\Services\Implementations\AuthenticationService.cs" />
+    <Compile Include="Features\FosterCenter\FosterCenterService.cs" />
     <Compile Include="Features\Home\Services\Implementations\HomeService.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,6 @@
-﻿using Windows.ApplicationModel.Core;
+﻿using Petaverse.FosterCenter;
+using Petaverse.Home;
+using Windows.ApplicationModel.Core;
 
 namespace Petaverse;
 
@@ -133,6 +135,7 @@ sealed partial class App : Application
 
         services.AddTransient<IHomePageService, HomePageService>();
         services.AddTransient<HomePageViewModel>();
+        services.AddTransient<FosterCenterPageViewModel>();
 
         services.AddSingleton<LoginUserControl>();
 

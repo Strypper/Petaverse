@@ -1,6 +1,6 @@
 ﻿using Petaverse.ViewModels;
 
-namespace Petaverse;
+namespace Petaverse.Home;
 
 public partial class HomePageViewModel : ViewModelBase
 {

@@ -161,6 +161,18 @@
     <Compile Include="Enums\Severity.cs" />
     <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
     <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
+    <Compile Include="Features\FosterCenter\Models\AnimalProfilePreviewModel.cs" />
+    <Compile Include="Features\FosterCenter\Models\AvatarPreviewModel.cs" />
+    <Compile Include="Features\FosterCenter\Models\CarouselItemModel.cs" />
+    <Compile Include="Features\FosterCenter\Models\MemberProfilePreviewModel.cs" />
+    <Compile Include="Features\FosterCenter\Models\TagUIModel.cs" />
+    <Compile Include="Features\FosterCenter\Page\FosterCenterPage.xaml.cs">
+      <DependentUpon>FosterCenterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\FosterCenter\Page\FosterCenterPageViewModel.cs" />
+    <Compile Include="Features\FosterCenter\UserControls\AvatarPreviewUserControl.xaml.cs">
+      <DependentUpon>AvatarPreviewUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Home\Models\Home_FirstSectionItemModel.cs" />
     <Compile Include="Features\Home\Models\Home_FourthSectionItemModel.cs" />
     <Compile Include="Features\Home\Models\Home_ThirdSectionItemModel.cs" />
@@ -325,6 +337,12 @@
     <Content Include="Assets\Mocks\AbandonedAnimals\MockAdoptPet2.jpg" />
     <Content Include="Assets\Mocks\AbandonedAnimals\MockAdoptPet3.jpg" />
     <Content Include="Assets\Mocks\AbandonedAnimals\MockAdoptPet4.jpg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterCarouselImage1.jpg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterCarouselImage2.jpg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterCarouselImage3.jpg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterCarouselImage4.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterCarouselImage5.jpeg" />
+    <Content Include="Assets\Mocks\FosterCenters\FosterCenterCarouselImage6.jpeg" />
     <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo1.jpg" />
     <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo2.jpeg" />
     <Content Include="Assets\Mocks\FosterCenters\FosterCenterDemo3.jpeg" />
@@ -418,6 +436,14 @@
     <Page Include="Features\Authentication\Pages\AuthenticationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\FosterCenter\Page\FosterCenterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\FosterCenter\UserControls\AvatarPreviewUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Home\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
