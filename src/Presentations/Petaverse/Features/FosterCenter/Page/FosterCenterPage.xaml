@@ -2,203 +2,288 @@
     x:Class="Petaverse.FosterCenter.FosterCenterPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:core="using:Petaverse.UWP.Core"
-    xmlns:local="using:Petaverse.FosterCenter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="using:Petaverse.FosterCenter"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <Style x:Key="PetaverseGridLayoutStyle" TargetType="Grid">
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Background" Value="{StaticResource CardBackgroundFillColorDefaultBrush}"/>
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Background" Value="{StaticResource CardBackgroundFillColorDefaultBrush}" />
         </Style>
 
-        <DataTemplate x:Key="TagsItemTemplate" 
-                      x:DataType="local:TagUIModel">
-            <Button Content="{x:Bind TagName}" CornerRadius="16"
-                    Background="{x:Bind ColorHex, Converter={StaticResource HexToSolidColorBrushConverter}}"/>
+        <DataTemplate x:Key="TagsItemTemplate" x:DataType="local:TagUIModel">
+            <Button
+                Background="{x:Bind ColorHex, Converter={StaticResource HexToSolidColorBrushConverter}}"
+                Content="{x:Bind TagName}"
+                CornerRadius="16" />
         </DataTemplate>
 
-        <toolkit:WrapLayout x:Key="TagsLayout"
-                            VerticalSpacing="5"
-                            HorizontalSpacing="5"/>
+        <toolkit:WrapLayout
+            x:Key="TagsLayout"
+            HorizontalSpacing="5"
+            VerticalSpacing="5" />
 
         <DataTemplate x:Key="CarouselItemTemplate" x:DataType="local:CarouselItemModel">
             <core:PetaverseContainer>
-                    <Image Source="{x:Bind ImageUrl, Mode=OneWay}"
-                           Width="500" 
-                           Height="300" 
-                           Stretch="UniformToFill"/>
-                </core:PetaverseContainer>
+                <Image
+                    Width="500"
+                    Height="300"
+                    Source="{x:Bind ImageUrl, Mode=OneWay}"
+                    Stretch="UniformToFill" />
+            </core:PetaverseContainer>
         </DataTemplate>
 
         <DataTemplate x:Key="FirstAvatarPreviewItemTemplate" x:DataType="local:MemberProfilePreviewModel">
             <core:PetaverseContainer>
-                <local:AvatarPreviewUserControl Margin="14" Title="{x:Bind UserName}" ImageUrl="{x:Bind UserAvatarUrl}" AdditionalInfo="{x:Bind RoleName}"/>
+                <local:AvatarPreviewUserControl
+                    Title="{x:Bind UserName}"
+                    Margin="14"
+                    AdditionalInfo="{x:Bind RoleName}"
+                    ImageUrl="{x:Bind UserAvatarUrl}" />
             </core:PetaverseContainer>
         </DataTemplate>
 
         <DataTemplate x:Key="SecondAvatarPreviewItemTemplate" x:DataType="local:AnimalProfilePreviewModel">
             <core:PetaverseContainer>
-                <local:AvatarPreviewUserControl Margin="14" Title="{x:Bind Name}" ImageUrl="{x:Bind AvatarUrl}"/>
+                <local:AvatarPreviewUserControl
+                    Title="{x:Bind Name}"
+                    Margin="14"
+                    ImageUrl="{x:Bind AvatarUrl}" />
             </core:PetaverseContainer>
         </DataTemplate>
     </Page.Resources>
 
+
     <Grid x:Name="RootLayer">
         <Grid x:Name="InnerLayer">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid x:Name="LeftPanel"
-                  Padding="8">
+            <Grid x:Name="LeftPanel" Padding="8">
                 <Grid Style="{StaticResource PetaverseGridLayoutStyle}">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition />
+                        <RowDefinition Height="0.3*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Spacing="25"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
-                        <Border CornerRadius="8">
-                            <Image Width="120"
-                                   Height="120"
-                                   Source="ms-appx:///Assets/StoreLogo.png"/>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="25">
+                        <Border
+                            x:Name="FosterCenterLogo"
+                            animations:Connected.Key="fosterCenterLogo"
+                            CornerRadius="8">
+                            <Image
+                                Width="120"
+                                Height="120"
+                                Source="{x:Bind viewModel.FosterCenterLogo, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}, FallbackValue='ms-appx:///Assets/StoreLogo.png', TargetNullValue='ms-appx:///Assets/StoreLogo.png'}" />
                         </Border>
                         <StackPanel Spacing="5">
-                            <TextBlock Text="Petaverse"
-                                   HorizontalAlignment="Center"
-                                   Style="{StaticResource TitleTextBlockStyle}"/>
-                            <TextBlock HorizontalAlignment="Center"
-                                       Text="Secondary text"/>
+                            <TextBlock
+                                x:Name="FosterCenterName"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="{x:Bind viewModel.FosterCenterName, FallbackValue='Empty Data', TargetNullValue='Null Data'}" />
+                            <TextBlock HorizontalAlignment="Center" Text="Secondary text" />
                         </StackPanel>
-                        <ToggleButton HorizontalAlignment="Center"
-                                      Content="Follow"
-                                      MinWidth="160"/>
-                        <StackPanel Orientation="Horizontal"
-                                    Spacing="20"
-                                    HorizontalAlignment="Center">
+                        <ToggleButton
+                            x:Name="IsFollowToggleButton"
+                            MinWidth="160"
+                            HorizontalAlignment="Center"
+                            Content="{x:Bind IsFollowToggleButton.IsChecked, Mode=OneWay, Converter={StaticResource BoolToIsFollowStringConverter}}"
+                            IsChecked="{x:Bind viewModel.IsFollowed}" />
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="20">
                             <StackPanel Spacing="10">
-                                <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
-                                    <TextBlock Text="17" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center"/>
-                                    <FontIcon Glyph="&#xE716;" VerticalAlignment="Center"/>
+                                <StackPanel
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="5">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                        Text="17" />
+                                    <FontIcon VerticalAlignment="Center" Glyph="&#xE716;" />
                                 </StackPanel>
-                                <TextBlock Text="Thành viên" Foreground="{StaticResource TextFillColorSecondaryBrush}" Style="{StaticResource CaptionTextBlockStyle}"/>
+                                <TextBlock
+                                    Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="Thành viên" />
                             </StackPanel>
-                            <AppBarSeparator/>
+                            <AppBarSeparator />
                             <StackPanel Spacing="10">
-                                <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
-                                    <TextBlock Text="94" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center"/>
-                                    <FontIcon FontFamily="/Assets/Fonts/FluentSystemIcons-Regular.ttf#FluentSystemIcons-Regular" Glyph="&#xF128;" Foreground="{StaticResource AccentTextFillColorPrimaryBrush}" />
+                                <StackPanel
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="5">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                        Text="94" />
+                                    <FontIcon
+                                        FontFamily="/Assets/Fonts/FluentSystemIcons-Regular.ttf#FluentSystemIcons-Regular"
+                                        Foreground="{StaticResource AccentTextFillColorPrimaryBrush}"
+                                        Glyph="&#xF128;" />
                                 </StackPanel>
-                                <TextBlock Text="Thú cưng" Foreground="{StaticResource TextFillColorSecondaryBrush}" Style="{StaticResource CaptionTextBlockStyle}"/>
+                                <TextBlock
+                                    Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="Thú cưng" />
                             </StackPanel>
                         </StackPanel>
-                        <muxc:ItemsRepeater MaxWidth="200"
-                                            HorizontalAlignment="Center"
-                                            ItemsSource="{x:Bind viewModel.FirstTagsCollection}"
-                                            ItemTemplate="{StaticResource TagsItemTemplate}"
-                                            Layout="{StaticResource TagsLayout}"/>
+                        <muxc:ItemsRepeater
+                            MaxWidth="200"
+                            HorizontalAlignment="Center"
+                            ItemTemplate="{StaticResource TagsItemTemplate}"
+                            ItemsSource="{x:Bind viewModel.FirstTagsCollection}"
+                            Layout="{StaticResource TagsLayout}" />
                     </StackPanel>
                 </Grid>
             </Grid>
 
-            <Grid x:Name="RightPanel" 
-                  Padding="0,8,8,8" Grid.Column="1">
+            <Grid
+                x:Name="RightPanel"
+                Grid.Column="1"
+                Padding="0,8,8,8">
                 <ScrollViewer>
                     <Grid RowSpacing="8">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition Height="275"/>
-                            <RowDefinition Height="440"/>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition Height="275" />
+                            <RowDefinition Height="440" />
                         </Grid.RowDefinitions>
-                        <StackPanel CornerRadius="8" Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
+                        <StackPanel Background="{StaticResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8">
                             <Grid Padding="16,10,16,0">
-                                <TextBlock Text="Hình ảnh" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"/>
-                                <HyperlinkButton Content="Tất cả" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Hình ảnh" />
+                                <HyperlinkButton
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Content="Tất cả" />
                             </Grid>
-                            <MenuFlyoutSeparator/>
-                            <ScrollViewer VerticalScrollMode="Disabled"
-                                          VerticalScrollBarVisibility="Hidden"
-                                          HorizontalScrollMode="Enabled">
-                                <muxc:ItemsRepeater Height="300"
-                                                    Margin="16"
-                                                    ItemsSource="{x:Bind viewModel.CarouselItems}"
-                                                    ItemTemplate="{StaticResource CarouselItemTemplate}">
+                            <MenuFlyoutSeparator />
+                            <ScrollViewer
+                                HorizontalScrollMode="Enabled"
+                                VerticalScrollBarVisibility="Hidden"
+                                VerticalScrollMode="Disabled">
+                                <muxc:ItemsRepeater
+                                    Height="300"
+                                    Margin="16"
+                                    ItemTemplate="{StaticResource CarouselItemTemplate}"
+                                    ItemsSource="{x:Bind viewModel.CarouselItems}">
                                     <muxc:ItemsRepeater.Layout>
-                                        <muxc:StackLayout Orientation="Horizontal" Spacing="10"/>
+                                        <muxc:StackLayout Orientation="Horizontal" Spacing="10" />
                                     </muxc:ItemsRepeater.Layout>
                                 </muxc:ItemsRepeater>
                             </ScrollViewer>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1" CornerRadius="8" Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
+                        <StackPanel
+                            Grid.Row="1"
+                            Background="{StaticResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8">
                             <Grid Padding="16,10,16,0">
-                                <TextBlock Text="Các chiến dịch đang diễn ra" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"/>
-                                <HyperlinkButton Content="Tất cả" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Các chiến dịch đang diễn ra" />
+                                <HyperlinkButton
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Content="Tất cả" />
                             </Grid>
-                            <MenuFlyoutSeparator/>
-                            <Grid Margin="16"
-                                  Height="100">
-                                <TextBlock x:Name="CampaignTitle" Text="Cứu bé na 😺"
-                                           Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                <StackPanel HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Bottom">
-                                    <Border Padding="10"
-                                            CornerRadius="8"
-                                            Background="{StaticResource ControlStrokeColorOnAccentSecondaryBrush}"
-                                            BorderBrush="{StaticResource SurfaceStrokeColorDefaultBrush}"
-                                            BorderThickness="1"
-                                            HorizontalAlignment="Left">
-                                        <TextBlock Text="1.880.000/2.500.000 VNĐ"/>
+                            <MenuFlyoutSeparator />
+                            <Grid Height="100" Margin="16">
+                                <TextBlock
+                                    x:Name="CampaignTitle"
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    Text="Cứu bé na 😺" />
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                                    <Border
+                                        Padding="10"
+                                        HorizontalAlignment="Left"
+                                        Background="{StaticResource ControlStrokeColorOnAccentSecondaryBrush}"
+                                        BorderBrush="{StaticResource SurfaceStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="8">
+                                        <TextBlock Text="1.880.000/2.500.000 VNĐ" />
                                     </Border>
-                                    <muxc:ProgressBar x:Name="CampaignProgress"
-                                                  Margin="0,10,0,0"
-                                                  Value="72.5" 
-                                                  Height="10" />
+                                    <muxc:ProgressBar
+                                        x:Name="CampaignProgress"
+                                        Height="10"
+                                        Margin="0,10,0,0"
+                                        Value="72.5" />
                                 </StackPanel>
-                                <Button Content="Quyên góp" 
-                                        VerticalAlignment="Top"
-                                        HorizontalAlignment="Right"
-                                        Background="{StaticResource AccentAcrylicBackgroundFillColorBaseBrush}"/>
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Background="{StaticResource AccentAcrylicBackgroundFillColorBaseBrush}"
+                                    Content="Quyên góp" />
                             </Grid>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="2" CornerRadius="8" Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
+                        <StackPanel
+                            Grid.Row="2"
+                            Background="{StaticResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8">
                             <Grid Padding="16,10,16,0">
-                                <TextBlock Text="Thành viên" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"/>
-                                <HyperlinkButton Content="Tất cả" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Thành viên" />
+                                <HyperlinkButton
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Content="Tất cả" />
                             </Grid>
-                            <MenuFlyoutSeparator/>
-                            <GridView Margin="16"
-                                      Height="200"
-                                      ScrollViewer.VerticalScrollMode="Disabled"
-                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                      ItemsSource="{x:Bind viewModel.Members}"
-                                      ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
-                                      ItemTemplate="{StaticResource FirstAvatarPreviewItemTemplate}"/>
+                            <MenuFlyoutSeparator />
+                            <GridView
+                                Height="200"
+                                Margin="16"
+                                ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
+                                ItemTemplate="{StaticResource FirstAvatarPreviewItemTemplate}"
+                                ItemsSource="{x:Bind viewModel.Members}"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollMode="Disabled" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="3" CornerRadius="8" Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
+                        <StackPanel
+                            Grid.Row="3"
+                            Background="{StaticResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8">
                             <Grid Padding="16,10,16,0">
-                                <TextBlock Text="Thú cưng" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"/>
-                                <HyperlinkButton Content="Tất cả" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Thú cưng" />
+                                <HyperlinkButton
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Content="Tất cả" />
                             </Grid>
-                            <MenuFlyoutSeparator/>
-                            <GridView Margin="16"
-                                      Height="360"
-                                      ScrollViewer.VerticalScrollMode="Disabled"
-                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                      ItemsSource="{x:Bind viewModel.Animals}"
-                                      ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
-                                      ItemTemplate="{StaticResource SecondAvatarPreviewItemTemplate}"/>
+                            <MenuFlyoutSeparator />
+                            <GridView
+                                Height="360"
+                                Margin="16"
+                                ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
+                                ItemTemplate="{StaticResource SecondAvatarPreviewItemTemplate}"
+                                ItemsSource="{x:Bind viewModel.Animals}"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollMode="Disabled" />
                         </StackPanel>
                     </Grid>
                 </ScrollViewer>

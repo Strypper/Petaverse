@@ -2,6 +2,11 @@
 
 public sealed partial class HomeSecondItemUserControl : UserControl
 {
+    #region [ Delegates ]
+
+    public delegate void SelectItemEventHandler(Home_SecondSectionItemModel item);
+    #endregion
+
     #region [ CTors ]
 
     public HomeSecondItemUserControl()
@@ -23,4 +28,14 @@ public sealed partial class HomeSecondItemUserControl : UserControl
 
 
     #endregion
+
+
+    #region [ Events Handler ]
+
+    public event SelectItemEventHandler SelectItem;
+
+    private void RelativePanel_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        => SelectItem?.Invoke(ComponentData);
+    #endregion
+
 }

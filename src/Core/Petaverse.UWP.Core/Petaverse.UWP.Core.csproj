@@ -122,6 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants\SettingsConstants.cs" />
+    <Compile Include="Converters\BoolToIsFollowStringConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\HexToWinUIColorConverter.cs" />
     <Compile Include="Enums\MediaType.cs" />

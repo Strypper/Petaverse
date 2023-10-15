@@ -2,6 +2,7 @@
     x:Class="Petaverse.Home.HomeSecondItemUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Petaverse.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,38 +10,46 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <RelativePanel Padding="20">
-        <!--  Source="{x:Bind ComponentData.FosterCenterLogo}"  -->
-        <Border x:Name="FosterCenterLogo" CornerRadius="4">
-            <Image
-                Width="80"
-                Height="80"
-                RelativePanel.AlignVerticalCenterWithPanel="True"
-                Source="{x:Bind ComponentData.FosterCenterLogo, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}" />
+    <Grid
+        Width="400"
+        Height="130"
+        PointerPressed="RelativePanel_PointerPressed">
+        <core:PetaverseContainer>
+            <RelativePanel Padding="20">
+                <!--  Source="{x:Bind ComponentData.FosterCenterLogo}"  -->
+                <Border x:Name="FosterCenterLogo" CornerRadius="4">
+                    <Image
+                        Width="80"
+                        Height="80"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Source="{x:Bind ComponentData.FosterCenterLogo, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}" />
 
-        </Border>
-        <StackPanel
-            Margin="15,0,5,5"
-            RelativePanel.AlignTopWith="FosterCenterLogo"
-            RelativePanel.RightOf="FosterCenterLogo"
-            Spacing="5">
-            <TextBlock
-                x:Name="FosterCenterName"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{x:Bind ComponentData.FosterCenterName, Mode=OneWay}" />
-            <RatingControl
-                HorizontalAlignment="Left"
-                IsReadOnly="True"
-                Value="{x:Bind ComponentData.FosterCenterRating, Mode=OneWay}" />
-            <TextBlock x:Name="FosterCenterAddress" Text="{x:Bind ComponentData.FosterCenterAddress, Mode=OneWay}" />
-        </StackPanel>
+                </Border>
+                <StackPanel
+                    Margin="15,0,5,5"
+                    RelativePanel.AlignTopWith="FosterCenterLogo"
+                    RelativePanel.RightOf="FosterCenterLogo"
+                    Spacing="5">
+                    <TextBlock
+                        x:Name="FosterCenterName"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{x:Bind ComponentData.FosterCenterName, Mode=OneWay}" />
+                    <RatingControl
+                        HorizontalAlignment="Left"
+                        IsReadOnly="True"
+                        Value="{x:Bind ComponentData.FosterCenterRating, Mode=OneWay}" />
+                    <TextBlock x:Name="FosterCenterAddress" Text="{x:Bind ComponentData.FosterCenterAddress, Mode=OneWay}" />
+                </StackPanel>
 
-        <ToggleButton
-            Content="Follow"
-            IsChecked="{x:Bind ComponentData.IsUserFollowing, Mode=OneWay}"
-            RelativePanel.AlignRightWithPanel="True"
-            RelativePanel.AlignTopWith="FosterCenterLogo"
-            RelativePanel.AlignVerticalCenterWithPanel="True" />
+                <ToggleButton
+                    x:Name="IsFollowToggleButton"
+                    Content="{x:Bind IsFollowToggleButton.IsChecked, Mode=OneWay, Converter={StaticResource BoolToIsFollowStringConverter}}"
+                    IsChecked="{x:Bind ComponentData.IsUserFollowing, Mode=TwoWay}"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignTopWith="FosterCenterLogo"
+                    RelativePanel.AlignVerticalCenterWithPanel="True" />
 
-    </RelativePanel>
+            </RelativePanel>
+        </core:PetaverseContainer>
+    </Grid>
 </UserControl>

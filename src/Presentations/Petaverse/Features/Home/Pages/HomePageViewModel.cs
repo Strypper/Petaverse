@@ -12,6 +12,9 @@ public partial class HomePageViewModel : ViewModelBase
     #region [ Properties ]
 
     [ObservableProperty]
+    GridViewItem selectedSecondItem;
+
+    [ObservableProperty]
     ObservableCollection<Home_FirstSectionItemModel> firstSectionItems;
 
     [ObservableProperty]
@@ -94,6 +97,6 @@ public partial class HomePageViewModel : ViewModelBase
             });
         }
     }
-    #endregion  
+    #endregion
 
 }

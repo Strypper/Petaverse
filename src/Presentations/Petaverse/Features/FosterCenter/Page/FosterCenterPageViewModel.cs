@@ -12,6 +12,15 @@ public partial class FosterCenterPageViewModel : ViewModelBase
     #region [ Properties ]
 
     [ObservableProperty]
+    string fosterCenterLogo;
+
+    [ObservableProperty]
+    string fosterCenterName;
+
+    [ObservableProperty]
+    bool isFollowed;
+
+    [ObservableProperty]
     ObservableCollection<TagUIModel> firstTagsCollection;
 
     [ObservableProperty]

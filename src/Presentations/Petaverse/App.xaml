@@ -35,7 +35,8 @@
                     <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0" />
 
                     <core:HexToWinUIColorConverter x:Key="HexToWinUIColorConverter" />
-                    <core:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+                    <core:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+                    <core:BoolToIsFollowStringConverter x:Key="BoolToIsFollowStringConverter" />
 
                     <converters:HexToSolidColorBrushConverter x:Key="HexToSolidColorBrushConverter" />
                     <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />

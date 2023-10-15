@@ -28,6 +28,10 @@ public sealed partial class TheMainFrame : Page
     #endregion
 
     #region [ Event Handlers ]
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        ContentFrame.Navigate(typeof(HomePage));
+    }
 
     private void Navigate(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
     {
@@ -42,5 +46,25 @@ public sealed partial class TheMainFrame : Page
 
         ContentFrame.Navigate(index % 2 == 0 ? typeof(HomePage) : typeof(FosterCenterPage));
     }
+    private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+    {
+        if (ContentFrame.CanGoBack)
+        {
+            BackButton.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            BackButton.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (ContentFrame.CanGoBack)
+        {
+            ContentFrame.GoBack();
+        }
+    }
     #endregion
+
 }

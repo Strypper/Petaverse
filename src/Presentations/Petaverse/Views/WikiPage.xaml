@@ -2,38 +2,40 @@
     x:Class="Petaverse.Views.WikiPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:dtos="using:Petaverse.Models.DTOs" 
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     xmlns:converters="using:Petaverse.Converters"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
-    mc:Ignorable="d" Loaded="Page_Loaded">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtos="using:Petaverse.Models.DTOs"
+    xmlns:local="using:Petaverse.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:StringToGlyphConverter x:Key="StringToGlyphConverter"/>
-        <DataTemplate x:Key="PivotHeaderTemplate"
-                      x:DataType="dtos:Species">
+        <converters:StringToGlyphConverter x:Key="StringToGlyphConverter" />
+
+        <DataTemplate x:Key="PivotHeaderTemplate" x:DataType="dtos:Species">
             <StackPanel Orientation="Horizontal">
-                <FontIcon FontFamily="Segoe UI Emoji"
-                          FontSize="28"
-                          Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}}"/>
-                <AppBarSeparator/>
-                <TextBlock Text="{x:Bind Name}"
-                           Style="{StaticResource TitleTextBlockStyle}"/>
+                <FontIcon
+                    FontFamily="Segoe UI Emoji"
+                    FontSize="28"
+                    Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}}" />
+                <AppBarSeparator />
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Name}" />
             </StackPanel>
         </DataTemplate>
-        <DataTemplate x:Key="PivotContentTemplate"
-                      x:DataType="dtos:Species">
-            <local:BreedPage Species="{x:Bind Mode=OneWay}"/>
+
+        <DataTemplate x:Key="PivotContentTemplate" x:DataType="dtos:Species">
+            <local:BreedPage Species="{x:Bind Mode=OneWay}" />
         </DataTemplate>
     </Page.Resources>
 
-    <Pivot Margin="10"
-           ItemsSource="{x:Bind Species, Mode=OneWay}"
-           HeaderTemplate="{StaticResource PivotHeaderTemplate}"
-           ItemTemplate="{StaticResource PivotContentTemplate}"
-           ui:Effects.Shadow="{StaticResource CommonShadow}"/>
+    <Pivot
+        Margin="10"
+        ui:Effects.Shadow="{StaticResource CommonShadow}"
+        HeaderTemplate="{StaticResource PivotHeaderTemplate}"
+        ItemTemplate="{StaticResource PivotContentTemplate}"
+        ItemsSource="{x:Bind Species, Mode=OneWay}" />
 </Page>

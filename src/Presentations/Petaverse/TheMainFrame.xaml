@@ -2,12 +2,13 @@
     x:Class="Petaverse.TheMainFrame"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Petaverse"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <x:String x:Key="FluentSystemIcons">ms-appx:///Assets/Fonts/FluentSystemIcons-Resizable.ttf#FluentSystemIcons-Resizable</x:String>
@@ -17,8 +18,8 @@
                 <SuppressNavigationTransitionInfo />
             </NavigationThemeTransition>
         </TransitionCollection>
-        
-        
+
+
     </Page.Resources>
 
     <Grid>
@@ -66,81 +67,115 @@
                 <ColumnDefinition Width="190" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1" MaxWidth="600">
+            <Grid
+                Grid.Column="1"
+                MaxWidth="600"
+                ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="70" />
+                    <ColumnDefinition />
+                    <ColumnDefinition MaxWidth="80" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    x:Name="BackButton"
+                    Height="32"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Click="BackButton_Click">
+                    <FontIcon
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Glyph="&#xE72B;" />
+                </Button>
                 <AutoSuggestBox
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center"
-                      AutoMaximizeSuggestionArea="True"
-                      MaxSuggestionListHeight="700"
-                      PlaceholderText="Tìm kiếm nhóm, tên thú cưng và vô số thứ khác 🤩"
-                      QueryIcon="Find"
-                      Style="{ThemeResource StoreAutoSuggestBoxStyle}"
-                      UpdateTextOnSelect="False" />
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    AutoMaximizeSuggestionArea="True"
+                    MaxSuggestionListHeight="700"
+                    PlaceholderText="Tìm kiếm nhóm, tên thú cưng và vô số thứ khác 🤩"
+                    QueryIcon="Find"
+                    Style="{ThemeResource StoreAutoSuggestBoxStyle}"
+                    UpdateTextOnSelect="False" />
+                <Button
+                    Grid.Column="2"
+                    Height="32"
+                    Padding="3">
+                    <PersonPicture
+                        Width="22"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ProfilePicture="https://i.imgur.com/vc9FudE.jpg" />
+                </Button>
             </Grid>
         </Grid>
 
         <muxc:NavigationView
-              x:Name="NavigationViewControl"
-              Grid.Row="1"
-              IsBackButtonVisible="Collapsed"
-              IsBackEnabled="False"
-              IsPaneOpen="True"
-              IsPaneToggleButtonVisible="False"
-              IsSettingsVisible="False"
-              IsTitleBarAutoPaddingEnabled="False"
-              ItemInvoked="Navigate"
-              OpenPaneLength="72"
-              PaneDisplayMode="Left"
-              Style="{ThemeResource StoreNavigationViewStyle}">
+            x:Name="NavigationViewControl"
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsBackEnabled="False"
+            IsPaneOpen="True"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            IsTitleBarAutoPaddingEnabled="False"
+            ItemInvoked="Navigate"
+            OpenPaneLength="72"
+            PaneDisplayMode="Left"
+            Style="{ThemeResource StoreNavigationViewStyle}">
 
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Trang chủ">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon
-                              Margin="-3"
-                              FontFamily="{StaticResource FluentSystemIcons}"
-                              Glyph="" />
+                            Margin="-3"
+                            FontFamily="{StaticResource FluentSystemIcons}"
+                            Glyph="" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Black List">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon
-                              Margin="-3"
-                              FontFamily="{StaticResource FluentSystemIcons}"
-                              Glyph="&#xEF16;" />
+                            Margin="-3"
+                            FontFamily="{StaticResource FluentSystemIcons}"
+                            Glyph="&#xEF16;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Iron Shield">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon
-                              Margin="-3"
-                              FontFamily="{StaticResource FluentSystemIcons}"
-                              Glyph="&#xECD6;" />
+                            Margin="-3"
+                            FontFamily="{StaticResource FluentSystemIcons}"
+                            Glyph="&#xECD6;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem Content="Strypper">
+                <muxc:NavigationViewItem Content="Trạm Foster">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon
-                          Margin="-3"
-                          FontFamily="{StaticResource FluentSystemIcons}"
-                          Glyph="&#xEAB4;" />
+                            Margin="-3"
+                            FontFamily="{StaticResource FluentSystemIcons}"
+                            Glyph="&#xEAAA;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Settings">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon
-              Margin="-3"
-              FontFamily="{StaticResource FluentSystemIcons}"
-              Glyph="" />
+                            Margin="-3"
+                            FontFamily="{StaticResource FluentSystemIcons}"
+                            Glyph="" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
 
             <muxc:NavigationView.Content>
-                <Frame x:Name="ContentFrame" Transitions="{StaticResource FrameTransitions}"/>
+                <Frame
+                    x:Name="ContentFrame"
+                    Navigated="ContentFrame_Navigated"
+                    Transitions="{StaticResource FrameTransitions}" />
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
 
