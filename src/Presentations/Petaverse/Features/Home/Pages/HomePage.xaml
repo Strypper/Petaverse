@@ -75,7 +75,7 @@
         </Style>
 
         <DataTemplate x:Key="FourthSectionItemTemplate" x:DataType="local:Home_FourthSectionItemModel">
-            <Grid Width="430" Height="130">
+            <Grid Width="435" Height="130">
                 <core:PetaverseContainer>
                     <local:HomeFourthItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
                 </core:PetaverseContainer>

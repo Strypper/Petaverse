@@ -2,93 +2,97 @@
     x:Class="Petaverse.Views.CommunityPeoplePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse.Views"
-    xmlns:usercontrols="using:Petaverse.UserControls"
-    mc:Ignorable="d"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
-    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
-    xmlns:dtos="using:Petaverse.Models.DTOs" xmlns:viewmodels="using:Petaverse.ViewModels" 
-    xmlns:converters="using:Petaverse.Converters">
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtos="using:Petaverse.Models.DTOs"
+    xmlns:local="using:Petaverse.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:usercontrols="using:Petaverse.UserControls"
+    xmlns:viewmodels="using:Petaverse.ViewModels"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
     <Page.Resources>
         <Color x:Key="CustomCyan">#00d4ff</Color>
-        <converters:ColorToTransparentColorConverter x:Key="ColorToTransparentColorConverter"/>
         <animations:ImplicitAnimationSet x:Key="Bruh">
-            <animations:OffsetAnimation Duration="0:0:1"/>
+            <animations:OffsetAnimation Duration="0:0:1" />
         </animations:ImplicitAnimationSet>
 
-        <DataTemplate x:Key="CommunityPeopleItemTemplate"
-                      x:DataType="dtos:User">
-            <usercontrols:CommunityPeopleCardUserControl User="{x:Bind}" 
-                                                         Height="530"
-                                                         Margin="3"
-                                                         Background="Transparent"/>
+        <DataTemplate x:Key="CommunityPeopleItemTemplate" x:DataType="dtos:User">
+            <usercontrols:CommunityPeopleCardUserControl
+                Height="530"
+                Margin="3"
+                Background="Transparent"
+                User="{x:Bind}" />
         </DataTemplate>
 
-        <DataTemplate x:Key="PageHeaderTemplate"
-                      x:DataType="viewmodels:CommunityPeoplePageViewModel">
-            <Border Margin="10"
+        <DataTemplate x:Key="PageHeaderTemplate" x:DataType="viewmodels:CommunityPeoplePageViewModel">
+            <Border
                 Height="120"
-                CornerRadius="5"
-                ui:Effects.Shadow="{StaticResource CommonShadow}">
+                Margin="10"
+                ui:Effects.Shadow="{StaticResource CommonShadow}"
+                CornerRadius="5">
                 <Grid CornerRadius="5">
-                    <Image VerticalAlignment="Stretch"
-                       HorizontalAlignment="Right"
-                       Source="/Assets/Illustration/MainPageBackgroundillustration.jpg"
-                       Stretch="UniformToFill"/>
-                    <Border Height="120"
+                    <Image
+                        HorizontalAlignment="Right"
                         VerticalAlignment="Stretch"
+                        Source="/Assets/Illustration/MainPageBackgroundillustration.jpg"
+                        Stretch="UniformToFill" />
+                    <Border
+                        Height="120"
                         HorizontalAlignment="Stretch"
-                        Background="{StaticResource BannerGradient}"/>
+                        VerticalAlignment="Stretch"
+                        Background="{StaticResource BannerGradient}" />
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="Work together !"
-                               Margin="10,0,0,0"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource TitleLargeTextBlockStyle}"/>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource TitleLargeTextBlockStyle}"
+                            Text="Work together !" />
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="Invite friend"
+                            <Button
                                 Margin="10,5,0,0"
-                                Background="{StaticResource SystemAccentColor}"/>
-                            <Button Content="Set status"
-                                Margin="10,5,0,0"/>
+                                Background="{StaticResource SystemAccentColor}"
+                                Content="Invite friend" />
+                            <Button Margin="10,5,0,0" Content="Set status" />
                         </StackPanel>
                     </StackPanel>
-                    <TextBlock Margin="10"
-                           HorizontalAlignment="Right"
-                           Text="Tiny stars light the universe, let's create our own universe for pets."
-                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <TextBlock
+                        Margin="10"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="Tiny stars light the universe, let's create our own universe for pets." />
 
-                    <StackPanel Margin="10"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Right">
+                    <StackPanel
+                        Margin="10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal">
                         <TextBlock FontSize="24">
-                            <Run FontFamily="Segoe UI Emoji" Text="&#x1F9B8;"/>
-                            <Run Text="{x:Bind CommunityPeople.Count, Mode=OneWay}"/>
+                            <Run FontFamily="Segoe UI Emoji" Text="&#x1F9B8;" />
+                            <Run Text="{x:Bind CommunityPeople.Count, Mode=OneWay}" />
                         </TextBlock>
                         <TextBlock FontSize="24">
-                            <Run FontFamily="Segoe UI Emoji" Text="&#x1F198;"/>
-                            <Run Text="12"/>
+                            <Run FontFamily="Segoe UI Emoji" Text="&#x1F198;" />
+                            <Run Text="12" />
                         </TextBlock>
                         <TextBlock FontSize="24">
-                            <Run FontFamily="Segoe UI Emoji" Text="&#x1F975;"/>
-                            <Run Text="5"/>
+                            <Run FontFamily="Segoe UI Emoji" Text="&#x1F975;" />
+                            <Run Text="5" />
                         </TextBlock>
                     </StackPanel>
                 </Grid>
             </Border>
         </DataTemplate>
 
-        <!--{Binding Source={StaticResource CustomCyan}, Converter={StaticResource ColorToTransparentColorConverter}}-->
+        <!--  {Binding Source={StaticResource CustomCyan}, Converter={StaticResource ColorToTransparentColorConverter}}  -->
         <LinearGradientBrush x:Key="BannerGradient" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Color="#257fae" Offset="0.0" />
-            <GradientStop Color="#2494ce" Offset="0.25" />
-            <GradientStop Color="{Binding Source={StaticResource CustomCyan}, Converter={StaticResource ColorToTransparentColorConverter}}" Offset="0.75" />
-            <GradientStop Color="{Binding Source={StaticResource CustomCyan}, Converter={StaticResource ColorToTransparentColorConverter}}" Offset="1" />
+            <GradientStop Offset="0.0" Color="#257fae" />
+            <GradientStop Offset="0.25" Color="#2494ce" />
+            <GradientStop Offset="0.75" Color="{Binding Source={StaticResource CustomCyan}, Converter={StaticResource ColorToTransparentColorConverter}}" />
+            <GradientStop Offset="1" Color="{Binding Source={StaticResource CustomCyan}, Converter={StaticResource ColorToTransparentColorConverter}}" />
         </LinearGradientBrush>
     </Page.Resources>
 
@@ -103,18 +107,18 @@
 
     <Grid>
         <winui:ItemsRepeaterScrollHost Grid.Row="1">
-            <!-- Needed for 1803 and below -->
+            <!--  Needed for 1803 and below  -->
             <ScrollViewer>
-                <controls:HeaderedContentControl Header="{x:Bind vm}"
-                                                 HeaderTemplate="{StaticResource PageHeaderTemplate}">
-                    <winui:ItemsRepeater x:Name="StaggeredRepeater"
-                                 ItemsSource="{x:Bind vm.CommunityPeople, Mode=OneWay}"
-                                 ItemTemplate="{StaticResource CommunityPeopleItemTemplate}">
+                <controls:HeaderedContentControl Header="{x:Bind vm}" HeaderTemplate="{StaticResource PageHeaderTemplate}">
+                    <winui:ItemsRepeater
+                        x:Name="StaggeredRepeater"
+                        ItemTemplate="{StaticResource CommunityPeopleItemTemplate}"
+                        ItemsSource="{x:Bind vm.CommunityPeople, Mode=OneWay}">
                         <winui:ItemsRepeater.Layout>
-                            <controls:StaggeredLayout DesiredColumnWidth="350"
-                                                      ColumnSpacing="5"
-                                                      RowSpacing="5"
-                                                      />
+                            <controls:StaggeredLayout
+                                ColumnSpacing="5"
+                                DesiredColumnWidth="350"
+                                RowSpacing="5" />
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                 </controls:HeaderedContentControl>

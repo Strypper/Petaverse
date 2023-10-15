@@ -1,143 +1,159 @@
 ﻿
-    <Page
+<Page
     x:Class="Petaverse.Views.BreedPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse.Views"
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" 
-    xmlns:dtos="using:Petaverse.Models.DTOs"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:converters="using:Petaverse.Converters"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtos="using:Petaverse.Models.DTOs"
     xmlns:enums="using:Petaverse.Models.DTOs"
+    xmlns:local="using:Petaverse.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
-    mc:Ignorable="d"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
-    winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    mc:Ignorable="d">
     <Page.Resources>
-        <enums:Coat     x:Key="BreedCoat"></enums:Coat>
-        <enums:Energy   x:Key="BreedEnergy"></enums:Energy>
+        <enums:Coat x:Key="BreedCoat"></enums:Coat>
+        <enums:Energy x:Key="BreedEnergy"></enums:Energy>
         <enums:Shedding x:Key="BreedShedding"></enums:Shedding>
-        <converters:HexToSolidColorBrushConverter x:Key="FromHexToSolidColorBrushConverter"/>
 
-        <DataTemplate x:Key="BreedGridViewItemTemplate"
-                      x:DataType="dtos:Breed">
+        <DataTemplate x:Key="BreedGridViewItemTemplate" x:DataType="dtos:Breed">
             <GridViewItem>
                 <StackPanel>
-                    <Image Source="{x:Bind ImageUrl, 
-                                           Mode=OneWay,
-                                           Converter={StaticResource StringToImageSourceConverter}}"
-                           Height="500"
-                           Width="300"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"/>
-                    <TextBlock Text="{x:Bind BreedName, Mode=OneWay}"
-                               Margin="0,0,0,20"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               HorizontalAlignment="Center"/>
+                    <Image
+                        Width="300"
+                        Height="500"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind ImageUrl, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}" />
+                    <TextBlock
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{x:Bind BreedName, Mode=OneWay}" />
                 </StackPanel>
             </GridViewItem>
         </DataTemplate>
     </Page.Resources>
 
-    <toolkit:AdaptiveGridView x:Name="BreedGridView"
-                              DesiredWidth="370"
-                              ItemTemplate="{StaticResource BreedGridViewItemTemplate}"
-                              ItemsSource="{x:Bind BreedsList, Mode=OneWay}"
-                              ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}"
-                              animations:ItemsReorderAnimation.Duration="00:00:00.4000000">
+    <toolkit:AdaptiveGridView
+        x:Name="BreedGridView"
+        animations:ItemsReorderAnimation.Duration="00:00:00.4000000"
+        DesiredWidth="370"
+        ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}"
+        ItemTemplate="{StaticResource BreedGridViewItemTemplate}"
+        ItemsSource="{x:Bind BreedsList, Mode=OneWay}">
         <toolkit:AdaptiveGridView.Header>
             <StackPanel>
-                <Grid x:Name="Header" 
-                      Height="270" 
-                      Margin="0,0,0,5"
-                      VerticalAlignment="Top">
-                    <toolkit:TileControl x:Name="BackgroundRectangle" 
-                                     AnimationStepX="1" 
-                                     AnimationDuration="30"
-                                     AnimationStepY="1" 
-                                     ImageAlignment="None" 
-                                     IsAnimated="True"
-                                     OffsetX="0" OffsetY="0"
-                                     ScrollOrientation="Both"
-                                     ImageSource="/Assets/TitleIcons/Flame.png" >
-                    </toolkit:TileControl>
-                    <Rectangle x:Name="OverlayRectangle" 
-                               Height="270" 
-                               HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Top"
-                               Fill="{x:Bind Species.Color, Converter={StaticResource FromHexToSolidColorBrushConverter}}"/>
-                    <StackPanel x:Name="TextContainer" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Stretch">
-                        <PersonPicture x:Name="ProfileImage" 
-                                       Height="150" 
-                                       Width="150" 
-                                       VerticalAlignment="Center" 
-                                       Margin="15,0,0,0"
-                                       ProfilePicture="{x:Bind Species.TopLovedPetOfTheWeek, Converter={StaticResource StringToImageSourceConverter}}"/>
-                        <StackPanel Orientation="Vertical" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Center" 
-                                    Margin="15,20,5,5">
-                            <TextBlock x:Name="SpeciesName"
-                                       Text="{x:Bind Species.Name}"
-                                       Style="{StaticResource TitleLargeTextBlockStyle}"/>
-                            <TextBlock x:Name="Life" 
-                                       FontSize="12" 
-                                       Width="400" 
-                                       Height="80"
-                                       TextWrapping="Wrap" 
-                                       Text="{x:Bind Species.Description}"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
-                                <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
-                                    <ComboBox PlaceholderText="Shedding"
-                                              Header="Shedding"
-                                              IsEnabled="True"
-                                              ItemsSource="{ui:EnumValues Type=enums:Shedding}"
-                                              ToolTipService.ToolTip="Show how much hair fall"/>
+                <Grid
+                    x:Name="Header"
+                    Height="270"
+                    Margin="0,0,0,5"
+                    VerticalAlignment="Top">
+                    <toolkit:TileControl
+                        x:Name="BackgroundRectangle"
+                        AnimationDuration="30"
+                        AnimationStepX="1"
+                        AnimationStepY="1"
+                        ImageAlignment="None"
+                        ImageSource="/Assets/TitleIcons/Flame.png"
+                        IsAnimated="True"
+                        OffsetX="0"
+                        OffsetY="0"
+                        ScrollOrientation="Both" />
+                    <Rectangle
+                        x:Name="OverlayRectangle"
+                        Height="270"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Fill="{x:Bind Species.Color, Converter={StaticResource FromHexToSolidColorBrushConverter}}" />
+                    <StackPanel
+                        x:Name="TextContainer"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Orientation="Horizontal">
+                        <PersonPicture
+                            x:Name="ProfileImage"
+                            Width="150"
+                            Height="150"
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center"
+                            ProfilePicture="{x:Bind Species.TopLovedPetOfTheWeek, Converter={StaticResource StringToImageSourceConverter}}" />
+                        <StackPanel
+                            Margin="15,20,5,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock
+                                x:Name="SpeciesName"
+                                Style="{StaticResource TitleLargeTextBlockStyle}"
+                                Text="{x:Bind Species.Name}" />
+                            <TextBlock
+                                x:Name="Life"
+                                Width="400"
+                                Height="80"
+                                FontSize="12"
+                                Text="{x:Bind Species.Description}"
+                                TextWrapping="Wrap" />
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <StackPanel x:Name="ButtonPanel" Orientation="Horizontal">
+                                    <ComboBox
+                                        Header="Shedding"
+                                        IsEnabled="True"
+                                        ItemsSource="{ui:EnumValues Type=enums:Shedding}"
+                                        PlaceholderText="Shedding"
+                                        ToolTipService.ToolTip="Show how much hair fall" />
 
-                                    <!--ItemsSource="{ui:EnumValues Type=enums:Shedding}"-->
-                                    <ComboBox Header="Coat"
-                                              Margin="10,0,0,0" 
-                                              PlaceholderText="Coat"
-                                              SelectionChanged="ComboBox_SelectionChanged"
-                                              ItemsSource="{ui:EnumValues Type=enums:Coat}"/>
-                                    
-                                    <!--ItemsSource="{ui:EnumValues Type=enums:Coat}"-->
-                                    <ComboBox Header="Energy"
-                                              IsEnabled="False"
-                                              Margin="10,0,0,0" 
-                                              PlaceholderText="Energy"
-                                              ItemsSource="{ui:EnumValues Type=enums:Energy}"/>
+                                    <!--  ItemsSource="{ui:EnumValues Type=enums:Shedding}"  -->
+                                    <ComboBox
+                                        Margin="10,0,0,0"
+                                        Header="Coat"
+                                        ItemsSource="{ui:EnumValues Type=enums:Coat}"
+                                        PlaceholderText="Coat"
+                                        SelectionChanged="ComboBox_SelectionChanged" />
 
-                                    <!--ItemsSource="{ui:EnumValues Type=enums:Energy}"-->
+                                    <!--  ItemsSource="{ui:EnumValues Type=enums:Coat}"  -->
+                                    <ComboBox
+                                        Margin="10,0,0,0"
+                                        Header="Energy"
+                                        IsEnabled="False"
+                                        ItemsSource="{ui:EnumValues Type=enums:Energy}"
+                                        PlaceholderText="Energy" />
+
+                                    <!--  ItemsSource="{ui:EnumValues Type=enums:Energy}"  -->
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" 
-                                VerticalAlignment="Center" 
-                                Orientation="Horizontal"
-                                Margin="0,0,15,0">
-                        <Border x:Name="BreedCount" 
-                                Width="150"
-                                Height="150"
-                                CornerRadius="5"
-                                Padding="15"
-                                Background="{StaticResource SystemAccentColor}">
-                            <StackPanel VerticalAlignment="Center"
-                                        HorizontalAlignment="Center">
-                                <TextBlock Text="TOTAL" 
-                                       FontWeight="Bold" 
-                                       FontSize="30"/>
-                                <TextBlock Text="{x:Bind Species.Breeds.Count, Mode=OneWay}"
-                                       HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"
-                                       FontSize="60" FontWeight="Bold"/>
+                    <StackPanel
+                        Margin="0,0,15,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Border
+                            x:Name="BreedCount"
+                            Width="150"
+                            Height="150"
+                            Padding="15"
+                            Background="{StaticResource SystemAccentColor}"
+                            CornerRadius="5">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock
+                                    FontSize="30"
+                                    FontWeight="Bold"
+                                    Text="TOTAL" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="60"
+                                    FontWeight="Bold"
+                                    Text="{x:Bind Species.Breeds.Count, Mode=OneWay}" />
                             </StackPanel>
                         </Border>
                     </StackPanel>

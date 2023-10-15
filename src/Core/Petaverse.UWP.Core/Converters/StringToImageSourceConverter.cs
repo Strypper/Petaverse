@@ -1,4 +1,4 @@
-﻿namespace Petaverse.Converters;
+﻿namespace Petaverse.UWP.Core;
 
 public class StringToImageSourceConverter : IValueConverter
 {

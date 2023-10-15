@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml.Data;
-
-namespace Petaverse.UWP.Core;
+﻿namespace Petaverse.UWP.Core;
 
 public class BoolToIsFollowStringConverter : IValueConverter
 {

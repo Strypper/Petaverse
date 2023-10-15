@@ -148,17 +148,7 @@
     <Compile Include="ContentDialogs\ViewPetMediaDetailContentDialog.xaml.cs">
       <DependentUpon>ViewPetMediaDetailContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BoolToGenderConverter.cs" />
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\ColorToTransparentColorConverter.cs" />
-    <Compile Include="Converters\CountToVisibilityConverter.cs" />
-    <Compile Include="Converters\EnumToSeverityConverter.cs" />
-    <Compile Include="Converters\HexToSolidColorBrushConverter.cs" />
-    <Compile Include="Converters\StringToGlyphConverter.cs" />
-    <Compile Include="Converters\StringToImageSourceConverter.cs" />
-    <Compile Include="Converters\StringToMediaSourceConverter.cs" />
     <Compile Include="Enums\HttpClientEnum.cs" />
-    <Compile Include="Enums\Severity.cs" />
     <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
     <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
     <Compile Include="Features\FosterCenter\Models\AnimalProfilePreviewModel.cs" />

@@ -122,10 +122,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants\SettingsConstants.cs" />
+    <Compile Include="Converters\BoolToGenderConverter.cs" />
     <Compile Include="Converters\BoolToIsFollowStringConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorToTransparentColorConverter.cs" />
+    <Compile Include="Converters\EnumToSeverityConverter.cs" />
+    <Compile Include="Converters\HexToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\HexToWinUIColorConverter.cs" />
+    <Compile Include="Converters\StringToGlyphConverter.cs" />
+    <Compile Include="Converters\StringToImageSourceConverter.cs" />
+    <Compile Include="Converters\StringToMediaSourceConverter.cs" />
     <Compile Include="Enums\MediaType.cs" />
+    <Compile Include="Enums\Severity.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Models\Animal.cs" />

@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    xmlns:converters="using:Petaverse.Converters"
     xmlns:core="using:Petaverse.UWP.Core"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media">
     <Application.Resources>
@@ -38,10 +37,10 @@
                     <core:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
                     <core:BoolToIsFollowStringConverter x:Key="BoolToIsFollowStringConverter" />
 
-                    <converters:HexToSolidColorBrushConverter x:Key="HexToSolidColorBrushConverter" />
-                    <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
-                    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-                    <converters:EnumToSeverityConverter x:Key="EnumToSeverityConverter" />
+                    <core:HexToSolidColorBrushConverter x:Key="HexToSolidColorBrushConverter" />
+                    <core:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
+                    <core:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                    <core:EnumToSeverityConverter x:Key="EnumToSeverityConverter" />
                     <Style TargetType="Panel">
                         <Setter Property="ChildrenTransitions">
                             <Setter.Value>

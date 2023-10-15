@@ -1,29 +1,27 @@
 ﻿<ContentDialog
-    mc:Ignorable="d"
-    x:Name="AddPetDialog"
     x:Class="Petaverse.ContentDialogs.AddPetContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse.ContentDialogs"
-    xmlns:helpers="using:Petaverse.Helpers"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
-    xmlns:dtos="using:Petaverse.Models.DTOs" 
-    xmlns:converters="using:Petaverse.Converters"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:core="using:Petaverse.UWP.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtos="using:Petaverse.Models.DTOs"
+    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:local="using:Petaverse.ContentDialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    x:Name="AddPetDialog"
     DefaultButton="Primary"
+    IsPrimaryButtonEnabled="{x:Bind IsPrimaryEnable, Mode=OneWay}"
+    Loaded="ContentDialog_Loaded"
+    PrimaryButtonClick="AddPetDialog_PrimaryButtonClick"
     PrimaryButtonText="Add Pet"
     SecondaryButtonText="Cancel"
-    Loaded="ContentDialog_Loaded"
     Style="{StaticResource DefaultContentDialogStyle}"
-    PrimaryButtonClick="AddPetDialog_PrimaryButtonClick"
-    IsPrimaryButtonEnabled="{x:Bind IsPrimaryEnable, 
-                                    Mode=OneWay}">
-    
+    mc:Ignorable="d">
+
     <ContentControl.Background>
-        <SolidColorBrush x:Name="addPetSolidColorBrush" 
-                         Color="{ThemeResource SystemAltHighColor}"/>
+        <SolidColorBrush x:Name="addPetSolidColorBrush" Color="{ThemeResource SystemAltHighColor}" />
     </ContentControl.Background>
 
     <ContentDialog.Resources>
@@ -32,186 +30,175 @@
         <x:Double x:Key="ContentDialogMaxHeight">2000</x:Double>
 
         <Storyboard x:Name="colorStoryboard">
-            <ColorAnimation Storyboard.TargetName="addPetSolidColorBrush"
-                            Storyboard.TargetProperty="Color" 
-                            To="{x:Bind SpeciesComboBox.SelectedItem, 
-                                        Mode=OneWay, 
-                                        Converter={StaticResource SpeciesToColorConverter}}" 
-                            Duration="0:0:1"/>
+            <ColorAnimation
+                Storyboard.TargetName="addPetSolidColorBrush"
+                Storyboard.TargetProperty="Color"
+                To="{x:Bind SpeciesComboBox.SelectedItem, Mode=OneWay, Converter={StaticResource SpeciesToColorConverter}}"
+                Duration="0:0:1" />
         </Storyboard>
 
-        <converters:StringToGlyphConverter x:Key="StringToGlyphConverter"/>
+        <core:StringToGlyphConverter x:Key="StringToGlyphConverter" />
 
-        <local:BreedToColorConverter                x:Key="BreedToColorConverter"/>
-        <local:BreedToBreedIdConverter              x:Key="BreedToBreedIdConverter"/>
-        <local:SpeciesToColorConverter              x:Key="SpeciesToColorConverter"/>
-        <local:SpeciesToBreedsConverter             x:Key="SpeciesToBreedsConverter"/>
-        <local:CreatePetDTOToBoolConverter          x:Key="CreatePetDTOToBoolConverter"/>
-        <local:ErrorListToForegroundConverter       x:Key="ErrorListToForegroundConverter"/>
-        <local:DateTimeToDateTimeOffsetConverter    x:Key="DateTimeToDateTimeOffsetConverter"/>
+        <local:BreedToColorConverter x:Key="BreedToColorConverter" />
+        <local:BreedToBreedIdConverter x:Key="BreedToBreedIdConverter" />
+        <local:SpeciesToColorConverter x:Key="SpeciesToColorConverter" />
+        <local:SpeciesToBreedsConverter x:Key="SpeciesToBreedsConverter" />
+        <local:CreatePetDTOToBoolConverter x:Key="CreatePetDTOToBoolConverter" />
+        <local:ErrorListToForegroundConverter x:Key="ErrorListToForegroundConverter" />
+        <local:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter" />
 
-        <DataTemplate x:Key="SpeciesComboBoxItemTempalate"
-                      x:DataType="dtos:Species">
+        <DataTemplate x:Key="SpeciesComboBoxItemTempalate" x:DataType="dtos:Species">
             <StackPanel Orientation="Horizontal">
-                <FontIcon FontFamily="Segoe UI Emoji"
-                          Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}}"/>
-                <AppBarSeparator VerticalAlignment="Center"/>
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}"
-                           VerticalAlignment="Center"/>
+                <FontIcon FontFamily="Segoe UI Emoji" Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}}" />
+                <AppBarSeparator VerticalAlignment="Center" />
+                <TextBlock VerticalAlignment="Center" Text="{x:Bind Name, Mode=OneWay}" />
             </StackPanel>
         </DataTemplate>
 
-        <DataTemplate x:Key="BreedsComboBoxItemTempalate"
-                      x:DataType="dtos:Breed">
+        <DataTemplate x:Key="BreedsComboBoxItemTempalate" x:DataType="dtos:Breed">
             <StackPanel Orientation="Horizontal">
-                <Image VerticalAlignment="Center"
-                       Width="40" Height="80"
-                       Source="{x:Bind ImageUrl, Mode=OneWay}"/>
-                <TextBlock VerticalAlignment="Center"
-                           Margin="5,0,0,0"
-                           Text="{x:Bind BreedName, Mode=OneWay}"/>
+                <Image
+                    Width="40"
+                    Height="80"
+                    VerticalAlignment="Center"
+                    Source="{x:Bind ImageUrl, Mode=OneWay}" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{x:Bind BreedName, Mode=OneWay}" />
             </StackPanel>
         </DataTemplate>
 
-        <DataTemplate x:Key="ColorTemplate"
-                      x:DataType="x:String">
-            <Rectangle Width="50" Height="50"
-                       Margin="5,5,5,5"
-                       Fill="{x:Bind}"/>
+        <DataTemplate x:Key="ColorTemplate" x:DataType="x:String">
+            <Rectangle
+                Width="50"
+                Height="50"
+                Margin="5,5,5,5"
+                Fill="{x:Bind}" />
         </DataTemplate>
 
-        <DataTemplate x:Key="ErrorValidationItemTemplate"
-                      x:DataType="local:ValidationProperty">
-            <TextBlock Text="{x:Bind ErrorMessage}"
-                       Foreground="{StaticResource SystemErrorTextColor}"/>
+        <DataTemplate x:Key="ErrorValidationItemTemplate" x:DataType="local:ValidationProperty">
+            <TextBlock Foreground="{StaticResource SystemErrorTextColor}" Text="{x:Bind ErrorMessage}" />
         </DataTemplate>
     </ContentDialog.Resources>
 
-    <Grid helpers:Grid.ColumnDefinitions="*,*"
-          helpers:Grid.RowDefinitions="auto, auto, *">
-        <TextBlock Text="Add your new pet ❤"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Center"
-                   Foreground="{StaticResource SystemAccentColor}"
-                   Style="{StaticResource TitleTextBlockStyle}"/>
-        <ComboBox x:Name="SpeciesComboBox"
-                  Margin="5"
-                  Grid.Row="1"
-                  Header="Species"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  PlaceholderText="Choose species"
-                  ItemsSource="{x:Bind Species, Mode=OneWay}"
-                  ItemTemplate="{StaticResource SpeciesComboBoxItemTempalate}"/>
-        <StackPanel Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="0,10,0,0">
-            <ComboBox x:Name="BreedCombobox"
-                  Header="Breed"
-                  HorizontalAlignment="Center"
-                  PlaceholderText="Choose breed"
-                  SelectedItem="{x:Bind SelectedBreed, 
-                                        Mode=TwoWay}"
-                  ItemTemplate="{StaticResource BreedsComboBoxItemTempalate}"
-                  ItemsSource="{x:Bind SpeciesComboBox.SelectedItem, 
-                                       Mode=OneWay,
-                                       Converter={StaticResource SpeciesToBreedsConverter}}"/>
-            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
-                      ItemsSource="{x:Bind BreedErrorList, 
-                                           Mode=OneWay}"/>
+    <Grid helpers:Grid.ColumnDefinitions="*,*" helpers:Grid.RowDefinitions="auto, auto, *">
+        <TextBlock
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            Foreground="{StaticResource SystemAccentColor}"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="Add your new pet ❤" />
+        <ComboBox
+            x:Name="SpeciesComboBox"
+            Grid.Row="1"
+            Margin="5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Header="Species"
+            ItemTemplate="{StaticResource SpeciesComboBoxItemTempalate}"
+            ItemsSource="{x:Bind Species, Mode=OneWay}"
+            PlaceholderText="Choose species" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,10,0,0">
+            <ComboBox
+                x:Name="BreedCombobox"
+                HorizontalAlignment="Center"
+                Header="Breed"
+                ItemTemplate="{StaticResource BreedsComboBoxItemTempalate}"
+                ItemsSource="{x:Bind SpeciesComboBox.SelectedItem, Mode=OneWay, Converter={StaticResource SpeciesToBreedsConverter}}"
+                PlaceholderText="Choose breed"
+                SelectedItem="{x:Bind SelectedBreed, Mode=TwoWay}" />
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}" ItemsSource="{x:Bind BreedErrorList, Mode=OneWay}" />
         </StackPanel>
-        <StackPanel Grid.Row="2"
-                    Padding="5">
-            <TextBox Header="Name"
-                     MinWidth="250"
-                     Grid.ColumnSpan="2"
-                     PlaceholderText="Your pet name"
-                     Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Foreground="{x:Bind NameErrorsList.Count, 
-                                         Mode=OneWay, 
-                                         Converter={StaticResource ErrorListToForegroundConverter}}"/>
+        <StackPanel Grid.Row="2" Padding="5">
+            <TextBox
+                Grid.ColumnSpan="2"
+                MinWidth="250"
+                Foreground="{x:Bind NameErrorsList.Count, Mode=OneWay, Converter={StaticResource ErrorListToForegroundConverter}}"
+                Header="Name"
+                PlaceholderText="Your pet name"
+                Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <!--<TextBlock Text="{x:Bind ErrorsList, Mode=OneWay}"
                        Visibility="{x:Bind ErrorsList, Mode=OneWay}"/>-->
-            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
-                      ItemsSource="{x:Bind NameErrorsList, 
-                                           Mode=OneWay}"/>
-            <DatePicker x:Name="DateOfBirthDatePicker"
-                        Margin="0,10,0,0"
-                        MaxWidth="300"
-                        Header="Date of birth or Age"
-                        HorizontalAlignment="Stretch"
-                        SelectedDateChanged="DatePicker_SelectedDateChanged"
-                        SelectedDate="{x:Bind PetInfo.DateOfBirth, 
-                                                Mode=TwoWay,
-                                                Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"/>
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}" ItemsSource="{x:Bind NameErrorsList, Mode=OneWay}" />
+            <DatePicker
+                x:Name="DateOfBirthDatePicker"
+                MaxWidth="300"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                Header="Date of birth or Age"
+                SelectedDate="{x:Bind PetInfo.DateOfBirth, Mode=TwoWay, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"
+                SelectedDateChanged="DatePicker_SelectedDateChanged" />
             <Grid helpers:Grid.ColumnDefinitions="200,*">
-                <Button Margin="0,0,0,4"
-                        Content="Clear date and age"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom"
-                        Click="ClearDateAndAgeButton_Click"/>
-                <winui:NumberBox x:Name="AgeNumberBox"
-                                 Header="Age"
-                                 Grid.Column="1"
-                                 Margin="5,10,5,5"
-                                 SmallChange="0.5"
-                                 LargeChange="2"
-                                 ValidationMode="InvalidInputOverwritten"
-                                 SpinButtonPlacementMode="Compact"
-                                 Value="{x:Bind Age, Mode=TwoWay}"
-                                 Foreground="{x:Bind AgeErrorsList.Count, 
-                                                     Mode=OneWay, 
-                                                     Converter={StaticResource ErrorListToForegroundConverter}}"/>
+                <Button
+                    Margin="0,0,0,4"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Click="ClearDateAndAgeButton_Click"
+                    Content="Clear date and age" />
+                <winui:NumberBox
+                    x:Name="AgeNumberBox"
+                    Grid.Column="1"
+                    Margin="5,10,5,5"
+                    Foreground="{x:Bind AgeErrorsList.Count, Mode=OneWay, Converter={StaticResource ErrorListToForegroundConverter}}"
+                    Header="Age"
+                    LargeChange="2"
+                    SmallChange="0.5"
+                    SpinButtonPlacementMode="Compact"
+                    ValidationMode="InvalidInputOverwritten"
+                    Value="{x:Bind Age, Mode=TwoWay}" />
             </Grid>
-            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
-                      ItemsSource="{x:Bind AgeErrorsList, 
-                                           Mode=OneWay}"/>
-            <GridView x:Name="BreedColorGridView"
-                      Header="Breed Color"
-                      SelectionMode="Multiple"
-                      Margin="0,10,0,0"
-                      HorizontalAlignment="Stretch"
-                      ItemTemplate="{StaticResource ColorTemplate}"
-                      ItemsSource="{x:Bind BreedCombobox.SelectedItem, 
-                                           Mode=OneWay,
-                                           Converter={StaticResource BreedToColorConverter}}"/>
-            <ComboBox Margin="0,10,0,0"
-                      HorizontalAlignment="Stretch"
-                      Header="How is this wonder creature enter your life ?"/>
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}" ItemsSource="{x:Bind AgeErrorsList, Mode=OneWay}" />
+            <GridView
+                x:Name="BreedColorGridView"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                Header="Breed Color"
+                ItemTemplate="{StaticResource ColorTemplate}"
+                ItemsSource="{x:Bind BreedCombobox.SelectedItem, Mode=OneWay, Converter={StaticResource BreedToColorConverter}}"
+                SelectionMode="Multiple" />
+            <ComboBox
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                Header="How is this wonder creature enter your life ?" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2"
-                    Grid.Column="1"
-                    Padding="5">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <controls:ImageCropper x:Name="AvatarCropper"
-                                       Width="110" 
-                                       Height="110" 
-                                       Padding="0"
-                                       CropShape="Circular"
-                                       ThumbPlacement="All"
-                                       BorderThickness="2"
-                                       BorderBrush="{StaticResource SystemAccentColor}"/>
-                <StackPanel VerticalAlignment="Center"
-                            Margin="5,0,0,0">
-                    <AppBarButton Icon="Camera"
-                                  Label="Take a picture"
-                                  Click="AvatarUserControl_OpenCameraEventHandler"/>
-                    <AppBarButton Icon="OpenFile"
-                                  Label="Open Folder"
-                                  Click="AvatarUserControl_OpenFileEventHandler"/>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Padding="5">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <controls:ImageCropper
+                    x:Name="AvatarCropper"
+                    Width="110"
+                    Height="110"
+                    Padding="0"
+                    BorderBrush="{StaticResource SystemAccentColor}"
+                    BorderThickness="2"
+                    CropShape="Circular"
+                    ThumbPlacement="All" />
+                <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                    <AppBarButton
+                        Click="AvatarUserControl_OpenCameraEventHandler"
+                        Icon="Camera"
+                        Label="Take a picture" />
+                    <AppBarButton
+                        Click="AvatarUserControl_OpenFileEventHandler"
+                        Icon="OpenFile"
+                        Label="Open Folder" />
                 </StackPanel>
-                <ToggleSwitch MinWidth="0"
-                              Header="Gender"
-                              Margin="5,0,0,0"
-                              OnContent="Male"
-                              OffContent="Female"
-                              IsOn="{x:Bind PetInfo.Gender, Mode=TwoWay}"/>
+                <ToggleSwitch
+                    MinWidth="0"
+                    Margin="5,0,0,0"
+                    Header="Gender"
+                    IsOn="{x:Bind PetInfo.Gender, Mode=TwoWay}"
+                    OffContent="Female"
+                    OnContent="Male" />
             </StackPanel>
-            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}"
-                      ItemsSource="{x:Bind PetAvatarErrorsList, 
-                                           Mode=OneWay}"/>
+            <ListView ItemTemplate="{StaticResource ErrorValidationItemTemplate}" ItemsSource="{x:Bind PetAvatarErrorsList, Mode=OneWay}" />
             <!--<Border CornerRadius="4">
                 <controls:TextToolbar x:Name="Toolbar"
                                   IsEnabled="True"
@@ -219,18 +206,23 @@
                                   Background="#4C4F4F4F"
                                   Editor="{Binding ElementName=StoryEditBox}">
                     <controls:TextToolbar.Formatter>
-                        --><!-- Choose one -->
-                        <!--<richText:RichTextFormatter />--><!--
+            -->
+            <!--  Choose one  -->
+            <!--<richText:RichTextFormatter />-->
+            <!--
                         <markDown:MarkDownFormatter />
-                        --><!--<textToolbarSamples:SampleFormatter />--><!--
+            -->
+            <!--<textToolbarSamples:SampleFormatter />-->
+            <!--
                     </controls:TextToolbar.Formatter>
                 </controls:TextToolbar>
             </Border>-->
-            <RichEditBox x:Name="StoryEditBox"
-                         Header="Story"
-                         Height="200"
-                         MinWidth="300"
-                         TextWrapping="Wrap"/>
+            <RichEditBox
+                x:Name="StoryEditBox"
+                Height="200"
+                MinWidth="300"
+                Header="Story"
+                TextWrapping="Wrap" />
         </StackPanel>
     </Grid>
 </ContentDialog>

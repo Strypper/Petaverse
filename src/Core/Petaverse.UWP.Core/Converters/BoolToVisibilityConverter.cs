@@ -1,10 +1,12 @@
 ﻿namespace Petaverse.UWP.Core;
 
-public class NullToVisibilityConverter : IValueConverter
+public class BoolToVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
-        => value == null ? Visibility.Collapsed : Visibility.Visible;
-
+    {
+        var visibility = (bool)value;
+        return visibility == true ? Visibility.Visible : Visibility.Collapsed;
+    }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {

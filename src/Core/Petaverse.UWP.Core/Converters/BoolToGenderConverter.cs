@@ -1,11 +1,11 @@
-﻿namespace Petaverse.Converters;
+﻿namespace Petaverse.UWP.Core;
 
-public class BoolToVisibilityConverter : IValueConverter
+public class BoolToGenderConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var visibility = (bool)value;
-        return visibility == true ? Visibility.Visible : Visibility.Collapsed;
+        var gender = (bool)value;
+        return gender == true ? "\u2642" : "\u2640";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)

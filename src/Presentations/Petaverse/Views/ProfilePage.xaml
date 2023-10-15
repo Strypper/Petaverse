@@ -2,69 +2,69 @@
     x:Class="Petaverse.Views.ProfilePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Petaverse.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:Petaverse.Helpers" 
-    xmlns:dtos="using:Petaverse.Models.DTOs"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media" 
-    xmlns:converters="using:Petaverse.Converters"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Petaverse.ViewModels" 
-    xmlns:winui2="using:Microsoft.UI.Xaml.Controls" 
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls" 
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
-    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Disabled">
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtos="using:Petaverse.Models.DTOs"
+    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:local="using:Petaverse.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:viewmodels="using:Petaverse.ViewModels"
+    xmlns:winui2="using:Microsoft.UI.Xaml.Controls"
+    Loaded="Page_Loaded"
+    NavigationCacheMode="Disabled"
+    mc:Ignorable="d">
     <Page.Resources>
-        <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0"/>
+        <media:AttachedCardShadow x:Key="PetGalleryPivotShadow" Offset="-4,-4,0" />
         <animations:ImplicitAnimationSet x:Key="ShowAnimation">
-            <animations:OpacityAnimation Duration="0:0:0.5" To="1.0"/>
+            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
         </animations:ImplicitAnimationSet>
         <animations:ImplicitAnimationSet x:Key="HideAnimation">
-            <animations:ScalarAnimation Target="Opacity" 
-                                        Duration="0:0:1" 
-                                        To="0.0"/>
+            <animations:ScalarAnimation
+                Target="Opacity"
+                To="0.0"
+                Duration="0:0:1" />
         </animations:ImplicitAnimationSet>
 
         <animations:ImplicitAnimationSet x:Key="ShowInfoAnimation">
-            <animations:TranslationAnimation Duration="0:0:0.5" To="0, 0, 0"/>
-            <animations:OpacityAnimation Duration="0:0:0.5" To="1.0"/>
+            <animations:TranslationAnimation To="0, 0, 0" Duration="0:0:0.5" />
+            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
         </animations:ImplicitAnimationSet>
         <animations:ImplicitAnimationSet x:Key="HideInfoAnimation">
-            <animations:ScalarAnimation Target="Opacity" 
-                                        Duration="0:0:1" 
-                                        To="0.0"/>
-            <animations:ScalarAnimation Target="Translation.Y" 
-                                            Duration="0:0:1" 
-                                            To="-200">
-                <animations:ScalarKeyFrame Key="0.1" 
-                                           Value="30"/>
-                <animations:ScalarKeyFrame Key="0.5" 
-                                           Value="0.0"/>
+            <animations:ScalarAnimation
+                Target="Opacity"
+                To="0.0"
+                Duration="0:0:1" />
+            <animations:ScalarAnimation
+                Target="Translation.Y"
+                To="-200"
+                Duration="0:0:1">
+                <animations:ScalarKeyFrame Key="0.1" Value="30" />
+                <animations:ScalarKeyFrame Key="0.5" Value="0.0" />
             </animations:ScalarAnimation>
         </animations:ImplicitAnimationSet>
-        <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
 
-        <DataTemplate x:Key="PivotHeaderTemplate"
-                      x:DataType="dtos:Animal">
-            <StackPanel x:Name="PivotHeader"
-                        Orientation="Horizontal">
-                <PersonPicture x:Name="PetAvatar"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Width="35"
-                               ProfilePicture="{x:Bind PetAvatar.MediaUrl, 
-                                                       Mode=OneWay,
-                                                       Converter={StaticResource StringToImageSourceConverter},
-                                                       TargetNullValue='Assets/Logos/Petaverse.png'}">
+        <DataTemplate x:Key="PivotHeaderTemplate" x:DataType="dtos:Animal">
+            <StackPanel x:Name="PivotHeader" Orientation="Horizontal">
+                <PersonPicture
+                    x:Name="PetAvatar"
+                    Width="35"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    ProfilePicture="{x:Bind PetAvatar.MediaUrl, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}, TargetNullValue='Assets/Logos/Petaverse.png'}">
                     <PersonPicture.Triggers>
                         <EventTrigger>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="PetAvatar" Storyboard.TargetProperty="Opacity" 
-                                                 From="0" To="1">
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="PetAvatar"
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1">
                                         <DoubleAnimation.EasingFunction>
                                             <CircleEase EasingMode="EaseInOut" />
                                         </DoubleAnimation.EasingFunction>
@@ -74,31 +74,37 @@
                         </EventTrigger>
                     </PersonPicture.Triggers>
                 </PersonPicture>
-                <TextBlock x:Name="PetName"
-                           Margin="5,0,0,0"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Text="{x:Bind Name, Mode=OneWay}"
-                           Style="{StaticResource TitleTextBlockStyle}">
+                <TextBlock
+                    x:Name="PetName"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{x:Bind Name, Mode=OneWay}">
                     <TextBlock.RenderTransform>
-                        <TranslateTransform x:Name="TranslateTitle"/>
+                        <TranslateTransform x:Name="TranslateTitle" />
                     </TextBlock.RenderTransform>
                     <TextBlock.Triggers>
                         <EventTrigger>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="PetName"
-                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
-                                                    To="{ThemeResource SystemAccentColor}" Duration="0:0:3" AutoReverse="True"/>
+                                    <ColorAnimation
+                                        AutoReverse="True"
+                                        Storyboard.TargetName="PetName"
+                                        Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                        To="{ThemeResource SystemAccentColor}"
+                                        Duration="0:0:3" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
                         <EventTrigger>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="TranslateTitle" 
-                                                     Storyboard.TargetProperty="Y" 
-                                                     From="-200" To="0">
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="TranslateTitle"
+                                        Storyboard.TargetProperty="Y"
+                                        From="-200"
+                                        To="0">
                                         <DoubleAnimation.EasingFunction>
                                             <CircleEase EasingMode="EaseInOut" />
                                         </DoubleAnimation.EasingFunction>
@@ -110,20 +116,22 @@
                 </TextBlock>
             </StackPanel>
         </DataTemplate>
-            
-        <DataTemplate x:Key="PivotItemTemplate"
-                      x:DataType="dtos:Animal">
-            <local:PetGalleryPage x:Name="PetGallery"
-                                  Pet="{x:Bind}"
-                                  DeletePetClick="PetGalleryPage_DeletePetClick"
-                                  SelectPhoto="PetGalleryPage_SelectPhoto">
+
+        <DataTemplate x:Key="PivotItemTemplate" x:DataType="dtos:Animal">
+            <local:PetGalleryPage
+                x:Name="PetGallery"
+                DeletePetClick="PetGalleryPage_DeletePetClick"
+                Pet="{x:Bind}"
+                SelectPhoto="PetGalleryPage_SelectPhoto">
                 <local:PetGalleryPage.Triggers>
                     <EventTrigger>
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetName="PetGallery" 
-                                                 Storyboard.TargetProperty="Opacity" 
-                                                 From="0" To="1">
+                                <DoubleAnimation
+                                    Storyboard.TargetName="PetGallery"
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0"
+                                    To="1">
                                     <DoubleAnimation.EasingFunction>
                                         <CircleEase EasingMode="EaseInOut" />
                                     </DoubleAnimation.EasingFunction>
@@ -135,101 +143,104 @@
             </local:PetGalleryPage>
         </DataTemplate>
 
-        <DataTemplate x:Key="PivotRightHeaderTemplate"
-                      x:DataType="viewmodels:ProfilePageViewModel">
-            <Button Margin="0,7,10,0"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Right"
-                    Background="{StaticResource SystemAccentColor}"
-                    Command="{x:Bind OpenCreatePetContentDialogCommand}">
+        <DataTemplate x:Key="PivotRightHeaderTemplate" x:DataType="viewmodels:ProfilePageViewModel">
+            <Button
+                Margin="0,7,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="{StaticResource SystemAccentColor}"
+                Command="{x:Bind OpenCreatePetContentDialogCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Add"
-                                VerticalAlignment="Center"/>
-                    <TextBlock Text="Add New Pet" 
-                               Margin="5,0,0,0"
-                               VerticalAlignment="Center"/>
+                    <SymbolIcon VerticalAlignment="Center" Symbol="Add" />
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="Add New Pet" />
                 </StackPanel>
             </Button>
         </DataTemplate>
     </Page.Resources>
 
-    <Grid helpers:Grid.ColumnDefinitions="auto, *"
-          Background="Transparent">
-        <profilepageusercontrols:UserInfoPanelUserControl VerticalAlignment="Top"
-                                                          HorizontalAlignment="Center"
-                                                          LogoutEventHandler="UserInfoPanelUserControl_LogoutEventHandler"
-                                                          CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"/>
+    <Grid helpers:Grid.ColumnDefinitions="auto, *" Background="Transparent">
+        <profilepageusercontrols:UserInfoPanelUserControl
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"
+            LogoutEventHandler="UserInfoPanelUserControl_LogoutEventHandler" />
 
-            <winui2:NavigationView Grid.Column="1"
-                                   Margin="0,10,10,0"
-                                   Padding="0,0,0,15"
-                                   VerticalAlignment="Stretch"
-                                   IsSettingsVisible="False"
-                                   PaneDisplayMode="LeftCompact"
-                                   IsBackButtonVisible="Collapsed"
-                                   ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}">
-                <winui2:NavigationView.PaneHeader>
-                    <Border CornerRadius="5"
-                            Margin="0,0,5,0">
-                        <Image Source="https://intranetblobstorages.blob.core.windows.net/petaverse/TRT.gif"/>
-                    </Border>
-                </winui2:NavigationView.PaneHeader>
-                <winui2:NavigationView.MenuItems>
-                    <winui2:NavigationViewItem Content="Pets">
-                        <winui2:NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F436;" />
-                        </winui2:NavigationViewItem.Icon>
-                    </winui2:NavigationViewItem>
-                </winui2:NavigationView.MenuItems>
-                <Pivot HeaderTemplate="{StaticResource PivotHeaderTemplate}"
-                       ItemTemplate="{StaticResource PivotItemTemplate}"
-                       RightHeaderTemplate="{StaticResource PivotRightHeaderTemplate}"
-                       RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
-                       ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"/>
-            </winui2:NavigationView>
+        <winui2:NavigationView
+            Grid.Column="1"
+            Margin="0,10,10,0"
+            Padding="0,0,0,15"
+            VerticalAlignment="Stretch"
+            ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            PaneDisplayMode="LeftCompact">
+            <winui2:NavigationView.PaneHeader>
+                <Border Margin="0,0,5,0" CornerRadius="5">
+                    <Image Source="https://intranetblobstorages.blob.core.windows.net/petaverse/TRT.gif" />
+                </Border>
+            </winui2:NavigationView.PaneHeader>
+            <winui2:NavigationView.MenuItems>
+                <winui2:NavigationViewItem Content="Pets">
+                    <winui2:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F436;" />
+                    </winui2:NavigationViewItem.Icon>
+                </winui2:NavigationViewItem>
+            </winui2:NavigationView.MenuItems>
+            <Pivot
+                HeaderTemplate="{StaticResource PivotHeaderTemplate}"
+                ItemTemplate="{StaticResource PivotItemTemplate}"
+                ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"
+                RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
+                RightHeaderTemplate="{StaticResource PivotRightHeaderTemplate}" />
+        </winui2:NavigationView>
 
-            <Grid Grid.ColumnSpan="2"  
-              VerticalAlignment="Stretch"
-              HorizontalAlignment="Stretch"
-              Visibility="{x:Bind profilePageViewModel.OverLayPopUpVisibility, Mode=OneWay
-                                 ,Converter={StaticResource BoolToVisibilityConverter}}"
-              Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-              animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
-              animations:Implicit.HideAnimations="{StaticResource HideAnimation}">
-            <Image x:Name="PetMedia"
-                   Margin="50"
-                   Source="{x:Bind profilePageViewModel.PetaverseMedia.MediaUrl, Mode=OneWay}"/>
-            <StackPanel Margin="10"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Top">
-                <Button Click="AppBarButton_Click"
-                        Width="45" Height="45" 
-                        CornerRadius="25"
-                        Background="{StaticResource SystemAccentColor}">
+        <Grid
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            animations:Implicit.HideAnimations="{StaticResource HideAnimation}"
+            animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
+            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+            Visibility="{x:Bind profilePageViewModel.OverLayPopUpVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Image
+                x:Name="PetMedia"
+                Margin="50"
+                Source="{x:Bind profilePageViewModel.PetaverseMedia.MediaUrl, Mode=OneWay}" />
+            <StackPanel
+                Margin="10"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <Button
+                    Width="45"
+                    Height="45"
+                    Background="{StaticResource SystemAccentColor}"
+                    Click="AppBarButton_Click"
+                    CornerRadius="25">
                     <FontIcon Glyph="&#xE10A;" />
                 </Button>
             </StackPanel>
-            <TextBlock Margin="10"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Center"
-                       Text="{x:Bind profilePageViewModel.PetaverseMedia.TimeUpload.ToShortDateString()}"/>
+            <TextBlock
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Text="{x:Bind profilePageViewModel.PetaverseMedia.TimeUpload.ToShortDateString()}" />
         </Grid>
 
         <StackPanel Grid.ColumnSpan="2">
-            <winui2:ProgressBar Visibility="{x:Bind profilePageViewModel.IsBusy, 
-                                                    Mode=OneWay, 
-                                                    Converter={StaticResource BoolToVisibilityConverter}}"
-                                IsIndeterminate="{x:Bind profilePageViewModel.IsBusy, 
-                                                         Mode=OneWay}"/>
-            <commonusercontrols:StatusInfoBarUserControl Margin="20"
-                                                         Icon="{x:Bind profilePageViewModel.InfoBarIcon, Mode=OneWay}"
-                                                         Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
-                                                         BarColor="{x:Bind profilePageViewModel.InfoBarColor, Mode=OneWay}"
-                                                         Message="{x:Bind profilePageViewModel.InfoBarMessage, Mode=OneWay}"
-                                                         Visibility="{x:Bind profilePageViewModel.InfoBarIsOpen, Mode=OneWay}"
-                                                         animations:Implicit.ShowAnimations="{StaticResource ShowInfoAnimation}"
-                                                         animations:Implicit.HideAnimations="{StaticResource HideInfoAnimation}"
-                                                         DismissInfoBarCommand="{x:Bind profilePageViewModel.DismissStatusInfoCommand}"/>
+            <winui2:ProgressBar IsIndeterminate="{x:Bind profilePageViewModel.IsBusy, Mode=OneWay}" Visibility="{x:Bind profilePageViewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <commonusercontrols:StatusInfoBarUserControl
+                Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
+                Margin="20"
+                animations:Implicit.HideAnimations="{StaticResource HideInfoAnimation}"
+                animations:Implicit.ShowAnimations="{StaticResource ShowInfoAnimation}"
+                BarColor="{x:Bind profilePageViewModel.InfoBarColor, Mode=OneWay}"
+                DismissInfoBarCommand="{x:Bind profilePageViewModel.DismissStatusInfoCommand}"
+                Icon="{x:Bind profilePageViewModel.InfoBarIcon, Mode=OneWay}"
+                Message="{x:Bind profilePageViewModel.InfoBarMessage, Mode=OneWay}"
+                Visibility="{x:Bind profilePageViewModel.InfoBarIsOpen, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </Page>

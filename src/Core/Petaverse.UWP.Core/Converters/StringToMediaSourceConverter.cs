@@ -1,10 +1,12 @@
 ﻿namespace Petaverse.UWP.Core;
 
-public class NullToVisibilityConverter : IValueConverter
+public class StringToMediaSourceConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
-        => value == null ? Visibility.Collapsed : Visibility.Visible;
-
+    {
+        var videoUrl = value as String;
+        return videoUrl != null ? videoUrl != "" ? MediaSource.CreateFromUri(new Uri(videoUrl)) : null : null;
+    }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {

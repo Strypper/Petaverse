@@ -1,7 +1,4 @@
-﻿using Windows.UI;
-using Windows.UI.Xaml.Data;
-
-namespace Petaverse.UWP.Core;
+﻿namespace Petaverse.UWP.Core;
 
 public class HexToWinUIColorConverter : IValueConverter
 {
