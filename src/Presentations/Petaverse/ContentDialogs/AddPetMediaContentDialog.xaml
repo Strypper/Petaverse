@@ -3,7 +3,7 @@
                SecondaryButtonText="Cancel"
                PrimaryButtonText="Add Photos"
                xmlns:labs="using:AppStudio.Uwp.Labs"
-               xmlns:helpers="using:Petaverse.Helpers"
+               xmlns:core="using:Petaverse.UWP.Core"
                xmlns:local="using:Petaverse.ContentDialogs"
                Style="{StaticResource DefaultContentDialogStyle}"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
@@ -22,7 +22,7 @@
     </ContentDialog.Resources>
 
 
-    <Grid helpers:Grid.RowDefinitions="auto, auto, *">
+    <Grid core:Grid.RowDefinitions="auto, auto, *">
         <TextBlock Text="ADD NEW PHOTOS"
                    HorizontalAlignment="Center"
                    Style="{StaticResource TitleTextBlockStyle}"/>

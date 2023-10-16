@@ -2,7 +2,7 @@
     x:Class="Petaverse.ContentDialogs.ServerNotFoundContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:local="using:Petaverse.ContentDialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
@@ -22,7 +22,7 @@
                  FontWeight="Bold"
                  TextDecorations="Underline"/>
         </TextBlock>
-        <Grid helpers:Grid.ColumnDefinitions="*, *">
+        <Grid core:Grid.ColumnDefinitions="*, *">
             <winui:AnimatedVisualPlayer x:Name="LottiePlayer"
 									     MaxWidth="200"
                                          MaxHeight="200"
@@ -56,7 +56,7 @@
                 </TextBlock>
                 <Grid Margin="0,5,0,0"
                       ColumnSpacing="5"
-                      helpers:Grid.ColumnDefinitions="*, *">
+                      core:Grid.ColumnDefinitions="*, *">
                     <ListView Header="Problems might cause"
                               ItemsSource="{x:Bind ProblemsCouldCauseList, Mode=OneWay}"
                               Background="#ff0000" Padding="10" Margin="0,5,5,5" CornerRadius="5"/>

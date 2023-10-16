@@ -3,10 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtos="using:Petaverse.Models.DTOs"
-    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:local="using:Petaverse.ContentDialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
@@ -82,7 +81,7 @@
         </DataTemplate>
     </ContentDialog.Resources>
 
-    <Grid helpers:Grid.ColumnDefinitions="*,*" helpers:Grid.RowDefinitions="auto, auto, *">
+    <Grid core:Grid.ColumnDefinitions="*,*" core:Grid.RowDefinitions="auto, auto, *">
         <TextBlock
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
@@ -132,7 +131,7 @@
                 Header="Date of birth or Age"
                 SelectedDate="{x:Bind PetInfo.DateOfBirth, Mode=TwoWay, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"
                 SelectedDateChanged="DatePicker_SelectedDateChanged" />
-            <Grid helpers:Grid.ColumnDefinitions="200,*">
+            <Grid core:Grid.ColumnDefinitions="200,*">
                 <Button
                     Margin="0,0,0,4"
                     HorizontalAlignment="Stretch"

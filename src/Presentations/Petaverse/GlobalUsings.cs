@@ -1,7 +1,6 @@
 ﻿global using Microsoft.Identity.Client;
 global using Petaverse.Constants;
 global using Petaverse.Enums;
-global using Petaverse.Helpers;
 global using Petaverse.Interfaces;
 global using Petaverse.Services;
 global using System.Net.Http;

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:helpers="using:Petaverse.Helpers" 
+    xmlns:core="using:Petaverse.UWP.Core" 
     xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
@@ -32,12 +32,12 @@
     </UserControl.Resources>
 
     <ScrollViewer>
-        <Grid helpers:Grid.RowDefinitions="*, *">
+        <Grid core:Grid.RowDefinitions="*, *">
             <Grid Padding="5"
                   MinWidth="350"
                   Margin="10,10,15,0"
                   ui:Effects.Shadow="{StaticResource CommonShadow}"
-                  helpers:Grid.RowDefinitions="auto, auto, *">
+                  core:Grid.RowDefinitions="auto, auto, *">
                 <RelativePanel HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch">
                     <PersonPicture x:Name="UserAvatar"
@@ -143,8 +143,8 @@
             <Grid Grid.Row="1"
               Padding="10"
               Margin="10,10,15,5"
-              helpers:Grid.RowDefinitions="*, *, *"
-              helpers:Grid.ColumnDefinitions="*, *"
+              core:Grid.RowDefinitions="*, *, *"
+              core:Grid.ColumnDefinitions="*, *"
               ui:Effects.Shadow="{StaticResource CommonShadow}">
                 <Border Background="{ThemeResource SystemAltMediumLowColor}"
                     Padding="10"

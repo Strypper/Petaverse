@@ -2,7 +2,7 @@
     mc:Ignorable="d"
     d:DesignWidth="330"
     d:DesignHeight="530"
-    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:local="using:Petaverse.UserControls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -45,12 +45,12 @@
 
     </UserControl.Resources>
 
-    <!--helpers:Grid.RowDefinitions="auto, 80, auto, auto, *"-->
+    <!--core:Grid.RowDefinitions="auto, 80, auto, auto, *"-->
     <Grid MaxWidth="330"
           MaxHeight="530"
           Background="Transparent"
           ui:Effects.Shadow="{StaticResource CommonShadow}"
-          helpers:Grid.RowDefinitions="auto, 80, 25, 25, 25, *">
+          core:Grid.RowDefinitions="auto, 80, 25, 25, 25, *">
         <Grid HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"

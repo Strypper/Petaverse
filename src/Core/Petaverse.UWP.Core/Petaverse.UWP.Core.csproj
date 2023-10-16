@@ -135,8 +135,13 @@
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
     <Compile Include="Enums\MediaType.cs" />
     <Compile Include="Enums\Severity.cs" />
+    <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Helpers\DateToAge.cs" />
+    <Compile Include="Helpers\Grid.cs" />
+    <Compile Include="Helpers\PetShortMediaPlayer.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="Helpers\ToolkitSerializer.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Breed.cs" />
@@ -172,6 +177,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.5</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
