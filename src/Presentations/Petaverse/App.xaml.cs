@@ -1,4 +1,5 @@
-﻿using Petaverse.FosterCenter;
+﻿using Petaverse.ApplicationStructure;
+using Petaverse.FosterCenter;
 using Petaverse.Home;
 using Windows.ApplicationModel.Core;
 

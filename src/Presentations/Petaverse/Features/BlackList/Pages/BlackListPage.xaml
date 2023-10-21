@@ -1,0 +1,349 @@
+﻿<Page
+    x:Class="Petaverse.BlackList.BlackListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Petaverse.UWP.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Petaverse.BlackList"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="CategoriesHeaderTemplate" x:DataType="x:String">
+            <TextBlock
+                Margin="8"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="{x:Bind}" />
+        </DataTemplate>
+        <DataTemplate x:Key="BlockedPeopleHeaderTemplate" x:DataType="x:String">
+            <Grid Margin="0,0,0,8">
+                <StackPanel Padding="0,0,0,8" Orientation="Horizontal">
+                    <FontIcon
+                        Width="30"
+                        FontFamily="Segoe UI Emoji"
+                        Glyph="&#x1F47A;" />
+                    <TextBlock
+                        Margin="8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{x:Bind}" />
+                </StackPanel>
+
+                <HyperlinkButton HorizontalAlignment="Right" Content="Tất cả" />
+                <MenuFlyoutSeparator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+
+    <Grid Padding="14" RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            MaxWidth="1100"
+            Padding="18"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Background="{StaticResource ControlAltFillColorSecondaryBrush}"
+            BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+            BorderThickness="1.5"
+            ColumnSpacing="8"
+            CornerRadius="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <AutoSuggestBox PlaceholderText="Tìm kiếm" QueryIcon="Find" />
+            <ComboBox
+                Grid.Column="1"
+                MinWidth="110"
+                PlaceholderText="Hoạt động">
+                <x:String>Hoạt động mới nhất</x:String>
+                <x:String>Ngày tạo</x:String>
+                <x:String>Top: Ngày qua</x:String>
+                <x:String>Top: Tuần qua</x:String>
+                <x:String>Top: Tháng qua</x:String>
+                <x:String>Top: Năm qua</x:String>
+                <x:String>Top: Tất cả</x:String>
+            </ComboBox>
+            <Button
+                Grid.Column="2"
+                MinWidth="110"
+                Content="Nhãn">
+                <Button.Flyout>
+                    <Flyout>
+                        <ListView SelectionMode="Multiple">
+                            <ListViewItem Content="All" />
+                            <ListViewItem Content="Unread" />
+                            <ListViewItem Content="Starred" />
+                            <ListViewItem Content="Important" />
+                            <ListViewItem Content="Sent" />
+                            <ListViewItem Content="Drafts" />
+                            <ListViewItem Content="Trash" />
+                        </ListView>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            <ComboBox
+                Grid.Column="3"
+                MinWidth="110"
+                PlaceholderText="Lọc">
+                <x:String>Tất cả</x:String>
+                <x:String>Đã xác nhận</x:String>
+                <x:String>Chưa xác nhận</x:String>
+            </ComboBox>
+            <Button
+                Grid.Column="4"
+                MinWidth="110"
+                Background="{StaticResource AccentFillColorDefaultBrush}"
+                Content="Tạo bài mới" />
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            MaxWidth="1100"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="300" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Spacing="14">
+                <ListView
+                    Padding="8"
+                    Background="{StaticResource ControlAltFillColorSecondaryBrush}"
+                    BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                    BorderThickness="1.5"
+                    CornerRadius="8"
+                    Header="Mục"
+                    HeaderTemplate="{StaticResource CategoriesHeaderTemplate}"
+                    SelectionMode="Single">
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal" Spacing="14">
+                            <FontIcon Width="30" Glyph="&#xF57E;" />
+                            <TextBlock VerticalAlignment="Center" Text="Tất cả bài viết" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal" Spacing="14">
+                            <FontIcon
+                                Width="30"
+                                FontFamily="Segoe UI Emoji"
+                                Glyph="&#x1F92C;" />
+                            <TextBlock VerticalAlignment="Center" Text="Lừa đảo trộm thú cưng" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal" Spacing="14">
+                            <FontIcon
+                                Width="30"
+                                FontFamily="Segoe UI Emoji"
+                                Glyph="&#x1F4B8;" />
+                            <TextBlock VerticalAlignment="Center" Text="Lừa đảo tiền" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal" Spacing="14">
+                            <FontIcon
+                                Width="30"
+                                FontFamily="Segoe UI Emoji"
+                                Glyph="&#x1F4A2;" />
+                            <TextBlock VerticalAlignment="Center" Text="Không chấp hành nội quy" />
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+                <ListView
+                    MaxHeight="400"
+                    Padding="8"
+                    Background="{StaticResource ControlAltFillColorSecondaryBrush}"
+                    BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                    BorderThickness="1.5"
+                    CornerRadius="8"
+                    Header="Khả nghi"
+                    HeaderTemplate="{StaticResource BlockedPeopleHeaderTemplate}"
+                    SelectionMode="Single">
+                    <ListViewItem Padding="14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="35" />
+                            </Grid.ColumnDefinitions>
+
+                            <PersonPicture Width="50" HorizontalAlignment="Left" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Spacing="5">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Thắng Trần Quốc" />
+                                <TextBlock Text="Miêu tặc" />
+                            </StackPanel>
+                            <FontIcon
+                                Grid.Column="2"
+                                Foreground="{StaticResource SystemFillColorCriticalBrush}"
+                                Glyph="&#xE783;" />
+                        </Grid>
+                    </ListViewItem>
+                    <ListViewItem Padding="14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="35" />
+                            </Grid.ColumnDefinitions>
+
+                            <PersonPicture Width="50" HorizontalAlignment="Left" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Spacing="5">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Hoàng Yến Vi" />
+                                <TextBlock Text="Miêu tặc" />
+                            </StackPanel>
+                            <FontIcon
+                                Grid.Column="2"
+                                Foreground="{StaticResource SystemFillColorCriticalBrush}"
+                                Glyph="&#xE783;" />
+                        </Grid>
+                    </ListViewItem>
+                    <ListViewItem Padding="14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="35" />
+                            </Grid.ColumnDefinitions>
+
+                            <PersonPicture Width="50" HorizontalAlignment="Left" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Spacing="5">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Thái Ngọc Diệu" />
+                                <TextBlock Text="Lừa tiền" />
+                            </StackPanel>
+                            <FontIcon
+                                Grid.Column="2"
+                                Foreground="{StaticResource SystemFillColorCriticalBrush}"
+                                Glyph="&#xE783;" />
+                        </Grid>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+
+            <ListView Grid.Column="1" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ListViewItem Margin="0,0,0,8">
+                            <core:PetaverseContainer>
+                                <Grid Padding="10" ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MaxWidth="85" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ToggleButton HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                            <FontIcon Glyph="&#xE70E;" />
+                                            <TextBlock Text="11003" />
+                                        </StackPanel>
+                                    </ToggleButton>
+
+                                    <RelativePanel Grid.Column="1">
+                                        <Border
+                                            x:Name="ItemIcon"
+                                            Padding="4"
+                                            Background="{StaticResource SmokeFillColorDefaultBrush}"
+                                            CornerRadius="8"
+                                            RelativePanel.AlignVerticalCenterWithPanel="True">
+                                            <FontIcon
+                                                Width="50"
+                                                Height="50"
+                                                FontFamily="Segoe UI Emoji"
+                                                FontSize="30"
+                                                Glyph="&#x1F92C;" />
+                                        </Border>
+                                        <StackPanel
+                                            Margin="5"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            RelativePanel.RightOf="ItemIcon"
+                                            Spacing="5">
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Lừa đảo giả tải khoản xin thú cưng về bán cho lò mổ" />
+                                            <ListView
+                                                Height="40"
+                                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                ScrollViewer.HorizontalScrollMode="Enabled"
+                                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                                ScrollViewer.VerticalScrollMode="Disabled"
+                                                SelectionMode="Single">
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <ItemsStackPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <x:String>🤕 Bạo hành động vật</x:String>
+                                                <x:String>😡 Thái độ tiêu cực</x:String>
+                                                <x:String>🥸 Tài khoản giả mạo</x:String>
+                                                <x:String>💥 Spam</x:String>
+                                            </ListView>
+                                            <StackPanel Orientation="Horizontal">
+                                                <HyperlinkButton VerticalAlignment="Center" Content="Strypper" />
+                                                <TextBlock VerticalAlignment="Center">
+                                                    <Run Text="đã báo cáo" />
+                                                    <Run Text="vào lúc 10 giờ truớc" />
+                                                    <Run Text="-" />
+                                                    <Run Foreground="LightGreen" Text="Đã xác nhận" />
+                                                    <Run
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        Foreground="LightGreen"
+                                                        Text="&#xE930;" />
+                                                    <Run Text="-" />
+                                                    <Run Text="42" />
+                                                    <Run FontFamily="Segoe Fluent Icons" Text="&#xE90A;" />
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </RelativePanel>
+
+                                    <Grid Grid.Column="2" HorizontalAlignment="Center">
+                                        <PersonPicture
+                                            Width="30"
+                                            Margin="-60,0,0,0"
+                                            Background="Black"
+                                            ProfilePicture="/Assets/Logos/Petaverse.png" />
+                                        <PersonPicture
+                                            Width="30"
+                                            Margin="-30,0,0,0"
+                                            Background="Black"
+                                            ProfilePicture="https://i.imgur.com/vc9FudE.jpg" />
+                                        <PersonPicture
+                                            Width="30"
+                                            Background="Black"
+                                            ProfilePicture="/Assets/Gifs/UAsu.gif" />
+                                    </Grid>
+                                </Grid>
+                            </core:PetaverseContainer>
+                        </ListViewItem>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

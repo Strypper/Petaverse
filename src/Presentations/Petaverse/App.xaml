@@ -10,7 +10,6 @@
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
                 <!--  Other app resources here  -->
-                <ResourceDictionary Source="/Styles/TextBlock_themeresources.xaml" />
                 <ResourceDictionary Source="/Styles/GridViewAvatarItemStyle.xaml" />
                 <ResourceDictionary Source="/Styles/PetaverseMediaPlayerStyle.xaml" />
                 <ResourceDictionary Source="UserControls/CommonUserControls/ValidationTextBox.xaml" />

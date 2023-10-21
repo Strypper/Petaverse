@@ -149,8 +149,14 @@
       <DependentUpon>ViewPetMediaDetailContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\HttpClientEnum.cs" />
+    <Compile Include="Features\ApplicationStructure\Models\NavigationViewItem.cs" />
+    <Compile Include="Features\ApplicationStructure\Utils\PetaverseNavigationItemUtil.cs" />
     <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
     <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
+    <Compile Include="Features\BlackList\Pages\BlackListPage.xaml.cs">
+      <DependentUpon>BlackListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\BlackList\Pages\BlackListPageViewModel.cs" />
     <Compile Include="Features\FosterCenter\Models\AnimalProfilePreviewModel.cs" />
     <Compile Include="Features\FosterCenter\Models\AvatarPreviewModel.cs" />
     <Compile Include="Features\FosterCenter\Models\CarouselItemModel.cs" />
@@ -237,7 +243,7 @@
     <Compile Include="Services\PetaverseAPI\PetShortService.cs" />
     <Compile Include="Services\PetaverseAPI\SpeciesService.cs" />
     <Compile Include="Services\ValidationService.cs" />
-    <Compile Include="TheMainFrame.xaml.cs">
+    <Compile Include="Features\ApplicationStructure\Pages\TheMainFrame.xaml.cs">
       <DependentUpon>TheMainFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AvatarUserControl.xaml.cs">
@@ -427,6 +433,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Features\BlackList\Pages\BlackListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\FosterCenter\Page\FosterCenterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -467,11 +477,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\TextBlock_themeresources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TheMainFrame.xaml">
+    <Page Include="Features\ApplicationStructure\Pages\TheMainFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

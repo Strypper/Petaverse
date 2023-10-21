@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -64,10 +64,10 @@
     <Grid x:Name="RootLayer">
         <Grid x:Name="InnerLayer">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="0.39*" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid x:Name="LeftPanel" Padding="8">
+            <Grid x:Name="LeftPanel" Padding="15">
                 <Grid Style="{StaticResource PetaverseGridLayoutStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -155,9 +155,9 @@
             <Grid
                 x:Name="RightPanel"
                 Grid.Column="1"
-                Padding="0,8,8,8">
+                Padding="0,15,15,15">
                 <ScrollViewer>
-                    <Grid RowSpacing="8">
+                    <Grid RowSpacing="15">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />

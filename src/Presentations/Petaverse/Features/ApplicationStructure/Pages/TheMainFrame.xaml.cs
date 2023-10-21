@@ -1,9 +1,8 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using Petaverse.FosterCenter;
 using Petaverse.Home;
 using Windows.UI.Core;
 
-namespace Petaverse;
+namespace Petaverse.ApplicationStructure;
 
 public sealed partial class TheMainFrame : Page
 {
@@ -12,6 +11,8 @@ public sealed partial class TheMainFrame : Page
     public TheMainFrame()
     {
         this.InitializeComponent();
+
+        PetaverseNavigateViewItems = PetaverseNavigationItemUtil.InitPetaverseNavigationItems();
 
         if (Environment.OSVersion.Version.Build >= 22000)
         {
@@ -27,34 +28,45 @@ public sealed partial class TheMainFrame : Page
     }
     #endregion
 
+    #region [ Properties ]
+
+    public ObservableCollection<NavigationViewItem> PetaverseNavigateViewItems { get; set; }
+
+
+    #endregion
+
     #region [ Event Handlers ]
+
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         ContentFrame.Navigate(typeof(HomePage));
     }
 
-    private void Navigate(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+    private void NavigationViewControl_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
     {
-        var index = sender.MenuItems.IndexOf(args.InvokedItemContainer);
 
-        if (index == -1)
-        {
-            //ContentFrame.Navigate(typeof(Settings));
-
-            return;
-        }
-
-        ContentFrame.Navigate(index % 2 == 0 ? typeof(HomePage) : typeof(FosterCenterPage));
+        var item = args.SelectedItem as NavigationViewItem;
+        if (item != null)
+            ContentFrame.Navigate(item.DestinationPage);
     }
+
     private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
     {
         if (ContentFrame.CanGoBack)
-        {
             BackButton.Visibility = Visibility.Visible;
-        }
         else
-        {
             BackButton.Visibility = Visibility.Collapsed;
+
+        var navigatedPage = e.Content as Page;
+        UpdateNavigationViewSelection(navigatedPage);
+    }
+
+    private void UpdateNavigationViewSelection(Page page)
+    {
+        var selectedItem = PetaverseNavigateViewItems.FirstOrDefault(x => x.DestinationPage == page.GetType());
+        if (selectedItem is not null)
+        {
+            NavigationViewControl.SelectedItem = selectedItem;
         }
     }
 
