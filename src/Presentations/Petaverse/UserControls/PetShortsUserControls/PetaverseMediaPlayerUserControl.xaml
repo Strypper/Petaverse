@@ -4,9 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
-    xmlns:converters="using:Petaverse.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Petaverse.UserControls.PetShortsUserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -748,7 +747,7 @@
                 Source="{x:Bind PetShort.MediaUrl, Mode=OneWay, Converter={StaticResource StringToMediaSourceConverter}}"
                 Stretch="UniformToFill">
                 <MediaPlayerElement.TransportControls>
-                    <helpers:PetShortMediaPlayer
+                    <core:PetShortMediaPlayer
                         Title="{x:Bind PetShort.Title, Mode=OneWay}"
                         IsCompact="False"
                         IsFullWindowEnabled="True"

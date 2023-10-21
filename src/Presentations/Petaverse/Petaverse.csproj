@@ -195,11 +195,6 @@
       <DependentUpon>IronShieldPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Helpers\AppExt.cs" />
-    <Compile Include="Helpers\DateToAge.cs" />
-    <Compile Include="Helpers\Grid.cs" />
-    <Compile Include="Helpers\PetShortMediaPlayer.cs" />
-    <Compile Include="Helpers\ToolkitSerializer.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />
     <Compile Include="Interfaces\IUploadPetFileService.cs" />

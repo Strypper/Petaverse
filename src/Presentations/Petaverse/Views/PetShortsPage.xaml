@@ -4,7 +4,7 @@
     Loaded="Page_Loaded"
     NavigationCacheMode="Disabled"
     xmlns:local="using:Petaverse.Views"
-    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:dto="using:Petaverse.Models.DTOs" 
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI" 
     xmlns:winui="using:Microsoft.UI.Xaml.Controls" 
@@ -27,9 +27,9 @@
 
         <DataTemplate x:Key="FlipViewItemTemplate"
                       x:DataType="dto:PetShort">
-            <Grid helpers:Grid.ColumnDefinitions="0.7*,*"
+            <Grid core:Grid.ColumnDefinitions="0.7*,*"
                       Background="Transparent">
-                <Grid helpers:Grid.RowDefinitions="auto, 0.35*, *"
+                <Grid core:Grid.RowDefinitions="auto, 0.35*, *"
                       ui:Effects.Shadow="{StaticResource CommonShadow}"
                       Margin="20" Padding="20">
                     <RelativePanel VerticalAlignment="Top"
@@ -92,7 +92,7 @@
                           Margin="5,20,0,0"
                           VerticalAlignment="Stretch"
                           HorizontalAlignment="Stretch"
-                          helpers:Grid.ColumnDefinitions="*, *, *">
+                          core:Grid.ColumnDefinitions="*, *, *">
                         <Border Padding="10"
                                 CornerRadius="4"
                                 VerticalAlignment="Stretch"

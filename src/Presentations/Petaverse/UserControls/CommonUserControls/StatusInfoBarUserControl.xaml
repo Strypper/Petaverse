@@ -2,13 +2,13 @@
     x:Class="Petaverse.UserControls.CommonUserControls.StatusInfoBarUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:helpers="using:Petaverse.Helpers">
+    xmlns:core="using:Petaverse.UWP.Core">
 
     <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
           MaxWidth="500"
           CornerRadius="2"
-          helpers:Grid.ColumnDefinitions="auto, *"
-          helpers:Grid.RowDefinitions="*, *">
+          core:Grid.ColumnDefinitions="auto, *"
+          core:Grid.RowDefinitions="*, *">
         <FontIcon Glyph="{x:Bind Icon, Mode=OneWay}" 
                   Foreground="{x:Bind BarColor, Mode=OneWay,
                                       Converter={StaticResource HexToSolidColorBrushConverter}}"

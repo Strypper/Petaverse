@@ -7,7 +7,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtos="using:Petaverse.Models.DTOs"
-    xmlns:helpers="using:Petaverse.Helpers"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:local="using:Petaverse.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
@@ -161,7 +161,7 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid helpers:Grid.ColumnDefinitions="auto, *" Background="Transparent">
+    <Grid core:Grid.ColumnDefinitions="auto, *" Background="Transparent">
         <profilepageusercontrols:UserInfoPanelUserControl
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
