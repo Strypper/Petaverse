@@ -117,6 +117,32 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         ProfilePicture="https://i.imgur.com/vc9FudE.jpg" />
+
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Background="{StaticResource SystemAccentColor}" Text="Thêm thú cưng">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F415;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="Đăng thú hoang">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F4E2;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="Đăng ảnh">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F5BC;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem
+                                x:Name="ProfileMenuFlyoutItem"
+                                Click="ProfileMenuFlyoutItem_Click"
+                                Icon="Contact"
+                                Text="Thông tin cá nhân" />
+                        </MenuFlyout>
+                    </Button.Flyout>
                 </Button>
             </Grid>
         </Grid>
@@ -124,6 +150,7 @@
         <muxc:NavigationView
             x:Name="NavigationViewControl"
             Grid.Row="1"
+            FooterMenuItemsSource="{x:Bind PetaverseNavigateViewFooterItems, Mode=OneWay}"
             IsBackButtonVisible="Collapsed"
             IsBackEnabled="False"
             IsPaneOpen="True"
@@ -134,27 +161,8 @@
             MenuItemsSource="{x:Bind PetaverseNavigateViewItems, Mode=OneWay}"
             OpenPaneLength="72"
             PaneDisplayMode="Left"
-            SelectionChanged="NavigationViewControl_SelectionChanged">
-
-
-            <!--<muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem Content="Trạm Foster">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon
-                            Margin="-3"
-                            FontFamily="{StaticResource FluentSystemIcons}"
-                            Glyph="&#xEAAA;" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Settings">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon
-                            Margin="-3"
-                            FontFamily="{StaticResource FluentSystemIcons}"
-                            Glyph="" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.FooterMenuItems>-->
+            SelectionChanged="NavigationViewControl_SelectionChanged"
+            Style="{StaticResource StoreNavigationViewStyle}">
 
             <muxc:NavigationView.Content>
                 <Frame

@@ -247,9 +247,6 @@
     <Compile Include="Features\Authentication\UserControls\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml.cs">
-      <DependentUpon>StatusInfoBarUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\CommonUserControls\ValidationTextBox.xaml.cs">
       <DependentUpon>ValidationTextBox.xaml</DependentUpon>
     </Compile>
@@ -259,10 +256,10 @@
     <Compile Include="UserControls\PetShortsUserControls\PetaverseMediaPlayerUserControl.xaml.cs">
       <DependentUpon>PetaverseMediaPlayerUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProfilePageUserControls\PetGalleryGridViewItemUserControl.xaml.cs">
+    <Compile Include="Features\PersonalProfile\UserControls\PetGalleryGridViewItemUserControl.xaml.cs">
       <DependentUpon>PetGalleryGridViewItemUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProfilePageUserControls\UserInfoPanelUserControl.xaml.cs">
+    <Compile Include="Features\PersonalProfile\UserControls\UserInfoPanelUserControl.xaml.cs">
       <DependentUpon>UserInfoPanelUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BreedsPageViewModel.cs" />
@@ -279,13 +276,13 @@
     <Compile Include="Views\CommunityPeoplePage.xaml.cs">
       <DependentUpon>CommunityPeoplePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PetGalleryPage.xaml.cs">
+    <Compile Include="Features\PersonalProfile\Pages\PetGalleryPage.xaml.cs">
       <DependentUpon>PetGalleryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PetShortsPage.xaml.cs">
       <DependentUpon>PetShortsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProfilePage.xaml.cs">
+    <Compile Include="Features\PersonalProfile\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WikiPage.xaml.cs">
@@ -484,10 +481,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CommonUserControls\StatusInfoBarUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\CommonUserControls\ValidationTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -500,11 +493,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ProfilePageUserControls\PetGalleryGridViewItemUserControl.xaml">
+    <Page Include="Features\PersonalProfile\UserControls\PetGalleryGridViewItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ProfilePageUserControls\UserInfoPanelUserControl.xaml">
+    <Page Include="Features\PersonalProfile\UserControls\UserInfoPanelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -520,7 +513,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PetGalleryPage.xaml">
+    <Page Include="Features\PersonalProfile\Pages\PetGalleryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -528,7 +521,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProfilePage.xaml">
+    <Page Include="Features\PersonalProfile\Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -601,12 +594,6 @@
     <Folder Include="Features\Authentication\Converters\" />
     <Folder Include="Features\Authentication\Services\Implementations\" />
     <Folder Include="Features\Authentication\Services\Interfaces\" />
-    <Folder Include="Features\PersonalProfile\Converters\" />
-    <Folder Include="Features\PersonalProfile\Models\" />
-    <Folder Include="Features\PersonalProfile\Pages\" />
-    <Folder Include="Features\PersonalProfile\Services\Implementations\" />
-    <Folder Include="Features\PersonalProfile\Services\Interfaces\" />
-    <Folder Include="Features\PersonalProfile\UserControls\" />
     <Folder Include="Features\PetaverseWiki\Converters\" />
     <Folder Include="Features\PetaverseWiki\Models\" />
     <Folder Include="Features\PetaverseWiki\Pages\" />
@@ -621,6 +608,7 @@
     <Folder Include="Features\PetShorts\UserControls\" />
     <Folder Include="Models\PageModels\" />
     <Folder Include="UserControls\CommunityPageUserControls\" />
+    <Folder Include="UserControls\ProfilePageUserControls\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Lotties\SignUpLottie.json" />

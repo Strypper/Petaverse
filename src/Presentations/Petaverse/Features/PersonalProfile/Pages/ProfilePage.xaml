@@ -1,14 +1,13 @@
 ﻿<Page
-    x:Class="Petaverse.Views.ProfilePage"
+    x:Class="Petaverse.PersonalProfile.ProfilePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:commonusercontrols="using:Petaverse.UserControls.CommonUserControls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtos="using:Petaverse.Models.DTOs"
-    xmlns:core="using:Petaverse.UWP.Core"
-    xmlns:local="using:Petaverse.Views"
+    xmlns:local="using:Petaverse.PersonalProfile"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls"
@@ -162,13 +161,13 @@
     </Page.Resources>
 
     <Grid core:Grid.ColumnDefinitions="auto, *" Background="Transparent">
-        <profilepageusercontrols:UserInfoPanelUserControl
+        <local:UserInfoPanelUserControl
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"
             LogoutEventHandler="UserInfoPanelUserControl_LogoutEventHandler" />
 
-        <winui2:NavigationView
+        <NavigationView
             Grid.Column="1"
             Margin="0,10,10,0"
             Padding="0,0,0,15"
@@ -177,25 +176,40 @@
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             PaneDisplayMode="LeftCompact">
-            <winui2:NavigationView.PaneHeader>
+            <NavigationView.PaneHeader>
                 <Border Margin="0,0,5,0" CornerRadius="5">
                     <Image Source="https://intranetblobstorages.blob.core.windows.net/petaverse/TRT.gif" />
                 </Border>
-            </winui2:NavigationView.PaneHeader>
-            <winui2:NavigationView.MenuItems>
-                <winui2:NavigationViewItem Content="Pets">
-                    <winui2:NavigationViewItem.Icon>
+            </NavigationView.PaneHeader>
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Danh sách thú cưng">
+                    <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F436;" />
-                    </winui2:NavigationViewItem.Icon>
-                </winui2:NavigationViewItem>
-            </winui2:NavigationView.MenuItems>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Các bài đã đăng">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F4F0;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Quản lý thiết bị">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F5A5;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Hình thức thanh toán">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F4B3;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
             <Pivot
                 HeaderTemplate="{StaticResource PivotHeaderTemplate}"
                 ItemTemplate="{StaticResource PivotItemTemplate}"
                 ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"
                 RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
                 RightHeaderTemplate="{StaticResource PivotRightHeaderTemplate}" />
-        </winui2:NavigationView>
+        </NavigationView>
 
         <Grid
             Grid.ColumnSpan="2"
@@ -231,7 +245,7 @@
 
         <StackPanel Grid.ColumnSpan="2">
             <winui2:ProgressBar IsIndeterminate="{x:Bind profilePageViewModel.IsBusy, Mode=OneWay}" Visibility="{x:Bind profilePageViewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <commonusercontrols:StatusInfoBarUserControl
+            <core:StatusInfoBarUserControl
                 Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
                 Margin="20"
                 animations:Implicit.HideAnimations="{StaticResource HideInfoAnimation}"

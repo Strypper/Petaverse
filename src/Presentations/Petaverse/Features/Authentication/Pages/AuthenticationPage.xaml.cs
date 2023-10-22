@@ -1,4 +1,6 @@
-﻿namespace Petaverse;
+﻿using Petaverse.PersonalProfile;
+
+namespace Petaverse;
 
 public sealed partial class AuthenticationPage : Page
 {
@@ -60,10 +62,10 @@ public sealed partial class AuthenticationPage : Page
 
     private void ProccessLogin(Models.DTOs.User petaverseUser)
     {
-        if(petaverseUser != null)
+        if (petaverseUser != null)
         {
             MainNavView.SelectedItem = PetaverseNavigateViewItems.FirstOrDefault(item => item.Id == 2);
-            if(!string.IsNullOrEmpty(petaverseUser.PetaverseProfileImageUrl) && !string.IsNullOrWhiteSpace(petaverseUser.PetaverseProfileImageUrl))
+            if (!string.IsNullOrEmpty(petaverseUser.PetaverseProfileImageUrl) && !string.IsNullOrWhiteSpace(petaverseUser.PetaverseProfileImageUrl))
             {
                 CurrentUserPersonPicture.ProfilePicture = new BitmapImage(new Uri(petaverseUser.PetaverseProfileImageUrl));
             }
@@ -77,7 +79,7 @@ public sealed partial class AuthenticationPage : Page
     //https://github.com/Strypper/Petaverse/issues/13
     private async void AddPetShort_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
     {
-        if(currentUser is not null)
+        if (currentUser is not null)
         {
             currentUser.Pets = await animalService.GetAllByUserGuidAsync(currentUserService.GetLocalUserGuidFromAppSettings());
             await new AddPetShortsContentDialog() { CurrentUser = currentUser }.ShowAsync();

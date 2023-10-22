@@ -157,6 +157,9 @@
     <Compile Include="UserControls\PetaverseContainer.xaml.cs">
       <DependentUpon>PetaverseContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\StatusInfoBarUserControl.xaml.cs">
+      <DependentUpon>StatusInfoBarUserControl.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Petaverse.UWP.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +210,10 @@
     <Page Include="UserControls\PetaverseContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\StatusInfoBarUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Petaverse.Home;
+using Petaverse.PersonalProfile;
 using Windows.UI.Core;
 
 namespace Petaverse.ApplicationStructure;
@@ -13,6 +14,7 @@ public sealed partial class TheMainFrame : Page
         this.InitializeComponent();
 
         PetaverseNavigateViewItems = PetaverseNavigationItemUtil.InitPetaverseNavigationItems();
+        PetaverseNavigateViewFooterItems = PetaverseNavigationItemUtil.InitPetaverseFooterNavigationItems();
 
         if (Environment.OSVersion.Version.Build >= 22000)
         {
@@ -31,6 +33,7 @@ public sealed partial class TheMainFrame : Page
     #region [ Properties ]
 
     public ObservableCollection<NavigationViewItem> PetaverseNavigateViewItems { get; set; }
+    public ObservableCollection<NavigationViewItem> PetaverseNavigateViewFooterItems { get; set; }
 
 
     #endregion
@@ -76,6 +79,11 @@ public sealed partial class TheMainFrame : Page
         {
             ContentFrame.GoBack();
         }
+    }
+
+    private void ProfileMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+    {
+        ContentFrame.Navigate(typeof(ProfilePage));
     }
     #endregion
 

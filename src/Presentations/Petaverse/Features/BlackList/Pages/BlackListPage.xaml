@@ -343,6 +343,13 @@
                 <x:String>1</x:String>
                 <x:String>1</x:String>
                 <x:String>1</x:String>
+                <ListView.Footer>
+                    <Button
+                        Margin="15,0,15,0"
+                        HorizontalAlignment="Stretch"
+                        Background="{StaticResource SolidBackgroundFillColorBaseAltBrush}"
+                        Content="Tải thêm" />
+                </ListView.Footer>
             </ListView>
         </Grid>
     </Grid>

@@ -67,7 +67,7 @@
                 <ColumnDefinition Width="0.39*" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid x:Name="LeftPanel" Padding="15">
+            <Grid x:Name="LeftPanel" Padding="5">
                 <Grid Style="{StaticResource PetaverseGridLayoutStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -155,9 +155,9 @@
             <Grid
                 x:Name="RightPanel"
                 Grid.Column="1"
-                Padding="0,15,15,15">
+                Padding="5">
                 <ScrollViewer>
-                    <Grid RowSpacing="15">
+                    <Grid RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />

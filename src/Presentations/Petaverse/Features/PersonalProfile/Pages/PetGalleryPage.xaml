@@ -1,11 +1,11 @@
 ﻿<Page
-    x:Class="Petaverse.Views.PetGalleryPage"
+    x:Class="Petaverse.PersonalProfile.PetGalleryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtos="using:Petaverse.Models.DTOs"
-    xmlns:local="using:Petaverse.Views"
+    xmlns:local="using:Petaverse.PersonalProfile"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:profilepageusercontrols="using:Petaverse.UserControls.ProfilePageUserControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -18,11 +18,11 @@
         <local:SwapStringToBitmapImageSourceConverter x:Key="SwapStringToBitmapImageSourceConverter" />
 
         <DataTemplate x:Key="ImageMosaicItemTemplate" x:DataType="dtos:PetaverseMedia">
-            <profilepageusercontrols:PetGalleryGridViewItemUserControl PetaverseMedia="{x:Bind Mode=OneWay}" />
+            <local:PetGalleryGridViewItemUserControl PetaverseMedia="{x:Bind Mode=OneWay}" />
         </DataTemplate>
 
         <DataTemplate x:Key="PetMediaAdaptiveGridViewItemTemplate" x:DataType="dtos:PetaverseMedia">
-            <profilepageusercontrols:PetGalleryGridViewItemUserControl PetaverseMedia="{x:Bind Mode=OneWay}" />
+            <local:PetGalleryGridViewItemUserControl PetaverseMedia="{x:Bind Mode=OneWay}" />
         </DataTemplate>
     </Page.Resources>
 
