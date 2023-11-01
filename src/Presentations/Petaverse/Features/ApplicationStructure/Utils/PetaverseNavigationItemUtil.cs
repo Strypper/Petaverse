@@ -12,7 +12,7 @@ public static class PetaverseNavigationItemUtil
         itemsList.Add(new NavigationViewItem(1, "\uE832", "Trang Chủ", true, typeof(HomePage)));
         itemsList.Add(new NavigationViewItem(2, "\uEF16", "Black List", true, typeof(BlackListPage)));
         itemsList.Add(new NavigationViewItem(2, "\uECD6", "Iron Shield", true, typeof(IronShieldPage)));
-
+        itemsList.Add(new NavigationViewItem(2, "\uE04B", "Loài Giống", true, typeof(WikiPage)));
 
         return itemsList;
     }

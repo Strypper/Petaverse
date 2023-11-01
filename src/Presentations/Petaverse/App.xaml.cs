@@ -1,4 +1,6 @@
 ﻿using Petaverse.ApplicationStructure;
+using Petaverse.BlackList;
+using Petaverse.BlackListDetail;
 using Petaverse.FosterCenter;
 using Petaverse.Home;
 using Windows.ApplicationModel.Core;
@@ -136,7 +138,13 @@ sealed partial class App : Application
 
         services.AddTransient<IHomePageService, HomePageService>();
         services.AddTransient<HomePageViewModel>();
+
         services.AddTransient<FosterCenterPageViewModel>();
+
+        services.AddTransient<BlackListPageViewModel>();
+
+        services.AddTransient<IBlackListPageService, BlackListPageService>();
+        services.AddTransient<BlackListDetailPageViewModel>();
 
         services.AddSingleton<LoginUserControl>();
 

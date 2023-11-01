@@ -1,0 +1,101 @@
+﻿<Page
+    x:Class="Petaverse.BlackListDetail.BlackListDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Petaverse.BlackListDetail"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    Padding="20"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <Grid x:Name="rootGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="350" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="LeftPanel">
+                <StackPanel Spacing="10">
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind viewModel.BlackListDetail.Title, Mode=OneWay}" />
+                    <StackPanel Orientation="Horizontal">
+                        <HyperlinkButton x:Name="AuthorName" Content="Strypper Vandel Jason" />
+                        <TextBlock VerticalAlignment="Center" Text="Đã tạo báo cáo này vào mục" />
+                        <HyperlinkButton x:Name="MainTag" Content="Hành hung động vật" />
+                    </StackPanel>
+                    <Border
+                        Padding="14"
+                        BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                        BorderThickness="1.5"
+                        CornerRadius="4">
+                        <Grid RowSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <PersonPicture Width="40" />
+                                    <HyperlinkButton VerticalAlignment="Center" Content="Strypper Vandel Jason" />
+                                    <TextBlock VerticalAlignment="Center">
+                                        <Run Text="vào" />
+                                        <Run Text="ngày 29 tháng 11 năm 2023" />
+                                    </TextBlock>
+                                    <Border
+                                        Padding="10"
+                                        VerticalAlignment="Center"
+                                        Background="#00d26a"
+                                        CornerRadius="10">
+                                        <TextBlock Text="Admin" />
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                            <Button HorizontalAlignment="Right">
+                                <SymbolIcon Symbol="More" />
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Share">
+                                            <MenuFlyoutItem.Icon>
+                                                <FontIcon Glyph="&#xE72D;" />
+                                            </MenuFlyoutItem.Icon>
+                                            <MenuFlyoutItem.KeyboardAccelerators>
+                                                <KeyboardAccelerator Key="S" Modifiers="Control" />
+                                            </MenuFlyoutItem.KeyboardAccelerators>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutItem Icon="Copy" Text="Copy">
+                                            <MenuFlyoutItem.KeyboardAccelerators>
+                                                <KeyboardAccelerator Key="C" Modifiers="Control" />
+                                            </MenuFlyoutItem.KeyboardAccelerators>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutItem Icon="Delete" Text="Delete">
+                                            <MenuFlyoutItem.KeyboardAccelerators>
+                                                <KeyboardAccelerator Key="Delete" />
+                                            </MenuFlyoutItem.KeyboardAccelerators>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutSeparator />
+                                        <MenuFlyoutItem Text="Rename" />
+                                        <MenuFlyoutItem Text="Select" />
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Border
+                                Grid.Row="1"
+                                BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                                BorderThickness="1.5"
+                                CornerRadius="4">
+                                <toolkit:MarkdownTextBlock Padding="20" Text="{x:Bind viewModel.BlackListDetail.Content, Mode=OneWay}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="RightPanel" Grid.Column="1">
+                <Button Content="Edit" />
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

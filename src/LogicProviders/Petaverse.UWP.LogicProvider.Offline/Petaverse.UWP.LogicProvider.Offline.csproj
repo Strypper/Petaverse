@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ServiceExtensions.cs" />
     <Compile Include="Features\Authentication\Services\Implementations\AuthenticationService.cs" />
+    <Compile Include="Features\BlackList\Services\BlackListService.cs" />
     <Compile Include="Features\FosterCenter\FosterCenterService.cs" />
     <Compile Include="Features\Home\Services\Implementations\HomeService.cs" />
     <Compile Include="GlobalUsings.cs" />
@@ -150,8 +151,11 @@
       <Name>Petaverse.UWP.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Features\BlackList\" />
+    <Content Include="Assets\BlackListDetailMarkdownSampleData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -9,6 +9,7 @@ public static class ServiceExtensions
         services.AddTransient<IHomeService, HomeService>();
         services.AddTransient<IFosterCenterService, FosterCenterService>();
         services.AddTransient<IAuthenticationService, AuthenticationService>();
+        services.AddTransient<IBlackListService, BlackListService>();
         return services;
     }
 }

@@ -153,6 +153,14 @@
     <Compile Include="Features\ApplicationStructure\Utils\PetaverseNavigationItemUtil.cs" />
     <Compile Include="Features\Authentication\Models\NavigationViewItem.cs" />
     <Compile Include="Features\Authentication\Utils\PetaverseNavigationItemUtil.cs" />
+    <Compile Include="Features\BlackListDetail\Models\Participant.cs" />
+    <Compile Include="Features\BlackListDetail\Models\BlackListDetailModel.cs" />
+    <Compile Include="Features\BlackListDetail\Pages\BlackListDetailPage.xaml.cs">
+      <DependentUpon>BlackListDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\BlackListDetail\Pages\BlackListDetailPageViewModel.cs" />
+    <Compile Include="Features\BlackListDetail\Services\BlackListPageService.cs" />
+    <Compile Include="Features\BlackListDetail\Services\IBlackListPageService.cs" />
     <Compile Include="Features\BlackList\Pages\BlackListPage.xaml.cs">
       <DependentUpon>BlackListPage.xaml</DependentUpon>
     </Compile>
@@ -295,6 +303,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\BlackListDetailMarkdownSampleData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Breeds\AbyssinianCat.png" />
     <Content Include="Assets\Breeds\AmericanBobtailCatBreed.png" />
     <Content Include="Assets\Breeds\AmericanShortHairCat.png" />
@@ -424,6 +435,10 @@
     <Page Include="Features\Authentication\Pages\AuthenticationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\BlackListDetail\Pages\BlackListDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\BlackList\Pages\BlackListPage.xaml">
       <SubType>Designer</SubType>

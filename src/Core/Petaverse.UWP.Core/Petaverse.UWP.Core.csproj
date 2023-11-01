@@ -144,11 +144,14 @@
     <Compile Include="Helpers\ToolkitSerializer.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BlackCase.cs" />
+    <Compile Include="Models\BlackCaseDetail.cs" />
     <Compile Include="Models\Breed.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\FosterCenter.cs" />
     <Compile Include="Models\FosterCenterMember.cs" />
     <Compile Include="Models\FosterCenterTag.cs" />
+    <Compile Include="Models\Label.cs" />
     <Compile Include="Models\PetaverseMedia.cs" />
     <Compile Include="Models\Species.cs" />
     <Compile Include="Models\User.cs" />
