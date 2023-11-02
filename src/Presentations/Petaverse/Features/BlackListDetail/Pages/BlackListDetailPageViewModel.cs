@@ -6,14 +6,14 @@ public partial class BlackListDetailPageViewModel : ViewModelBase
 {
     #region [ Fields ]
 
-    private readonly IBlackListPageService blackListPageService;
+    private readonly IBlackListDetailPageService blackListDetailPageService;
     #endregion
 
     #region [ CTor ]
 
-    public BlackListDetailPageViewModel(IBlackListPageService blackListPageService)
+    public BlackListDetailPageViewModel(IBlackListDetailPageService blackListDetailPageService)
     {
-        this.blackListPageService = blackListPageService;
+        this.blackListDetailPageService = blackListDetailPageService;
     }
     #endregion
 
@@ -27,7 +27,7 @@ public partial class BlackListDetailPageViewModel : ViewModelBase
 
     public async Task LoadBlackListDetail(string id)
     {
-        BlackListDetail = await blackListPageService.GetBlackListDetailAsync(id);
+        BlackListDetail = await blackListDetailPageService.GetBlackListDetailAsync(id);
     }
     #endregion
 }

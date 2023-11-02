@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+namespace Petaverse.BlackList;
 
-namespace Petaverse.UWP.Core;
-
-public partial class BlackCase : BaseModel<string>
+public partial class BlackListItemModel : BaseModel<string>
 {
     [ObservableProperty]
     string title;
-
-    [ObservableProperty]
-    List<User> users;
 
     [ObservableProperty]
     int points;
@@ -17,14 +13,14 @@ public partial class BlackCase : BaseModel<string>
     DateTime uploadDate;
 
     [ObservableProperty]
-    string authorId;
+    int noOfComments;
 
     [ObservableProperty]
     bool isVerified;
 
     [ObservableProperty]
-    string primaryLabelId;
+    ObservableCollection<TagModel> tags;
 
     [ObservableProperty]
-    List<Label> labels;
+    ObservableCollection<ParticipantModel> participants;
 }

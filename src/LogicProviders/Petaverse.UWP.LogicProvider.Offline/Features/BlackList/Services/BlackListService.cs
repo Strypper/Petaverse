@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
+using static Bogus.DataSets.Name;
 
 namespace Petaverse.UWP.LogicProvider.Offline;
 
@@ -22,28 +23,50 @@ public class BlackListService : IBlackListService
 
     #region [ Properties ]
 
-    private List<Label> Labels;
+    private List<Label> MockLabels { get; set; }
     #endregion
 
     #region [ Methods ]
 
     public Task<IEnumerable<BlackCase>> GetAllBlackCases()
     {
+        var userFaker = new Faker<User>()
+                .RuleFor(u => u.Guid, f => f.Random.Guid().ToString())
+                .RuleFor(u => u.UserName, f => f.Internet.UserName())
+                .RuleFor(u => u.FirstName, f => f.Name.FirstName())
+                .RuleFor(u => u.MiddleName, f => f.Name.LastName())
+                .RuleFor(u => u.LastName, f => f.Name.LastName())
+                .RuleFor(u => u.FullName, (f, u) => $"{u.FirstName} {u.MiddleName} {u.LastName}")
+                .RuleFor(u => u.Email, f => f.Internet.Email())
+                .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber())
+                .RuleFor(u => u.Gender, f => f.PickRandom<bool>(true, false)) // You need to define your Gender enum
+                .RuleFor(u => u.DateOfBirth, f => f.Date.Past())
+                .RuleFor(u => u.ProfilePicUrl, f => f.Internet.Avatar()); // You can generate fake pets here if needed
+
+        var userFakerList = userFaker.Generate(10);
+
+
         var faker = new Faker<BlackCase>()
         .RuleFor(b => b.Id, f => f.Random.Guid().ToString())
         .RuleFor(b => b.Title, f => f.Lorem.Sentence())
-        .RuleFor(b => b.Users, f => new List<User>()) // You can generate fake users here if needed
+        .RuleFor(b => b.Users, f => userFakerList) 
         .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
         .RuleFor(b => b.UploadDate, f => f.Date.Past())
-        .RuleFor(b => b.AuthorId, f => f.Random.Guid().ToString())
         .RuleFor(b => b.IsVerified, f => f.Random.Bool())
-        .RuleFor(b => b.Labels, f => f.PickRandom(this.Labels, f.Random.Int(1, 3)));
+        .RuleFor(b => b.Labels, f =>
+        {
+            int numberOfLabels = f.Random.Int(1, 3);
 
+            List<Label> randomLabels = f.PickRandom(MockLabels, numberOfLabels).ToList();
+
+            return randomLabels;
+        });
         var blackCases = faker.Generate(10);
 
         foreach (var blackCase in blackCases)
         {
-            blackCase.PrimaryLabel = new Faker().PickRandom(blackCase.Labels);
+            blackCase.PrimaryLabelId = new Faker().PickRandom(blackCase.Labels).Id;
+            blackCase.AuthorId = new Faker().PickRandom(blackCase.Users).Id;
         }
 
         return Task.FromResult(blackCases.AsEnumerable());
@@ -70,8 +93,8 @@ public class BlackListService : IBlackListService
             .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
             .RuleFor(b => b.UploadDate, f => f.Date.Past())
             .RuleFor(b => b.IsVerified, f => f.Random.Bool())
-            .RuleFor(b => b.PrimaryLabel, f => f.PickRandom(Labels)) // Use your provided Labels
-            .RuleFor(b => b.Labels, f => f.Make(3, () => f.PickRandom(Labels))); // Use your provided Labels and adjust the count
+            .RuleFor(b => b.PrimaryLabelId, f => f.PickRandom(MockLabels).Id) // Use your provided Labels
+            .RuleFor(b => b.Labels, f => f.Make(3, () => f.PickRandom(MockLabels))); // Use your provided Labels and adjust the count
 
         var fakeBlackCaseDetail = bogus.Generate();
 
@@ -95,7 +118,7 @@ public class BlackListService : IBlackListService
 
     void CreateFakeLabels()
     {
-        Labels = new()
+        MockLabels = new()
         {
             new() { Id = "1", Name = "Bạo hành động vật", Icon = "\U0001F915" },
             new() { Id = "2", Name = "Thái độ tiêu cực", Icon = "\U0001F621" },

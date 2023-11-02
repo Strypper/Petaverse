@@ -1,7 +1,7 @@
 ﻿
 namespace Petaverse.BlackListDetail;
 
-public class BlackListPageService : IBlackListPageService
+public class BlackListDetailPageService : IBlackListDetailPageService
 {
 
     #region [ Fields ]
@@ -10,7 +10,7 @@ public class BlackListPageService : IBlackListPageService
     #endregion
 
     #region [ CTor ]
-    public BlackListPageService(IBlackListService blackListService)
+    public BlackListDetailPageService(IBlackListService blackListService)
     {
         this.blackListService = blackListService;
     }

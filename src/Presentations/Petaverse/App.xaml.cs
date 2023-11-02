@@ -141,6 +141,7 @@ sealed partial class App : Application
 
         services.AddTransient<FosterCenterPageViewModel>();
 
+        services.AddTransient<IBlackListDetailPageService, BlackListDetailPageService>();
         services.AddTransient<BlackListPageViewModel>();
 
         services.AddTransient<IBlackListPageService, BlackListPageService>();

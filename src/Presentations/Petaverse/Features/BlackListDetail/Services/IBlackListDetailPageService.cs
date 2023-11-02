@@ -1,6 +1,6 @@
 ﻿namespace Petaverse.BlackListDetail;
 
-public interface IBlackListPageService
+public interface IBlackListDetailPageService
 {
     Task<BlackListDetailModel> GetBlackListDetailAsync(string id);
 }

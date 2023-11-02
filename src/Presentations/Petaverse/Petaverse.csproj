@@ -159,12 +159,20 @@
       <DependentUpon>BlackListDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\BlackListDetail\Pages\BlackListDetailPageViewModel.cs" />
-    <Compile Include="Features\BlackListDetail\Services\BlackListPageService.cs" />
-    <Compile Include="Features\BlackListDetail\Services\IBlackListPageService.cs" />
+    <Compile Include="Features\BlackListDetail\Services\BlackListDetailPageService.cs" />
+    <Compile Include="Features\BlackListDetail\Services\IBlackListDetailPageService.cs" />
+    <Compile Include="Features\BlackList\Models\BlackListItemModel.cs" />
+    <Compile Include="Features\BlackList\Models\ParticipantModel.cs" />
+    <Compile Include="Features\BlackList\Models\TagModel.cs" />
     <Compile Include="Features\BlackList\Pages\BlackListPage.xaml.cs">
       <DependentUpon>BlackListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\BlackList\Pages\BlackListPageViewModel.cs" />
+    <Compile Include="Features\BlackList\Services\BlackListPageService.cs" />
+    <Compile Include="Features\BlackList\Services\IBlackListPageService.cs" />
+    <Compile Include="Features\BlackList\UserControls\BlackListItemUserControl.xaml.cs">
+      <DependentUpon>BlackListItemUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\FosterCenter\Models\AnimalProfilePreviewModel.cs" />
     <Compile Include="Features\FosterCenter\Models\AvatarPreviewModel.cs" />
     <Compile Include="Features\FosterCenter\Models\CarouselItemModel.cs" />
@@ -441,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\BlackList\Pages\BlackListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\BlackList\UserControls\BlackListItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -160,6 +160,10 @@
     <Compile Include="UserControls\PetaverseContainer.xaml.cs">
       <DependentUpon>PetaverseContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PetaverseGlowingTextBlockUserControl.cs" />
+    <Compile Include="UserControls\PetaverseLabelUserControl.xaml.cs">
+      <DependentUpon>PetaverseLabelUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\StatusInfoBarUserControl.xaml.cs">
       <DependentUpon>StatusInfoBarUserControl.xaml</DependentUpon>
     </Compile>
@@ -167,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm">
-      <Version>8.2.1</Version>
+      <Version>8.2.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
@@ -186,6 +190,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.27.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
@@ -211,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PetaverseContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PetaverseLabelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
