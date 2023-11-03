@@ -16,7 +16,7 @@ public partial class BlackListPageViewModel : ViewModelBase
     {
         this.blackListPageService = blackListPageService;
 
-        Items = new();
+        LoadDataAsync();
     }
     #endregion
 
@@ -30,6 +30,10 @@ public partial class BlackListPageViewModel : ViewModelBase
 
     public async Task LoadDataAsync()
     {
+        if (Items is not null)
+            return;
+
+        Items = new();
         var data = await blackListPageService.GetAllAsync();
         data.ForEach(x => Items.Add(x));
     }

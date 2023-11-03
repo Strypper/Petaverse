@@ -1,4 +1,6 @@
-﻿namespace Petaverse.BlackListDetail;
+﻿using Petaverse.BlackList;
+
+namespace Petaverse.BlackListDetail;
 
 public sealed partial class BlackListDetailPage : Page
 {
@@ -14,7 +16,21 @@ public sealed partial class BlackListDetailPage : Page
         this.InitializeComponent();
         viewModel = Ioc.Default.GetRequiredService<BlackListDetailPageViewModel>();
     }
-    #endregion
+    #endregion   
+
+    #region [ Overrides ]
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+
+        var item = e.Parameter as BlackListItemModel;
+        if (item is null)
+            return;
+
+        BlackCaseTitle.Text = item.Title;
+    }
+#endregion
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {

@@ -1,4 +1,6 @@
-﻿using Petaverse.BlackListDetail;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using Petaverse.BlackListDetail;
+using Petaverse.Home;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Petaverse.BlackList;
@@ -20,13 +22,25 @@ public sealed partial class BlackListPage : Page
     }
     #endregion
 
-    private void PetaverseContainer_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+    protected override void OnNavigatedTo(NavigationEventArgs e)
     {
-        Frame.Navigate(typeof(BlackListDetailPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+        base.OnNavigatedTo(e);
+
     }
+
+    #region [ Event Handlers ]
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        await viewModel.LoadDataAsync();
+
     }
+
+    private void BlackListItemUserControl_SelectItem(BlackListItemModel item)
+    {
+        Frame.SetListDataItemForNextConnectedAnimation(item);
+        Frame.Navigate(typeof(BlackListDetailPage), item, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+    }
+
+    #endregion
+
 }

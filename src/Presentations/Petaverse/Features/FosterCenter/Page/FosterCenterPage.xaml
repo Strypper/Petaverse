@@ -60,7 +60,6 @@
         </DataTemplate>
     </Page.Resources>
 
-
     <Grid x:Name="RootLayer">
         <Grid x:Name="InnerLayer">
             <Grid.ColumnDefinitions>
@@ -91,6 +90,7 @@
                             <TextBlock
                                 x:Name="FosterCenterName"
                                 HorizontalAlignment="Center"
+                                animations:Connected.AnchorElement="{x:Bind FosterCenterLogo}"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="{x:Bind viewModel.FosterCenterName, FallbackValue='Empty Data', TargetNullValue='Null Data'}" />
                             <TextBlock HorizontalAlignment="Center" Text="Secondary text" />

@@ -10,6 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
+    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="CategoriesHeaderTemplate" x:DataType="x:String">
@@ -38,8 +39,8 @@
         <DataTemplate x:Key="BlackListItemTemplate" x:DataType="local:BlackListItemModel">
             <local:BlackListItemUserControl
                 Margin="0,0,0,8"
-                HorizontalAlignment="Stretch"
-                ComponentData="{x:Bind Mode=OneWay}" />
+                ComponentData="{x:Bind Mode=OneWay}"
+                SelectItem="BlackListItemUserControl_SelectItem" />
         </DataTemplate>
     </Page.Resources>
 
@@ -247,19 +248,19 @@
 
             <ListView
                 Grid.Column="1"
-                animations:Connected.ListItemElementName="BlackCaseTitle"
-                animations:Connected.ListItemKey="blackCaseTitle"
+                animations:Connected.ListItemElementName="TopicIcon"
+                animations:Connected.ListItemKey="itemIconKey"
                 ItemTemplate="{StaticResource BlackListItemTemplate}"
                 ItemsSource="{x:Bind viewModel.Items}"
-                SelectionMode="None">
-                <ListView.Footer>
-                    <Button
+                SelectionMode="None" />
+
+            <!--<ListView.Footer>
+                <Button
                         Margin="15,0,15,0"
                         HorizontalAlignment="Stretch"
                         Background="{StaticResource SolidBackgroundFillColorBaseAltBrush}"
                         Content="Tải thêm" />
-                </ListView.Footer>
-            </ListView>
+            </ListView.Footer>-->
         </Grid>
     </Grid>
 </Page>

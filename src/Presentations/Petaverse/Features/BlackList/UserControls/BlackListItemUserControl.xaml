@@ -16,9 +16,9 @@
         </ItemsPanelTemplate>
     </UserControl.Resources>
 
-    <ListViewItem>
-        <core:PetaverseContainer Tapped="BlackListItem_DoubleTapped">
-            <Grid Padding="10" ColumnSpacing="5">
+    <Grid PointerPressed="Grid_PointerPressed">
+        <core:PetaverseContainer Padding="10">
+            <Grid ColumnSpacing="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="105" />
                     <ColumnDefinition Width="600" />
@@ -34,7 +34,7 @@
 
                 <RelativePanel Grid.Column="1">
                     <Border
-                        x:Name="ItemIcon"
+                        x:Name="TopicIcon"
                         Padding="4"
                         Background="{StaticResource SmokeFillColorDefaultBrush}"
                         CornerRadius="8"
@@ -50,7 +50,7 @@
                         Margin="5"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        RelativePanel.RightOf="ItemIcon"
+                        RelativePanel.RightOf="TopicIcon"
                         Spacing="5">
                         <TextBlock
                             x:Name="BlackCaseTitle"
@@ -68,7 +68,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="local:TagModel">
                                     <TextBlock>
-                                        <Run Text="{x:Bind Icon}" />
+                                        <Run FontFamily="Segoe Fluent Icons" Text="{x:Bind Icon}" />
                                         <Run Text="{x:Bind Name, Mode=OneWay}" />
                                     </TextBlock>
                                 </DataTemplate>
@@ -78,16 +78,13 @@
                             <HyperlinkButton VerticalAlignment="Center" Content="Strypper" />
                             <TextBlock VerticalAlignment="Center">
                                 <Run Text="đã báo cáo" />
-                                <Run Text="vào lúc 10 giờ truớc" />
+                                <Run Text="{x:Bind GetItemTimeGap(ComponentData.UploadDate), Mode=OneWay}" />
                                 <Run Text="-" />
                                 <Run Foreground="LightGreen" Text="Đã xác nhận" />
-                                <Run
-                                    FontFamily="Segoe Fluent Icons"
-                                    Foreground="LightGreen"
-                                    Text="&#xE930;" />
+                                <Run FontFamily="Segoe UI Emoji" Text="&#x2705;" />
                                 <Run Text="-" />
                                 <Run Text="{x:Bind ComponentData.NoOfComments, Mode=OneWay}" />
-                                <Run FontFamily="Segoe Fluent Icons" Text="&#xE90A;" />
+                                <Run FontFamily="Segoe UI Emoji" Text="&#x1F4AD;" />
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
@@ -111,5 +108,5 @@
                 </Grid>
             </Grid>
         </core:PetaverseContainer>
-    </ListViewItem>
+    </Grid>
 </UserControl>

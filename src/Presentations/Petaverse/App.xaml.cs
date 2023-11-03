@@ -141,11 +141,11 @@ sealed partial class App : Application
 
         services.AddTransient<FosterCenterPageViewModel>();
 
-        services.AddTransient<IBlackListDetailPageService, BlackListDetailPageService>();
-        services.AddTransient<BlackListPageViewModel>();
+        services.AddScoped<IBlackListDetailPageService, BlackListDetailPageService>();
+        services.AddScoped<BlackListPageViewModel>();
 
-        services.AddTransient<IBlackListPageService, BlackListPageService>();
-        services.AddTransient<BlackListDetailPageViewModel>();
+        services.AddScoped<IBlackListPageService, BlackListPageService>();
+        services.AddScoped<BlackListDetailPageViewModel>();
 
         services.AddSingleton<LoginUserControl>();
 

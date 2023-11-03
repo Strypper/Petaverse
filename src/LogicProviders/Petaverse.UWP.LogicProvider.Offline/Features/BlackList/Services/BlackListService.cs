@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using static Bogus.DataSets.Name;
 
 namespace Petaverse.UWP.LogicProvider.Offline;
@@ -61,7 +63,7 @@ public class BlackListService : IBlackListService
 
             return randomLabels;
         });
-        var blackCases = faker.Generate(10);
+        var blackCases = faker.Generate(2);
 
         foreach (var blackCase in blackCases)
         {
@@ -102,12 +104,20 @@ public class BlackListService : IBlackListService
         var randomUser = fakeBlackCaseDetail.Users[new Random().Next(0, fakeBlackCaseDetail.Users.Count)];
         fakeBlackCaseDetail.AuthorId = randomUser.Guid;
 
-        // Read the content of the text file from the Assets folder
-        var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/BlackListDetailMarkdownSampleData.txt"));
-        var fileContent = await FileIO.ReadTextAsync(file);
+        StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/BlackListDetailMarkdownSampleData.txt"));
+        IRandomAccessStreamWithContentType stream = await file.OpenReadAsync();
 
-        // Set the file content to the Detail property (in lowercase)
-        fakeBlackCaseDetail.Detail = fileContent;
+        using (var reader = new DataReader(stream.GetInputStreamAt(0)))
+        {
+            uint fileLength = await reader.LoadAsync((uint)stream.Size);
+            byte[] fileContent = new byte[fileLength];
+            reader.ReadBytes(fileContent);
+
+            // Set the file content to the Detail property (in lowercase)
+            fakeBlackCaseDetail.Detail = Encoding.UTF8.GetString(fileContent);
+        }
+
+
 
         return fakeBlackCaseDetail;
     }

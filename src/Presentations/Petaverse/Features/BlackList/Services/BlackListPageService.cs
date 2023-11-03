@@ -51,7 +51,7 @@ public class BlackListPageService : IBlackListPageService
                 Tags = new(tags)
             });
         }
-        return Task.FromResult(results.AsEnumerable());
+        return Task.FromResult(results.OrderBy(x => x.UploadDate).AsEnumerable());
     }
     #endregion
 }
