@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using static Bogus.DataSets.Name;
 
 namespace Petaverse.UWP.LogicProvider.Offline;
 
@@ -51,7 +50,7 @@ public class BlackListService : IBlackListService
         var faker = new Faker<BlackCase>()
         .RuleFor(b => b.Id, f => f.Random.Guid().ToString())
         .RuleFor(b => b.Title, f => f.Lorem.Sentence())
-        .RuleFor(b => b.Users, f => userFakerList) 
+        .RuleFor(b => b.Users, f => userFakerList)
         .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
         .RuleFor(b => b.UploadDate, f => f.Date.Past())
         .RuleFor(b => b.IsVerified, f => f.Random.Bool())
@@ -63,7 +62,7 @@ public class BlackListService : IBlackListService
 
             return randomLabels;
         });
-        var blackCases = faker.Generate(2);
+        var blackCases = faker.Generate(25);
 
         foreach (var blackCase in blackCases)
         {
@@ -95,12 +94,11 @@ public class BlackListService : IBlackListService
             .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
             .RuleFor(b => b.UploadDate, f => f.Date.Past())
             .RuleFor(b => b.IsVerified, f => f.Random.Bool())
-            .RuleFor(b => b.PrimaryLabelId, f => f.PickRandom(MockLabels).Id) // Use your provided Labels
-            .RuleFor(b => b.Labels, f => f.Make(3, () => f.PickRandom(MockLabels))); // Use your provided Labels and adjust the count
+            .RuleFor(b => b.PrimaryLabelId, f => f.PickRandom(MockLabels).Id)
+            .RuleFor(b => b.Labels, f => f.Make(3, () => f.PickRandom(MockLabels)));
 
         var fakeBlackCaseDetail = bogus.Generate();
 
-        // Set the AuthorId property by picking a random user's Guid from the Users list
         var randomUser = fakeBlackCaseDetail.Users[new Random().Next(0, fakeBlackCaseDetail.Users.Count)];
         fakeBlackCaseDetail.AuthorId = randomUser.Guid;
 
@@ -116,8 +114,6 @@ public class BlackListService : IBlackListService
             // Set the file content to the Detail property (in lowercase)
             fakeBlackCaseDetail.Detail = Encoding.UTF8.GetString(fileContent);
         }
-
-
 
         return fakeBlackCaseDetail;
     }

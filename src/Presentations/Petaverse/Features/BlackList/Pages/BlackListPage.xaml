@@ -10,7 +10,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
-    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="CategoriesHeaderTemplate" x:DataType="x:String">
@@ -42,8 +41,20 @@
                 ComponentData="{x:Bind Mode=OneWay}"
                 SelectItem="BlackListItemUserControl_SelectItem" />
         </DataTemplate>
+        <TransitionCollection x:Key="BlackListItemTransitionCollection">
+            <EntranceThemeTransition FromVerticalOffset="1000" IsStaggeringEnabled="True" />
+            <AddDeleteThemeTransition />
+            <ContentThemeTransition />
+        </TransitionCollection>
+        <muxc:FontIconSource x:Key="BackIcon" Glyph="&#xE0A6;" />
+        <muxc:SwipeItems x:Key="Left" Mode="Execute">
+            <muxc:SwipeItem
+                BehaviorOnInvoked="Close"
+                IconSource="{StaticResource BackIcon}"
+                Invoked="GoBack"
+                Text="Go back" />
+        </muxc:SwipeItems>
     </Page.Resources>
-
 
     <Grid Padding="14" RowSpacing="8">
         <Grid.RowDefinitions>
@@ -250,17 +261,18 @@
                 Grid.Column="1"
                 animations:Connected.ListItemElementName="TopicIcon"
                 animations:Connected.ListItemKey="itemIconKey"
+                ItemContainerTransitions="{StaticResource BlackListItemTransitionCollection}"
                 ItemTemplate="{StaticResource BlackListItemTemplate}"
                 ItemsSource="{x:Bind viewModel.Items}"
-                SelectionMode="None" />
-
-            <!--<ListView.Footer>
-                <Button
+                SelectionMode="None">
+                <ListView.Footer>
+                    <Button
                         Margin="15,0,15,0"
                         HorizontalAlignment="Stretch"
                         Background="{StaticResource SolidBackgroundFillColorBaseAltBrush}"
                         Content="Tải thêm" />
-            </ListView.Footer>-->
+                </ListView.Footer>
+            </ListView>
         </Grid>
     </Grid>
 </Page>

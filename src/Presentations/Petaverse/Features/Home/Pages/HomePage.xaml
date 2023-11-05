@@ -53,10 +53,10 @@
             <Setter Property="ItemTemplate" Value="{ThemeResource SecondSectionItemTemplate}" />
         </Style>
 
-        <muxc:StackLayout
-            x:Name="HorizontalStackLayout"
-            Orientation="Horizontal"
-            Spacing="8" />
+        <TransitionCollection x:Key="SecondSectionGridViewTransitionCollection">
+            <EntranceThemeTransition FromHorizontalOffset="1000" IsStaggeringEnabled="True" />
+            <ContentThemeTransition />
+        </TransitionCollection>
 
         <DataTemplate x:Key="ThirdSectionItemTemplate" x:DataType="local:Home_ThirdSectionItemModel">
             <local:HomeThirdItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
@@ -93,6 +93,7 @@
             <Setter Property="ItemContainerStyle" Value="{ThemeResource CustomGridViewItemStyle}" />
             <Setter Property="ItemTemplate" Value="{ThemeResource FourthSectionItemTemplate}" />
         </Style>
+
     </Page.Resources>
 
     <ScrollViewer x:Name="RootScrollViewer" Padding="20">
@@ -115,6 +116,7 @@
                 animations:Connected.ListItemElementName="FosterCenterLogo"
                 animations:Connected.ListItemKey="fosterCenterLogo"
                 IsItemClickEnabled="True"
+                ItemContainerTransitions="{StaticResource SecondSectionGridViewTransitionCollection}"
                 ItemsSource="{x:Bind viewModel.SecondSectionItems}"
                 Style="{StaticResource SecondSectionGridViewStyle}" />
 

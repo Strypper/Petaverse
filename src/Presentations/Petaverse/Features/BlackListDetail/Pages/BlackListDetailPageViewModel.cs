@@ -11,15 +11,11 @@ public partial class BlackListDetailPageViewModel : ViewModelBase
 
     #region [ CTor ]
 
-    //public BlackListDetailPageViewModel(IBlackListDetailPageService blackListDetailPageService)
-    //{
-    //    this.blackListDetailPageService = blackListDetailPageService;
-    //}
-
-    public BlackListDetailPageViewModel()
+    public BlackListDetailPageViewModel(IBlackListDetailPageService blackListDetailPageService)
     {
-            
+        this.blackListDetailPageService = blackListDetailPageService;
     }
+
     #endregion
 
     #region [ Properties ]
@@ -32,7 +28,7 @@ public partial class BlackListDetailPageViewModel : ViewModelBase
 
     public async Task LoadBlackListDetail(string id)
     {
-        //BlackListDetail = await blackListDetailPageService.GetBlackListDetailAsync(id);
+        BlackListDetail = await blackListDetailPageService.GetBlackListDetailAsync(id);
     }
     #endregion
 }

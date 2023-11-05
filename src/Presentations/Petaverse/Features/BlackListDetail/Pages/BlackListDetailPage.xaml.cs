@@ -30,10 +30,15 @@ public sealed partial class BlackListDetailPage : Page
 
         BlackCaseTitle.Text = item.Title;
     }
-#endregion
+    #endregion
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         await viewModel.LoadBlackListDetail("1");
+    }
+
+    private void GoBack(Microsoft.UI.Xaml.Controls.SwipeItem sender, Microsoft.UI.Xaml.Controls.SwipeItemInvokedEventArgs args)
+    {
+        Frame.GoBack();
     }
 }

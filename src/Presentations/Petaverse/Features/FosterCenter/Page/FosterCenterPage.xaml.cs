@@ -36,4 +36,5 @@ public sealed partial class FosterCenterPage : Page
 
     }
     #endregion
+
 }

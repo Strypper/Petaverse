@@ -21,120 +21,150 @@
             <GradientStop Offset="0.0" Color="LightSalmon" />
             <GradientStop Offset="1.0" Color="LightGreen" />
         </LinearGradientBrush>
-
+        <muxc:FontIconSource x:Key="BackIcon" Glyph="&#xE0A6;" />
+        <muxc:SwipeItems x:Key="Left" Mode="Execute">
+            <muxc:SwipeItem
+                BehaviorOnInvoked="Close"
+                IconSource="{StaticResource BackIcon}"
+                Invoked="GoBack"
+                Text="Go back" />
+        </muxc:SwipeItems>
+        <MenuFlyout x:Key="ContentCommands">
+            <MenuFlyoutItem Text="Chia sẻ">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE72D;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="S" Modifiers="Control" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Icon="Copy" Text="Sao chép">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="C" Modifiers="Control" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Icon="Delete" Text="Xóa">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Delete" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        <toolkit:WrapLayout
+            x:Key="LabelLayout"
+            HorizontalSpacing="8"
+            VerticalSpacing="8" />
+        <DataTemplate x:Key="LabelItemTemplate" x:DataType="core:Label">
+            <Button>
+                <TextBlock>
+                    <Run FontFamily="Segoe UI Emoji" Text="{x:Bind Icon, Mode=OneWay}" />
+                    <Run Text="{x:Bind Name, Mode=OneWay}" />
+                </TextBlock>
+            </Button>
+        </DataTemplate>
     </Page.Resources>
 
-    <Grid x:Name="rootGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="55" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="350" />
-        </Grid.ColumnDefinitions>
-        <StackPanel
-            VerticalAlignment="Center"
-            Orientation="Horizontal"
-            Spacing="10">
-            <Border
-                x:Name="TopicIcon"
-                Padding="4"
-                animations:Connected.Key="itemIconKey"
-                Background="{StaticResource SmokeFillColorDefaultBrush}"
-                CornerRadius="8"
-                RelativePanel.AlignVerticalCenterWithPanel="True">
-                <FontIcon
-                    Width="50"
-                    Height="50"
-                    FontFamily="Segoe UI Emoji"
-                    FontSize="30"
-                    Glyph="&#x1F92C;" />
-            </Border>
-            <TextBlock
-                x:Name="BlackCaseTitle"
+    <muxc:SwipeControl animations:Connected.Key="itemIconKey" LeftItems="{StaticResource Left}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="350" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
                 VerticalAlignment="Center"
-                animations:Connected.AnchorElement="{x:Bind TopicIcon}"
-                Style="{StaticResource TitleTextBlockStyle}" />
-        </StackPanel>
-        <ScrollViewer Grid.Row="1" Padding="0,0,14,0">
-            <Grid VerticalAlignment="Stretch">
-                <StackPanel Spacing="10">
-                    <StackPanel Orientation="Horizontal">
-                        <HyperlinkButton x:Name="AuthorName" Content="Strypper Vandel Jason" />
-                        <TextBlock VerticalAlignment="Center" Text="Đã tạo báo cáo này vào mục" />
-                        <HyperlinkButton x:Name="MainTag" Content="Hành hung động vật" />
+                Orientation="Horizontal"
+                Spacing="10">
+                <Border
+                    x:Name="TopicIcon"
+                    Padding="4"
+                    Background="{StaticResource SmokeFillColorDefaultBrush}"
+                    CornerRadius="8"
+                    RelativePanel.AlignVerticalCenterWithPanel="True">
+                    <FontIcon
+                        Width="50"
+                        Height="50"
+                        FontFamily="Segoe UI Emoji"
+                        FontSize="30"
+                        Glyph="&#x1F92C;" />
+                </Border>
+                <TextBlock
+                    x:Name="BlackCaseTitle"
+                    VerticalAlignment="Center"
+                    animations:Connected.AnchorElement="{x:Bind TopicIcon}"
+                    Style="{StaticResource TitleTextBlockStyle}" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" Padding="0,0,14,0">
+                <Grid VerticalAlignment="Stretch">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal">
+                            <HyperlinkButton x:Name="AuthorName" Content="Strypper Vandel Jason" />
+                            <TextBlock VerticalAlignment="Center" Text="Đã tạo báo cáo này vào mục" />
+                            <HyperlinkButton x:Name="MainTag" Content="Hành hung động vật" />
+                        </StackPanel>
+                        <Border
+                            Padding="14"
+                            BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                            BorderThickness="1.5"
+                            CornerRadius="4">
+                            <Grid RowSpacing="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <PersonPicture Width="40" />
+                                        <HyperlinkButton VerticalAlignment="Center" Content="Strypper Vandel Jason" />
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="vào" />
+                                            <Run Text="ngày 29 tháng 11 năm 2023" />
+                                        </TextBlock>
+                                        <core:PetaverseLabelUserControl
+                                            Background="Transparent"
+                                            BorderBrush="{StaticResource AdminColor}"
+                                            LabelContent="High table member"
+                                            TextColor="{StaticResource AdminColor}" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button HorizontalAlignment="Right" Flyout="{StaticResource ContentCommands}">
+                                    <SymbolIcon Symbol="More" />
+                                </Button>
+                                <Border
+                                    Grid.Row="1"
+                                    BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                                    BorderThickness="1.5"
+                                    CornerRadius="4">
+                                    <toolkit:MarkdownTextBlock Padding="20" Text="{x:Bind viewModel.BlackListDetail.Content, Mode=OneWay}" />
+                                </Border>
+                            </Grid>
+                        </Border>
                     </StackPanel>
+                </Grid>
+            </ScrollViewer>
+            <Grid
+                x:Name="RightPanel"
+                Grid.RowSpan="2"
+                Grid.Column="1">
+                <StackPanel>
                     <Border
                         Padding="14"
+                        Background="{StaticResource ControlAltFillColorSecondaryBrush}"
                         BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
-                        BorderThickness="1.5"
-                        CornerRadius="4">
-                        <Grid RowSpacing="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <PersonPicture Width="40" />
-                                    <HyperlinkButton VerticalAlignment="Center" Content="Strypper Vandel Jason" />
-                                    <TextBlock VerticalAlignment="Center">
-                                        <Run Text="vào" />
-                                        <Run Text="ngày 29 tháng 11 năm 2023" />
-                                    </TextBlock>
-                                    <core:PetaverseLabelUserControl
-                                        Background="Transparent"
-                                        BorderBrush="{StaticResource AdminColor}"
-                                        LabelContent="High table member"
-                                        TextColor="{StaticResource AdminColor}" />
-                                </StackPanel>
-                            </StackPanel>
-                            <Button HorizontalAlignment="Right">
-                                <SymbolIcon Symbol="More" />
-                                <Button.Flyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem Text="Share">
-                                            <MenuFlyoutItem.Icon>
-                                                <FontIcon Glyph="&#xE72D;" />
-                                            </MenuFlyoutItem.Icon>
-                                            <MenuFlyoutItem.KeyboardAccelerators>
-                                                <KeyboardAccelerator Key="S" Modifiers="Control" />
-                                            </MenuFlyoutItem.KeyboardAccelerators>
-                                        </MenuFlyoutItem>
-                                        <MenuFlyoutItem Icon="Copy" Text="Copy">
-                                            <MenuFlyoutItem.KeyboardAccelerators>
-                                                <KeyboardAccelerator Key="C" Modifiers="Control" />
-                                            </MenuFlyoutItem.KeyboardAccelerators>
-                                        </MenuFlyoutItem>
-                                        <MenuFlyoutItem Icon="Delete" Text="Delete">
-                                            <MenuFlyoutItem.KeyboardAccelerators>
-                                                <KeyboardAccelerator Key="Delete" />
-                                            </MenuFlyoutItem.KeyboardAccelerators>
-                                        </MenuFlyoutItem>
-                                        <MenuFlyoutSeparator />
-                                        <MenuFlyoutItem Text="Rename" />
-                                        <MenuFlyoutItem Text="Select" />
-                                    </MenuFlyout>
-                                </Button.Flyout>
-                            </Button>
-                            <Border
-                                Grid.Row="1"
-                                BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
-                                BorderThickness="1.5"
-                                CornerRadius="4">
-                                <toolkit:MarkdownTextBlock Padding="20" Text="{x:Bind viewModel.BlackListDetail.Content, Mode=OneWay}" />
-                            </Border>
-                        </Grid>
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Spacing="14">
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Nhãn" />
+                            <muxc:ItemsRepeater
+                                ItemTemplate="{StaticResource LabelItemTemplate}"
+                                ItemsSource="{x:Bind viewModel.BlackListDetail.Labels}"
+                                Layout="{StaticResource LabelLayout}" />
+                        </StackPanel>
                     </Border>
                 </StackPanel>
             </Grid>
-        </ScrollViewer>
-        <Grid
-            x:Name="RightPanel"
-            Grid.RowSpan="2"
-            Grid.Column="1">
-            <Button VerticalAlignment="Top" Content="Edit" />
         </Grid>
-    </Grid>
+    </muxc:SwipeControl>
 </Page>

@@ -156,7 +156,7 @@
                 x:Name="RightPanel"
                 Grid.Column="1"
                 Padding="5">
-                <ScrollViewer>
+                <ScrollViewer Padding="0,0,14,0">
                     <Grid RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -177,6 +177,8 @@
                             </Grid>
                             <MenuFlyoutSeparator />
                             <ScrollViewer
+                                x:Name="ActivitiesMediaScrollViewer"
+                                HorizontalScrollBarVisibility="Hidden"
                                 HorizontalScrollMode="Enabled"
                                 VerticalScrollBarVisibility="Hidden"
                                 VerticalScrollMode="Disabled">
