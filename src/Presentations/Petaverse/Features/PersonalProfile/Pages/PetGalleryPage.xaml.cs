@@ -14,13 +14,13 @@ namespace Petaverse.PersonalProfile;
 
 public sealed partial class PetGalleryPage : Page
 {
-    public Models.DTOs.Animal Pet
+    public AnimalModel Pet
     {
-        get { return (Models.DTOs.Animal)GetValue(PetProperty); }
+        get { return (AnimalModel)GetValue(PetProperty); }
         set { SetValue(PetProperty, value); }
     }
     public static readonly DependencyProperty PetProperty =
-        DependencyProperty.Register("Pet", typeof(Models.DTOs.Animal), typeof(PetGalleryPage), null);
+        DependencyProperty.Register("Pet", typeof(AnimalModel), typeof(PetGalleryPage), null);
 
     public AdvancedCollectionView Gallery { get; set; }
 
@@ -29,7 +29,7 @@ public sealed partial class PetGalleryPage : Page
     CompositionPropertySet _scrollerPropertySet;
     SpriteVisual _blurredBackgroundImageVisual;
 
-    public delegate void DeletePetEventHandler(int petId);
+    public delegate void DeletePetEventHandler(string petId);
     public event DeletePetEventHandler DeletePetClick;
 
     public delegate void SelectImageEventHandler(Models.DTOs.PetaverseMedia petaverseMedia);
@@ -50,7 +50,7 @@ public sealed partial class PetGalleryPage : Page
 
     private void InitAdvanceCollection()
     {
-        this.Gallery = new AdvancedCollectionView(Pet?.PetPhotos);
+        this.Gallery = new AdvancedCollectionView(Pet?.Thumbnails);
         this.Gallery.Filter = media => ((Models.DTOs.PetaverseMedia)media).Type != Models.DTOs.MediaType.Avatar;
         this.PetGalleryAdaptiveGridView.ItemsSource = this.Gallery;
     }
@@ -197,11 +197,11 @@ public sealed partial class PetGalleryPage : Page
     [RelayCommand]
     async Task UploadPhotoAsync(List<PetPhotosStream> petPhotosStream)
     {
-        var uploadedMedia = await _uploadPetFileService.UploadMultiplePetFilesAsync(Pet.Id, petPhotosStream);
-        if (uploadedMedia.Count > 0)
-        {
-            uploadedMedia.ForEach(media => Gallery.Add(media));
-        }
+        //var uploadedMedia = await _uploadPetFileService.UploadMultiplePetFilesAsync(Pet.Id, petPhotosStream);
+        //if (uploadedMedia.Count > 0)
+        //{
+        //    uploadedMedia.ForEach(media => Gallery.Add(media));
+        //}
     }
 
     private void PetGalleryAdaptiveGridView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)

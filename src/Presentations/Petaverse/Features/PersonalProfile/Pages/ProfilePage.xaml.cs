@@ -6,16 +6,16 @@ namespace Petaverse.PersonalProfile;
 
 public sealed partial class ProfilePage : Page
 {
-    public ProfilePageViewModel profilePageViewModel { get; set; }
+    private readonly ProfilePageViewModel viewModel;
     public ProfilePage()
     {
         this.InitializeComponent();
-        profilePageViewModel = new ProfilePageViewModel();
+        viewModel = Ioc.Default.GetRequiredService<ProfilePageViewModel>(); 
     }
 
     private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
     {
-        profilePageViewModel.CurrentUser = await profilePageViewModel.LoadUserDataAsync();
+
     }
 
     private void UserInfoPanelUserControl_LogoutEventHandler()
@@ -23,25 +23,23 @@ public sealed partial class ProfilePage : Page
         CoreApplication.Exit();
     }
 
-    private async void PetGalleryPage_DeletePetClick(int petId)
-        => await profilePageViewModel.DeletePetAsync(petId);
-
-
-
 
     private void PetGalleryPage_SelectPhoto(Models.DTOs.PetaverseMedia petaverseMedia)
     {
-        profilePageViewModel.OverLayPopUpVisibility = true;
+        viewModel.OverLayPopUpVisibility = true;
         var anim = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardConnectedAnimation");
         if (anim != null)
         {
             anim.TryStart(PetMedia);
         }
-        profilePageViewModel.PetaverseMedia = petaverseMedia;
+        viewModel.PetaverseMedia = petaverseMedia;
     }
 
     private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
     {
-        profilePageViewModel.OverLayPopUpVisibility = false;
+        viewModel.OverLayPopUpVisibility = false;
     }
+
+    private async void PetGalleryPage_DeletePetClick(string petId)
+        => await viewModel.DeletePetAsync(petId);
 }

@@ -210,6 +210,15 @@
     <Compile Include="Features\IronShield\Pages\IronShieldPage.xaml.cs">
       <DependentUpon>IronShieldPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\PersonalProfile\Enums\MediaType.cs" />
+    <Compile Include="Features\PersonalProfile\Models\AnimalModel.cs" />
+    <Compile Include="Features\PersonalProfile\Models\BreedModel.cs" />
+    <Compile Include="Features\PersonalProfile\Models\ThumbnailModel.cs" />
+    <Compile Include="Features\PersonalProfile\Models\UserModel.cs" />
+    <Compile Include="Features\PersonalProfile\Parameters\GetUserByIdSetting.cs" />
+    <Compile Include="Features\PersonalProfile\Services\Implementations\ProfilePageService.cs" />
+    <Compile Include="Features\PersonalProfile\Services\Interfaces\IProfilePageService.cs" />
+    <Compile Include="Features\PersonalProfile\Utils\MediaTypeUtil.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />

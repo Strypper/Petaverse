@@ -1,10 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿namespace Petaverse.PersonalProfile;
 
-namespace Petaverse.UWP.Core;
-
-public partial class User : BaseModel<string>
+public partial class UserModel : BaseModel<string>
 {
-
     [ObservableProperty]
     string userName;
 
@@ -12,10 +9,13 @@ public partial class User : BaseModel<string>
     string firstName;
 
     [ObservableProperty]
-    string? middleName;
+    string middleName;
 
     [ObservableProperty]
     string lastName;
+
+    [ObservableProperty]
+    string fullName;
 
     [ObservableProperty]
     string email;
@@ -33,5 +33,5 @@ public partial class User : BaseModel<string>
     string? profilePicUrl;
 
     [ObservableProperty]
-    ObservableCollection<Animal> pets = new();
+    ObservableCollection<AnimalModel> pets = new();
 }

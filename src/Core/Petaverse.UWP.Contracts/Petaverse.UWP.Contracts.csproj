@@ -131,6 +131,8 @@
     <Compile Include="Features\BlackList\IBlackListService.cs" />
     <Compile Include="Features\FosterCenter\IFosterCenterService.cs" />
     <Compile Include="Features\Home\IHomeService.cs" />
+    <Compile Include="Features\User\IUserService.cs" />
+    <Compile Include="Features\User\Parameters\UserGetByIdSetting.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Petaverse.UWP.Contracts.rd.xml" />

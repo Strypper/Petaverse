@@ -1,8 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿namespace Petaverse.PersonalProfile;
 
-namespace Petaverse.UWP.Core;
-
-public partial class Breed : BaseModel<string>
+public partial class AnimalBreedModel : BaseModel<string>
 {
     [ObservableProperty]
     int speciesId;
@@ -26,12 +24,4 @@ public partial class Breed : BaseModel<string>
     int maximumLifeSpan;
     [ObservableProperty]
     string colors;
-    [ObservableProperty]
-    Species species;
-
-    [ObservableProperty]
-    ObservableCollection<Animal> animals = new();
-
-    //[ObservableProperty]
-    //public Coat coat;
 }

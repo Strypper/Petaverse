@@ -2,6 +2,7 @@
     x:Class="Petaverse.ApplicationStructure.TheMainFrame"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Petaverse.ApplicationStructure"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -29,6 +30,25 @@
                 </muxc:NavigationViewItem.Icon>
             </muxc:NavigationViewItem>
         </DataTemplate>
+
+        <animations:ImplicitAnimationSet x:Key="ShowBackButtonAnimation">
+            <animations:TranslationAnimation To="0, 0, 0" Duration="0:0:0.5" />
+            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+        </animations:ImplicitAnimationSet>
+        
+        <animations:ImplicitAnimationSet x:Key="HideBackButtonAnimation">
+            <animations:ScalarAnimation
+                Target="Opacity"
+                To="0.0"
+                Duration="0:0:1" />
+            <animations:ScalarAnimation
+                Target="Translation.Y"
+                To="-200"
+                Duration="0:0:1">
+                <animations:ScalarKeyFrame Key="0.1" Value="30" />
+                <animations:ScalarKeyFrame Key="0.5" Value="0.0" />
+            </animations:ScalarAnimation>
+        </animations:ImplicitAnimationSet>
 
     </Page.Resources>
 
@@ -92,6 +112,8 @@
                     Height="32"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+                    animations:Implicit.HideAnimations="{StaticResource HideBackButtonAnimation}"
+                    animations:Implicit.ShowAnimations="{StaticResource ShowBackButtonAnimation}"
                     Click="BackButton_Click">
                     <FontIcon
                         VerticalAlignment="Center"

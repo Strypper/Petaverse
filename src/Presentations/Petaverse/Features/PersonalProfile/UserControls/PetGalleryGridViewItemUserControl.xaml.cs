@@ -2,14 +2,14 @@
 
 public sealed partial class PetGalleryGridViewItemUserControl : UserControl
 {
-    public Models.DTOs.PetaverseMedia PetaverseMedia
+    public ThumbnailModel ComponentData
     {
-        get { return (Models.DTOs.PetaverseMedia)GetValue(PetaverseMediaProperty); }
-        set { SetValue(PetaverseMediaProperty, value); }
+        get { return (ThumbnailModel)GetValue(ComponentDataProperty); }
+        set { SetValue(ComponentDataProperty, value); }
     }
 
-    public static readonly DependencyProperty PetaverseMediaProperty =
-        DependencyProperty.Register("PetaverseMedia", typeof(Models.DTOs.PetaverseMedia), typeof(PetGalleryGridViewItemUserControl), null);
+    public static readonly DependencyProperty ComponentDataProperty =
+        DependencyProperty.Register("ComponentData", typeof(ThumbnailModel), typeof(PetGalleryGridViewItemUserControl), null);
 
 
     public PetGalleryGridViewItemUserControl()

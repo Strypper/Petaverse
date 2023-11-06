@@ -1,31 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml.Controls;
-using Petaverse.ContentDialogs;
-using Petaverse.Enums;
-using Petaverse.Interfaces;
-using Petaverse.Interfaces.PetaverseAPI;
-using Petaverse.Models.DTOs;
+﻿using CommunityToolkit.Mvvm.Input;
 using Petaverse.Models.FEModels;
-using Petaverse.Refits;
-using Refit;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Petaverse.PersonalProfile;
 
 namespace Petaverse.ViewModels
 {
     public partial class ProfilePageViewModel : ViewModelBase
     {
+
+        #region [ Properties ]
+
         [ObservableProperty]
-        Models.DTOs.User currentUser;
+        UserModel userInfo;
 
         [ObservableProperty]
         bool infoBarIsOpen;
@@ -47,58 +32,21 @@ namespace Petaverse.ViewModels
 
         [ObservableProperty]
         Models.DTOs.PetaverseMedia petaverseMedia;
+        #endregion
 
-        string currentUserGuid;
+        #region [ Fields ]
 
-        private readonly IAnimalService        _animalService;
-        private readonly ICurrentUserService   _currentUserService;
-        private readonly IUploadPetFileService _uploadPetFileService;
+        private readonly IProfilePageService profilePageService;
+        #endregion
 
-        public ProfilePageViewModel()
+        public ProfilePageViewModel(IProfilePageService profilePageService)
         {
-            _animalService        = Ioc.Default.GetRequiredService<IAnimalService>();
-            _currentUserService   = Ioc.Default.GetRequiredService<ICurrentUserService>();
-            _uploadPetFileService = Ioc.Default.GetRequiredService<IUploadPetFileService>();
-
-
-            currentUserGuid = _currentUserService.GetLocalUserGuidFromAppSettings();
+            this.profilePageService = profilePageService;
         }
 
         [RelayCommand]
         async Task OpenCreatePetContentDialog()
             => await new AddPetContentDialog(){CreatePetCommand = CreatePetCommand}.ShowAsync();
-
-        public async Task<Models.DTOs.User> LoadFakeUserData()
-        {
-            //var loremIpsum = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            //var bravo = new Animal()
-            //{
-            //    Name   = "Bravo",
-            //    PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Bravo.jpg",
-            //    Gender = true,
-            //    Bio    = loremIpsum
-            //};
-            //var snow = new Animal()
-            //{
-            //    Name   = "Snow",
-            //    PetAvatar = "https://intranetblobstorages.blob.core.windows.net/petaverse/Snow.jpg",
-            //    Gender = true,
-            //    Bio    = loremIpsum
-            //};
-            //var fakeUser = new User() 
-            //{
-            //    FirstName = "Strypper",
-            //    LastName = "Jason",
-            //    Email = "FutureWingsStrypper@outlook.com",
-            //    PhoneNumber = "0348164682",
-            //    Gender = true,
-            //    ProfilePicUrl = "https://intranetblobstorages.blob.core.windows.net/avatarstorage/Viet.jpg",
-            //    IsActive = true,
-            //    IsDeleted = false,
-            //    //Pets = await animalData.GetAllByUserId(2)
-            //};
-            return null;
-        }
 
         public async Task<Models.DTOs.User> LoadUserDataAsync()
         {
@@ -152,46 +100,46 @@ namespace Petaverse.ViewModels
         public async Task CreatePetAsync(CreatePetDTO petInfo)
         {
             IsBusy = true;
-            var newPet = await _animalService.CreateAsync(petInfo);
-            if (newPet != null)
-            {
-                var avatarUrl = await _uploadPetFileService.CreatePetAvatarAsync(newPet, petInfo.PetAvatar);
-                if (avatarUrl != null)
-                {
-                    newPet.PetAvatar = avatarUrl;
-                    CurrentUser.Pets.Add(newPet);
-                    CreateInfoBar(ProfilePageConstant.SuccessCreatePetAvatarTitle
-                                 ,ProfilePageConstant.SuccessCreatePetContent
-                                 ,ProfilePageConstant.SuccessColor
-                                 ,ProfilePageConstant.SuccessIcon);
-                }
-                else
-                {
-                    CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetAvatarTitle
-                                 ,ProfilePageConstant.ErrorCantCreatePetAvatarContent
-                                 ,ProfilePageConstant.WarningColor
-                                 ,ProfilePageConstant.WarningIcon);
-                }
-            }
-            else
-            {
-                CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetTitle
-                             ,ProfilePageConstant.ErrorCantCreatePetContent
-                             ,ProfilePageConstant.ErrorColor
-                             ,ProfilePageConstant.ErrorIcon);
-            }
+            //var newPet = await _animalService.CreateAsync(petInfo);
+            //if (newPet != null)
+            //{
+            //    var avatarUrl = await _uploadPetFileService.CreatePetAvatarAsync(newPet, petInfo.PetAvatar);
+            //    if (avatarUrl != null)
+            //    {
+            //        newPet.PetAvatar = avatarUrl;
+            //        UserInfo.Pets.Add(newPet);
+            //        CreateInfoBar(ProfilePageConstant.SuccessCreatePetAvatarTitle
+            //                     ,ProfilePageConstant.SuccessCreatePetContent
+            //                     ,ProfilePageConstant.SuccessColor
+            //                     ,ProfilePageConstant.SuccessIcon);
+            //    }
+            //    else
+            //    {
+            //        CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetAvatarTitle
+            //                     ,ProfilePageConstant.ErrorCantCreatePetAvatarContent
+            //                     ,ProfilePageConstant.WarningColor
+            //                     ,ProfilePageConstant.WarningIcon);
+            //    }
+            //}
+            //else
+            //{
+            //    CreateInfoBar(ProfilePageConstant.ErrorCantCreatePetTitle
+            //                 ,ProfilePageConstant.ErrorCantCreatePetContent
+            //                 ,ProfilePageConstant.ErrorColor
+            //                 ,ProfilePageConstant.ErrorIcon);
+            //}
             //await ApplicationData.Current.TemporaryFolder.DeleteAsync();
             IsBusy = false;
         }
 
         [RelayCommand]
-        public async Task DeletePetAsync(int petId)
+        public async Task DeletePetAsync(string petId)
         {
             IsBusy = true;
-            await _animalService.DeleteAsync(petId);
+            //HTTP delete the pet
 
-            var deletedPet = CurrentUser.Pets.FirstOrDefault(pet => pet.Id == petId);
-            CurrentUser.Pets.Remove(deletedPet);
+            var deletedPet = UserInfo.Pets.FirstOrDefault(pet => pet.Id == petId);
+            UserInfo.Pets.Remove(deletedPet);
             CreateInfoBar(ProfilePageConstant.SuccessRemovePetTitle
                          ,ProfilePageConstant.SuccessRemovePetContent
                          ,ProfilePageConstant.ErrorColor

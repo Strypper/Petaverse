@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Media.Imaging;
-using CommunityToolkit.Mvvm.ComponentModel;
-
-
-namespace Petaverse.Models.DTOs
+﻿namespace Petaverse.Models.DTOs
 {
     public partial class Animal : BaseEntity
     {

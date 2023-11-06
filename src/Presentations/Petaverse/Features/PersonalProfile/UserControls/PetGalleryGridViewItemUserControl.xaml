@@ -28,7 +28,7 @@
             MinHeight="300"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Source="{x:Bind PetaverseMedia.MediaUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/Logos/Petaverse.png', TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png', Converter={StaticResource StringToImageSourceConverter}}"
+            Source="{x:Bind ComponentData.MediaUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/Logos/Petaverse.png', TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png', Converter={StaticResource StringToImageSourceConverter}}"
             Stretch="UniformToFill" />
     </Grid>
 </UserControl>

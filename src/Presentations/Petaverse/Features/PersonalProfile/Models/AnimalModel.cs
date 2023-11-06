@@ -1,15 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿namespace Petaverse.PersonalProfile;
 
-namespace Petaverse.UWP.Core;
-
-public partial class Animal : BaseModel<string>
+public partial class AnimalModel : BaseModel<string>
 {
     [ObservableProperty]
     string name;
     [ObservableProperty]
     string? bio;
     [ObservableProperty]
-    string sixDigitCode;
+    string? sixDigitCode;
     [ObservableProperty]
     string? petColors;
     [ObservableProperty]
@@ -19,11 +17,9 @@ public partial class Animal : BaseModel<string>
     [ObservableProperty]
     double? age;
     [ObservableProperty]
-    Breed? breed;
-
+    AnimalBreedModel? breed;
     [ObservableProperty]
-    PetaverseMedia? petAvatar;
-
+    PetAvatar petAvatar;
     [ObservableProperty]
-    ObservableCollection<PetaverseMedia> petPhotos = new();
+    ObservableCollection<ThumbnailModel> thumbnails = new();
 }

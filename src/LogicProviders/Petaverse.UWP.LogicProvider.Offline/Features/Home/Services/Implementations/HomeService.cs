@@ -1,8 +1,4 @@
-﻿using Petaverse.UWP.Core;
-using System;
-using System.Collections.Generic;
-
-namespace Petaverse.UWP.LogicProvider.Offline;
+﻿namespace Petaverse.UWP.LogicProvider.Offline;
 
 public class HomeService : IHomeService
 {
