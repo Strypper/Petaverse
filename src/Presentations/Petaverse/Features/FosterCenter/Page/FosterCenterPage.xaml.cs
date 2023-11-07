@@ -1,4 +1,5 @@
 ﻿using Petaverse.Home;
+using Petaverse.PersonalProfile;
 
 namespace Petaverse.FosterCenter;
 
@@ -37,4 +38,12 @@ public sealed partial class FosterCenterPage : Page
     }
     #endregion
 
+    private void FirstAvatarPreviewItemTemplate_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+    {
+        ProfilePageParameter parameter = new()
+        {
+
+        };
+
+    }
 }

@@ -213,9 +213,11 @@
     <Compile Include="Features\PersonalProfile\Enums\MediaType.cs" />
     <Compile Include="Features\PersonalProfile\Models\AnimalModel.cs" />
     <Compile Include="Features\PersonalProfile\Models\BreedModel.cs" />
+    <Compile Include="Features\PersonalProfile\Models\PetAvatar.cs" />
     <Compile Include="Features\PersonalProfile\Models\ThumbnailModel.cs" />
     <Compile Include="Features\PersonalProfile\Models\UserModel.cs" />
     <Compile Include="Features\PersonalProfile\Parameters\GetUserByIdSetting.cs" />
+    <Compile Include="Features\PersonalProfile\Parameters\ProfilePageParameter.cs" />
     <Compile Include="Features\PersonalProfile\Services\Implementations\ProfilePageService.cs" />
     <Compile Include="Features\PersonalProfile\Services\Interfaces\IProfilePageService.cs" />
     <Compile Include="Features\PersonalProfile\Utils\MediaTypeUtil.cs" />
@@ -290,7 +292,7 @@
     <Compile Include="ViewModels\BreedsPageViewModel.cs" />
     <Compile Include="ViewModels\CommunityPeoplePageViewModel.cs" />
     <Compile Include="ViewModels\PetShortsPageViewModel.cs" />
-    <Compile Include="ViewModels\ProfilePageViewModel.cs" />
+    <Compile Include="Features\PersonalProfile\Pages\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\BreedPage.xaml.cs">
       <DependentUpon>BreedPage.xaml</DependentUpon>

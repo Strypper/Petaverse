@@ -11,6 +11,12 @@ public sealed partial class AvatarPreviewUserControl : UserControl
     }
     #endregion
 
+    #region [ Delegates ]
+
+
+    public delegate void SelectItemEventHandler(string itemId);
+    #endregion
+
     #region [ Properties ]
 
     public string Title

@@ -44,57 +44,15 @@ namespace Petaverse.ViewModels
             this.profilePageService = profilePageService;
         }
 
+        public async Task LoadDataAsync(string id)
+        {
+            var data = await profilePageService.GetUserById(id, new() { IsIncludePet = true});
+
+        }
+
         [RelayCommand]
         async Task OpenCreatePetContentDialog()
             => await new AddPetContentDialog(){CreatePetCommand = CreatePetCommand}.ShowAsync();
-
-        public async Task<Models.DTOs.User> LoadUserDataAsync()
-        {
-            IsBusy = true;
-            if (currentUserGuid != null && !String.IsNullOrEmpty(currentUserGuid))
-            {
-                var requestUser  = await _currentUserService.GetLocalUserAsync(currentUserGuid);
-                requestUser.Pets = await _animalService.GetAllByUserGuidAsync(currentUserGuid);
-                IsBusy = false;
-                return requestUser;
-            }
-            else {
-                IsBusy = false;
-                CreateInfoBar(ProfilePageConstant.SuccessRemovePetTitle
-                             ,ProfilePageConstant.SuccessRemovePetContent
-                             ,ProfilePageConstant.ErrorColor
-                             ,ProfilePageConstant.BrokenHeartIcon);
-                return null;
-            };
-        }
-
-        private async Task<IEnumerable<Models.DTOs.Animal>> GetAnimalAsync()
-        {
-            IsBusy = true;
-            try
-            {
-                var res = await _animalService.GetAllByUserGuidAsync(currentUserGuid);
-                return res;
-            }
-            catch (ApiException ex)
-            {
-                // Extract the details of the error
-                var errors = await ex.GetContentAsAsync<Dictionary<string, string>>();
-                // Combine the errors into a string
-                var message = string.Join("; ", errors.Values);
-                await new ContentDialog()
-                {
-                    Title = "Unable to get your pets",
-                    Content = "Please check your internet connection"
-                }.ShowAsync();
-                // Throw a normal exception
-                throw new Exception(message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
 
         [RelayCommand]
         public async Task CreatePetAsync(CreatePetDTO petInfo)

@@ -6,12 +6,33 @@ namespace Petaverse.PersonalProfile;
 
 public sealed partial class ProfilePage : Page
 {
+    #region [ Fields ]
+
     private readonly ProfilePageViewModel viewModel;
+    #endregion
+
+    #region [ CTors ]
+
     public ProfilePage()
     {
         this.InitializeComponent();
-        viewModel = Ioc.Default.GetRequiredService<ProfilePageViewModel>(); 
+        viewModel = Ioc.Default.GetRequiredService<ProfilePageViewModel>();
     }
+    #endregion
+
+    #region [ Override ]
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        var item = e.Parameter as ProfilePageParameter;
+        if (item is null)
+            return;
+
+    }
+    #endregion
+
+    #region [ Event Handlers ]
 
     private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
     {
@@ -42,4 +63,6 @@ public sealed partial class ProfilePage : Page
 
     private async void PetGalleryPage_DeletePetClick(string petId)
         => await viewModel.DeletePetAsync(petId);
+    #endregion
+
 }

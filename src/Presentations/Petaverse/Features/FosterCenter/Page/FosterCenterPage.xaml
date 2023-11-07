@@ -41,7 +41,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="FirstAvatarPreviewItemTemplate" x:DataType="local:MemberProfilePreviewModel">
-            <core:PetaverseContainer>
+            <core:PetaverseContainer PointerPressed="FirstAvatarPreviewItemTemplate_PointerPressed">
                 <local:AvatarPreviewUserControl
                     Title="{x:Bind UserName}"
                     Margin="14"

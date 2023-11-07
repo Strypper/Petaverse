@@ -162,7 +162,7 @@
         <local:UserInfoPanelUserControl
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            CurrentUser="{x:Bind profilePageViewModel.CurrentUser, Mode=OneWay}"
+            CurrentUser="{x:Bind viewModel.UserInfo, Mode=OneWay}"
             LogoutEventHandler="UserInfoPanelUserControl_LogoutEventHandler" />
 
         <NavigationView
@@ -204,8 +204,8 @@
             <Pivot
                 HeaderTemplate="{StaticResource PivotHeaderTemplate}"
                 ItemTemplate="{StaticResource PivotItemTemplate}"
-                ItemsSource="{x:Bind profilePageViewModel.CurrentUser.Pets, Mode=OneWay}"
-                RightHeader="{x:Bind profilePageViewModel, Mode=OneWay}"
+                ItemsSource="{x:Bind viewModel.UserInfo.Pets, Mode=OneWay}"
+                RightHeader="{x:Bind viewModel, Mode=OneWay}"
                 RightHeaderTemplate="{StaticResource PivotRightHeaderTemplate}" />
         </NavigationView>
 
@@ -216,11 +216,11 @@
             animations:Implicit.HideAnimations="{StaticResource HideAnimation}"
             animations:Implicit.ShowAnimations="{StaticResource ShowAnimation}"
             Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-            Visibility="{x:Bind profilePageViewModel.OverLayPopUpVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            Visibility="{x:Bind viewModel.OverLayPopUpVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
             <Image
                 x:Name="PetMedia"
                 Margin="50"
-                Source="{x:Bind profilePageViewModel.PetaverseMedia.MediaUrl, Mode=OneWay}" />
+                Source="{x:Bind viewModel.PetaverseMedia.MediaUrl, Mode=OneWay}" />
             <StackPanel
                 Margin="10"
                 VerticalAlignment="Top"
@@ -238,21 +238,21 @@
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Text="{x:Bind profilePageViewModel.PetaverseMedia.TimeUpload.ToShortDateString()}" />
+                Text="{x:Bind viewModel.PetaverseMedia.TimeUpload.ToShortDateString()}" />
         </Grid>
 
         <StackPanel Grid.ColumnSpan="2">
-            <winui2:ProgressBar IsIndeterminate="{x:Bind profilePageViewModel.IsBusy, Mode=OneWay}" Visibility="{x:Bind profilePageViewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <winui2:ProgressBar IsIndeterminate="{x:Bind viewModel.IsBusy, Mode=OneWay}" Visibility="{x:Bind viewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
             <core:StatusInfoBarUserControl
-                Title="{x:Bind profilePageViewModel.InfoBarTitle, Mode=OneWay}"
+                Title="{x:Bind viewModel.InfoBarTitle, Mode=OneWay}"
                 Margin="20"
                 animations:Implicit.HideAnimations="{StaticResource HideInfoAnimation}"
                 animations:Implicit.ShowAnimations="{StaticResource ShowInfoAnimation}"
-                BarColor="{x:Bind profilePageViewModel.InfoBarColor, Mode=OneWay}"
-                DismissInfoBarCommand="{x:Bind profilePageViewModel.DismissStatusInfoCommand}"
-                Icon="{x:Bind profilePageViewModel.InfoBarIcon, Mode=OneWay}"
-                Message="{x:Bind profilePageViewModel.InfoBarMessage, Mode=OneWay}"
-                Visibility="{x:Bind profilePageViewModel.InfoBarIsOpen, Mode=OneWay}" />
+                BarColor="{x:Bind viewModel.InfoBarColor, Mode=OneWay}"
+                DismissInfoBarCommand="{x:Bind viewModel.DismissStatusInfoCommand}"
+                Icon="{x:Bind viewModel.InfoBarIcon, Mode=OneWay}"
+                Message="{x:Bind viewModel.InfoBarMessage, Mode=OneWay}"
+                Visibility="{x:Bind viewModel.InfoBarIsOpen, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </Page>
