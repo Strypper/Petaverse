@@ -7,6 +7,7 @@ using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using WinRTXamlToolkit.Controls.Extensions;
 using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
 
@@ -51,7 +52,7 @@ public sealed partial class PetGalleryPage : Page
     private void InitAdvanceCollection()
     {
         this.Gallery = new AdvancedCollectionView(Pet?.Thumbnails);
-        this.Gallery.Filter = media => ((Models.DTOs.PetaverseMedia)media).Type != Models.DTOs.MediaType.Avatar;
+        this.Gallery.Filter = media => ((ThumbnailModel)media).Type != MediaType.Avatar;
         this.PetGalleryAdaptiveGridView.ItemsSource = this.Gallery;
     }
 
@@ -193,6 +194,7 @@ public sealed partial class PetGalleryPage : Page
         };
         await addMediaDialog.ShowAsync();
     }
+
 
     [RelayCommand]
     async Task UploadPhotoAsync(List<PetPhotosStream> petPhotosStream)

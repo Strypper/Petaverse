@@ -36,7 +36,7 @@ public class UserService : IUserService
             .RuleFor(x => x.MediaName, f => f.Lorem.Text())
             .RuleFor(x => x.TimeUpload, f => f.Date.Past(18, DateTime.Now.AddYears(-65)))
             .RuleFor(x => x.Type, f => MediaType.Photo)
-            .RuleFor(x => x.MediaUrl, f => f.Image.LoremFlickrUrl(400, 650, "Tabby Cat"));
+            .RuleFor(x => x.MediaUrl, f => f.Image.LoremFlickrUrl(350, 400, "Tabby Cat"));
 
         var animalPhotos = animalPhotosFaker.Generate(200).AsEnumerable();
 

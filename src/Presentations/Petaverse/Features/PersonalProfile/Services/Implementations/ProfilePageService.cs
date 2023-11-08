@@ -29,6 +29,7 @@ public class ProfilePageService : IProfilePageService
         var data = await userService.GetById(id, contractsSetting);
         UserModel userInfo = new()
         {
+            Id = data.Id,
             FirstName = data.FirstName,
             MiddleName = data.MiddleName,
             LastName = data.LastName,
@@ -53,6 +54,7 @@ public class ProfilePageService : IProfilePageService
             AnimalBreedModel? breedInfo = null;
             if (x.Breed is not null)
             {
+                breedInfo = new();
                 breedInfo.Name = x.Breed.Name;
                 breedInfo.Description = x.Breed.Description;
                 breedInfo.ImageUrl = x.Breed.ImageUrl;

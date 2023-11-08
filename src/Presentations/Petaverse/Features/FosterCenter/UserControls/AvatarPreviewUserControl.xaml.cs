@@ -19,6 +19,17 @@ public sealed partial class AvatarPreviewUserControl : UserControl
 
     #region [ Properties ]
 
+    public string ComponentId
+    {
+        get { return (string)GetValue(ComponentIdProperty); }
+        set { SetValue(ComponentIdProperty, value); }
+    }
+
+    public static readonly DependencyProperty ComponentIdProperty =
+        DependencyProperty.Register("ComponentId", typeof(string), typeof(AvatarPreviewUserControl), new PropertyMetadata(string.Empty));
+
+
+
     public string Title
     {
         get { return (string)GetValue(TitleProperty); }
@@ -53,4 +64,16 @@ public sealed partial class AvatarPreviewUserControl : UserControl
 
 
     #endregion
+
+    #region [ Event Handler ]
+
+
+    public event SelectItemEventHandler SelectItem;
+
+    private void AvatarDetailButton_Click(object sender, RoutedEventArgs e) { }
+        //=> SelectItem?.Invoke(ComponentId);
+    private void Component_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        => SelectItem?.Invoke(ComponentId);
+    #endregion
+
 }

@@ -3,6 +3,8 @@ using Petaverse.BlackList;
 using Petaverse.BlackListDetail;
 using Petaverse.FosterCenter;
 using Petaverse.Home;
+using Petaverse.PersonalProfile;
+using Petaverse.ViewModels;
 using Windows.ApplicationModel.Core;
 
 namespace Petaverse;
@@ -141,11 +143,14 @@ sealed partial class App : Application
 
         services.AddTransient<FosterCenterPageViewModel>();
 
-        services.AddScoped<IBlackListDetailPageService, BlackListDetailPageService>();
-        services.AddScoped<BlackListPageViewModel>();
+        services.AddTransient<IBlackListDetailPageService, BlackListDetailPageService>();
+        services.AddTransient<BlackListPageViewModel>();
 
-        services.AddScoped<IBlackListPageService, BlackListPageService>();
-        services.AddScoped<BlackListDetailPageViewModel>();
+        services.AddTransient<IBlackListPageService, BlackListPageService>();
+        services.AddTransient<BlackListDetailPageViewModel>();
+
+        services.AddTransient<IProfilePageService, ProfilePageService>();
+        services.AddTransient<ProfilePageViewModel>();
 
         services.AddSingleton<LoginUserControl>();
 

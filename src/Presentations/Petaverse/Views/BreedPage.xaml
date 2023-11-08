@@ -69,7 +69,7 @@
                         Height="270"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
-                        Fill="{x:Bind Species.Color, Converter={StaticResource FromHexToSolidColorBrushConverter}}" />
+                        Fill="{x:Bind Species.Color, Converter={StaticResource HexToSolidColorBrushConverter}}" />
                     <StackPanel
                         x:Name="TextContainer"
                         HorizontalAlignment="Left"

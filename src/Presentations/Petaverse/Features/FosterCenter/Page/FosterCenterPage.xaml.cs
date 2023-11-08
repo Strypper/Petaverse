@@ -1,5 +1,7 @@
 ﻿using Petaverse.Home;
 using Petaverse.PersonalProfile;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Petaverse.FosterCenter;
 
@@ -38,12 +40,21 @@ public sealed partial class FosterCenterPage : Page
     }
     #endregion
 
-    private void FirstAvatarPreviewItemTemplate_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+    private void Members_ItemClick(object sender, ItemClickEventArgs e)
     {
-        ProfilePageParameter parameter = new()
+        if (Members.ContainerFromItem(e.ClickedItem) is GridViewItem container)
         {
+            var item = container.Content as MemberProfilePreviewModel;
+            ProfilePageParameter parameter = new()
+            {
+                ProfileId = item.Id,
+                AvatarUrl = item.UserAvatarUrl,
+                IsIncludePetInformation = true
+            };
 
-        };
+            Members.PrepareConnectedAnimation("ForwardConnectedAnimation", item, "AvatarPicture");
+            Frame.Navigate(typeof(ProfilePage), parameter, new SuppressNavigationTransitionInfo());
+        }
 
     }
 }

@@ -44,9 +44,9 @@ namespace Petaverse.ViewModels
             this.profilePageService = profilePageService;
         }
 
-        public async Task LoadDataAsync(string id)
+        public async Task LoadDataAsync(ProfilePageParameter parameter)
         {
-            var data = await profilePageService.GetUserById(id, new() { IsIncludePet = true});
+            UserInfo = await profilePageService.GetUserById(parameter.ProfileId, new() { IsIncludePet = parameter.IsIncludePetInformation});
 
         }
 

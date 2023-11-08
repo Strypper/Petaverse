@@ -117,6 +117,7 @@
         <DataTemplate x:Key="PivotItemTemplate" x:DataType="local:AnimalModel">
             <local:PetGalleryPage
                 x:Name="PetGallery"
+                Margin="0,8,0,0"
                 DeletePetClick="PetGalleryPage_DeletePetClick"
                 Pet="{x:Bind}"
                 SelectPhoto="PetGalleryPage_SelectPhoto">
@@ -160,6 +161,7 @@
 
     <Grid core:Grid.ColumnDefinitions="auto, *" Background="Transparent">
         <local:UserInfoPanelUserControl
+            x:Name="UserInfoPanel"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             CurrentUser="{x:Bind viewModel.UserInfo, Mode=OneWay}"
@@ -172,6 +174,7 @@
             VerticalAlignment="Stretch"
             ui:Effects.Shadow="{StaticResource PetGalleryPivotShadow}"
             IsBackButtonVisible="Collapsed"
+            IsPaneOpen="False"
             IsSettingsVisible="False"
             PaneDisplayMode="LeftCompact">
             <NavigationView.PaneHeader>

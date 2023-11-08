@@ -74,6 +74,7 @@ public partial class FosterCenterPageViewModel : ViewModelBase
         {
             Members.Add(new()
             {
+                Id = member.Id,
                 UserName = member.UserName,
                 UserAvatarUrl = member.ProfilePicUrl,
                 RoleName = member.RoleName
@@ -84,6 +85,7 @@ public partial class FosterCenterPageViewModel : ViewModelBase
         {
             Animals.Add(new()
             {
+                Id = animal.Id,
                 Name = animal.Name,
                 AvatarUrl = animal.PetAvatar.MediaUrl,
             });

@@ -22,10 +22,11 @@
     <Grid
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        ContextFlyout="{StaticResource PetGalleryGridViewItemUserControlFlyout}">
+        ContextFlyout="{StaticResource PetGalleryGridViewItemUserControlFlyout}"
+        CornerRadius="4">
         <Image
             x:Name="PetMedia"
-            MinHeight="300"
+            Height="400"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Source="{x:Bind ComponentData.MediaUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/Logos/Petaverse.png', TargetNullValue='ms-appx:///Assets/Logos/Petaverse.png', Converter={StaticResource StringToImageSourceConverter}}"

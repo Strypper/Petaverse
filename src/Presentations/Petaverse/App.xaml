@@ -40,6 +40,7 @@
                     <core:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
                     <core:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
                     <core:EnumToSeverityConverter x:Key="EnumToSeverityConverter" />
+                    <core:BoolToGenderConverter x:Key="BoolToGenderConverter" />
                     <Style TargetType="Panel">
                         <Setter Property="ChildrenTransitions">
                             <Setter.Value>

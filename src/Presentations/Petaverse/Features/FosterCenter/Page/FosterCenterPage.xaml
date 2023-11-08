@@ -41,13 +41,11 @@
         </DataTemplate>
 
         <DataTemplate x:Key="FirstAvatarPreviewItemTemplate" x:DataType="local:MemberProfilePreviewModel">
-            <core:PetaverseContainer PointerPressed="FirstAvatarPreviewItemTemplate_PointerPressed">
-                <local:AvatarPreviewUserControl
-                    Title="{x:Bind UserName}"
-                    Margin="14"
-                    AdditionalInfo="{x:Bind RoleName}"
-                    ImageUrl="{x:Bind UserAvatarUrl}" />
-            </core:PetaverseContainer>
+            <local:AvatarPreviewUserControl
+                Title="{x:Bind UserName}"
+                AdditionalInfo="{x:Bind RoleName}"
+                ComponentId="{x:Bind Id, Mode=OneWay}"
+                ImageUrl="{x:Bind UserAvatarUrl}" />
         </DataTemplate>
 
         <DataTemplate x:Key="SecondAvatarPreviewItemTemplate" x:DataType="local:AnimalProfilePreviewModel">
@@ -161,7 +159,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition Height="275" />
+                            <RowDefinition Height="320" />
                             <RowDefinition Height="440" />
                         </Grid.RowDefinitions>
                         <StackPanel Background="{StaticResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8">
@@ -254,8 +252,11 @@
                             </Grid>
                             <MenuFlyoutSeparator />
                             <GridView
-                                Height="200"
+                                x:Name="Members"
+                                Height="230"
                                 Margin="16"
+                                IsItemClickEnabled="True"
+                                ItemClick="Members_ItemClick"
                                 ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
                                 ItemTemplate="{StaticResource FirstAvatarPreviewItemTemplate}"
                                 ItemsSource="{x:Bind viewModel.Members}"

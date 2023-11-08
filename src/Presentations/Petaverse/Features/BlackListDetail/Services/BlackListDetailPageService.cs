@@ -39,7 +39,7 @@ public class BlackListDetailPageService : IBlackListDetailPageService
                     // Map user properties to Participant properties
                     Name = user.UserName, // Use uppercase property name
                     AvatarUrl = user.ProfilePicUrl, // Use uppercase property name
-                    IsAuthor = user.Guid == blackCaseDetail.AuthorId, // Set IsAuthor based on AuthorId
+                    IsAuthor = user.Id == blackCaseDetail.AuthorId, // Set IsAuthor based on AuthorId
                                                                       // You may need to map more properties based on your actual data structure
                 }
             )

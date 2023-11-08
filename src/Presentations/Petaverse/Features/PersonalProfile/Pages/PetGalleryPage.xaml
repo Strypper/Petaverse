@@ -22,7 +22,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="PetMediaAdaptiveGridViewItemTemplate" x:DataType="local:ThumbnailModel">
-            <local:PetGalleryGridViewItemUserControl ComponentData="{x:Bind Mode=OneWay}" />
+            <local:PetGalleryGridViewItemUserControl Margin="8,8,0,0" ComponentData="{x:Bind Mode=OneWay}" />
         </DataTemplate>
     </Page.Resources>
 
@@ -30,7 +30,7 @@
         x:Name="PetGalleryAdaptiveGridView"
         Margin="0,0,0,15"
         animations:ItemsReorderAnimation.Duration="00:00:00.4000000"
-        DesiredWidth="400"
+        DesiredWidth="350"
         DoubleTapped="PetGalleryAdaptiveGridView_DoubleTapped"
         ItemContainerTransitions="{StaticResource AdaptiveGridViewLoadTransition}"
         ItemTemplate="{StaticResource PetMediaAdaptiveGridViewItemTemplate}"
@@ -41,7 +41,8 @@
                     x:Name="Header"
                     Height="270"
                     Margin="0,0,0,5"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top"
+                    CornerRadius="8">
                     <toolkit:TileControl
                         x:Name="BackgroundRectangle"
                         AnimationDuration="30"
@@ -58,7 +59,7 @@
                         Height="270"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
-                        Fill="{x:Bind Pet.PetColors, Converter={StaticResource FromHexToSolidColorBrushConverter}}" />
+                        Fill="{x:Bind Pet.PetColors, Converter={StaticResource HexToSolidColorBrushConverter}}" />
                     <StackPanel
                         x:Name="TextContainer"
                         HorizontalAlignment="Left"
@@ -75,8 +76,12 @@
                             Margin="15,20,5,5"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Vertical">
-                            <StackPanel x:Name="PetName" Orientation="Horizontal">
+                            Orientation="Vertical"
+                            Spacing="4">
+                            <StackPanel
+                                x:Name="PetName"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}" Text="{x:Bind Pet.Name}" />
                                 <Border
                                     Margin="0,0,0,8"

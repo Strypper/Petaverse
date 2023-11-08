@@ -1,4 +1,6 @@
-﻿namespace Petaverse.PersonalProfile;
+﻿using Windows.UI.Xaml.Media.Animation;
+
+namespace Petaverse.PersonalProfile;
 
 public sealed partial class UserInfoPanelUserControl : UserControl
 {
@@ -6,14 +8,14 @@ public sealed partial class UserInfoPanelUserControl : UserControl
     public event LogoutDelegate LogoutEventHandler;
 
     public List<string> Tags { get; set; } = new List<string>() { "Dog Lover", "Cat Lover", "Pet Hero", "Explorer", "Petaverse Core Creator" };
-    public Models.DTOs.User CurrentUser
+    public UserModel CurrentUser
     {
-        get { return (Models.DTOs.User)GetValue(CurrentUserProperty); }
+        get { return (UserModel)GetValue(CurrentUserProperty); }
         set { SetValue(CurrentUserProperty, value); }
     }
 
     public static readonly DependencyProperty CurrentUserProperty =
-        DependencyProperty.Register("CurrentUser", typeof(Models.DTOs.User), typeof(UserInfoPanelUserControl), null);
+        DependencyProperty.Register("CurrentUser", typeof(UserModel), typeof(UserInfoPanelUserControl), null);
 
     private readonly ICurrentUserService currentUserService;
 
@@ -28,4 +30,13 @@ public sealed partial class UserInfoPanelUserControl : UserControl
         currentUserService.RemoveAllLocalData();
         LogoutEventHandler.Invoke();
     }
+
+    public void StartConnectedAnimation(ConnectedAnimation animation)
+    {
+        if (animation is not null)
+            animation.TryStart(AvatarPicture);
+
+    }
+
+
 }

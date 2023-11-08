@@ -22,13 +22,23 @@ public sealed partial class ProfilePage : Page
 
     #region [ Override ]
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+
         var item = e.Parameter as ProfilePageParameter;
         if (item is null)
             return;
+        await viewModel.LoadDataAsync(item);
 
+        var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardConnectedAnimation");
+        if (imageAnimation is not null)
+        {
+            UserInfoPanel.StartConnectedAnimation(imageAnimation);
+
+            //Remove this when out of PoC
+            viewModel.UserInfo.ProfilePicUrl = item.AvatarUrl;
+        }
     }
     #endregion
 

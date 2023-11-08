@@ -40,15 +40,15 @@
                 ui:Effects.Shadow="{StaticResource CommonShadow}">
                 <RelativePanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <PersonPicture
-                        x:Name="UserAvatar"
+                        x:Name="AvatarPicture"
                         BadgeImageSource="https://intranetblobstorages.blob.core.windows.net/appassets/TotechsLogo.png"
-                        ProfilePicture="{x:Bind CurrentUser.PetaverseProfileImageUrl, Mode=OneWay, FallbackValue='https://i.imgur.com/deS4147.png', TargetNullValue='https://i.imgur.com/deS4147.png', Converter={StaticResource StringToImageSourceConverter}}"
+                        ProfilePicture="{x:Bind CurrentUser.ProfilePicUrl, Mode=OneWay, FallbackValue='https://i.imgur.com/deS4147.png', TargetNullValue='https://i.imgur.com/deS4147.png', Converter={StaticResource StringToImageSourceConverter}}"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
                         RelativePanel.AlignVerticalCenterWithPanel="True" />
                     <TextBlock
                         x:Name="UserName"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
-                        RelativePanel.Below="UserAvatar"
+                        RelativePanel.Below="AvatarPicture"
                         Text="Strypper Vandel Jason" />
                     <ToggleSwitch
                         x:Name="UserCode"

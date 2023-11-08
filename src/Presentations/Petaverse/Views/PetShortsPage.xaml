@@ -20,10 +20,7 @@
     <Page.Resources>
 
         <DataTemplate x:Key="PetGalleryGridViewItemTemplate" x:DataType="dto:PetaverseMedia">
-            <personalProfile:PetGalleryGridViewItemUserControl
-                Width="200"
-                Height="150"
-                PetaverseMedia="{x:Bind Mode=OneWay}" />
+            <personalProfile:PetGalleryGridViewItemUserControl Width="200" Height="150" />
         </DataTemplate>
 
         <DataTemplate x:Key="FlipViewItemTemplate" x:DataType="dto:PetShort">
