@@ -35,14 +35,14 @@
             <animations:TranslationAnimation To="0, 0, 0" Duration="0:0:0.5" />
             <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
         </animations:ImplicitAnimationSet>
-        
+
         <animations:ImplicitAnimationSet x:Key="HideBackButtonAnimation">
             <animations:ScalarAnimation
                 Target="Opacity"
                 To="0.0"
                 Duration="0:0:1" />
             <animations:ScalarAnimation
-                Target="Translation.Y"
+                Target="Translation.X"
                 To="-200"
                 Duration="0:0:1">
                 <animations:ScalarKeyFrame Key="0.1" Value="30" />

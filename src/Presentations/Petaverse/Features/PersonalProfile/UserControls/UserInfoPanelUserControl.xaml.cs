@@ -38,5 +38,6 @@ public sealed partial class UserInfoPanelUserControl : UserControl
 
     }
 
-
+    public void StartBackConnectedAnimation()
+        => ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BackConnectedAnimation", AvatarPicture);
 }

@@ -40,6 +40,14 @@ public sealed partial class ProfilePage : Page
             viewModel.UserInfo.ProfilePicUrl = item.AvatarUrl;
         }
     }
+
+    protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+    {
+        base.OnNavigatingFrom(e);
+
+        //UserInfoPanel.StartBackConnectedAnimation();
+    }
+
     #endregion
 
     #region [ Event Handlers ]

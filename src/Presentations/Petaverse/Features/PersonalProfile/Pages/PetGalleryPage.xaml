@@ -138,7 +138,7 @@
                             <TextBlock
                                 x:Name="Bio"
                                 Height="70"
-                                MaxWidth="500"
+                                MaxWidth="400"
                                 Margin="0,0,0,5"
                                 FontSize="12"
                                 Text="{x:Bind Pet.Bio}"

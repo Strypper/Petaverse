@@ -1,6 +1,6 @@
 ﻿using Petaverse.Home;
 using Petaverse.PersonalProfile;
-using System.Collections.ObjectModel;
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Petaverse.FosterCenter;
@@ -11,6 +11,11 @@ public sealed partial class FosterCenterPage : Page
     #region [ Fields ]
 
     private readonly FosterCenterPageViewModel viewModel;
+    #endregion
+
+    #region [ Properties ]
+
+    MemberProfilePreviewModel animatedItem;
     #endregion
 
     #region [ CTor ]
@@ -44,16 +49,43 @@ public sealed partial class FosterCenterPage : Page
     {
         if (Members.ContainerFromItem(e.ClickedItem) is GridViewItem container)
         {
-            var item = container.Content as MemberProfilePreviewModel;
+            animatedItem = container.Content as MemberProfilePreviewModel;
             ProfilePageParameter parameter = new()
             {
-                ProfileId = item.Id,
-                AvatarUrl = item.UserAvatarUrl,
+                ProfileId = animatedItem.Id,
+                AvatarUrl = animatedItem.UserAvatarUrl,
                 IsIncludePetInformation = true
             };
 
-            Members.PrepareConnectedAnimation("ForwardConnectedAnimation", item, "AvatarPicture");
+            Members.PrepareConnectedAnimation("ForwardConnectedAnimation", animatedItem, "AvatarPicture");
             Frame.Navigate(typeof(ProfilePage), parameter, new SuppressNavigationTransitionInfo());
+        }
+
+    }
+
+    private async void Members_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (animatedItem != null)
+        {
+            // If the connected item appears outside the viewport, scroll it into view.
+            Members.ScrollIntoView(animatedItem, ScrollIntoViewAlignment.Default);
+            Members.UpdateLayout();
+
+            // Play the second connected animation.
+            ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackConnectedAnimation");
+            if (animation != null)
+            {
+                // Setup the "back" configuration if the API is present.
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 7))
+                {
+                    animation.Configuration = new DirectConnectedAnimationConfiguration();
+                }
+
+                await Members.TryStartConnectedAnimationAsync(animation, animatedItem, "AvatarPicture");
+            }
+
+            // Set focus on the list
+            Members.Focus(FocusState.Programmatic);
         }
 
     }

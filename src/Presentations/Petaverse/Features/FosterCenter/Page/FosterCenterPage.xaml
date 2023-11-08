@@ -10,6 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    NavigationCacheMode="Disabled"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -49,12 +50,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="SecondAvatarPreviewItemTemplate" x:DataType="local:AnimalProfilePreviewModel">
-            <core:PetaverseContainer>
-                <local:AvatarPreviewUserControl
-                    Title="{x:Bind Name}"
-                    Margin="14"
-                    ImageUrl="{x:Bind AvatarUrl}" />
-            </core:PetaverseContainer>
+            <local:AvatarPreviewUserControl Title="{x:Bind Name}" ImageUrl="{x:Bind AvatarUrl}" />
         </DataTemplate>
     </Page.Resources>
 
@@ -160,7 +156,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition Height="320" />
-                            <RowDefinition Height="440" />
+                            <RowDefinition Height="490" />
                         </Grid.RowDefinitions>
                         <StackPanel Background="{StaticResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8">
                             <Grid Padding="16,10,16,0">
@@ -260,6 +256,7 @@
                                 ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
                                 ItemTemplate="{StaticResource FirstAvatarPreviewItemTemplate}"
                                 ItemsSource="{x:Bind viewModel.Members}"
+                                Loaded="Members_Loaded"
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 ScrollViewer.VerticalScrollMode="Disabled" />
                         </StackPanel>
@@ -280,7 +277,7 @@
                             </Grid>
                             <MenuFlyoutSeparator />
                             <GridView
-                                Height="360"
+                                Height="410"
                                 Margin="16"
                                 ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
                                 ItemTemplate="{StaticResource SecondAvatarPreviewItemTemplate}"

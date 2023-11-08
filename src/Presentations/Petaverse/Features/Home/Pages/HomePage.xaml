@@ -9,8 +9,8 @@
     xmlns:local="using:Petaverse.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
-    NavigationCacheMode="Enabled"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Page.Resources>

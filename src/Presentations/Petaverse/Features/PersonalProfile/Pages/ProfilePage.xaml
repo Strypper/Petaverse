@@ -46,7 +46,11 @@
         </animations:ImplicitAnimationSet>
 
         <DataTemplate x:Key="PivotHeaderTemplate" x:DataType="local:AnimalModel">
-            <StackPanel x:Name="PivotHeader" Orientation="Horizontal">
+            <StackPanel
+                x:Name="PivotHeader"
+                Margin="0,0,0,8"
+                Orientation="Horizontal"
+                Spacing="8">
                 <PersonPicture
                     x:Name="PetAvatar"
                     Width="35"
@@ -73,10 +77,9 @@
                 </PersonPicture>
                 <TextBlock
                     x:Name="PetName"
-                    Margin="5,0,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Style="{StaticResource TitleTextBlockStyle}"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{x:Bind Name, Mode=OneWay}">
                     <TextBlock.RenderTransform>
                         <TranslateTransform x:Name="TranslateTitle" />
@@ -205,6 +208,7 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <Pivot
+                Margin="0,8,8,0"
                 HeaderTemplate="{StaticResource PivotHeaderTemplate}"
                 ItemTemplate="{StaticResource PivotItemTemplate}"
                 ItemsSource="{x:Bind viewModel.UserInfo.Pets, Mode=OneWay}"
