@@ -10,7 +10,7 @@ public sealed partial class FosterCenterPage : Page
 
     #region [ Fields ]
 
-    private FosterCenterPageViewModel viewModel;
+    private readonly FosterCenterPageViewModel viewModel;
     #endregion
 
     #region [ Properties ]
@@ -23,7 +23,7 @@ public sealed partial class FosterCenterPage : Page
     public FosterCenterPage()
     {
         this.InitializeComponent();
-        this.NavigationCacheMode = NavigationCacheMode.Enabled;
+        viewModel = Ioc.Default.GetRequiredService<FosterCenterPageViewModel>();
 
     }
     #endregion
@@ -38,10 +38,8 @@ public sealed partial class FosterCenterPage : Page
         if (item is null)
             return;
 
-        if (viewModel is not null)
+        if (e.NavigationMode == NavigationMode.Back)
             return;
-
-        viewModel = Ioc.Default.GetRequiredService<FosterCenterPageViewModel>();
 
         viewModel.LoadDataAsync().ConfigureAwait(false);
 
@@ -75,6 +73,7 @@ public sealed partial class FosterCenterPage : Page
             {
                 ProfileId = animatedItem.Id,
                 AvatarUrl = animatedItem.UserAvatarUrl,
+                OrgPicUrl = viewModel.FosterCenterLogo,
                 IsIncludePetInformation = true
             };
 
@@ -88,11 +87,9 @@ public sealed partial class FosterCenterPage : Page
     {
         if (animatedItem != null)
         {
-            // If the connected item appears outside the viewport, scroll it into view.
             Members.ScrollIntoView(animatedItem, ScrollIntoViewAlignment.Default);
             Members.UpdateLayout();
 
-            // Play the second connected animation.
             ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackConnectedAnimation");
             if (animation != null)
             {
@@ -104,9 +101,6 @@ public sealed partial class FosterCenterPage : Page
 
                 await Members.TryStartConnectedAnimationAsync(animation, animatedItem, "AvatarPicture");
             }
-
-            // Set focus on the list
-            Members.Focus(FocusState.Programmatic);
         }
 
     }

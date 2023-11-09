@@ -10,6 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -139,7 +140,7 @@
                             MaxWidth="200"
                             HorizontalAlignment="Center"
                             ItemTemplate="{StaticResource TagsItemTemplate}"
-                            ItemsSource="{x:Bind viewModel.FirstTagsCollection}"
+                            ItemsSource="{x:Bind viewModel.FirstTagsCollection, Mode=OneWay}"
                             Layout="{StaticResource TagsLayout}" />
                     </StackPanel>
                 </Grid>
@@ -179,7 +180,7 @@
                                     Height="300"
                                     Margin="16"
                                     ItemTemplate="{StaticResource CarouselItemTemplate}"
-                                    ItemsSource="{x:Bind viewModel.CarouselItems}">
+                                    ItemsSource="{x:Bind viewModel.CarouselItems, Mode=OneWay}">
                                     <muxc:ItemsRepeater.Layout>
                                         <muxc:StackLayout Orientation="Horizontal" Spacing="10" />
                                     </muxc:ItemsRepeater.Layout>
@@ -254,7 +255,7 @@
                                 ItemClick="Members_ItemClick"
                                 ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
                                 ItemTemplate="{StaticResource FirstAvatarPreviewItemTemplate}"
-                                ItemsSource="{x:Bind viewModel.Members}"
+                                ItemsSource="{x:Bind viewModel.Members, Mode=OneWay}"
                                 Loaded="Members_Loaded"
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 ScrollViewer.VerticalScrollMode="Disabled" />
@@ -280,7 +281,7 @@
                                 Margin="16"
                                 ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
                                 ItemTemplate="{StaticResource SecondAvatarPreviewItemTemplate}"
-                                ItemsSource="{x:Bind viewModel.Animals}"
+                                ItemsSource="{x:Bind viewModel.Animals, Mode=OneWay}"
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 ScrollViewer.VerticalScrollMode="Disabled" />
                         </StackPanel>

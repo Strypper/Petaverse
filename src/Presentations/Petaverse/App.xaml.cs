@@ -141,6 +141,7 @@ sealed partial class App : Application
         services.AddTransient<IHomePageService, HomePageService>();
         services.AddTransient<HomePageViewModel>();
 
+        services.AddTransient<IFosterCenterPageService, FosterCenterPageService>();
         services.AddTransient<FosterCenterPageViewModel>();
 
         services.AddTransient<IBlackListDetailPageService, BlackListDetailPageService>();

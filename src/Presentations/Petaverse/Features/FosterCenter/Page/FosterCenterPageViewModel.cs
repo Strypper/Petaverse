@@ -6,7 +6,7 @@ public partial class FosterCenterPageViewModel : ViewModelBase
 {
     #region [ Fields ]
 
-    private readonly IFosterCenterService fosterCenterService;
+    private readonly IFosterCenterPageService pageService;
     #endregion
 
     #region [ Properties ]
@@ -37,7 +37,7 @@ public partial class FosterCenterPageViewModel : ViewModelBase
 
     public FosterCenterPageViewModel()
     {
-        this.fosterCenterService = Ioc.Default.GetRequiredService<IFosterCenterService>();
+        this.pageService = Ioc.Default.GetRequiredService<IFosterCenterPageService>();
     }
     #endregion
 
@@ -50,7 +50,7 @@ public partial class FosterCenterPageViewModel : ViewModelBase
         Members = new();
         Animals = new();
 
-        var fosterCenter = await fosterCenterService.GetFosterCenterByIdAsync("random");
+        var fosterCenter = await pageService.GetByIdAsync("random");
         foreach (var tag in fosterCenter.Tags)
         {
             FirstTagsCollection.Add(new()

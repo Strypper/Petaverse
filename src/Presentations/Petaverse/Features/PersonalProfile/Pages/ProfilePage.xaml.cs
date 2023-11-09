@@ -38,6 +38,7 @@ public sealed partial class ProfilePage : Page
 
             //Remove this when out of PoC
             viewModel.UserInfo.ProfilePicUrl = item.AvatarUrl;
+            viewModel.UserInfo.OrgPicUrl = item.OrgPicUrl;
         }
     }
 

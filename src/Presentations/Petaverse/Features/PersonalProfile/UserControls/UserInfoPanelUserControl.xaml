@@ -41,7 +41,7 @@
                 <RelativePanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <PersonPicture
                         x:Name="AvatarPicture"
-                        BadgeImageSource="https://intranetblobstorages.blob.core.windows.net/appassets/TotechsLogo.png"
+                        BadgeImageSource="{x:Bind CurrentUser.OrgPicUrl, Mode=OneWay, FallbackValue='https://i.imgur.com/deS4147.png', TargetNullValue='https://i.imgur.com/deS4147.png', Converter={StaticResource StringToImageSourceConverter}}"
                         ProfilePicture="{x:Bind CurrentUser.ProfilePicUrl, Mode=OneWay, FallbackValue='https://i.imgur.com/deS4147.png', TargetNullValue='https://i.imgur.com/deS4147.png', Converter={StaticResource StringToImageSourceConverter}}"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
                         RelativePanel.AlignVerticalCenterWithPanel="True" />

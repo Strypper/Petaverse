@@ -263,7 +263,7 @@
                 animations:Connected.ListItemKey="itemIconKey"
                 ItemContainerTransitions="{StaticResource BlackListItemTransitionCollection}"
                 ItemTemplate="{StaticResource BlackListItemTemplate}"
-                ItemsSource="{x:Bind viewModel.Items}"
+                ItemsSource="{x:Bind viewModel.Items, Mode=TwoWay}"
                 SelectionMode="None">
                 <ListView.Footer>
                     <Button

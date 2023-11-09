@@ -29,6 +29,7 @@ public class BlackListService : IBlackListService
 
     #region [ Methods ]
 
+#if DEBUG
     public Task<IEnumerable<BlackCase>> GetAllBlackCases()
     {
         var userFaker = new Faker<User>()
@@ -71,6 +72,41 @@ public class BlackListService : IBlackListService
 
         return Task.FromResult(blackCases.AsEnumerable());
     }
+#else
+    public Task<IEnumerable<BlackCase>> GetAllBlackCases()
+    {
+        var user1 = new User { Id = "user1", UserName = "JohnDoe", FirstName = "John", LastName = "Doe", Email = "john@example.com" };
+        var user2 = new User { Id = "user2", UserName = "JaneDoe", FirstName = "Jane", LastName = "Doe", Email = "jane@example.com" };
+
+        var blackCase1 = new BlackCase
+        {
+            Id = "case1",
+            Title = "Harming Animals in Park",
+            Users = new List<User> { user1, user2 },
+            Points = 75,
+            UploadDate = DateTime.UtcNow.AddDays(-5),
+            IsVerified = true,
+            Labels = new List<Label> { MockLabels[0], MockLabels[1] },
+            PrimaryLabelId = MockLabels[0].Id,
+            AuthorId = user1.Id
+        };
+
+        var blackCase2 = new BlackCase
+        {
+            Id = "case2",
+            Title = "Animal Abuse in Residential Area",
+            Users = new List<User> { user2 },
+            Points = 90,
+            UploadDate = DateTime.UtcNow.AddDays(-10),
+            IsVerified = false,
+            Labels = new List<Label> { MockLabels[0], MockLabels[2] },
+            PrimaryLabelId = MockLabels[0].Id,
+            AuthorId = user2.Id
+        };
+
+        return Task.FromResult(new List<BlackCase> { blackCase1, blackCase2 }.AsEnumerable());
+    }
+#endif
 
     public async Task<BlackCaseDetail> GetBlackCaseDetailById(string id)
     {
@@ -117,7 +153,7 @@ public class BlackListService : IBlackListService
         return fakeBlackCaseDetail;
     }
 
-    #endregion
+#endregion
 
     #region [ Private Methods ]
 

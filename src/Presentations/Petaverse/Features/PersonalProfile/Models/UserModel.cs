@@ -33,5 +33,8 @@ public partial class UserModel : BaseModel<string>
     string? profilePicUrl;
 
     [ObservableProperty]
+    string? orgPicUrl;
+
+    [ObservableProperty]
     ObservableCollection<AnimalModel> pets = new();
 }
