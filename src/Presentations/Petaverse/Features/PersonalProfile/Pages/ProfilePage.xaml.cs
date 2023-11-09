@@ -45,7 +45,8 @@ public sealed partial class ProfilePage : Page
     {
         base.OnNavigatingFrom(e);
 
-        //UserInfoPanel.StartBackConnectedAnimation();
+        if(e.NavigationMode == NavigationMode.Back)
+            UserInfoPanel.StartBackConnectedAnimation();
     }
 
     #endregion
@@ -83,4 +84,14 @@ public sealed partial class ProfilePage : Page
         => await viewModel.DeletePetAsync(petId);
     #endregion
 
+    #region [ Methods ]
+
+    private void ResetPageCache()
+    {
+        int cacheSize = ((Frame)Parent).CacheSize;
+
+        ((Frame)Parent).CacheSize = 0;
+        ((Frame)Parent).CacheSize = cacheSize;
+    }
+    #endregion
 }

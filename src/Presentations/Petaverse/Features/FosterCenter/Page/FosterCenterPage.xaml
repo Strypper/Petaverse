@@ -10,7 +10,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
-    NavigationCacheMode="Disabled"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -21,8 +20,8 @@
 
         <DataTemplate x:Key="TagsItemTemplate" x:DataType="local:TagUIModel">
             <Button
-                Background="{x:Bind ColorHex, Converter={StaticResource HexToSolidColorBrushConverter}}"
-                Content="{x:Bind TagName}"
+                Background="{x:Bind ColorHex, Mode=OneWay, Converter={StaticResource HexToSolidColorBrushConverter}}"
+                Content="{x:Bind TagName, Mode=OneWay}"
                 CornerRadius="16" />
         </DataTemplate>
 
@@ -43,14 +42,14 @@
 
         <DataTemplate x:Key="FirstAvatarPreviewItemTemplate" x:DataType="local:MemberProfilePreviewModel">
             <local:AvatarPreviewUserControl
-                Title="{x:Bind UserName}"
-                AdditionalInfo="{x:Bind RoleName}"
+                Title="{x:Bind UserName, Mode=OneWay}"
+                AdditionalInfo="{x:Bind RoleName, Mode=OneWay}"
                 ComponentId="{x:Bind Id, Mode=OneWay}"
-                ImageUrl="{x:Bind UserAvatarUrl}" />
+                ImageUrl="{x:Bind UserAvatarUrl, Mode=OneWay}" />
         </DataTemplate>
 
         <DataTemplate x:Key="SecondAvatarPreviewItemTemplate" x:DataType="local:AnimalProfilePreviewModel">
-            <local:AvatarPreviewUserControl Title="{x:Bind Name}" ImageUrl="{x:Bind AvatarUrl}" />
+            <local:AvatarPreviewUserControl Title="{x:Bind Name, Mode=OneWay}" ImageUrl="{x:Bind AvatarUrl, Mode=OneWay}" />
         </DataTemplate>
     </Page.Resources>
 

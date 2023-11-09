@@ -38,20 +38,18 @@ public partial class FosterCenterPageViewModel : ViewModelBase
     public FosterCenterPageViewModel()
     {
         this.fosterCenterService = Ioc.Default.GetRequiredService<IFosterCenterService>();
-
-        FirstTagsCollection = new();
-        CarouselItems = new();
-        Members = new();
-        Animals = new();
-
-        LoadDataAsync();
     }
     #endregion
 
     #region [ Methods ]
 
-    private async Task LoadDataAsync()
+    public async Task LoadDataAsync()
     {
+        FirstTagsCollection = new();
+        CarouselItems = new();
+        Members = new();
+        Animals = new();
+
         var fosterCenter = await fosterCenterService.GetFosterCenterByIdAsync("random");
         foreach (var tag in fosterCenter.Tags)
         {

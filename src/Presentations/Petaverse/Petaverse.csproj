@@ -578,6 +578,9 @@
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.2.1</Version>
     </PackageReference>
+    <PackageReference Include="CommunityToolkit.Uwp.Animations">
+      <Version>8.0.230907</Version>
+    </PackageReference>
     <PackageReference Include="CommunityToolkit.Uwp.Controls.RadialGauge">
       <Version>8.0.230907</Version>
     </PackageReference>

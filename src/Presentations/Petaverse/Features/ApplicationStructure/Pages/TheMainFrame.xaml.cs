@@ -49,8 +49,11 @@ public sealed partial class TheMainFrame : Page
     {
 
         var item = args.SelectedItem as NavigationViewItem;
-        if (item != null)
-            ContentFrame.Navigate(item.DestinationPage);
+        if (item is null)
+            return;
+
+        ContentFrame.Navigate(item.DestinationPage);
+        GC.Collect();
     }
 
     private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
@@ -75,6 +78,7 @@ public sealed partial class TheMainFrame : Page
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
+
         if (ContentFrame.CanGoBack)
         {
             ContentFrame.GoBack();

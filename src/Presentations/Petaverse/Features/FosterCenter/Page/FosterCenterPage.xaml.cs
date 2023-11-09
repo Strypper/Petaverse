@@ -10,7 +10,7 @@ public sealed partial class FosterCenterPage : Page
 
     #region [ Fields ]
 
-    private readonly FosterCenterPageViewModel viewModel;
+    private FosterCenterPageViewModel viewModel;
     #endregion
 
     #region [ Properties ]
@@ -23,8 +23,8 @@ public sealed partial class FosterCenterPage : Page
     public FosterCenterPage()
     {
         this.InitializeComponent();
+        this.NavigationCacheMode = NavigationCacheMode.Enabled;
 
-        viewModel = Ioc.Default.GetRequiredService<FosterCenterPageViewModel>();
     }
     #endregion
 
@@ -38,12 +38,33 @@ public sealed partial class FosterCenterPage : Page
         if (item is null)
             return;
 
+        if (viewModel is not null)
+            return;
+
+        viewModel = Ioc.Default.GetRequiredService<FosterCenterPageViewModel>();
+
+        viewModel.LoadDataAsync().ConfigureAwait(false);
+
         viewModel.FosterCenterLogo = item.FosterCenterLogo;
         viewModel.FosterCenterName = item.FosterCenterName;
         viewModel.IsFollowed = item.IsUserFollowing;
+    }
 
+    protected override void OnNavigatingFrom(NavigatingCancelEventArgs navigationEvent)
+    {
+        base.OnNavigatingFrom(navigationEvent);
+
+        if (navigationEvent.NavigationMode == NavigationMode.Back)
+        {
+            // set the cache mode
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+
+            ResetPageCache();
+        }
     }
     #endregion
+
+    #region [ Event Handlers ]
 
     private void Members_ItemClick(object sender, ItemClickEventArgs e)
     {
@@ -89,4 +110,16 @@ public sealed partial class FosterCenterPage : Page
         }
 
     }
+    #endregion
+
+    #region [ Methods ]
+
+    private void ResetPageCache()
+    {
+        int cacheSize = ((Frame)Parent).CacheSize;
+
+        ((Frame)Parent).CacheSize = 0;
+        ((Frame)Parent).CacheSize = cacheSize;
+    }
+    #endregion
 }
