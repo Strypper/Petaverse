@@ -1,11 +1,12 @@
-﻿using Microsoft.Graphics.Canvas.Effects;
-using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
+﻿using CommunityToolkit.WinUI.Animations.Expressions;
+using Microsoft.Graphics.Canvas.Effects;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 using WinRTXamlToolkit.Controls.Extensions;
-using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
+//using EF = Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionFunctions;
+using EF = CommunityToolkit.WinUI.Animations.Expressions.ExpressionFunctions;
 
 namespace Petaverse.Views
 {
