@@ -15,8 +15,6 @@ public partial class BlackListPageViewModel : ViewModelBase
     public BlackListPageViewModel(IBlackListPageService blackListPageService)
     {
         this.blackListPageService = blackListPageService;
-
-        LoadDataAsync();
     }
     #endregion
 

@@ -11,6 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="Page_Loaded"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
 
@@ -21,9 +22,7 @@
         </TransitionCollection>
 
         <DataTemplate x:Key="TopEventItemTemplate" x:DataType="local:Home_FirstSectionItemModel">
-            <FlipViewItem>
-                <local:HomeFirstItemUserControl ComponentData="{x:Bind Mode=OneTime}" />
-            </FlipViewItem>
+            <local:HomeFirstItemUserControl ComponentData="{x:Bind Mode=OneTime}" PointerWheelChanged="HomeFirstItemUserControl_PointerWheelChanged" />
         </DataTemplate>
 
         <DataTemplate x:Key="HomeGridViewHeaderTemplate" x:DataType="x:String">
@@ -106,10 +105,22 @@
                 <RowDefinition Height="350" />
             </Grid.RowDefinitions>
 
-            <FlipView
-                HorizontalAlignment="Stretch"
-                ItemTemplate="{StaticResource TopEventItemTemplate}"
-                ItemsSource="{x:Bind viewModel.FirstSectionItems}" />
+            <Grid>
+                <FlipView
+                    x:Name="PageFliper"
+                    HorizontalAlignment="Stretch"
+                    ItemTemplate="{StaticResource TopEventItemTemplate}"
+                    ItemsSource="{x:Bind viewModel.FirstSectionItems}"
+                    SelectedIndex="{x:Bind viewModel.FirstItemsIndex, Mode=TwoWay}" />
+                <muxc:PipsPager
+                    Margin="8"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    NextButtonVisibility="Visible"
+                    NumberOfPages="{x:Bind viewModel.FirstSectionItems.Count, Mode=OneWay}"
+                    PreviousButtonVisibility="Visible"
+                    SelectedPageIndex="{x:Bind Path=PageFliper.SelectedIndex, Mode=TwoWay}" />
+            </Grid>
 
             <GridView
                 x:Name="SecondSection"

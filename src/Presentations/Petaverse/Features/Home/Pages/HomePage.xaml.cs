@@ -38,10 +38,18 @@ public sealed partial class HomePage : Page
 
     #region [ Events Handler ]
 
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        await viewModel.LoadDataAsync();
+        viewModel.AutoUpdateFirstItemsIndex();
+    }
+
     private void HomeSecondItemUserControl_SelectItem(Home_SecondSectionItemModel item)
     {
         Frame.Navigate(typeof(FosterCenterPage), item, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
     }
+    private void HomeFirstItemUserControl_PointerWheelChanged(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        => e.Handled = true;
     #endregion
 
     #region [ Methods ]

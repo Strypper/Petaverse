@@ -6,10 +6,14 @@ public partial class HomePageViewModel : ViewModelBase
 {
     #region [ Fields ]
 
+    private DispatcherTimer timer;
     private readonly IHomePageService _homePageService;
     #endregion
 
     #region [ Properties ]
+
+    [ObservableProperty]
+    int firstItemsIndex;
 
     [ObservableProperty]
     GridViewItem selectedSecondItem;
@@ -36,14 +40,12 @@ public partial class HomePageViewModel : ViewModelBase
         secondSectionItems = new();
         thirdSectionItems = new();
         fourthSectionItems = new();
-
-        LoadDataAsync();
     }
     #endregion
 
     #region [ Methods ]
 
-    private async Task LoadDataAsync()
+    public async Task LoadDataAsync()
     {
         var firstItems = await _homePageService.GetFirstItemsAsync();
         foreach (var item in firstItems)
@@ -96,6 +98,21 @@ public partial class HomePageViewModel : ViewModelBase
                 Activity = item.Activity
             });
         }
+    }
+
+
+    public void AutoUpdateFirstItemsIndex()
+    {
+        timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromSeconds(5); // adjust the interval as needed
+        timer.Tick += (s, e) => {
+
+            if (FirstItemsIndex >= FirstSectionItems.Count - 1)
+                FirstItemsIndex = 0;
+            else
+                FirstItemsIndex++;
+        };
+        timer.Start();
     }
     #endregion
 

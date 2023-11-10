@@ -1,4 +1,5 @@
 ﻿using Petaverse.BlackList;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Petaverse.BlackListDetail;
 
@@ -29,7 +30,21 @@ public sealed partial class BlackListDetailPage : Page
             return;
 
         BlackCaseTitle.Text = item.Title;
+
+        var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardConnectedAnimation");
+        if (imageAnimation != null)
+        {
+            imageAnimation.TryStart(TopicIcon, new UIElement[] { BlackCaseTitle });
+        }
     }
+
+    protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+    {
+        base.OnNavigatingFrom(e);
+
+        ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BackConnectedAnimation", TopicIcon);
+    }
+
     #endregion
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)

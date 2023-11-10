@@ -45,6 +45,8 @@ public partial class FosterCenterPageViewModel : ViewModelBase
 
     public async Task LoadDataAsync()
     {
+        IsBusy = true;
+
         FirstTagsCollection = new();
         CarouselItems = new();
         Members = new();
@@ -88,6 +90,8 @@ public partial class FosterCenterPageViewModel : ViewModelBase
                 AvatarUrl = animal.PetAvatar.MediaUrl,
             });
         }
+
+        IsBusy = false;
     }
     #endregion
 }

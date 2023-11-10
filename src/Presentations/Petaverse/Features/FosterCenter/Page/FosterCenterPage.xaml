@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+    xmlns:converters="using:CommunityToolkit.WinUI.Converters"
     xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Petaverse.FosterCenter"
@@ -52,6 +53,9 @@
         <DataTemplate x:Key="SecondAvatarPreviewItemTemplate" x:DataType="local:AnimalProfilePreviewModel">
             <local:AvatarPreviewUserControl Title="{x:Bind Name, Mode=OneWay}" ImageUrl="{x:Bind AvatarUrl, Mode=OneWay}" />
         </DataTemplate>
+
+        <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+
     </Page.Resources>
 
     <Grid x:Name="RootLayer">
@@ -66,7 +70,6 @@
                         <RowDefinition />
                         <RowDefinition Height="0.3*" />
                     </Grid.RowDefinitions>
-
                     <StackPanel
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -94,7 +97,8 @@
                             MinWidth="160"
                             HorizontalAlignment="Center"
                             Content="{x:Bind IsFollowToggleButton.IsChecked, Mode=OneWay, Converter={StaticResource BoolToIsFollowStringConverter}}"
-                            IsChecked="{x:Bind viewModel.IsFollowed}" />
+                            IsChecked="{x:Bind viewModel.IsFollowed}"
+                            IsEnabled="{x:Bind viewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
                         <StackPanel
                             HorizontalAlignment="Center"
                             Orientation="Horizontal"
@@ -167,7 +171,8 @@
                                 <HyperlinkButton
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    Content="Tất cả" />
+                                    Content="Tất cả"
+                                    IsEnabled="{x:Bind viewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
                             </Grid>
                             <MenuFlyoutSeparator />
                             <ScrollViewer
@@ -200,7 +205,8 @@
                                 <HyperlinkButton
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    Content="Tất cả" />
+                                    Content="Tất cả"
+                                    IsEnabled="{x:Bind viewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
                             </Grid>
                             <MenuFlyoutSeparator />
                             <Grid Height="100" Margin="16">
@@ -228,7 +234,8 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     Background="{StaticResource AccentAcrylicBackgroundFillColorBaseBrush}"
-                                    Content="Quyên góp" />
+                                    Content="Quyên góp"
+                                    IsEnabled="{x:Bind viewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
                             </Grid>
                         </StackPanel>
 
@@ -244,7 +251,8 @@
                                 <HyperlinkButton
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    Content="Tất cả" />
+                                    Content="Tất cả"
+                                    IsEnabled="{x:Bind viewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
                             </Grid>
                             <MenuFlyoutSeparator />
                             <GridView
