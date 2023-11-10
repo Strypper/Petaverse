@@ -2,14 +2,13 @@
     x:Class="Petaverse.BlackList.BlackListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Petaverse.BlackList"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="CategoriesHeaderTemplate" x:DataType="x:String">
@@ -257,13 +256,14 @@
                 </ListView>
             </StackPanel>
 
+            <!--  ItemsSource="{x:Bind viewModel.Items, Mode=TwoWay}"  -->
             <ListView
+                x:Name="BlackList"
                 Grid.Column="1"
-                animations:Connected.ListItemElementName="TopicIcon"
-                animations:Connected.ListItemKey="itemIconKey"
-                ItemContainerTransitions="{StaticResource BlackListItemTransitionCollection}"
+                IsItemClickEnabled="True"
+                ItemClick="BlackList_ItemClick"
                 ItemTemplate="{StaticResource BlackListItemTemplate}"
-                ItemsSource="{x:Bind viewModel.Items, Mode=TwoWay}"
+                Loaded="BlackList_Loaded"
                 SelectionMode="None">
                 <ListView.Footer>
                     <Button

@@ -29,7 +29,7 @@ public class BlackListService : IBlackListService
 
     #region [ Methods ]
 
-#if DEBUG
+#if false
     public Task<IEnumerable<BlackCase>> GetAllBlackCases()
     {
         var userFaker = new Faker<User>()
@@ -108,35 +108,92 @@ public class BlackListService : IBlackListService
     }
 #endif
 
+    //public async Task<BlackCaseDetail> GetBlackCaseDetailById(string id)
+    //{
+    //    var bogus = new Faker<BlackCaseDetail>()
+    //        .RuleFor(b => b.Id, f => id)
+    //        .RuleFor(b => b.Title, f => f.Lorem.Sentence())
+    //        .RuleFor(b => b.Detail, f => f.Lorem.Paragraph())
+    //        .RuleFor(b => b.Users, f => f.Make(3, () => new User
+    //        {
+    //            Id = f.Random.Guid().ToString(),
+    //            UserName = f.Internet.UserName(),
+    //            FirstName = f.Name.FirstName(),
+    //            LastName = f.Name.LastName(),
+    //            Email = f.Internet.Email(),
+    //            PhoneNumber = f.Phone.PhoneNumber(),
+    //            Gender = f.PickRandom<bool?>(true, false),
+    //            DateOfBirth = f.Date.Past(),
+    //            ProfilePicUrl = f.Image.LoremFlickrUrl()
+    //        }))
+    //        .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
+    //        .RuleFor(b => b.UploadDate, f => f.Date.Past())
+    //        .RuleFor(b => b.IsVerified, f => f.Random.Bool())
+    //        .RuleFor(b => b.PrimaryLabelId, f => f.PickRandom(MockLabels).Id)
+    //        .RuleFor(b => b.Labels, f => f.Make(3, () => f.PickRandom(MockLabels)));
+
+    //    var fakeBlackCaseDetail = bogus.Generate();
+
+    //    var randomUser = fakeBlackCaseDetail.Users[new Random().Next(0, fakeBlackCaseDetail.Users.Count)];
+    //    fakeBlackCaseDetail.AuthorId = randomUser.Id;
+
+    //    StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/BlackListDetailMarkdownSampleData.txt"));
+    //    IRandomAccessStreamWithContentType stream = await file.OpenReadAsync();
+
+    //    using (var reader = new DataReader(stream.GetInputStreamAt(0)))
+    //    {
+    //        uint fileLength = await reader.LoadAsync((uint)stream.Size);
+    //        byte[] fileContent = new byte[fileLength];
+    //        reader.ReadBytes(fileContent);
+
+    //        // Set the file content to the Detail property (in lowercase)
+    //        fakeBlackCaseDetail.Detail = Encoding.UTF8.GetString(fileContent);
+    //    }
+
+    //    return fakeBlackCaseDetail;
+    //}
+
     public async Task<BlackCaseDetail> GetBlackCaseDetailById(string id)
     {
-        var bogus = new Faker<BlackCaseDetail>()
-            .RuleFor(b => b.Id, f => id)
-            .RuleFor(b => b.Title, f => f.Lorem.Sentence())
-            .RuleFor(b => b.Detail, f => f.Lorem.Paragraph())
-            .RuleFor(b => b.Users, f => f.Make(3, () => new User
+        var fakeBlackCaseDetail = new BlackCaseDetail
+        {
+            Id = id,
+            Title = "Fake Black Case Title",
+            Detail = "This is a fake black case detail for demonstration purposes. It can contain any information you want to display.",
+            Users = new List<User>
+        {
+            new User
             {
-                Id = f.Random.Guid().ToString(),
-                UserName = f.Internet.UserName(),
-                FirstName = f.Name.FirstName(),
-                LastName = f.Name.LastName(),
-                Email = f.Internet.Email(),
-                PhoneNumber = f.Phone.PhoneNumber(),
-                Gender = f.PickRandom<bool?>(true, false),
-                DateOfBirth = f.Date.Past(),
-                ProfilePicUrl = f.Image.LoremFlickrUrl()
-            }))
-            .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
-            .RuleFor(b => b.UploadDate, f => f.Date.Past())
-            .RuleFor(b => b.IsVerified, f => f.Random.Bool())
-            .RuleFor(b => b.PrimaryLabelId, f => f.PickRandom(MockLabels).Id)
-            .RuleFor(b => b.Labels, f => f.Make(3, () => f.PickRandom(MockLabels)));
+                Id = Guid.NewGuid().ToString(),
+                UserName = "JohnDoe",
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "john@example.com",
+                PhoneNumber = "123-456-7890",
+                Gender = true,
+                DateOfBirth = DateTime.Parse("1990-01-01"),
+                ProfilePicUrl = "https://fake-url.com/johndoe.jpg"
+            },
+            // Add more users as needed
+        },
+            Points = 75,
+            UploadDate = DateTime.UtcNow.AddDays(-5),
+            IsVerified = true,
+            PrimaryLabelId = "1", // Replace with the actual ID from your labels
+            Labels = new List<Label>
+        {
+            new Label { Id = "1", Name = "Animal Cruelty" },
+            new Label { Id = "2", Name = "Abuse" },
+            // Add more labels as needed
+        },
+            AuthorId = "", // This will be set later
+        };
 
-        var fakeBlackCaseDetail = bogus.Generate();
-
+        // Set AuthorId to a random user's Id
         var randomUser = fakeBlackCaseDetail.Users[new Random().Next(0, fakeBlackCaseDetail.Users.Count)];
         fakeBlackCaseDetail.AuthorId = randomUser.Id;
 
+        // Load sample markdown content from a file
         StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/BlackListDetailMarkdownSampleData.txt"));
         IRandomAccessStreamWithContentType stream = await file.OpenReadAsync();
 
@@ -153,7 +210,7 @@ public class BlackListService : IBlackListService
         return fakeBlackCaseDetail;
     }
 
-#endregion
+    #endregion
 
     #region [ Private Methods ]
 

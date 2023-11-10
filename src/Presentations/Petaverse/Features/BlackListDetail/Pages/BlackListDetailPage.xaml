@@ -2,12 +2,8 @@
     x:Class="Petaverse.BlackListDetail.BlackListDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:core="using:Petaverse.UWP.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:local="using:Petaverse.BlackListDetail"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -63,7 +59,7 @@
         </DataTemplate>
     </Page.Resources>
 
-    <muxc:SwipeControl animations:Connected.Key="itemIconKey" LeftItems="{StaticResource Left}">
+    <muxc:SwipeControl LeftItems="{StaticResource Left}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55" />
@@ -93,7 +89,6 @@
                 <TextBlock
                     x:Name="BlackCaseTitle"
                     VerticalAlignment="Center"
-                    animations:Connected.AnchorElement="{x:Bind TopicIcon}"
                     Style="{StaticResource TitleTextBlockStyle}" />
             </StackPanel>
             <ScrollViewer Grid.Row="1" Padding="0,0,14,0">
