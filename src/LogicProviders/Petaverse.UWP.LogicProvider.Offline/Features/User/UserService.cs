@@ -1,12 +1,19 @@
-﻿namespace Petaverse.UWP.LogicProvider.Offline;
+﻿using Petaverse.UWP.Contracts;
+
+namespace Petaverse.UWP.LogicProvider.Offline;
 
 public class UserService : IUserService
 {
+    #region [ Fields ]
 
-    #region [ CTor ]
-    public UserService()
+
+    private readonly IFaunaService faunaService;
+    #endregion
+
+    #region [ CTors ]
+    public UserService(IFaunaService faunaService)
     {
-        
+        this.faunaService = faunaService;
     }
     #endregion
 
@@ -15,21 +22,8 @@ public class UserService : IUserService
     #endregion
     public Task<User> GetById(string id, UserGetByIdSetting? setting)
     {
-        var breedFaker = new Faker<Breed>()
-                .RuleFor(b => b.SpeciesId, f => f.Random.Number(1, 10))
-                .RuleFor(b => b.Name, f => f.PickRandom("Siamese", "Persian", "Maine Coon", "Ragdoll", "Bengal"))
-                .RuleFor(b => b.Description, f => f.Lorem.Sentence())
-                .RuleFor(b => b.ImageUrl, f => f.Image.LoremFlickrUrl(200, 200, "Tabby Cat"))
-                .RuleFor(b => b.MinimumSize, f => f.Random.Double(0, 10))
-                .RuleFor(b => b.MaximumSize, f => f.Random.Double(10, 100))
-                .RuleFor(b => b.MinimumWeight, f => f.Random.Double(0, 10))
-                .RuleFor(b => b.MaximumWeight, f => f.Random.Double(10, 100))
-                .RuleFor(b => b.MinimumLifeSpan, f => f.Random.Number(1, 10))
-                .RuleFor(b => b.MaximumLifeSpan, f => f.Random.Number(10, 20))
-                .RuleFor(b => b.Colors, f => f.Commerce.Color())
-                .RuleFor(b => b.Animals, new ObservableCollection<Animal>());
-
-        var breedList = breedFaker.Generate(10);
+        var species = faunaService.GetSpeciesListAsync();
+        var cat_species = species.Result.FirstOrDefault(x => x.Id == "1");
 
         var animalPhotosFaker = new Faker<PetaverseMedia>()
             .RuleFor(x => x.Id, f => f.UniqueIndex.ToString())
@@ -47,7 +41,7 @@ public class UserService : IUserService
             .RuleFor(x => x.PetColors, f => f.PickRandom(new List<string> { "#ffc225", "#404040", "#ffffff" }))
             .RuleFor(x => x.Gender, f => f.PickRandom(new List<bool> { true, false }))
             .RuleFor(x => x.DateOfBirth, f => f.Date.Past(18, DateTime.Now.AddYears(-65)))
-            .RuleFor(x => x.Breed, f => f.PickRandom(breedList))
+            .RuleFor(x => x.Breed, f => f.PickRandom(cat_species.Breeds))
             .RuleFor(x => x.PetAvatar, f => new()
             {
                 Id = f.UniqueIndex.ToString(),

@@ -2,11 +2,16 @@
 
 public class FosterCenterService : IFosterCenterService
 {
+    #region [ Fields ]
+
+    private readonly IFaunaService faunaService;
+    #endregion
+
     #region [ CTor ]
 
-    public FosterCenterService()
+    public FosterCenterService(IFaunaService faunaService)
     {
-
+        this.faunaService = faunaService;
     }
     #endregion
 
@@ -18,6 +23,8 @@ public class FosterCenterService : IFosterCenterService
         var faker = new Faker();
 
         // Generate a fake FosterCenter object
+        var species = faunaService.GetSpeciesListAsync();
+        var cat_species = species.Result.FirstOrDefault(x => x.Id == "1");
         var fosterCenter = new FosterCenter
         {
             Id = Guid.NewGuid().ToString(),
@@ -53,10 +60,7 @@ public class FosterCenterService : IFosterCenterService
                     MediaUrl = faker.Image.LoremFlickrUrl(200, 200, "Tabby Cat"),
                 },
                 PetColors = faker.PickRandom(new[] { "#FF5733", "#0088FF", "#44AA55", "#FFAA22", "#9900CC" }),
-                Breed = new()
-                {
-                    Name = faker.PickRandom("Siamese", "Persian", "Maine Coon", "Ragdoll", "Bengal")
-                }
+                Breed = faker.PickRandom(cat_species.Breeds)
             }),
             Tags = Enumerable.Range(1, 3).Select(_ => new FosterCenterTag
             {

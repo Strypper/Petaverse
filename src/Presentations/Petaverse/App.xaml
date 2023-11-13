@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:core="using:Petaverse.UWP.Core"
-    xmlns:media="using:CommunityToolkit.WinUI.Media">
+    xmlns:media="using:CommunityToolkit.WinUI.Media"
+    xmlns:oldmedia="using:Microsoft.Toolkit.Uwp.UI.Media">
     <Application.Resources>
 
         <controls:XamlControlsResources>
@@ -30,7 +31,7 @@
                         <AddDeleteThemeTransition />
                     </TransitionCollection>
 
-                    <media:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0" />
+                    <oldmedia:AttachedCardShadow x:Key="CommonShadow" Offset="-4,-4,0" />
 
                     <core:HexToWinUIColorConverter x:Key="HexToWinUIColorConverter" />
                     <core:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />

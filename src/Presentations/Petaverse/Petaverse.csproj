@@ -223,6 +223,15 @@
     <Compile Include="Features\PersonalProfile\Services\Implementations\ProfilePageService.cs" />
     <Compile Include="Features\PersonalProfile\Services\Interfaces\IProfilePageService.cs" />
     <Compile Include="Features\PersonalProfile\Utils\MediaTypeUtil.cs" />
+    <Compile Include="Features\Wiki\Enums\Coat.cs" />
+    <Compile Include="Features\Wiki\Enums\Energy.cs" />
+    <Compile Include="Features\Wiki\Enums\Shedding.cs" />
+    <Compile Include="Features\Wiki\Enums\Size.cs" />
+    <Compile Include="Features\Wiki\Models\Breed.cs" />
+    <Compile Include="Features\Wiki\Models\Species.cs" />
+    <Compile Include="Features\Wiki\Pages\WikiPageViewModel.cs" />
+    <Compile Include="Features\Wiki\Services\Implementations\WikiPageService.cs" />
+    <Compile Include="Features\Wiki\Services\Interfaces\IWikiPageService.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />
@@ -291,12 +300,12 @@
     <Compile Include="Features\PersonalProfile\UserControls\UserInfoPanelUserControl.xaml.cs">
       <DependentUpon>UserInfoPanelUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BreedsPageViewModel.cs" />
+    <Compile Include="Features\Wiki\Pages\BreedsPageViewModel.cs" />
     <Compile Include="ViewModels\CommunityPeoplePageViewModel.cs" />
     <Compile Include="ViewModels\PetShortsPageViewModel.cs" />
     <Compile Include="Features\PersonalProfile\Pages\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\BreedPage.xaml.cs">
+    <Compile Include="Features\Wiki\Pages\BreedPage.xaml.cs">
       <DependentUpon>BreedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommunityPage.xaml.cs">
@@ -314,7 +323,7 @@
     <Compile Include="Features\PersonalProfile\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WikiPage.xaml.cs">
+    <Compile Include="Features\Wiki\Pages\WikiPage.xaml.cs">
       <DependentUpon>WikiPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -541,7 +550,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BreedPage.xaml">
+    <Page Include="Features\Wiki\Pages\BreedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -565,7 +574,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WikiPage.xaml">
+    <Page Include="Features\Wiki\Pages\WikiPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -619,18 +628,14 @@
     <Folder Include="Features\Authentication\Converters\" />
     <Folder Include="Features\Authentication\Services\Implementations\" />
     <Folder Include="Features\Authentication\Services\Interfaces\" />
-    <Folder Include="Features\PetaverseWiki\Converters\" />
-    <Folder Include="Features\PetaverseWiki\Models\" />
-    <Folder Include="Features\PetaverseWiki\Pages\" />
-    <Folder Include="Features\PetaverseWiki\Services\Implementations\" />
-    <Folder Include="Features\PetaverseWiki\Services\Interfaces\" />
-    <Folder Include="Features\PetaverseWiki\UserControls\" />
     <Folder Include="Features\PetShorts\Converters\" />
     <Folder Include="Features\PetShorts\Models\" />
     <Folder Include="Features\PetShorts\Pages\" />
     <Folder Include="Features\PetShorts\Services\Implementations\" />
     <Folder Include="Features\PetShorts\Services\Interfaces\" />
     <Folder Include="Features\PetShorts\UserControls\" />
+    <Folder Include="Features\Wiki\Converters\" />
+    <Folder Include="Features\Wiki\UserControls\" />
     <Folder Include="Models\PageModels\" />
     <Folder Include="UserControls\CommunityPageUserControls\" />
     <Folder Include="UserControls\ProfilePageUserControls\" />

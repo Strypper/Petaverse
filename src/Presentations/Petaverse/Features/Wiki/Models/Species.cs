@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace Petaverse.UWP.Core;
+﻿namespace Petaverse.Wiki;
 
 public partial class Species : BaseModel<string>
 {
@@ -17,5 +14,5 @@ public partial class Species : BaseModel<string>
     string topLovedPetOfTheWeek;
 
     [ObservableProperty]
-    List<Breed> breeds = new();
+    ObservableCollection<Breed> breeds;
 }

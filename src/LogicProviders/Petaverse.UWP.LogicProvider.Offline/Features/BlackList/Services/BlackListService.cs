@@ -49,8 +49,9 @@ public class BlackListService : IBlackListService
             {
                 User = user,
                 CommentDate = new Faker().Date.Past(),
-                Detail = new Faker().Lorem.Paragraph()
-
+                Detail = new Faker().Lorem.Paragraph(),
+                CreatedOn = new Faker().Date.Past(),
+                LastUpdatedOn = new Faker().Date.Past()
             });
         }
 
@@ -136,10 +137,14 @@ public class BlackListService : IBlackListService
                     PhoneNumber = new Faker().Phone.PhoneNumber(),
                     Gender = new Faker().PickRandom<bool?>(true, false),
                     DateOfBirth = new Faker().Date.Past(),
-                    ProfilePicUrl = new Faker().Person.Avatar
+                    ProfilePicUrl = new Faker().Person.Avatar,
+                    CreatedOn = new Faker().Date.Past(),
+                    LastUpdatedOn = new Faker().Date.Past()
                 },
                 Detail = new Faker().Lorem.Paragraph(),
-                CommentDate = new Faker().Date.Past()
+                CommentDate = new Faker().Date.Past(),
+                CreatedOn = new Faker().Date.Past(),
+                LastUpdatedOn = new Faker().Date.Past()
             }))
             .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
             .RuleFor(b => b.UploadDate, f => f.Date.Past())

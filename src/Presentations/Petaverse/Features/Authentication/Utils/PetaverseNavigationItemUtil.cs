@@ -1,4 +1,6 @@
-﻿namespace Petaverse;
+﻿using Petaverse.Wiki;
+
+namespace Petaverse;
 
 public class PetaverseNavigationItemUtil
 {

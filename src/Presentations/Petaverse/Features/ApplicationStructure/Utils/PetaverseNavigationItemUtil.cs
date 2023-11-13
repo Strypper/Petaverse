@@ -1,5 +1,6 @@
 ﻿using Petaverse.BlackList;
 using Petaverse.Home;
+using Petaverse.Wiki;
 
 namespace Petaverse.ApplicationStructure;
 

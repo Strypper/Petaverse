@@ -5,6 +5,7 @@ using Petaverse.FosterCenter;
 using Petaverse.Home;
 using Petaverse.PersonalProfile;
 using Petaverse.ViewModels;
+using Petaverse.Wiki;
 using Windows.ApplicationModel.Core;
 
 namespace Petaverse;
@@ -152,6 +153,9 @@ sealed partial class App : Application
 
         services.AddTransient<IProfilePageService, ProfilePageService>();
         services.AddTransient<ProfilePageViewModel>();
+
+        services.AddTransient<IWikiPageService, WikiPageService>();
+        services.AddTransient<WikiPageViewModel>();
 
         services.AddSingleton<LoginUserControl>();
 
