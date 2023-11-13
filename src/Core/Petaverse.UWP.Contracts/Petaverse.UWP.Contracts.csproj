@@ -129,6 +129,7 @@
     <Compile Include="Features\Authentication\ReturnTypes\BaseReturnType.cs" />
     <Compile Include="Features\Authentication\ReturnTypes\RegistrationResponse.cs" />
     <Compile Include="Features\BlackList\IBlackListService.cs" />
+    <Compile Include="Features\Fauna\IFaunaService.cs" />
     <Compile Include="Features\FosterCenter\IFosterCenterService.cs" />
     <Compile Include="Features\Home\IHomeService.cs" />
     <Compile Include="Features\User\IUserService.cs" />

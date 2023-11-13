@@ -75,13 +75,12 @@
                             </ListView.ItemTemplate>
                         </ListView>
                         <StackPanel Orientation="Horizontal">
-                            <HyperlinkButton VerticalAlignment="Center" Content="Strypper" />
+                            <HyperlinkButton VerticalAlignment="Center" Content="{x:Bind GetAuthorName(ComponentData.Participants), Mode=OneWay}" />
                             <TextBlock VerticalAlignment="Center">
                                 <Run Text="đã báo cáo" />
                                 <Run Text="{x:Bind GetItemTimeGap(ComponentData.UploadDate), Mode=OneWay}" />
                                 <Run Text="-" />
-                                <Run Foreground="LightGreen" Text="Đã xác nhận" />
-                                <Run FontFamily="Segoe UI Emoji" Text="&#x2705;" />
+                                <Run Foreground="{x:Bind GetVerifyColor(ComponentData.IsVerified), Mode=OneWay}" Text="{x:Bind GetVerifyInformation(ComponentData.IsVerified), Mode=OneWay}" />
                                 <Run Text="-" />
                                 <Run Text="{x:Bind ComponentData.NoOfComments, Mode=OneWay}" />
                                 <Run FontFamily="Segoe UI Emoji" Text="&#x1F4AD;" />

@@ -148,6 +148,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BlackCase.cs" />
     <Compile Include="Models\BlackCaseDetail.cs" />
+    <Compile Include="Models\BlackListDetailComment.cs" />
     <Compile Include="Models\Breed.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\FosterCenter.cs" />

@@ -7,6 +7,7 @@ public sealed partial class HomePage : Page
 {
     #region [ Fields ]
 
+    private bool isInitialized = false;
     private readonly HomePageViewModel viewModel;
     #endregion
 
@@ -30,7 +31,6 @@ public sealed partial class HomePage : Page
         {
             // set the cache mode
             NavigationCacheMode = NavigationCacheMode.Disabled;
-
             ResetPageCache();
         }
     }
@@ -40,8 +40,12 @@ public sealed partial class HomePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        if (isInitialized)
+            return;
+
         await viewModel.LoadDataAsync();
         viewModel.AutoUpdateFirstItemsIndex();
+        isInitialized = true;
     }
 
     private void HomeSecondItemUserControl_SelectItem(Home_SecondSectionItemModel item)

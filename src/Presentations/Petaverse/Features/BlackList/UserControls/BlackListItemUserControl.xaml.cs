@@ -1,4 +1,7 @@
-﻿namespace Petaverse.BlackList;
+﻿using Windows.UI;
+using Windows.UI.Xaml.Media;
+
+namespace Petaverse.BlackList;
 
 public sealed partial class BlackListItemUserControl : UserControl
 {
@@ -28,6 +31,7 @@ public sealed partial class BlackListItemUserControl : UserControl
 
 
     #endregion
+
     #region [ Event Handlers ]
 
     public event SelectItemEventHandler SelectItem;
@@ -35,7 +39,6 @@ public sealed partial class BlackListItemUserControl : UserControl
     private void Grid_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         => SelectItem?.Invoke(ComponentData);
     #endregion
-
 
     #region [ Local Functions ]
 
@@ -61,6 +64,20 @@ public sealed partial class BlackListItemUserControl : UserControl
 
         return $"vào {timeGap.TimeAmount} {vnGapLang.GetValueOrDefault(timeGap.Type)} trước";
 
+    }
+
+    public string GetVerifyInformation(bool isVerified)
+        => isVerified ? "Đã xác thực ✅" : "Chưa xác thực";
+
+    public SolidColorBrush GetVerifyColor(bool isVerified)
+        => isVerified ? new SolidColorBrush(Colors.Green) : (SolidColorBrush)Application.Current.Resources["SystemControlForegroundBaseHighBrush"];
+
+    public string GetAuthorName(ObservableCollection<ParticipantModel> participants)
+    {
+        if (participants is null || participants.Count == 0)
+            return string.Empty;
+
+        return participants.FirstOrDefault(x => x.IsAuthor == true).Name;
     }
     #endregion
 

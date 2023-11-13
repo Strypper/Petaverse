@@ -88,6 +88,8 @@ public partial class FosterCenterPageViewModel : ViewModelBase
                 Id = animal.Id,
                 Name = animal.Name,
                 AvatarUrl = animal.PetAvatar.MediaUrl,
+                BreedName = animal.Breed.Name,
+                AnimalColor = animal.PetColors
             });
         }
 

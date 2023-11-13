@@ -1,4 +1,6 @@
-﻿namespace Petaverse.FosterCenter;
+﻿using Windows.UI.Xaml.Media;
+
+namespace Petaverse.FosterCenter;
 
 public sealed partial class AvatarPreviewUserControl : UserControl
 {
@@ -37,7 +39,7 @@ public sealed partial class AvatarPreviewUserControl : UserControl
     }
 
     public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register("Title", typeof(string), typeof(string), null);
+        DependencyProperty.Register("Title", typeof(string), typeof(AvatarPreviewUserControl), null);
 
 
 
@@ -48,7 +50,7 @@ public sealed partial class AvatarPreviewUserControl : UserControl
     }
 
     public static readonly DependencyProperty ImageUrlProperty =
-        DependencyProperty.Register("ImageUrl", typeof(string), typeof(string), null);
+        DependencyProperty.Register("ImageUrl", typeof(string), typeof(AvatarPreviewUserControl), null);
 
 
 
@@ -59,8 +61,18 @@ public sealed partial class AvatarPreviewUserControl : UserControl
     }
 
     public static readonly DependencyProperty AdditionalInfoProperty =
-        DependencyProperty.Register("AdditionalInfo", typeof(string), typeof(string), null);
+        DependencyProperty.Register("AdditionalInfo", typeof(string), typeof(AvatarPreviewUserControl), null);
 
+
+
+    public SolidColorBrush AdditionalInfoBackgroundColorBrush
+    {
+        get { return (SolidColorBrush)GetValue(AdditionalInfoBackgroundColorBrushProperty); }
+        set { SetValue(AdditionalInfoBackgroundColorBrushProperty, value); }
+    }
+
+    public static readonly DependencyProperty AdditionalInfoBackgroundColorBrushProperty =
+        DependencyProperty.Register("AdditionalInfoBackgroundColorBrush", typeof(SolidColorBrush), typeof(AvatarPreviewUserControl), new PropertyMetadata(null));
 
 
     #endregion
@@ -71,7 +83,7 @@ public sealed partial class AvatarPreviewUserControl : UserControl
     public event SelectItemEventHandler SelectItem;
 
     private void AvatarDetailButton_Click(object sender, RoutedEventArgs e) { }
-        //=> SelectItem?.Invoke(ComponentId);
+    //=> SelectItem?.Invoke(ComponentId);
     private void Component_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         => SelectItem?.Invoke(ComponentId);
     #endregion

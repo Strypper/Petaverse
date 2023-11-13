@@ -60,6 +60,13 @@
                 </TextBlock>
             </Button>
         </DataTemplate>
+
+        <DataTemplate x:Key="ParticipantsItemTemplate" x:DataType="local:Participant">
+            <muxc:PersonPicture
+                Width="36"
+                ProfilePicture="{x:Bind AvatarUrl, Mode=OneWay, Converter={StaticResource StringToImageSourceConverter}}"
+                ToolTipService.ToolTip="{x:Bind Name}" />
+        </DataTemplate>
     </Page.Resources>
 
     <muxc:SwipeControl LeftItems="{StaticResource Left}">
@@ -146,7 +153,7 @@
                 x:Name="RightPanel"
                 Grid.RowSpan="2"
                 Grid.Column="1">
-                <StackPanel>
+                <StackPanel Spacing="8">
                     <Border
                         Padding="14"
                         Background="{StaticResource ControlAltFillColorSecondaryBrush}"
@@ -157,7 +164,21 @@
                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Nhãn" />
                             <muxc:ItemsRepeater
                                 ItemTemplate="{StaticResource LabelItemTemplate}"
-                                ItemsSource="{x:Bind viewModel.BlackListDetail.Labels}"
+                                ItemsSource="{x:Bind viewModel.BlackListDetail.Labels, Mode=OneWay}"
+                                Layout="{StaticResource LabelLayout}" />
+                        </StackPanel>
+                    </Border>
+                    <Border
+                        Padding="14"
+                        Background="{StaticResource ControlAltFillColorSecondaryBrush}"
+                        BorderBrush="{StaticResource DividerStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Spacing="14">
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Tương tác" />
+                            <muxc:ItemsRepeater
+                                ItemTemplate="{StaticResource ParticipantsItemTemplate}"
+                                ItemsSource="{x:Bind viewModel.BlackListDetail.Participants, Mode=OneWay}"
                                 Layout="{StaticResource LabelLayout}" />
                         </StackPanel>
                     </Border>

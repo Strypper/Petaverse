@@ -8,9 +8,6 @@ public partial class BlackCase : BaseModel<string>
     string title;
 
     [ObservableProperty]
-    List<User> users;
-
-    [ObservableProperty]
     int points;
 
     [ObservableProperty]
@@ -27,4 +24,7 @@ public partial class BlackCase : BaseModel<string>
 
     [ObservableProperty]
     List<Label> labels;
+
+    [ObservableProperty]
+    IEnumerable<BlackListDetailComment> comments;
 }

@@ -16,4 +16,10 @@ public partial class BlackListDetailModel : BaseModel<string>
 
     [ObservableProperty]
     ObservableCollection<Label> labels;
+
+    [ObservableProperty]
+    bool isVerified;
+
+    [ObservableProperty]
+    int numberOfComments;
 }

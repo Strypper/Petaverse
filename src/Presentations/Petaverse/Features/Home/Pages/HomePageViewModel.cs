@@ -35,77 +35,66 @@ public partial class HomePageViewModel : ViewModelBase
     public HomePageViewModel()
     {
         _homePageService = Ioc.Default.GetRequiredService<IHomePageService>();
-
-        firstSectionItems = new();
-        secondSectionItems = new();
-        thirdSectionItems = new();
-        fourthSectionItems = new();
     }
     #endregion
 
     #region [ Methods ]
 
-    public async Task LoadDataAsync()
+    public Task LoadDataAsync()
     {
-        var firstItems = await _homePageService.GetFirstItemsAsync();
-        foreach (var item in firstItems)
-        {
-            FirstSectionItems.Add(new()
-            {
-                EventTitle = item.EventTitle,
-                EventDominantColor = item.EventDominantColor,
-                EventDescription = item.EventDescription,
-                EventImage = item.EventImage,
-                EventDateTime = item.EventDateTime,
-            });
-        }
-
-        var secondItems = await _homePageService.GetSecondItemsAsync();
-        foreach (var item in secondItems)
-        {
-            SecondSectionItems.Add(new()
-            {
-                FosterCenterId = item.FosterCenterId,
-                FosterCenterName = item.FosterCenterName,
-                FosterCenterLogo = item.FosterCenterLogo,
-                FosterCenterAddress = item.FosterCenterAddress,
-                FosterCenterRating = item.FosterCenterRating,
-                IsUserFollowing = item.IsUserFollowing,
-            });
-        }
-
-        var thirdItems = await _homePageService.GetThirdItemsAsync();
-        foreach (var item in thirdItems)
-        {
-            ThirdSectionItems.Add(new()
-            {
-                Title = item.Title,
-                Location = item.Location,
-                ImageUrl = item.ImageUrl,
-                DisplayTime = item.DisplayTime
-            });
-        }
-
-        var fourthItems = await _homePageService.GetFourthItemsAsync();
-        foreach (var item in fourthItems)
-        {
-            FourthSectionItems.Add(new()
-            {
-                FirstText = item.FirstText,
-                FirstImageUrl = item.FirstImageUrl,
-                SecondText = item.SecondText,
-                SecondImageUrl = item.SecondImageUrl,
-                Activity = item.Activity
-            });
-        }
+        return Task.WhenAll(
+                LoadFirstItems(),
+                LoadSecondItems(),
+                LoadThirdItems(),
+                LoadFourthItems()
+            );
     }
 
+    private async Task LoadFirstItems()
+    {
+        if (FirstSectionItems is not null)
+            return;
+
+        var firstItems = await _homePageService.GetFirstItemsAsync();
+        FirstSectionItems = new(firstItems);
+    }
+
+    private async Task LoadSecondItems()
+    {
+        if (SecondSectionItems is not null)
+            return;
+
+        var secondItems = await _homePageService.GetSecondItemsAsync();
+        SecondSectionItems = new(secondItems);
+    }
+
+    private async Task LoadThirdItems()
+    {
+        if (ThirdSectionItems is not null)
+            return;
+
+        var thirdItems = await _homePageService.GetThirdItemsAsync();
+        ThirdSectionItems = new(thirdItems);
+    }
+
+    private async Task LoadFourthItems()
+    {
+        if (FourthSectionItems is not null)
+            return;
+
+        var fourthItems = await _homePageService.GetFourthItemsAsync();
+        FourthSectionItems = new(fourthItems);
+    }
 
     public void AutoUpdateFirstItemsIndex()
     {
+        if (timer is not null)
+            return;
+
         timer = new DispatcherTimer();
         timer.Interval = TimeSpan.FromSeconds(5); // adjust the interval as needed
-        timer.Tick += (s, e) => {
+        timer.Tick += (s, e) =>
+        {
 
             if (FirstItemsIndex >= FirstSectionItems.Count - 1)
                 FirstItemsIndex = 0;

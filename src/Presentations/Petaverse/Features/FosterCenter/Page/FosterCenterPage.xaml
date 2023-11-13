@@ -51,7 +51,11 @@
         </DataTemplate>
 
         <DataTemplate x:Key="SecondAvatarPreviewItemTemplate" x:DataType="local:AnimalProfilePreviewModel">
-            <local:AvatarPreviewUserControl Title="{x:Bind Name, Mode=OneWay}" ImageUrl="{x:Bind AvatarUrl, Mode=OneWay}" />
+            <local:AvatarPreviewUserControl
+                Title="{x:Bind Name, Mode=OneWay}"
+                AdditionalInfo="{x:Bind BreedName, Mode=OneWay}"
+                AdditionalInfoBackgroundColorBrush="{x:Bind AnimalColor, Mode=OneWay, Converter={StaticResource HexToSolidColorBrushConverter}}"
+                ImageUrl="{x:Bind AvatarUrl, Mode=OneWay}" />
         </DataTemplate>
 
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
@@ -160,7 +164,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition Height="320" />
-                            <RowDefinition Height="490" />
+                            <RowDefinition Height="550" />
                         </Grid.RowDefinitions>
                         <StackPanel Background="{StaticResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8">
                             <Grid Padding="16,10,16,0">
@@ -285,7 +289,7 @@
                             </Grid>
                             <MenuFlyoutSeparator />
                             <GridView
-                                Height="410"
+                                Height="480"
                                 Margin="16"
                                 ItemContainerStyle="{ThemeResource CustomGridViewItemStyle}"
                                 ItemTemplate="{StaticResource SecondAvatarPreviewItemTemplate}"

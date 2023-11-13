@@ -124,6 +124,7 @@
     <Compile Include="Extensions\ServiceExtensions.cs" />
     <Compile Include="Features\Authentication\Services\Implementations\AuthenticationService.cs" />
     <Compile Include="Features\BlackList\Services\BlackListService.cs" />
+    <Compile Include="Features\Fauna\FaunaService.cs" />
     <Compile Include="Features\FosterCenter\FosterCenterService.cs" />
     <Compile Include="Features\Home\Services\Implementations\HomeService.cs" />
     <Compile Include="Features\User\UserService.cs" />

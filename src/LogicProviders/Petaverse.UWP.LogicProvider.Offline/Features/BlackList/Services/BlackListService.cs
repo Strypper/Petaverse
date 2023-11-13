@@ -1,8 +1,4 @@
-﻿using Petaverse.UWP.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -42,15 +38,27 @@ public class BlackListService : IBlackListService
                 .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber())
                 .RuleFor(u => u.Gender, f => f.PickRandom<bool>(true, false))
                 .RuleFor(u => u.DateOfBirth, f => f.Date.Past())
-                .RuleFor(u => u.ProfilePicUrl, f => f.Internet.Avatar()); 
+                .RuleFor(u => u.ProfilePicUrl, f => f.Internet.Avatar());
 
-        var userFakerList = userFaker.Generate(10);
+        var userFakerList = userFaker.Generate(new Random().Next(1, 20));
+
+        var commentList = new List<BlackListDetailComment>();
+        foreach (var user in userFakerList)
+        {
+            commentList.Add(new()
+            {
+                User = user,
+                CommentDate = new Faker().Date.Past(),
+                Detail = new Faker().Lorem.Paragraph()
+
+            });
+        }
 
 
         var faker = new Faker<BlackCase>()
         .RuleFor(b => b.Id, f => f.Random.Guid().ToString())
         .RuleFor(b => b.Title, f => f.Lorem.Sentence())
-        .RuleFor(b => b.Users, f => userFakerList)
+        .RuleFor(b => b.Comments, f => commentList)
         .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
         .RuleFor(b => b.UploadDate, f => f.Date.Past())
         .RuleFor(b => b.IsVerified, f => f.Random.Bool())
@@ -67,7 +75,7 @@ public class BlackListService : IBlackListService
         foreach (var blackCase in blackCases)
         {
             blackCase.PrimaryLabelId = new Faker().PickRandom(blackCase.Labels).Id;
-            blackCase.AuthorId = new Faker().PickRandom(blackCase.Users).Id;
+            blackCase.AuthorId = new Faker().PickRandom(blackCase.Comments).Id;
         }
 
         return Task.FromResult(blackCases.AsEnumerable());
@@ -114,17 +122,24 @@ public class BlackListService : IBlackListService
             .RuleFor(b => b.Id, f => id)
             .RuleFor(b => b.Title, f => f.Lorem.Sentence())
             .RuleFor(b => b.Detail, f => f.Lorem.Paragraph())
-            .RuleFor(b => b.Users, f => f.Make(3, () => new User
+            .RuleFor(b => b.Comments, f => f.Make(new Random().Next(1, 20), () => new BlackListDetailComment()
             {
-                Id = f.Random.Guid().ToString(),
-                UserName = f.Internet.UserName(),
-                FirstName = f.Name.FirstName(),
-                LastName = f.Name.LastName(),
-                Email = f.Internet.Email(),
-                PhoneNumber = f.Phone.PhoneNumber(),
-                Gender = f.PickRandom<bool?>(true, false),
-                DateOfBirth = f.Date.Past(),
-                ProfilePicUrl = f.Image.LoremFlickrUrl()
+                Id = new Faker().Random.Guid().ToString(),
+                BlackListDetailId = id,
+                User = new User
+                {
+                    Id = new Faker().Random.Guid().ToString(),
+                    UserName = new Faker().Internet.UserName(),
+                    FirstName = new Faker().Name.FirstName(),
+                    LastName = new Faker().Name.LastName(),
+                    Email = new Faker().Internet.Email(),
+                    PhoneNumber = new Faker().Phone.PhoneNumber(),
+                    Gender = new Faker().PickRandom<bool?>(true, false),
+                    DateOfBirth = new Faker().Date.Past(),
+                    ProfilePicUrl = new Faker().Person.Avatar
+                },
+                Detail = new Faker().Lorem.Paragraph(),
+                CommentDate = new Faker().Date.Past()
             }))
             .RuleFor(b => b.Points, f => f.Random.Int(0, 100))
             .RuleFor(b => b.UploadDate, f => f.Date.Past())
@@ -134,7 +149,7 @@ public class BlackListService : IBlackListService
 
         var fakeBlackCaseDetail = bogus.Generate();
 
-        var randomUser = fakeBlackCaseDetail.Users[new Random().Next(0, fakeBlackCaseDetail.Users.Count)];
+        var randomUser = fakeBlackCaseDetail.Comments.ToList()[new Random().Next(0, fakeBlackCaseDetail.Comments.ToList().Count)];
         fakeBlackCaseDetail.AuthorId = randomUser.Id;
 
         StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/BlackListDetailMarkdownSampleData.txt"));
@@ -153,7 +168,7 @@ public class BlackListService : IBlackListService
         return fakeBlackCaseDetail;
     }
 
-#endregion
+    #endregion
 
     #region [ Private Methods ]
 

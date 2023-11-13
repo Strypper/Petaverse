@@ -34,10 +34,10 @@ public class BlackListPageService : IBlackListPageService
             }));
 
             List<ParticipantModel> participants = new();
-            blackCase.Users.ForEach(x => participants.Add(new()
+            blackCase.Comments.ToList().ForEach(x => participants.Add(new()
             {
-                Name = x.FirstName + x.MiddleName + x.LastName,
-                AvatarUrl = x.ProfilePicUrl,
+                Name = x.User.FirstName + x.User.MiddleName + x.User.LastName,
+                AvatarUrl = x.User.ProfilePicUrl,
                 IsAuthor = blackCase.AuthorId == x.Id
             }));
 
@@ -48,7 +48,8 @@ public class BlackListPageService : IBlackListPageService
                 UploadDate = blackCase.UploadDate,
                 IsVerified = blackCase.IsVerified,
                 Participants = new(participants),
-                Tags = new(tags)
+                Tags = new(tags),
+                NoOfComments = blackCase.Comments.Count()
             });
         }
         return Task.FromResult(results.OrderBy(x => x.UploadDate).AsEnumerable());

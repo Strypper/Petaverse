@@ -27,6 +27,7 @@
 
             <Button
                 MinWidth="140"
+                Background="{x:Bind AdditionalInfoBackgroundColorBrush, Mode=OneWay}"
                 Click="AvatarDetailButton_Click"
                 Content="{x:Bind AdditionalInfo, Mode=OneWay}"
                 CornerRadius="18"

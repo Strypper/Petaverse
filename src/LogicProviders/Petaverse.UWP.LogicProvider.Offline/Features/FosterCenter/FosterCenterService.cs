@@ -1,7 +1,4 @@
-﻿using Petaverse.UWP.Core;
-using System.Linq;
-
-namespace Petaverse.UWP.LogicProvider.Offline;
+﻿namespace Petaverse.UWP.LogicProvider.Offline;
 
 public class FosterCenterService : IFosterCenterService
 {
@@ -53,7 +50,12 @@ public class FosterCenterService : IFosterCenterService
                 PetAvatar = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    MediaUrl = faker.Image.LoremFlickrUrl(200, 200, "Tabby Cat")
+                    MediaUrl = faker.Image.LoremFlickrUrl(200, 200, "Tabby Cat"),
+                },
+                PetColors = faker.PickRandom(new[] { "#FF5733", "#0088FF", "#44AA55", "#FFAA22", "#9900CC" }),
+                Breed = new()
+                {
+                    Name = faker.PickRandom("Siamese", "Persian", "Maine Coon", "Ragdoll", "Bengal")
                 }
             }),
             Tags = Enumerable.Range(1, 3).Select(_ => new FosterCenterTag

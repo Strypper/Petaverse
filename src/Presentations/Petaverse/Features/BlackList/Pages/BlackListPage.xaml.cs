@@ -9,6 +9,7 @@ public sealed partial class BlackListPage : Page
 
     #region [ Fields ]
 
+    private bool isInitialized = false;
     private readonly BlackListPageViewModel viewModel;
     #endregion
 
@@ -30,7 +31,11 @@ public sealed partial class BlackListPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        if (isInitialized)
+            return;
+
         await viewModel.LoadDataAsync();
+        isInitialized = true;
     }
 
     private void BlackListItemUserControl_SelectItem(BlackListItemModel item)

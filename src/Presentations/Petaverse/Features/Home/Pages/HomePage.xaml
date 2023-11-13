@@ -110,7 +110,7 @@
                     x:Name="PageFliper"
                     HorizontalAlignment="Stretch"
                     ItemTemplate="{StaticResource TopEventItemTemplate}"
-                    ItemsSource="{x:Bind viewModel.FirstSectionItems}"
+                    ItemsSource="{x:Bind viewModel.FirstSectionItems, Mode=OneWay}"
                     SelectedIndex="{x:Bind viewModel.FirstItemsIndex, Mode=TwoWay}" />
                 <muxc:PipsPager
                     Margin="8"
@@ -129,7 +129,7 @@
                 animations:Connected.ListItemKey="fosterCenterLogo"
                 IsItemClickEnabled="True"
                 ItemContainerTransitions="{StaticResource SecondSectionGridViewTransitionCollection}"
-                ItemsSource="{x:Bind viewModel.SecondSectionItems}"
+                ItemsSource="{x:Bind viewModel.SecondSectionItems, Mode=OneWay}"
                 Style="{StaticResource SecondSectionGridViewStyle}" />
 
             <Grid
@@ -162,14 +162,14 @@
                         VerticalAlignment="Bottom"
                         Content="Chung tay" />
                 </StackPanel>
-                <GridView ItemsSource="{x:Bind viewModel.ThirdSectionItems}" Style="{StaticResource ThirdSectionGridViewStyle}" />
+                <GridView ItemsSource="{x:Bind viewModel.ThirdSectionItems, Mode=OneWay}" Style="{StaticResource ThirdSectionGridViewStyle}" />
             </Grid>
 
             <GridView
                 x:Name="FourthSection"
                 Grid.Row="3"
                 Header="Chúc mừng với các chủ nhân mới"
-                ItemsSource="{x:Bind viewModel.FourthSectionItems}"
+                ItemsSource="{x:Bind viewModel.FourthSectionItems, Mode=OneWay}"
                 Style="{StaticResource FourthSectionGridViewStyle}" />
         </Grid>
     </ScrollViewer>

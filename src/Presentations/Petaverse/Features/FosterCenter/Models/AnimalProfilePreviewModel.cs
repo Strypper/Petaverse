@@ -7,4 +7,10 @@ public partial class AnimalProfilePreviewModel : BaseModel<string>
 
     [ObservableProperty]
     string avatarUrl;
+
+    [ObservableProperty]
+    string breedName;
+
+    [ObservableProperty]
+    string animalColor;
 }
