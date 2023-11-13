@@ -2,12 +2,7 @@
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using System;
 using Windows.Foundation;
-using Windows.UI;
-using Microsoft.UI;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
 
 namespace Petaverse.UWP.Core;

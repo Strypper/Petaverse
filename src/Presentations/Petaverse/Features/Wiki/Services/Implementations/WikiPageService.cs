@@ -25,7 +25,7 @@ public class WikiPageService : IWikiPageService
     {
         var result = faunaService.GetSpeciesListAsync();
         List<Species> species = new();
-        result.Result.ForEach(x => 
+        result.Result.ForEach(x =>
         {
             List<Breed> breeds = new();
             if (x.Breeds.Any())
@@ -35,6 +35,10 @@ public class WikiPageService : IWikiPageService
                     Name = y.Name,
                     Colors = y.Colors,
                     ImageUrl = y.ImageUrl,
+                    Coat = CoreCoatToUICoat.Convert(y.Coat),
+                    Energy = CoreEnergyToUIEnergy.Convert(y.Energy),
+                    Shedding = CoreSheddingToUIShedding.Convert(y.Shedding),
+                    Size = CoreSizeToUISize.Convert(y.Size),
                     Description = y.Description,
                     MinimunSize = y.MinimumSize,
                     MaximumSize = y.MaximumSize,
@@ -52,6 +56,7 @@ public class WikiPageService : IWikiPageService
                 Name = x.Name,
                 Description = x.Description,
                 Icon = x.Icon,
+                Color = x.Color,
                 Breeds = new(breeds),
                 CreatedOn = x.CreatedOn,
                 LastUpdatedOn = x.LastUpdatedOn

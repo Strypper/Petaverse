@@ -6,7 +6,6 @@
     xmlns:animations="using:CommunityToolkit.WinUI.Animations"
     xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:enums="using:Petaverse.Models.DTOs"
     xmlns:local="using:Petaverse.Wiki"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -16,9 +15,9 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
-        <enums:Coat x:Key="BreedCoat"></enums:Coat>
-        <enums:Energy x:Key="BreedEnergy"></enums:Energy>
-        <enums:Shedding x:Key="BreedShedding"></enums:Shedding>
+        <local:Coat x:Key="BreedCoat"></local:Coat>
+        <local:Energy x:Key="BreedEnergy"></local:Energy>
+        <local:Shedding x:Key="BreedShedding"></local:Shedding>
 
         <DataTemplate x:Key="BreedGridViewItemTemplate" x:DataType="local:Breed">
             <GridViewItem>
@@ -69,7 +68,7 @@
                         Height="270"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
-                        Fill="{x:Bind Species.Color, Converter={StaticResource HexToSolidColorBrushConverter}}" />
+                        Fill="{x:Bind Species.Color, Converter={StaticResource HexToSolidColorBrushConverter}, Mode=OneWay}" />
                     <StackPanel
                         x:Name="TextContainer"
                         HorizontalAlignment="Left"
@@ -106,27 +105,27 @@
                                     <ComboBox
                                         Header="Shedding"
                                         IsEnabled="True"
-                                        ItemsSource="{ui:EnumValues Type=enums:Shedding}"
+                                        ItemsSource="{ui:EnumValues Type=local:Shedding}"
                                         PlaceholderText="Shedding"
                                         ToolTipService.ToolTip="Show how much hair fall" />
 
-                                    <!--  ItemsSource="{ui:EnumValues Type=enums:Shedding}"  -->
+                                    <!--  ItemsSource="{ui:EnumValues Type=local:Shedding}"  -->
                                     <ComboBox
                                         Margin="10,0,0,0"
                                         Header="Coat"
-                                        ItemsSource="{ui:EnumValues Type=enums:Coat}"
+                                        ItemsSource="{ui:EnumValues Type=local:Coat}"
                                         PlaceholderText="Coat"
                                         SelectionChanged="ComboBox_SelectionChanged" />
 
-                                    <!--  ItemsSource="{ui:EnumValues Type=enums:Coat}"  -->
+                                    <!--  ItemsSource="{ui:EnumValues Type=local:Coat}"  -->
                                     <ComboBox
                                         Margin="10,0,0,0"
                                         Header="Energy"
                                         IsEnabled="False"
-                                        ItemsSource="{ui:EnumValues Type=enums:Energy}"
+                                        ItemsSource="{ui:EnumValues Type=local:Energy}"
                                         PlaceholderText="Energy" />
 
-                                    <!--  ItemsSource="{ui:EnumValues Type=enums:Energy}"  -->
+                                    <!--  ItemsSource="{ui:EnumValues Type=local:Energy}"  -->
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

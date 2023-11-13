@@ -232,6 +232,10 @@
     <Compile Include="Features\Wiki\Pages\WikiPageViewModel.cs" />
     <Compile Include="Features\Wiki\Services\Implementations\WikiPageService.cs" />
     <Compile Include="Features\Wiki\Services\Interfaces\IWikiPageService.cs" />
+    <Compile Include="Features\Wiki\Utils\CoreCoatToUICoat.cs" />
+    <Compile Include="Features\Wiki\Utils\CoreEnergyToUIEnergy.cs" />
+    <Compile Include="Features\Wiki\Utils\CoreSheddingToUIShedding.cs" />
+    <Compile Include="Features\Wiki\Utils\CoreSizeToUISize.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Interfaces\ICurrentUserService.cs" />
     <Compile Include="Interfaces\IInternetService.cs" />

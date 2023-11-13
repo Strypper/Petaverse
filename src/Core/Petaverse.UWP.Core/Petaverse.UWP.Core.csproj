@@ -134,8 +134,12 @@
     <Compile Include="Converters\StringToGlyphConverter.cs" />
     <Compile Include="Converters\StringToImageSourceConverter.cs" />
     <Compile Include="Converters\StringToMediaSourceConverter.cs" />
+    <Compile Include="Enums\Coat.cs" />
+    <Compile Include="Enums\Energy.cs" />
     <Compile Include="Enums\MediaType.cs" />
     <Compile Include="Enums\Severity.cs" />
+    <Compile Include="Enums\Shedding.cs" />
+    <Compile Include="Enums\BreedSize.cs" />
     <Compile Include="Enums\TimeGapType.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="GlobalUsings.cs" />
@@ -244,7 +248,9 @@
       <Version>1.27.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\AutoSuggestBox.xaml">
       <SubType>Designer</SubType>

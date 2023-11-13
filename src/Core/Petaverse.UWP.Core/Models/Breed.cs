@@ -32,6 +32,15 @@ public partial class Breed : BaseModel<string>
     [ObservableProperty]
     ObservableCollection<Animal> animals = new();
 
-    //[ObservableProperty]
-    //public Coat coat;
+    [ObservableProperty]
+    Coat coat;
+
+    [ObservableProperty]
+    Energy energy;
+
+    [ObservableProperty]
+    Shedding shedding;
+
+    [ObservableProperty]
+    BreedSize size;
 }

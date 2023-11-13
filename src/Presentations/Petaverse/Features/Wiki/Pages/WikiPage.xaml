@@ -11,15 +11,14 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
         <DataTemplate x:Key="PivotHeaderTemplate" x:DataType="local:Species">
             <StackPanel Orientation="Horizontal">
                 <FontIcon
                     FontFamily="Segoe UI Emoji"
                     FontSize="28"
-                    Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}, Mode=OneWay}" />
+                    Glyph="{x:Bind Icon, Converter={StaticResource StringToGlyphConverter}}" />
                 <AppBarSeparator />
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind Name}" />
             </StackPanel>
         </DataTemplate>
 
