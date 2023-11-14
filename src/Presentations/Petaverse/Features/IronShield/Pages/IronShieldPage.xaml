@@ -1,26 +1,34 @@
 ﻿<Page
-    x:Class="Petaverse.IronShieldPage"
+    x:Class="Petaverse.IronShield.IronShieldPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Petaverse"
+    xmlns:local="using:Petaverse.IronShield"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:radialGauge="using:CommunityToolkit.WinUI.Controls"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:newToolkitControls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    Padding="8"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
+    <Page.Resources>
+        <x:String x:Key="FluentSystemIcons">ms-appx:///Assets/Fonts/FluentSystemIcons-Resizable.ttf#FluentSystemIcons-Resizable</x:String>
+    </Page.Resources>
 
     <Grid
-        Margin="20"
+        Padding="4"
         HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch"
-        Background="{StaticResource CardBackgroundFillColorDefaultBrush}"
-        CornerRadius="8">
-        <radialGauge:RadialGauge
-            x:Name="RadialGauge"
-            Width="280"
-            Maximum="240"
-            Value="80" />
+        VerticalAlignment="Stretch">
+        <newToolkitControls:Segmented
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            SelectedIndex="0"
+            SelectionMode="Single">
+            <newToolkitControls:SegmentedItem Content="Thú cưng cần giúp" Icon="{ui:FontIcon FontFamily={StaticResource FluentSystemIcons}, Glyph=&#xE04A;}" />
+            <newToolkitControls:SegmentedItem Content="Cá nhân" Icon="{ui:FontIcon Glyph=&#xE77B;}" />
+            <newToolkitControls:SegmentedItem Content="Trạm" Icon="{ui:FontIcon Glyph=&#xF1AD;}" />
+        </newToolkitControls:Segmented>
 
     </Grid>
 </Page>

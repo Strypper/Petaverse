@@ -1,4 +1,4 @@
-﻿namespace Petaverse;
+﻿namespace Petaverse.IronShield;
 
 public sealed partial class IronShieldPage : Page
 {
