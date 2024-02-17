@@ -91,7 +91,6 @@ public class BlackListService : IBlackListService
         {
             Id = "case1",
             Title = "Harming Animals in Park",
-            Users = new List<User> { user1, user2 },
             Points = 75,
             UploadDate = DateTime.UtcNow.AddDays(-5),
             IsVerified = true,
@@ -104,7 +103,6 @@ public class BlackListService : IBlackListService
         {
             Id = "case2",
             Title = "Animal Abuse in Residential Area",
-            Users = new List<User> { user2 },
             Points = 90,
             UploadDate = DateTime.UtcNow.AddDays(-10),
             IsVerified = false,

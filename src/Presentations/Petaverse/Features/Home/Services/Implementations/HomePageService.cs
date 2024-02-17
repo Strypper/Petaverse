@@ -1,6 +1,4 @@
-﻿using Bogus;
-
-namespace Petaverse.Home;
+﻿namespace Petaverse.Home;
 
 public class HomePageService : IHomePageService
 {
@@ -95,17 +93,17 @@ public class HomePageService : IHomePageService
     public Task<IEnumerable<Home_FourthSectionItemModel>> GetFourthItemsAsync()
     {
         List<Home_FourthSectionItemModel> items = new();
-        for (int i = 0; i < 30; i++)
-        {
-            items.Add(new()
-            {
-                FirstText = new Faker().Person.FirstName,
-                FirstImageUrl = new Faker().Person.Avatar,
-                SecondText = new Faker().Person.FirstName,
-                SecondImageUrl = new Faker().Image.LoremFlickrUrl(480, 480, "cat portrait", false, true),
-                Activity = new Faker().Random.Int(1, 2) == 1 ? "Nhận nuôi" : "Nuôi tạm"
-            });
-        }
+        //for (int i = 0; i < 30; i++)
+        //{
+        //    items.Add(new()
+        //    {
+        //        FirstText = new Faker().Person.FirstName,
+        //        FirstImageUrl = new Faker().Person.Avatar,
+        //        SecondText = new Faker().Person.FirstName,
+        //        SecondImageUrl = new Faker().Image.LoremFlickrUrl(480, 480, "cat portrait", false, true),
+        //        Activity = new Faker().Random.Int(1, 2) == 1 ? "Nhận nuôi" : "Nuôi tạm"
+        //    });
+        //}
         return Task.FromResult<IEnumerable<Home_FourthSectionItemModel>>(items);
     }
     #endregion
