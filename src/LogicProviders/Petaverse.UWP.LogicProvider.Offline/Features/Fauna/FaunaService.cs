@@ -22,20 +22,14 @@ public class FaunaService : IFaunaService
             Name = "Cats",
             Icon = "CatIcon",
             Color = "#ffb900",
-            Breeds = new(catBreed),
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            Breeds = new(catBreed)
         });
         species.Add(new()
         {
             Id = "2",
             Name = "Dogs",
             Icon = "DogIcon",
-            Color = "#ffd679",
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            Color = "#ffd679"
             //Breeds = DemoBreedData.GetBreedsList()
         });
         species.Add(new()
@@ -43,10 +37,7 @@ public class FaunaService : IFaunaService
             Id = "3",
             Name = "Fishes",
             Icon = "FishIcon",
-            Color = "#00bcf2",
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            Color = "#00bcf2"
             //Breeds = DemoBreedData.GetBreedsList()
         });
         species.Add(new()
@@ -54,10 +45,7 @@ public class FaunaService : IFaunaService
             Id = "4",
             Name = "Birds",
             Icon = "BirdIcon",
-            Color = "#ca0b4a",
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            Color = "#ca0b4a"
             //Breeds = DemoBreedData.GetBreedsList()
         });
         return Task.FromResult(species.AsEnumerable());
@@ -84,9 +72,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -103,9 +89,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -122,9 +106,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -141,9 +123,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -160,9 +140,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -179,9 +157,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -198,9 +174,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -213,9 +187,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -228,9 +200,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -243,9 +213,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -258,9 +226,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -273,9 +239,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         breeds.Add(new()
         {
@@ -288,9 +252,7 @@ public class FaunaService : IFaunaService
             MinimumWeight = new Random().Next(10, 12),
             MaximumWeight = new Random().Next(20, 25),
             MinimumLifeSpan = new Random().Next(5, 6),
-            MaximumLifeSpan = new Random().Next(15, 20),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
+            MaximumLifeSpan = new Random().Next(15, 20)
         });
         return breeds;
     }

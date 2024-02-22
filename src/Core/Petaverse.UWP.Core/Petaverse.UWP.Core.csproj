@@ -159,6 +159,7 @@
     <Compile Include="Models\FosterCenterMember.cs" />
     <Compile Include="Models\FosterCenterTag.cs" />
     <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\NewAdoption.cs" />
     <Compile Include="Models\PetaverseMedia.cs" />
     <Compile Include="Models\Species.cs" />
     <Compile Include="Models\TimeGap.cs" />

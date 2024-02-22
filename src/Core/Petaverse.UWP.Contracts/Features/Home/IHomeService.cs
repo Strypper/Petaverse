@@ -7,4 +7,6 @@ public interface IHomeService
     Task<IEnumerable<Event>> GetTopEventsAsync();
 
     Task<IEnumerable<FosterCenter>> GetFosterCentersAsync();
+
+    Task<IEnumerable<NewAdoption>> GetNewAdoptionsAsync();
 }

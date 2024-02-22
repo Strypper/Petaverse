@@ -121,6 +121,14 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Databases\Contexts\PetaverseLocalDbContext.cs" />
+    <Compile Include="Databases\Tables\BaseTable.cs" />
+    <Compile Include="Databases\Tables\HomePage_Carousels.cs" />
+    <Compile Include="Databases\Tables\HomePage_NewAdoptions.cs" />
+    <Compile Include="Databases\Tables\HomePage_TopFosterCenters.cs" />
+    <Compile Include="Databases\Tables\HomePage_UrgentCases.cs" />
+    <Compile Include="Extensions\ModelBuilderExtensions.cs" />
+    <Compile Include="Extensions\QueryableExtensions.cs" />
     <Compile Include="Extensions\ServiceExtensions.cs" />
     <Compile Include="Features\Authentication\Services\Implementations\AuthenticationService.cs" />
     <Compile Include="Features\BlackList\Services\BlackListService.cs" />
@@ -133,8 +141,19 @@
     <EmbeddedResource Include="Properties\Petaverse.UWP.LogicProvider.Offline.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Bogus">
-      <Version>34.0.2</Version>
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>3.1.32</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory">
+      <Version>3.1.32</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
+      <Version>3.1.32</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <Version>3.1.32</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>7.0.0</Version>
