@@ -129,6 +129,7 @@
     <Compile Include="Features\Home\Services\Implementations\HomeService.cs" />
     <Compile Include="Features\User\UserService.cs" />
     <Compile Include="GlobalUsings.cs" />
+    <Compile Include="InMemoryData\InMemoryListData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Petaverse.UWP.LogicProvider.Offline.rd.xml" />
   </ItemGroup>
