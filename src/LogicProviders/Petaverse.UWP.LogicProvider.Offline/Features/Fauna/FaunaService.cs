@@ -15,51 +15,48 @@ public class FaunaService : IFaunaService
     public Task<IEnumerable<Species>> GetSpeciesListAsync()
     {
         var catBreed = GetBreedsList();
-        var species = new List<Species>();
-        species.Add(new()
-        {
-            Id = "1",
-            Name = "Cats",
-            Icon = "CatIcon",
-            Color = "#ffb900",
-            Breeds = new(catBreed),
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
-        });
-        species.Add(new()
-        {
-            Id = "2",
-            Name = "Dogs",
-            Icon = "DogIcon",
-            Color = "#ffd679",
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
-            //Breeds = DemoBreedData.GetBreedsList()
-        });
-        species.Add(new()
-        {
-            Id = "3",
-            Name = "Fishes",
-            Icon = "FishIcon",
-            Color = "#00bcf2",
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
-            //Breeds = DemoBreedData.GetBreedsList()
-        });
-        species.Add(new()
-        {
-            Id = "4",
-            Name = "Birds",
-            Icon = "BirdIcon",
-            Color = "#ca0b4a",
-            Description = new Faker().Lorem.Paragraph(),
-            CreatedOn = new Faker().Date.Past(),
-            LastUpdatedOn = new Faker().Date.Past(),
-            //Breeds = DemoBreedData.GetBreedsList()
-        });
+        var species = new List<Species> {
+            new() {
+                Id = "1",
+                Name = "Cats",
+                Icon = "CatIcon",
+                Color = "#ffb900",
+                Breeds = new(catBreed),
+                Description = new Faker().Lorem.Paragraph(),
+                CreatedOn = new Faker().Date.Past(),
+                LastUpdatedOn = new Faker().Date.Past(),
+            },
+            new() {
+                Id = "2",
+                Name = "Dogs",
+                Icon = "DogIcon",
+                Color = "#ffd679",
+                Description = new Faker().Lorem.Paragraph(),
+                CreatedOn = new Faker().Date.Past(),
+                LastUpdatedOn = new Faker().Date.Past(),
+                //Breeds = DemoBreedData.GetBreedsList()
+            },
+            new() {
+                Id = "3",
+                Name = "Fishes",
+                Icon = "FishIcon",
+                Color = "#00bcf2",
+                Description = new Faker().Lorem.Paragraph(),
+                CreatedOn = new Faker().Date.Past(),
+                LastUpdatedOn = new Faker().Date.Past(),
+                //Breeds = DemoBreedData.GetBreedsList()
+            },
+            new() {
+                Id = "4",
+                Name = "Birds",
+                Icon = "BirdIcon",
+                Color = "#ca0b4a",
+                Description = new Faker().Lorem.Paragraph(),
+                CreatedOn = new Faker().Date.Past(),
+                LastUpdatedOn = new Faker().Date.Past(),
+                //Breeds = DemoBreedData.GetBreedsList()
+            }
+        };
         return Task.FromResult(species.AsEnumerable());
     }
     #endregion
